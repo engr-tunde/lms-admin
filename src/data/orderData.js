@@ -600,3 +600,118 @@ export const m2mTradesData = [
     fee: 0.012093,
   },
 ];
+
+
+
+// New Order Data Added for the Order Table 
+
+
+export const orderTableColumnHeader = [
+    {
+        header: "", 
+        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+    }, 
+    {
+        header: "Order ID", 
+        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+    }, 
+    {
+        header: "Customer Name", 
+        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+    }, 
+    {
+        header: "Brand", 
+        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+    }, 
+    {
+        header: "Product", 
+        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+    }, 
+    {
+        header: "Qty", 
+        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+    }, 
+    {
+        header: "Order status", 
+        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+    }, 
+    {
+        header: "Total amount", 
+        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+    },
+    {
+        header: "Actions", 
+        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+    }, 
+    {
+        header: "", 
+        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+    }, 
+]
+
+
+export const orderTableData = [
+    {
+        id: 1,
+        orderID: "ORD12344", 
+        customer: "Brenda Alli", 
+        brand: "StylishCo", 
+        product: "Off-White Grateful SS T-shirt", 
+        quantity: 2, 
+        orderStatus: "Awaiting confirmation",
+        totalAmount: 120000, 
+    }, 
+    {
+        id: 2,
+        orderID: "ORD12344", 
+        customer: "Brenda Alli", 
+        brand: "StylishCo", 
+        product: "Off-White Grateful SS T-shirt", 
+        quantity: 1, 
+        orderStatus: "Awaiting confirmation",
+        totalAmount: 10000, 
+    }, 
+    {
+        id: 3,
+        orderID: "ORD12344", 
+        customer: "Brenda Alli", 
+        brand: "StylishCo", 
+        product: "Off-White Grateful SS T-shirt", 
+        quantity: 12, 
+        orderStatus: "Active",
+        totalAmount: 10000, 
+    }, 
+    {
+        id: 4,
+        orderID: "ORD12344", 
+        customer: "Brenda Alli", 
+        brand: "StylishCo", 
+        product: "Off-White Grateful SS T-shirt", 
+        quantity: 2, 
+        orderStatus: "Awaiting confirmation",
+        totalAmount: 20000, 
+    }, 
+    {
+        id: 5,
+        orderID: "ORD12344", 
+        customer: "Brenda Alli", 
+        brand: "StylishCo", 
+        product: "Off-White Grateful SS T-shirt", 
+        quantity: 2, 
+        orderStatus: "Awaiting confirmation",
+        totalAmount: 5000, 
+    }, 
+    {
+        id: 6,
+        orderID: "ORD12344", 
+        customer: "Brenda Alli", 
+        brand: "StylishCo", 
+        product: "Off-White Grateful SS T-shirt", 
+        quantity: 2, 
+        orderStatus: "Active",
+        totalAmount: 120000, 
+    }, 
+    
+]
+
+

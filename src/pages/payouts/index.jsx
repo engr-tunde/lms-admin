@@ -1,11 +1,10 @@
+import PayoutCardContainer from "../../components/payouts/PayoutCardContainer";
 import { FaChevronDown } from "react-icons/fa";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { RiCalendarLine } from "react-icons/ri";
-import OverviewCards from "../../components/overview/OverviewCardsContainer";
-import OverviewBrandRequestContainer from "../../components/overview/OverviewBrandRequestContainer";
-import OverviewTable from "../../components/overview/OverviewTable";
+import PayoutTable from "../../components/payouts/PayoutTable";
 
-function DashboardOverviewPage() {
+function DashboardPayoutPage() {
   return (
     <div className="flex flex-col gap-6">
       <DashboardNavBar
@@ -20,12 +19,11 @@ function DashboardOverviewPage() {
             <FaChevronDown size={10} />
           </div>
         </div>
-        <OverviewCards />
-        <OverviewBrandRequestContainer />
-        <OverviewTable />
+        <PayoutCardContainer />
+        <PayoutTable />
       </div>
     </div>
   );
 }
 
-export default DashboardOverviewPage;
+export default DashboardPayoutPage;
