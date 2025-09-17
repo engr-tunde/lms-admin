@@ -1,19 +1,19 @@
 export const memberColumnHeader = [
     {
         header: "User", 
-        className: ""
+        className: "text-left"
     }, 
     {
         header: "Role", 
-        className: ""
+        className: "text-center"
     }, 
     {
         header: "Status", 
-        className: ""
+        className: "text-center"
     }, 
     {
         header: "Date created", 
-        className: ""
+        className: "text-right"
     }, 
 ]
 

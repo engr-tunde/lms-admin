@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { dashboardSidebarMenu } from "../../utils/data";
+import { Link } from "react-router-dom";
 
 function DashboardSidebar() {
   let location = useLocation();
@@ -14,14 +15,14 @@ function DashboardSidebar() {
       </div>
       <div className="flex flex-col gap-4">
         {dashboardSidebarMenu?.map((ele, i) => (
-          <div
+          <Link to={ele.url}
             key={i}
             className={`text-[14px] hover:scale-105 hover:font-semibold duration-200 ease-in cursor-pointer ${
               pathname === ele.url ? "font-semibold" : "font-light"
             }`}
           >
             {ele.title}
-          </div>
+          </Link>
         ))}
       </div>
     </div>
