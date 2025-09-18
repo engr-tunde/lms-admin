@@ -7,10 +7,10 @@ const MemberStatusCheck = ({ value, className = "" }) => {
       bg = "bg-green-500 text-white";
       break;
     case "pending":
-      bg = "bg-yellow-500 text-black";
+      bg = "bg-amber-500 text-black";
       break;
     case "unavailable":
-      bg = "bg-red-500 text-white";
+      bg = "bg-red-600 text-white";
       break;
     default:
       bg = "";

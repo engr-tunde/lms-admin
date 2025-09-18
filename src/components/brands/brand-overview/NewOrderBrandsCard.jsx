@@ -1,4 +1,4 @@
-function NewOrderCard({ orderImage, orderNumber, orderStatus, product, quantity }) {
+function NewOrderBrandsCard({ orderImage, orderNumber, orderStatus, product, quantity }) {
   return (
     <div className="w-full col-span-1 border-[1px] border-merseBorder p-3 flex justify-between">
       <div className="w-[25%]">
@@ -22,4 +22,4 @@ function NewOrderCard({ orderImage, orderNumber, orderStatus, product, quantity 
 }
 
 
-export default NewOrderCard;
+export default NewOrderBrandsCard;

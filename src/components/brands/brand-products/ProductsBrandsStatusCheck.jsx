@@ -1,15 +1,15 @@
 
-const StatusCheck = ({ value, className = "" }) => {
+const ProductsBrandsStatusCheck = ({ value, className = "" }) => {
   let bg = "";
 
   switch (value?.toLowerCase()) {
-    case "delivered":
+    case "approved":
       bg = "bg-green-500 text-white";
       break;
-    case "pending":
+    case "awaiting approval":
       bg = "bg-amber-500 text-black";
       break;
-    case "failed":
+    case "rejected":
       bg = "bg-red-600 text-white";
       break;
     default:
@@ -23,4 +23,4 @@ const StatusCheck = ({ value, className = "" }) => {
   );
 };
 
-export default StatusCheck;
+export default ProductsBrandsStatusCheck;

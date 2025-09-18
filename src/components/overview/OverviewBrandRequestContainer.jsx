@@ -1,8 +1,5 @@
-// import { RiCoinLine, RiShoppingBag2Line } from "react-icons/ri";
 import OverviewBrandRequest from "./OverviewBrandRequests";
-// import { formatter } from "../../utils/helpers";
 import { FaChevronRight } from "react-icons/fa";
-// import { TbTruckDelivery } from "react-icons/tb";
 
 function OverviewBrandRequestContainer() {
   

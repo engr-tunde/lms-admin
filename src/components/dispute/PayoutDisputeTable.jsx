@@ -1,6 +1,6 @@
 import TableSearch from "../globals/TableSearch"
 import Table from "../globals/Table"
-import { payoutDisputeTableColumn, payoutDisputeData } from "../../data/dispute.js";
+import { payoutDisputeTableColumn, payoutDisputeData } from "../../data/disputeData.js";
 import PayoutDisputeRowTemplate from "./PayoutDisputeRowTemplate.jsx";
 
 function PayoutDisputeTable({ activeTab, setActiveTab }) {

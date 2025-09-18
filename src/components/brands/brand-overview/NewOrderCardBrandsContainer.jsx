@@ -1,7 +1,7 @@
-import NewOrderCard from './NewOrderCard'
+import NewOrderBrandsCard from './NewOrderBrandsCard';
 
 
-function NewOrderCardContainer() {
+function NewOrderBrandsCardContainer() {
   
   return (
     <div className="flex flex-col gap-2">
@@ -9,7 +9,7 @@ function NewOrderCardContainer() {
         <div className="font-semibold">New Orders</div>
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-5">
-        <NewOrderCard
+        <NewOrderBrandsCard
         orderImage = "/assets/images/product-image1.png"
         orderNumber="#12345"
         orderStatus="Awaiting warehouse receipt"
@@ -17,7 +17,7 @@ function NewOrderCardContainer() {
         quantity="3"
         />
 
-        <NewOrderCard
+        <NewOrderBrandsCard
         orderImage = "/assets/images/product-image1.png"
         orderNumber="#12345"
         orderStatus="Awaiting warehouse receipt"
@@ -25,7 +25,7 @@ function NewOrderCardContainer() {
         quantity="1"
         />
 
-        <NewOrderCard
+        <NewOrderBrandsCard
         orderImage = "/assets/images/product-image1.png"
         orderNumber="#12345"
         orderStatus="Awaiting warehouse receipt"
@@ -37,6 +37,6 @@ function NewOrderCardContainer() {
   );
 }
 
-export default NewOrderCardContainer;
+export default NewOrderBrandsCardContainer;
 
 

@@ -14,6 +14,8 @@ import DashboardPayoutPage from "./pages/payouts/index.jsx"
 import DashboardDisputePage from "./pages/dispute/index.jsx";
 import DashboardMembersPage from "./pages/members/index.jsx";
 import DashboardSettingsPage from "./pages/settings/index.jsx";
+import DashboardProductPage from "./pages/products/index.jsx";
+import DashboardBrandsPage from "./pages/brands/index.jsx";
 
 function App() {
   return (
@@ -40,6 +42,8 @@ function App() {
               <Route path="/dispute" element={<DashboardDisputePage />}/>
               <Route path="/members" element={<DashboardMembersPage />}/>
               <Route path="/settings" element={<DashboardSettingsPage />}/>
+              <Route path="/products" element={<DashboardProductPage />}/>
+              <Route path="/brands" element={<DashboardBrandsPage />}/>
             </Route>
 
             <Route element={<AuthLayout />}>

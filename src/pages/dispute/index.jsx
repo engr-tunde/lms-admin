@@ -21,7 +21,6 @@ function DashboardDisputePage() {
         ) : (
             <PayoutDisputeTable activeTab={activeTab} setActiveTab={setActiveTab} />
         )}
-        
       </div>
     </div>
   );

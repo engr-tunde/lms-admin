@@ -10,10 +10,10 @@ const DisputeStatusCheck = ({ value, className = "" }) => {
       bg = "bg-blue-600 text-white";
       break;
     case "in review":
-      bg = "bg-yellow-500 text-black";
+      bg = "bg-amber-500 text-black";
       break;
     case "rejected":
-      bg = "bg-red-500 text-white";
+      bg = "bg-red-600 text-white";
       break;
     default:
       bg = "";

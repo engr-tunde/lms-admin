@@ -1,8 +1,8 @@
 import { RiCoinLine, RiShoppingBag2Line } from "react-icons/ri";
 import OrderCard from "./OrderCard";
 import { formatter } from "../../utils/helpers";
-import { FaSearchDollar } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
+import { AiOutlineDollar } from "react-icons/ai";
 
 function OrderCardsContainer() {
   const salesIcon = () => (
@@ -12,7 +12,7 @@ function OrderCardsContainer() {
     <RiCoinLine size={50} className="text-merseBorder" />
   );
   const dollarIcon = () => (
-      <FaSearchDollar size={50} className="text-merseBorder" />
+      <AiOutlineDollar size={50} className="text-merseBorder" />
   );
   const ordersIcon = () => (
     <TbTruckDelivery size={50} className="text-merseBorder" />

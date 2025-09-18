@@ -7,10 +7,10 @@ const OrderStatusCheck = ({ value, className = "" }) => {
       bg = "bg-green-500 text-white";
       break;
     case "awaiting confirmation":
-      bg = "bg-yellow-500 text-black";
+      bg = "bg-amber-500 text-black";
       break;
     case "rejected":
-      bg = "bg-red-500 text-white";
+      bg = "bg-red-600 text-white";
       break;
     default:
       bg = "";

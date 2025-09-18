@@ -1,9 +1,11 @@
-import TableSearch from "../globals/TableSearch"
-import Table from "../globals/Table"
-import { orderDisputeTableColumn, orderDisputeData } from "../../data/disputeData.js";
-import OrderDisputeRowTemplate from "./OrderDisputeRowTemplate.jsx";
+import TableSearch from "../../globals/TableSearch"
+import Table from "../../globals/Table"
+import { brandDisputePayoutTableColumn, brandDisputePayoutData } from "../../../data/brandsData.js";
+import BrandDisputePayoutRowTemplate from "./BrandDisputePayoutRowTemplate.jsx";
 
-function OrderDisputeTable({ activeTab, setActiveTab}) {
+
+function BrandDisputePayoutTable({ activeTab, setActiveTab }) {
+
   return (
     <div className="flex flex-col gap-2">
       <div className="w-full flex justify-between">
@@ -30,12 +32,12 @@ function OrderDisputeTable({ activeTab, setActiveTab}) {
         </div>
       </div>
       <Table 
-      columns={orderDisputeTableColumn}
-      renderRow={OrderDisputeRowTemplate}
-      data={orderDisputeData}
+      columns={brandDisputePayoutTableColumn}
+      renderRow={BrandDisputePayoutRowTemplate}
+      data={brandDisputePayoutData}
       />
     </div>
   );
 }
 
-export default OrderDisputeTable;
+export default BrandDisputePayoutTable;

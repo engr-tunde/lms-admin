@@ -7,7 +7,7 @@ import BrandSettingsTable from "../../components/settings/BrandSettingsTable";
 import { useState } from "react";
 
 function DashboardSettingsPage() {
-    const [activeTab, setActiveTab] = useState("Brand type")
+  const [activeTab, setActiveTab] = useState("Brand type")
 
   return (
     <div className="flex flex-col gap-6">
