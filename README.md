@@ -1,3 +1,3 @@
-# Forxbit Exchange web application
+# Marse admin web application
 
-Welcome to the Forxbit Exchange web application. Enjoy, but be sure you are granted permissions to view this code base.
+Welcome to the Marse admin web application. Enjoy, but be sure you are granted permissions to view this code base.
