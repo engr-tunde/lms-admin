@@ -29,7 +29,7 @@ html {
     border-radius: 0px;
   }
   ::-webkit-scrollbar-thumb {
-    background: #d7d7d7;
+    background: transparent;
     border-radius: 10px;
   }
 

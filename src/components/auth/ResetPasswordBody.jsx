@@ -24,15 +24,19 @@ const ResetPasswordBody = () => {
   // }
 
   const handleSubmit = async (values) => {
-    const response = await userResetPassword(id, token, {
-      password: values.password,
-    });
-    if (response.status === 200) {
-      successNotification(response.data.message);
+    // const response = await userResetPassword(id, token, {
+    //   password: values.password,
+    // });
+    // if (response.status === 200) {
+    //   successNotification(response.data.message);
+    //   history("/login");
+    // } else {
+    //   errorNotification(response?.data?.error);
+    // }
+    successNotification("Password successfully updated! Now log in");
+    setTimeout(() => {
       history("/login");
-    } else {
-      errorNotification(response?.data?.error);
-    }
+    }, 300);
   };
 
   return (

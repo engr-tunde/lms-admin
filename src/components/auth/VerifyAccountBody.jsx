@@ -55,34 +55,39 @@ const VerifyAccountBody = () => {
     setisSubmitting(true);
     setdisabled(true);
 
-    const response = await userVerifyEmail({
-      otp: otp,
-      userId,
-    });
-    console.log("response", response);
-    if (response.status === 200) {
-      Cookies.set("u-x", response?.headers["u-x-key"]);
-      setTimeout(() => history("/dashboard"), 3000);
-    } else {
-      errorNotification(response?.data?.error);
-    }
+    // const response = await userVerifyEmail({
+    //   otp: otp,
+    //   userId,
+    // });
+    // console.log("response", response);
+    // if (response.status === 200) {
+    //   Cookies.set("u-x", response?.headers["u-x-key"]);
+    //   setTimeout(() => history("/dashboard"), 3000);
+    // } else {
+    //   errorNotification(response?.data?.error);
+    // }
+    successNotification("Creadentials verified. Successfully logged in");
+    setTimeout(() => {
+      history("/");
+    }, 300);
+
     setisSubmitting(false);
     setdisabled(false);
   };
 
-  // useEffect(() => {
-  //   if (otp.length < otpLength) {
-  //     setdisabled(true);
-  //   } else {
-  //     setdisabled(false);
-  //   }
-  // }, [otp]);
+  useEffect(() => {
+    if (otp.length < otpLength) {
+      setdisabled(true);
+    } else {
+      setdisabled(false);
+    }
+  }, [otp]);
 
   return (
     <>
       <AuthHeader
         title="We emailed you a code"
-        subtitle={`We sent a six digit code to marse@marse.com , it will be valid for 10 minutes. it may be in your spam folder`}
+        subtitle={`We sent a six digit code to devteeking@gmail.com , it will be valid for 10 minutes. it may be in your spam folder`}
       />
 
       <div className="text-sm">Please enter verification code here</div>

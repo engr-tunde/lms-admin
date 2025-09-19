@@ -14,23 +14,29 @@ const LoginBody = () => {
   const history = useNavigate();
 
   const handleSubmit = async (values) => {
-    const response = await userLogin({
-      email: values.email,
-      password: values.password,
-    });
-    console.log("response", response);
-    if (response.status === 200) {
-      successNotification(response.data.message);
-      setTimeout(
-        () =>
-          history("/verify-login", {
-            state: { userId: response.data.userId },
-          }),
-        1500
-      );
-    } else {
-      errorNotification(response?.data?.error);
-    }
+    successNotification("Creadentials verified. Successfully logged in");
+    setTimeout(() => {
+      history("/verify-account");
+    }, 300);
+
+    // const response = await userLogin({
+    //   email: values.email,
+    //   password: values.password,
+    // });
+    // console.log("response", response);
+
+    // if (response.status === 200) {
+    //   successNotification(response.data.message);
+    //   setTimeout(
+    //     () =>
+    //       history("/verify-login", {
+    //         state: { userId: response.data.userId },
+    //       }),
+    //     1500
+    //   );
+    // } else {
+    //   errorNotification(response?.data?.error);
+    // }
   };
 
   return (

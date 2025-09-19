@@ -21,7 +21,7 @@ const DashboardLayout = () => {
           <DashboardSidebar />
         </div>
         <div
-          className="w-[90%] lg:w-5/6 flex flex-col gap-11 md:gap-10 mb-8 lg:mb-2"
+          className="w-[90%] lg:w-5/6 flex flex-col gap-11 md:gap-10 mb-8 lg:mb-2 h-[95vh] "
           style={{
             backdropFilter: nav ? "blur(8px)" : "",
           }}
