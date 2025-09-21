@@ -66,7 +66,7 @@ export const payoutData = [
         totalSales: 2000000,
         commission: 2000000,
         netPayoutAmount: 2000000,
-        payoutStatus: "Pending", 
+        payoutStatus: "Paid", 
         payoutDueDate: "2023-03-15",
     }, 
     {
@@ -96,7 +96,7 @@ export const payoutData = [
         totalSales: 2000000,
         commission: 2000000,
         netPayoutAmount: 2000000,
-        payoutStatus: "Pending", 
+        payoutStatus: "Hold", 
         payoutDueDate: "2023-03-15",
     }, 
 ]

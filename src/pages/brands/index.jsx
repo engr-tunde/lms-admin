@@ -5,6 +5,7 @@ import ProductBrandsPage from "../../components/brands/brand-products";
 import BrandsOrderPage from "../../components/brands/brand-order";
 import BrandFinancePage from "../../components/brands/brand-finances";
 import BrandDisputePage from "../../components/brands/brand-dispute";
+import BrandsCompliancePage from "../../components/brands/brand-compliance"
 import { useState } from "react"
 
 
@@ -30,53 +31,53 @@ function DashboardBrandsPage() {
       <div className="w-full flex flex-col gap-8">
         <div className="flex gap-8">
           <button 
-          onClick={() => setActiveTab("Brand overview")}
-          className={`pr-3 py-1 rounded ${
-              activeTab === "Brand overview" ? "text-black" : "text-merseBorder"
-          }`}
-          >
-              Brand overview
-        </button>
-        <button 
-          onClick={() => setActiveTab("Products")}
-          className={`pr-3 py-1 rounded ${
-              activeTab === "Products" ? "text-black" : "text-merseBorder"
-          }`}
-          >
-              Products
-        </button>
-        <button 
-          onClick={() => setActiveTab("Orders")}
-          className={`pr-3 py-1 rounded ${
-              activeTab === "Orders" ? "text-black" : "text-merseBorder"
-          }`}
-          >
-              Orders
-        </button>
-        <button 
-          onClick={() => setActiveTab("Compliance & Verification")}
-          className={`pr-3 py-1 rounded ${
-              activeTab === "Compliance & Verification" ? "text-black" : "text-merseBorder"
-          }`}
-          >
-              Compliance & Verification
-        </button>
-        <button 
-          onClick={() => setActiveTab("Finances")}
-          className={`pr-3 py-1 rounded ${
-              activeTab === "Finances" ? "text-black" : "text-merseBorder"
-          }`}
-          >
-              Finances
-        </button>
-        <button 
-          onClick={() => setActiveTab("Dispute")}
-          className={`pr-3 py-1 rounded ${
-              activeTab === "Dispute" ? "text-black" : "text-merseBorder"
-          }`}
-          >
-              Dispute
-        </button>
+            onClick={() => setActiveTab("Brand overview")}
+            className={`pr-3 py-1 rounded ${
+                activeTab === "Brand overview" ? "text-black" : "text-merseBorder"
+            }`}
+            >
+                Brand overview
+          </button>
+          <button 
+            onClick={() => setActiveTab("Products")}
+            className={`pr-3 py-1 rounded ${
+                activeTab === "Products" ? "text-black" : "text-merseBorder"
+            }`}
+            >
+                Products
+          </button>
+          <button 
+            onClick={() => setActiveTab("Orders")}
+            className={`pr-3 py-1 rounded ${
+                activeTab === "Orders" ? "text-black" : "text-merseBorder"
+            }`}
+            >
+                Orders
+          </button>
+          <button 
+            onClick={() => setActiveTab("Compliance & Verification")}
+            className={`pr-3 py-1 rounded ${
+                activeTab === "Compliance & Verification" ? "text-black" : "text-merseBorder"
+            }`}
+            >
+                Compliance & Verification
+          </button>
+          <button 
+            onClick={() => setActiveTab("Finances")}
+            className={`pr-3 py-1 rounded ${
+                activeTab === "Finances" ? "text-black" : "text-merseBorder"
+            }`}
+            >
+                Finances
+          </button>
+          <button 
+            onClick={() => setActiveTab("Dispute")}
+            className={`pr-3 py-1 rounded ${
+                activeTab === "Dispute" ? "text-black" : "text-merseBorder"
+            }`}
+            >
+                Dispute
+          </button>
         </div>
         {SetActivePage(activeTab)}
       </div>
@@ -96,4 +97,5 @@ export default DashboardBrandsPage;
    if (activeTab === "Orders") return <BrandsOrderPage />
    if (activeTab === "Finances") return <BrandFinancePage />
    if (activeTab === "Dispute") return <BrandDisputePage />
+   if (activeTab === "Compliance & Verification") return <BrandsCompliancePage />
  };

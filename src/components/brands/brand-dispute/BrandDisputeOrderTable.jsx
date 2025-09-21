@@ -4,7 +4,6 @@ import { brandDisputeOrderTableColumn, brandDisputeOrderData } from "../../../da
 import BrandDisputeOrderRowTemplate from "./BrandDisputeOrderRowTemplate.jsx";
 
 function BrandDisputeOrderTable({ activeTab, setActiveTab}) {
-//   const [activeTab, setActiveTab] = useState("Order Dispute")
   return (
     <div className="flex flex-col gap-2">
       <div className="w-full flex justify-between">
