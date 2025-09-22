@@ -10,12 +10,14 @@ import DashboardLayout from "./layouts/DashboardLayout.jsx";
 import DashboardOverviewPage from "./pages/overview/index.jsx";
 import AuthLayout from "./layouts/AuthLayout.jsx";
 import DashboardOrdersPage from "./pages/orders/index.jsx";
-import DashboardPayoutPage from "./pages/payouts/index.jsx"
+import DashboardPayoutPage from "./pages/payouts/index.jsx";
 import DashboardDisputePage from "./pages/dispute/index.jsx";
 import DashboardMembersPage from "./pages/members/index.jsx";
 import DashboardSettingsPage from "./pages/settings/index.jsx";
 import DashboardProductPage from "./pages/products/index.jsx";
 import DashboardBrandsPage from "./pages/brands/index.jsx";
+import OrderDetails from "./pages/orders/order-details.jsx";
+import DashboardBrandDetailsPage from "./pages/brands/brand-details.jsx";
 
 function App() {
   return (
@@ -37,13 +39,19 @@ function App() {
           <Routes>
             <Route element={<DashboardLayout />}>
               <Route path="/" element={<DashboardOverviewPage />} />
-              <Route path="/orders" element={<DashboardOrdersPage />}/>
-              <Route path="/payout" element={<DashboardPayoutPage />}/>
-              <Route path="/dispute" element={<DashboardDisputePage />}/>
-              <Route path="/members" element={<DashboardMembersPage />}/>
-              <Route path="/settings" element={<DashboardSettingsPage />}/>
-              <Route path="/products" element={<DashboardProductPage />}/>
-              <Route path="/brands" element={<DashboardBrandsPage />}/>
+              <Route path="/orders" element={<DashboardOrdersPage />} />
+              <Route path="/orders/:id" element={<OrderDetails />} />
+              <Route path="/payout" element={<DashboardPayoutPage />} />
+              <Route path="/dispute" element={<DashboardDisputePage />} />
+              <Route path="/members" element={<DashboardMembersPage />} />
+              <Route path="/settings" element={<DashboardSettingsPage />} />
+              <Route path="/products" element={<DashboardProductPage />} />
+
+              <Route path="/brands" element={<DashboardBrandsPage />} />
+              <Route
+                path="/brands/:id"
+                element={<DashboardBrandDetailsPage />}
+              />
             </Route>
 
             <Route element={<AuthLayout />}>

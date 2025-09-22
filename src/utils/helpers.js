@@ -6,9 +6,9 @@ export const errorNotification = (message) => toast.error(message);
 export const infoNotification = (message) => toast.info(message);
 
 export const formatter = (amount) => {
-  const fm = new Intl.NumberFormat("en-NG", {
+  const fm = new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "NGN",
+    currency: "USD",
   });
   return fm.format(amount);
 };
@@ -139,4 +139,3 @@ export const validateWalletAddress = (value, network) => {
   console.log("check", check);
   return check;
 };
-
