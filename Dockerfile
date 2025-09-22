@@ -22,7 +22,7 @@ COPY . .
 RUN npm run build
 
 # Expose the preview port
-EXPOSE 4173
+EXPOSE 5173
 
 # Run Vite preview in production
 CMD ["npm", "run", "preview", "--", "--host"]
