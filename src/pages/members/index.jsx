@@ -1,9 +1,10 @@
-import { FaChevronDown } from "react-icons/fa";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
-import { RiCalendarLine } from "react-icons/ri";
 import MemberTable from "../../components/members/MemberTable.jsx";
+import { useState } from "react";
+import AddMemberModal from "../../components/members/AddMemberModal.jsx";
 
 function DashboardMembersPage() {
+  const [showModal, setShowModal] = useState(false);
   return (
     <div className="flex flex-col gap-0">
       <DashboardNavBar
@@ -11,7 +12,10 @@ function DashboardMembersPage() {
         subtitle="Manage and search members with ease."
       />
       <div className="flex justify-end">
-        <button className="text-white bg-black px-3 py-2 cursor-pointer">
+        <button 
+          className="text-white bg-black px-3 py-2 cursor-pointer"
+          onClick={() => setShowModal(true)}
+        >
           Add members
         </button>
       </div>
@@ -34,6 +38,7 @@ function DashboardMembersPage() {
       <div className="w-full flex flex-col gap-8">
         <MemberTable />
       </div>
+      <AddMemberModal show={showModal} onClose={() => setShowModal(false)} />
     </div>
   );
 }

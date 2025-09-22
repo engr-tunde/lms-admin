@@ -13,6 +13,10 @@ export const memberColumnHeader = [
     }, 
     {
         header: "Date created", 
+        className: "text-center"
+    }, 
+    {
+        header: "", 
         className: "text-right"
     }, 
 ]
