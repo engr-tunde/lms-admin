@@ -95,8 +95,8 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            NEXT_PUBLIC_APP_VERSION=${{ github.ref_name }}-${{ github.sha }}
-            NEXT_PUBLIC_API_URL=${{ steps.set-env.outputs.api_server }}
+            VITE_API_APP_VERSION=${{ github.ref_name }}-${{ github.sha }}
+            VITE_API_URL_BASE=${{ steps.set-env.outputs.api_server }}
 
   deploy:
     needs: dockerize
