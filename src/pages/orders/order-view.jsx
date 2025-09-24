@@ -11,6 +11,7 @@ function OrderViewPage() {
       <DashboardNavBar
         path="< Back Orders > Order details"
         title="Order 12345"
+        copyable
         subtitle="See how your brand is performing today across sales orders & top products."
       />
       <div className="w-full flex flex-col gap-8 h-[90%] overflow-y-scroll">

@@ -6,6 +6,9 @@ const PayoutStatusCheck = ({ value, className = "" }) => {
     case "paid":
       bg = "bg-green-500 text-white";
       break;
+    case "completed":
+      bg = "bg-green-500 text-white";
+      break;
     case "pending":
       bg = "bg-amber-500 text-black";
       break;

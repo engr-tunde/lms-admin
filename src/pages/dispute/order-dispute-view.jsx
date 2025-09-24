@@ -17,6 +17,8 @@ function OrderDisputeViewPage() {
       <DashboardNavBar
         path="< Back Dispute > Order details"
         title="DSP 2023 003"
+        copyable
+        status="Completed"
       />
       <div className="flex w-full justify-end relative">
         <button 

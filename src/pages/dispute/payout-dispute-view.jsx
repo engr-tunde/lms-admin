@@ -1,10 +1,9 @@
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
-import OrderDisputeViewStatusCard from "../../components/dispute/order-dispute-view/OrderDisputeViewStatusCard.jsx"
-import OrderDisputeViewItemsTable from "../../components/dispute/order-dispute-view/OrderDisputeViewItemsTable.jsx";
-import OrderDisputeViewSummaryCard from "../../components/dispute/order-dispute-view/OrderDisputeViewSummary.jsx";
-import OrderDisputeViewDeliveryInfo from "../../components/dispute/order-dispute-view/OrderDisputeViewDeliveryInfo.jsx";
 import { FaChevronDown } from "react-icons/fa";
 import { useState } from 'react'
+import PayoutDisputeViewStatusCard from "../../components/dispute/payout-dispute-view/PayoutDisputeViewStatusCard.jsx";
+import PayoutDisputeViewInfoCard from "../../components/dispute/payout-dispute-view/PayoutDisputeViewInfoCard.jsx";
+import PayoutDisputeViewTable from "../../components/dispute/payout-dispute-view/PayoutDisputeViewTable.jsx";
 
 function PayoutDisputeViewPage() {
   const [updateStatusButtonOpen, setUpdateStatusButtonOpen] = useState(null);
@@ -17,6 +16,8 @@ function PayoutDisputeViewPage() {
       <DashboardNavBar
         path="< Back Dispute > Order details"
         title="POUT-1242-112"
+        copyable
+        status="In review"
       />
       <div className="flex w-full justify-end relative">
         <button 
@@ -41,24 +42,18 @@ function PayoutDisputeViewPage() {
           )}
       </div>
       <div className="w-full flex flex-col gap-8 h-[90%] overflow-y-scroll">
-        <OrderDisputeViewStatusCard
-         issueType="Shipping delay"
-         customerName="Brenda Alli"
-         customerEmail="Brenda.alli@gmail.com"
+        <PayoutDisputeViewStatusCard
+         issueType="Missing item"
          brandName="Stylish Co"
          brandEmail="Stylishco@gmail.com"
-         urgencyLevel="High"
-         preferredAction="Cancel order"
+         payoutMethod="Flutterwave"
+         paidTo="*********6789"
+         salesMonth="May, 2023"
+         payoutDate="2023-06-01"
+         disputedOn="2023-06-01"
          />
-        <OrderDisputeViewItemsTable />
-        <div className="w-full flex flex-col lg:flex-row justify-between gap-10">
-          <OrderDisputeViewSummaryCard 
-           orderId="ORD-9876" 
-           orderDate="2024-06-10" 
-           totalAmount="90,000.00" 
-          />
-          <OrderDisputeViewDeliveryInfo />
-        </div>
+        <PayoutDisputeViewInfoCard />
+        <PayoutDisputeViewTable />
         
       </div>
     </div>

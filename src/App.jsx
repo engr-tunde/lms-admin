@@ -20,6 +20,7 @@ import DashboardBrandsPage from "./pages/brands/index.jsx";
 import OrderViewPage from "./pages/orders/order-view.jsx";
 import DashboardBrandDetailsPage from "./pages/brands/brand-details.jsx";
 import PayoutDisputeViewPage from "./pages/dispute/payout-dispute-view.jsx";
+import PayoutDetailPage from "./pages/payouts/payout-detail.jsx";
 
 function App() {
   return (
@@ -44,6 +45,8 @@ function App() {
               <Route path="/orders" element={<DashboardOrdersPage />} />
               <Route path="/orders/:id" element={<OrderViewPage />} />
               <Route path="/payout" element={<DashboardPayoutPage />} />
+              <Route path="/payout/:id" element={<PayoutDetailPage />} />
+              
               <Route path="/dispute" element={<DashboardDisputePage />} />
               <Route path="/dispute-order/:id" element={<OrderDisputeViewPage />} />
               <Route path="/dispute-payout/:id" element={<PayoutDisputeViewPage />} />
