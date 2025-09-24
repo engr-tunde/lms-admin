@@ -15,7 +15,7 @@ function OrderRowTemplate(item, i) {
   return (
     <tr key={item.id} className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm px-2 text-center">
-          <Link className="px-3 py-1 underline">
+          <Link to={`/orders/${item.id}`}className="px-3 py-1 underline">
             View
           </Link>
       </td>

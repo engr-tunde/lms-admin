@@ -221,3 +221,45 @@ export const payoutDisputeData = [
 ]
 
 
+
+
+export const orderDisputeViewTableData = [
+    {
+        id: 1, 
+        image: "/assets/images/product-image1.png",
+        product: "Off-White Grateful SS T-shirt", 
+        quantity: 2, 
+        unitPrice: 60000, 
+        color: "Blue", 
+        size: "lg"
+    }, 
+    {
+        id: 2,
+        image: "/assets/images/product-image1.png",
+        product: "Off-White Grateful SS T-shirt", 
+        quantity: 1, 
+        unitPrice: 10000, 
+        color: "Yellow", 
+        size: "S"
+    }, 
+    {
+        id: 3,
+        image: "/assets/images/product-image1.png",
+        product: "Off-White Grateful SS T-shirt", 
+        quantity: 5, 
+        unitPrice: 2000, 
+        color: "Red", 
+        size: "md"
+    },    
+]
+
+export const orderDisputeViewTableColumnHeader = [
+  {
+    header: "Product", 
+    className: "hidden lg:table-cell"
+  },
+  {
+    header: "Price per item", 
+    className: "hidden lg:table-cell"
+  },
+]

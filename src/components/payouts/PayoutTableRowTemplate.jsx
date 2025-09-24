@@ -14,7 +14,7 @@ function PayoutRowTemplate(item, i) {
   return (
     <tr key={item.id} className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm text-center">
-          <Link className="px-3 py-1 underline">
+          <Link to="" className="px-3 py-1 underline">
             View
           </Link>
       </td>

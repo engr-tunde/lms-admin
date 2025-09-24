@@ -715,3 +715,78 @@ export const orderTableData = [
 ]
 
 
+// export const orderViewTimelineSteps = [
+//   { 
+//     label: "Order received", 
+//     date: "July 15, 2025", 
+//     status: "completed" 
+//   },
+//   { 
+//     label: "In transit to warehouse", 
+//     date: "July 15, 2025", 
+//     status: "completed" 
+//   },
+//   { 
+//     label: "Received at warehouse", 
+//     date: "July 15, 2025", 
+//     status: "active", 
+//     action: { label: "Confirm receipt", onClick: () => alert("Receipt confirmed!") }
+//   },
+//   { 
+//     label: "Out for delivery", 
+//     date: "", 
+//     status: "pending", 
+//     action: { label: "Mark as out for delivery", onClick: () => alert("Marked out for delivery!") }
+//   },
+//   { label: "Delivered to Customer", date: "", status: "pending" },
+// ];
+
+
+
+export const orderViewTableData = [
+    {
+        id: 1, 
+        image: "/assets/images/product-image1.png",
+        product: "Off-White Grateful SS T-shirt", 
+        quantity: 2, 
+        status: "In progress",
+        unitPrice: 60000, 
+        color: "Blue", 
+        size: "lg"
+    }, 
+    {
+        id: 2,
+        image: "/assets/images/product-image1.png",
+        product: "Off-White Grateful SS T-shirt", 
+        quantity: 1, 
+        status: "In progress",
+        unitPrice: 10000, 
+        color: "Yellow", 
+        size: "S"
+    }, 
+    {
+        id: 3,
+        image: "/assets/images/product-image1.png",
+        product: "Off-White Grateful SS T-shirt", 
+        quantity: 5, 
+        status: "Active",
+        unitPrice: 2000, 
+        color: "Red", 
+        size: "md"
+    },    
+]
+
+export const orderViewTableColumnHeader = [
+  {
+    header: "Product", 
+    className: "hidden lg:table-cell"
+  },
+  {
+    header: "Status", 
+    className: "hidden lg:table-cell"
+  },
+  {
+    header: "Price per item", 
+    className: "hidden lg:table-cell"
+  },
+]
