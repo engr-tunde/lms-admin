@@ -11,15 +11,15 @@ function MemberTableRowTemplate(member, i) {
 
   return (
     <tr key={member.id} className="border-1 border-t border-merseBorder">
-      <td className="py-6 text-sm text-left flex flex-col items-start">
+      <td className="py-6 text-sm flex flex-col items-start">
         <span className="text-lg">{member.name}</span>
         <span className="text-merseLightText">{member.email}</span>
       </td>
-      <td className="py-6 text-sm text-center">{member.role}</td>
-      <td className="py-6 text-sm text-center">
+      <td className="py-6 text-sm">{member.role}</td>
+      <td className="py-6 text-sm">
         <MemberStatusCheck value={member.status} className="px-2 py-1"/>
       </td>
-      <td className="py-6 text-sm text-center text-merseLightText">{member.dateCreated}</td>
+      <td className="py-6 text-sm text-merseLightText hidden lg:table-cell">{member.dateCreated}</td>
       <td className="py-6 text-sm text-right text-merseLightText">
         <div className="relative cursor-pointer">
           <button

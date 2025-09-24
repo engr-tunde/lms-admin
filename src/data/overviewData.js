@@ -1,35 +1,35 @@
 export const overviewColumnHeader = [
     {
         header: "", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell "
     }, 
     {
         header: "Order", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
         header: "Customer", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText"
     }, 
     {
         header: "Brand", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
         header: "Product", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText"
     }, 
     {
         header: "Qty", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
         header: "Total amount", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
         header: "Delivery status", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText"
     }
 ]
 

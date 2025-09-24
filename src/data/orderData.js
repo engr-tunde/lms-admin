@@ -609,44 +609,40 @@ export const m2mTradesData = [
 export const orderTableColumnHeader = [
     {
         header: "", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
         header: "Order ID", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
         header: "Customer Name", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
         header: "Brand", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
         header: "Product", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText"
     }, 
     {
         header: "Qty", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
         header: "Order status", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText"
     }, 
     {
         header: "Total amount", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     },
     {
         header: "Actions", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
-    }, 
-    {
-        header: "", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
-    }, 
+        className: "text-sm font-medium text-merseLightText"
+    }
 ]
 
 

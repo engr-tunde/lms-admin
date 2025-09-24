@@ -1,23 +1,23 @@
 export const memberColumnHeader = [
     {
         header: "User", 
-        className: "text-left"
+        className: ""
     }, 
     {
         header: "Role", 
-        className: "text-center"
+        className: ""
     }, 
     {
         header: "Status", 
-        className: "text-center"
+        className: ""
     }, 
     {
         header: "Date created", 
-        className: "text-center"
+        className: "hidden lg:table-cell"
     }, 
     {
         header: "", 
-        className: "text-right"
+        className: ""
     }, 
 ]
 

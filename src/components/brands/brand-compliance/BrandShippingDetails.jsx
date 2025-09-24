@@ -5,7 +5,7 @@ const BrandShippingDetails = () => {
       <div className="w-full h-full flex flex-col">
         <span className="p-4 text-sm">Submitted information</span>
         <div className="w-full h-full px-4">
-          <div className="grid grid-cols-2 gap-8 bg-gray-100/50 p-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 bg-gray-100/50 p-4">
             <div className="col-span-1 flex flex-col gap-1">
               <span className="text-sm font-semibold">Warehouse address</span>
               <span className="text-sm w-[80%]">12B, funke Ayoade Street, Victoria Island, Lagos, Nigeria</span>

@@ -14,20 +14,20 @@ function OrderRowTemplate(item, i) {
 
   return (
     <tr key={item.id} className="border-1 border-t border-merseBorder">
-      <td className="py-4 text-sm px-2 text-center">
+      <td className="py-4 text-sm hidden lg:table-cell">
           <Link to={`/orders/${item.id}`}className="px-3 py-1 underline">
             View
           </Link>
       </td>
-      <td className="py-4 text-sm px-2 text-center">{item.orderID}</td>
-      <td className="py-4 text-sm px-2 text-center">{item.customer}</td>
-      <td className="py-4 text-sm px-2 text-center">{item.brand}</td>
-      <td className="py-4 text-sm px-2 text-center">{item.product}</td>
-      <td className="py-4 text-sm px-2 text-center">{item.quantity}</td>
-      <td className="text-center">
+      <td className="py-4 text-sm hidden lg:table-cell">{item.orderID}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{item.customer}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{item.brand}</td>
+      <td className="py-4 text-sm">{item.product}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{item.quantity}</td>
+      <td className="">
         <OrderStatusCheck value={item.orderStatus} className="text-sm px-2 py-1"/>
       </td>
-      <td className="py-4 text-sm px-2 text-center">
+      <td className="py-4 text-sm hidden lg:table-cell">
         {formatter(item.totalAmount)}
       </td>
       <td className="p-4">

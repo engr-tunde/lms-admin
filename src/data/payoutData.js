@@ -1,39 +1,39 @@
 export const payoutColumnHeader = [
     {
         header: "", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
         header: "Brand name", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText"
     }, 
     {
         header: "Completed orders", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
         header: "Total sales", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
         header: "Commission", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
         header: "Net payout amount", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
         header: "Payout status", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText"
     }, 
     {
         header: "Payout due date", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     },
     {
         header: "Action", 
-        className: "text-sm font-medium text-merseLightText text-center tracking-wider"
+        className: "text-sm font-medium text-merseLightText"
     }
 ]
 

@@ -12,11 +12,9 @@ const BrandsCompliancePage = () => {
   const [activeTab, setActiveTab] = useState("complianceDocuments")
 
   return (
-    <div className="w-full h-[450px] flex gap-5">
-      <div className="w-1/3 border-2 flex flex-col">
-        <BrandsComplianceOverview activeTab={activeTab} setActiveTab={setActiveTab} />
-      </div>
-      <div className="w-2/3 border-2">
+    <div className="w-full h-full lg:h-[450px] flex flex-col lg:flex-row gap-5">
+      <BrandsComplianceOverview activeTab={activeTab} setActiveTab={setActiveTab} />
+      <div className="w-full lg:w-2/3 border-2 h-full">
         {SetActivePage(activeTab)}
       </div>
     </div>    

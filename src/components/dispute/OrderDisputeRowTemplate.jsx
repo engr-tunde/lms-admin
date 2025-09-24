@@ -4,22 +4,22 @@ import DisputeStatusCheck from './DisputeStatusCheck';
 function OrderDisputeRowTemplate(item) {
   return (
     <tr key={item.id} className="border-1 border-t border-merseBorder">
-      <td className="py-4 text-sm px-2 text-center">
-          <Link to="/dispute-order/:id" className="px-3 py-1 underline">
+      <td className="py-4 text-sm hidden lg:table-cell">
+          <Link to={`/dispute-order/${item.id}`} className="px-3 py-1 underline">
             View
           </Link>
       </td>
-      <td className="py-4 text-sm px-2 text-center">{item.disputeID}</td>
-      <td className="py-4 text-sm px-2 text-center">{item.orderID}</td>
-      <td className="py-4 text-sm px-2 text-center">{item.customer}</td>
-      <td className="py-4 text-sm px-2 text-center">{item.brand}</td>
-      <td className="py-4 text-sm px-2 text-center">{item.issueType}</td>
-      <td className="text-center">
+      <td className="py-4 text-sm">{item.disputeID}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{item.orderID}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{item.customer}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{item.brand}</td>
+      <td className="py-4 text-sm">{item.issueType}</td>
+      <td className="">
         <DisputeStatusCheck value={item.status} className="text-sm px-2 py-1"/>
       </td>
-      <td className="py-4 text-sm px-2 text-center">{item.disputedOn}</td>
-      <td className="py-4 text-sm px-2 text-center">{item.lastUpdated}</td>
-      <td className="py-4 text-sm px-2 text-center">{item.urgencyLevel}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{item.disputedOn}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{item.lastUpdated}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{item.urgencyLevel}</td>
     </tr>
   );
 }

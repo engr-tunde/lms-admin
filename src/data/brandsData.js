@@ -64,52 +64,47 @@ export const brandsOrderTableColumnHeader = [
   {
     header: "",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Order ID",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Customer Name",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Brand",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Product",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText",
   },
   {
     header: "Qty",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Order status",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText",
   },
   {
     header: "Total amount",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Actions",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
-  },
-  {
-    header: "",
-    className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText",
   },
 ];
 
@@ -182,42 +177,42 @@ export const brandFinanceTableColumnHeader = [
   {
     header: "",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Payout ID",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText",
   },
   {
     header: "Month",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Payout date",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Time period",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Net payout",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Payment status",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText",
   },
   {
     header: "",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText",
   },
 ];
 
@@ -284,52 +279,52 @@ export const brandDisputeOrderTableColumn = [
   {
     header: "",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Dispute ID",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Order ID",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText",
   },
   {
     header: "Customer",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Brand",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Issue type",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText",
   },
   {
     header: "Status",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText",
   },
   {
     header: "Disputed on",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Last updated",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Urgency level",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
 ];
 
@@ -412,42 +407,42 @@ export const brandDisputePayoutTableColumn = [
   {
     header: "",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Dispute ID",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText",
   },
   {
     header: "Order ID",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Brand",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Issue type",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText",
   },
   {
     header: "Status",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText",
   },
   {
     header: "Disputed on",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
   {
     header: "Last updated",
     className:
-      "text-sm font-medium text-merseLightText text-center tracking-wider",
+      "text-sm font-medium text-merseLightText hidden lg:table-cell",
   },
 ];
 

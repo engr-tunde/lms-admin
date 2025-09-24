@@ -6,19 +6,19 @@ import BrandFinanceStatusCheck from "./BrandFinanceStatusCheck.jsx"
 function BrandFinanceRowTemplate(item) {
   return (
     <tr key={item.id} className="border-1 border-t border-merseBorder">
-      <td className="py-4 text-sm px-2 text-center">
+      <td className="py-4 text-sm hidden lg:table-cell">
           <Link className="px-3 py-1 underline">
             View
           </Link>
       </td>
-      <td className="py-4 text-sm px-2 text-center">{item.payoutID}</td>
-      <td className="py-4 text-sm px-2 text-center">{item.month}</td>
-      <td className="py-4 text-sm px-2 text-center">{item.payoutDate}</td>
-      <td className="py-4 text-sm px-2 text-center">{item.timePeriod}</td>
-      <td className="py-4 text-sm px-2 text-center">
+      <td className="py-4 text-sm">{item.payoutID}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{item.month}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{item.payoutDate}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{item.timePeriod}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">
         {formatter(item.netPayout)}
       </td>
-      <td className="text-center">
+      <td className="">
         <BrandFinanceStatusCheck value={item.paymentStatus} className="text-sm px-2 py-1"/>
       </td>
       <td className="p-4">
