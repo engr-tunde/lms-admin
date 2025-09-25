@@ -41,17 +41,23 @@ const ProductViewDetails = () => {
         <SizesCard size="xxl" quantity={20} />
       </div>
       <div className="flex justify-end gap-2 mt-4">
-        <AppFormButton 
+        {/* <AppFormButton 
           title="Reject"
-          className="px-3 border-merseBorder border-2 text-xs"
+          className="px-3 border-merseBorder border-2 text-sm"
           // type="submit"
           isSubmitting={false}
           disabled={true}
+          // onClick={() => setShowRejectionForm(true)}
+        /> */}
+        <button 
+          className="px-6 py-1 border-merseBorder border-2 text-sm"
           onClick={() => setShowRejectionForm(true)}
-        />
+        >
+          Reject
+        </button>
         <AppFormButton 
           title="Approve"
-          className="px-3 text-white bg-black text-xs"
+          className="px-6 py-1 text-white bg-black text-sm"
           // type="submit"
           isSubmitting={false}
           disabled={true}

@@ -1,18 +1,18 @@
 import { IoMdClose }from "react-icons/io";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import AppFormButton from "../../forms/buttons/AppFormButton";
+import AppFormButton from "../forms/buttons/AppFormButton";
 
 
-const RejectionFormModal = ({ show, onClose, }) => {
+const CreateBrandModal = ({ show, onClose, }) => {
     if (!show) return null;
   
   const initialValues = {
-    rejectionReason: "",
+    brandType: "",
   };
 
   const validationSchema = Yup.object({
-    rejectionReason: Yup.string().required("Please provide a reason for rejection"),
+    brandType: Yup.string().required("Please, provide brand type"),
   });
 
 //   const handleSubmit = async (values, { resetForm }) => {
@@ -27,18 +27,14 @@ const RejectionFormModal = ({ show, onClose, }) => {
 //   };
   
   return (
-    <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50 bg-opacity-40 w-full">
-      <div className="bg-white p-6 shadow-lg w-[70%] lg:w-1/2 gap-3">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25 bg-opacity-40 w-full">
+      <div className="bg-white p-6 shadow-lg w-1/2">
         <div>
           <button className="ml-auto block">
             <IoMdClose size={20} onClick={onClose} className="" />
           </button>
         </div>
-        <div 
-          className="font-semibold mb-3"
-        >
-          Rejection Reason
-        </div>
+          <div className="font-semibold text-sm mb-3">Create Brand Type</div>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -47,16 +43,13 @@ const RejectionFormModal = ({ show, onClose, }) => {
           <Form className="space-y-4">
             <div className="flex justify-between gap-4 h-full">
               <div className="w-full h-full">
-              {/* <label htmlFor="rejectionReason">Rejection Reason</label> */}
                 <Field
-                  name="rejectionReason"
-                  placeholder="Leave Reasons"
-                  as="textarea"
-                  rows="10"
+                  name="brandType"
+                  placeholder="Brand type name"
                   className="w-full h-full text-sm border-2 focus:border-black outline-none px-3 py-2"
                 />
                 <ErrorMessage
-                  name="rejectionReason"
+                  name="brandType"
                   component="div"
                   className="text-red-500 text-xs"
                 />
@@ -71,7 +64,7 @@ const RejectionFormModal = ({ show, onClose, }) => {
                 Cancel
               </button>
               <AppFormButton 
-                title="Reject"
+                title="Create"
                 className="px-3 py-1 text-white bg-black text-sm"
                 // type="submit"
                 isSubmitting={false}
@@ -85,4 +78,6 @@ const RejectionFormModal = ({ show, onClose, }) => {
   )
 }
 
-export default RejectionFormModal
+export default CreateBrandModal
+
+// AppFormButton = ({ title, className, isSubmitting, disabled })

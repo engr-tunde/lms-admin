@@ -11,9 +11,8 @@ function ProductDisplayCard({ productImage, productStatus, productBrand, product
   return (
     <div 
       className="w-full col-span-1 flex flex-col items-start gap-2"
-      onClick={() => setShowModal(true)}
     >
-      <div className="w-full">
+      <div className="w-full" onClick={() => setShowModal(true)}>
         <img src={productImage} alt="" className="object-cover w-full h-full" />
       </div>
       <div className="w-full flex justify-start">

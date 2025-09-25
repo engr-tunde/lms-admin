@@ -1,9 +1,13 @@
 import StatusCheck from "../../globals/StatusCheck"
+import { useState } from "react";
+import ProductViewModal from "../../products/product-view-modal";
 
 function ProductsBrandsCard({ productImage, productStatus, productBrand, productName, productPrice, productQuantity }) {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="w-full col-span-1 flex flex-col items-start gap-2">
-      <div className="w-full">
+      <div className="w-full" onClick={() => setShowModal(true)}>
         <img src={productImage} alt="" className="object-cover w-full h-full" />
       </div>
       <div className="w-full flex justify-start">
@@ -17,6 +21,7 @@ function ProductsBrandsCard({ productImage, productStatus, productBrand, product
         <span>{productPrice}</span>
         <span>{productQuantity}</span>
       </div>
+      <ProductViewModal show={showModal} onClose={() => setShowModal(false)}/>
     </div>
   );
 }
