@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { formatter } from "../../utils/helpers";
-import PayoutStatusCheck from "./PayoutStatusCheck";
+import StatusCheck from "../globals/StatusCheck";
 import { RiArrowDownSFill } from "react-icons/ri";
 
 function PayoutRowTemplate(item, i) {
@@ -30,7 +30,7 @@ function PayoutRowTemplate(item, i) {
         {formatter(item.netPayoutAmount)}
       </td>
       <td className="py-4 text-sm">
-        <PayoutStatusCheck value={item.payoutStatus} className="px-2 py-1"/>
+        <StatusCheck value={item.payoutStatus} className="px-2 py-1"/>
       </td>
       <td className="py-4 text-sm hidden lg:table-cell text-merseLightText">{item.payoutDueDate}</td>
       <td className="py-4">

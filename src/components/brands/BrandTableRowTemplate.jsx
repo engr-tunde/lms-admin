@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa";
 import { formatter } from "../../utils/helpers";
-import BrandStatusCheck from "./BrandStatusCheck";
+import StatusCheck from "../globals/StatusCheck.jsx"
 
 function BrandTableRowTemplate(item) {
   return (
@@ -20,7 +20,7 @@ function BrandTableRowTemplate(item) {
       <td className="hidden lg:table-cell py-4 text-sm ">{item.orders}</td>
       <td className="hidden lg:table-cell py-4 text-sm ">{item.createdAt}</td>
       <td className="">
-        <BrandStatusCheck
+        <StatusCheck
           value={item.status}
           className="text-sm py-1 px-2 rounded-sm"
         />

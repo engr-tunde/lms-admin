@@ -2,10 +2,8 @@ import { FaChevronDown } from "react-icons/fa";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { RiCalendarLine } from "react-icons/ri";
 import OrderCardsContainer from "../../components/orders/OrderCardContainer";
-import OverviewBrandRequestContainer from "../../components/overview/OverviewBrandRequestContainer";
 import NewOrderCardContainer from "../../components/orders/NewOrderCardContainer";
 import OrderTable from "../../components/orders/OrderTable.jsx";
-import OrderStatusCheck from "../../components/orders/OrderStatusCheck.jsx";
 
 function DashboardOrdersPage() {
   return (

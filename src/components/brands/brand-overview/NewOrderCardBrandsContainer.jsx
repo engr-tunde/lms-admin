@@ -10,7 +10,7 @@ function NewOrderBrandsCardContainer() {
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-5">
         <NewOrderBrandsCard
-        orderImage = "/assets/images/product-image1.png"
+        orderImage = "/assets/images/product-placeholder.png"
         orderNumber="#12345"
         orderStatus="Awaiting warehouse receipt"
         product="Off-White Grateful SS T-Shirt"
@@ -18,7 +18,7 @@ function NewOrderBrandsCardContainer() {
         />
 
         <NewOrderBrandsCard
-        orderImage = "/assets/images/product-image1.png"
+        orderImage = "/assets/images/product-placeholder.png"
         orderNumber="#12345"
         orderStatus="Awaiting warehouse receipt"
         product="Off-White Grateful SS T-Shirt"
@@ -26,7 +26,7 @@ function NewOrderBrandsCardContainer() {
         />
 
         <NewOrderBrandsCard
-        orderImage = "/assets/images/product-image1.png"
+        orderImage = "/assets/images/product-placeholder.png"
         orderNumber="#12345"
         orderStatus="Awaiting warehouse receipt"
         product="Off-White Grateful SS T-Shirt"

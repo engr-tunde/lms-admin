@@ -742,7 +742,7 @@ export const orderTableData = [
 export const orderViewTableData = [
     {
         id: 1, 
-        image: "/assets/images/product-image1.png",
+        image: "/assets/images/product-placeholder.png",
         product: "Off-White Grateful SS T-shirt", 
         quantity: 2, 
         status: "In progress",
@@ -752,7 +752,7 @@ export const orderViewTableData = [
     }, 
     {
         id: 2,
-        image: "/assets/images/product-image1.png",
+        image: "/assets/images/product-placeholder.png",
         product: "Off-White Grateful SS T-shirt", 
         quantity: 1, 
         status: "In progress",
@@ -762,7 +762,7 @@ export const orderViewTableData = [
     }, 
     {
         id: 3,
-        image: "/assets/images/product-image1.png",
+        image: "/assets/images/product-placeholder.png",
         product: "Off-White Grateful SS T-shirt", 
         quantity: 5, 
         status: "Active",

@@ -1,4 +1,4 @@
-import OrderStatusCheck from './OrderStatusCheck'
+import StatusCheck from '../globals/StatusCheck'
 import { Link } from "react-router-dom";
 import { formatter } from "../../utils/helpers";
 import { useState } from 'react';
@@ -25,7 +25,7 @@ function OrderRowTemplate(item, i) {
       <td className="py-4 text-sm">{item.product}</td>
       <td className="py-4 text-sm hidden lg:table-cell">{item.quantity}</td>
       <td className="">
-        <OrderStatusCheck value={item.orderStatus} className="text-sm px-2 py-1"/>
+        <StatusCheck value={item.orderStatus} className="text-sm px-2 py-1"/>
       </td>
       <td className="py-4 text-sm hidden lg:table-cell">
         {formatter(item.totalAmount)}

@@ -1,5 +1,5 @@
 import { formatter } from "../../../utils/helpers";
-import PayoutStatusCheck from "../PayoutStatusCheck";
+import StatusCheck from "../../globals/StatusCheck";
 
 function PayoutDetailRowTemplate(item) {
   
@@ -10,7 +10,7 @@ function PayoutDetailRowTemplate(item) {
       <td className="py-4 text-sm">{item.product}</td>
       <td className="py-4 text-sm hidden lg:table-cell">{item.date}</td>
       <td className="py-4 text-sm">
-        <PayoutStatusCheck value={item.orderStatus} className="px-2 py-1"/>
+        <StatusCheck value={item.orderStatus} className="px-2 py-1"/>
       </td>
       <td className="py-4 text-sm">
         {formatter(item.totalAmount)}

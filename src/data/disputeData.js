@@ -77,7 +77,7 @@ export const orderDisputeData = [
         status: "Open", 
         disputedOn: "2023-02-01",
         lastUpdated: "2023-02-01",
-        urgencyLevel: "High" 
+        urgencyLevel: "Medium" 
     }, 
     {
         id: 4,
@@ -101,7 +101,7 @@ export const orderDisputeData = [
         status: "Open", 
         disputedOn: "2023-02-01",
         lastUpdated: "2023-02-01",
-        urgencyLevel: "High" 
+        urgencyLevel: "Low" 
     }, 
     {
         id: 6,
@@ -113,7 +113,7 @@ export const orderDisputeData = [
         status: "Open", 
         disputedOn: "2023-02-01",
         lastUpdated: "2023-02-01",
-        urgencyLevel: "High" 
+        urgencyLevel: "Medium" 
     }, 
 ]
 
@@ -226,7 +226,7 @@ export const payoutDisputeData = [
 export const orderDisputeViewTableData = [
     {
         id: 1, 
-        image: "/assets/images/product-image1.png",
+        image: "/assets/images/product-placeholder.png",
         product: "Off-White Grateful SS T-shirt", 
         quantity: 2, 
         unitPrice: 60000, 
@@ -235,7 +235,7 @@ export const orderDisputeViewTableData = [
     }, 
     {
         id: 2,
-        image: "/assets/images/product-image1.png",
+        image: "/assets/images/product-placeholder.png",
         product: "Off-White Grateful SS T-shirt", 
         quantity: 1, 
         unitPrice: 10000, 
@@ -244,7 +244,7 @@ export const orderDisputeViewTableData = [
     }, 
     {
         id: 3,
-        image: "/assets/images/product-image1.png",
+        image: "/assets/images/product-placeholder.png",
         product: "Off-White Grateful SS T-shirt", 
         quantity: 5, 
         unitPrice: 2000, 

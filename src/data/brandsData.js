@@ -351,7 +351,7 @@ export const brandDisputeOrderData = [
     status: "In review",
     disputedOn: "2023-02-01",
     lastUpdated: "2023-02-01",
-    urgencyLevel: "High",
+    urgencyLevel: "Medium",
   },
   {
     id: 3,
@@ -363,7 +363,7 @@ export const brandDisputeOrderData = [
     status: "Open",
     disputedOn: "2023-02-01",
     lastUpdated: "2023-02-01",
-    urgencyLevel: "High",
+    urgencyLevel: "Low",
   },
   {
     id: 4,
@@ -399,7 +399,7 @@ export const brandDisputeOrderData = [
     status: "Open",
     disputedOn: "2023-02-01",
     lastUpdated: "2023-02-01",
-    urgencyLevel: "High",
+    urgencyLevel: "Low",
   },
 ];
 

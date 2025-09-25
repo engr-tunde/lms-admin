@@ -1,12 +1,19 @@
-import PayoutStatusCheck from "../PayoutStatusCheck"
+import StatusCheck from "../../globals/StatusCheck"
+import PayoutReviewModal from "./PayoutReviewModal"
+import { useState } from 'react'
 
 const PayoutDetailCard = ({ totalSales, netAmount, completedOrder, paymentMethod, paidTo, paymentStatus }) => {
+  const [showModal, setShowModal] = useState(false)
+
   return (
     <>
       <div className="w-full flex justify-between items-center">
         <span className="font-semibold">Payout Summary</span>
         <div className="flex gap-4">
-          <button className="px-3 py-1 bg-black text-white text-sm gap-1">
+          <button 
+            className="px-3 py-1 bg-black text-white text-sm gap-1"
+            onClick={() => setShowModal(true)}
+          >
             Approve payout
           </button>
           <button className="px-3 py-1 border-merseBorder border-2 text-black text-sm gap-1">
@@ -38,11 +45,12 @@ const PayoutDetailCard = ({ totalSales, netAmount, completedOrder, paymentMethod
           <div className="flex flex-col gap-2">
             <span className="font-semibold text-base">Payment Status</span>
             <span className="text-base">
-              <PayoutStatusCheck value={paymentStatus} className="px-2 py-1"/>
+              <StatusCheck value={paymentStatus} className="px-2 py-1"/>
             </span>
           </div>
         </div>
       </div>
+      <PayoutReviewModal show={showModal} onClose={() => setShowModal(false)} />
     </>
   )
 }

@@ -5,6 +5,7 @@ import AddMemberModal from "../../components/members/AddMemberModal.jsx";
 
 function DashboardMembersPage() {
   const [showModal, setShowModal] = useState(false);
+  
   return (
     <div className="flex flex-col gap-0">
       <DashboardNavBar

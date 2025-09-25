@@ -1,6 +1,7 @@
-import MemberStatusCheck from "./MemberStatusCheck";
+import StatusCheck from "../globals/StatusCheck";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { useState } from "react";
+import AppFormButton from "../forms/buttons/AppFormButton";
 
 
 function MemberTableRowTemplate(member, i) {
@@ -17,7 +18,7 @@ function MemberTableRowTemplate(member, i) {
       </td>
       <td className="py-6 text-sm">{member.role}</td>
       <td className="py-6 text-sm">
-        <MemberStatusCheck value={member.status} className="px-2 py-1"/>
+        <StatusCheck value={member.status} className="px-2 py-1"/>
       </td>
       <td className="py-6 text-sm text-merseLightText hidden lg:table-cell">{member.dateCreated}</td>
       <td className="py-6 text-sm text-right text-merseLightText">
@@ -28,13 +29,21 @@ function MemberTableRowTemplate(member, i) {
             <IoEllipsisVertical size={20} />
           </button>
           {actionOpen === i && (
-            <div className="absolute z-10 w-[150px] text-xs rounded-md flex flex-col p-3 gap-3 top-6 right-0 bg-white shadow-xl">
-              <div className="flex items-center gap-1">
-                <span>Activate member</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <span>Remove member</span>
-              </div>
+            <div className="absolute z-10 w-[150px] text-xs rounded-md flex flex-col top-6 right-0 bg-white shadow-xl">
+              <AppFormButton 
+                title="Activate member"
+                // className={"text-xs"}
+                // type="submit"
+                isSubmitting={false}
+                disabled={true}
+              />
+              <AppFormButton 
+                title="Remove member"
+                // className={"text-xs"}
+                // type="submit"
+                isSubmitting={false}
+                disabled={true}
+              />
             </div>
           )}
         </div>

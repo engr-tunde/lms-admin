@@ -1,4 +1,4 @@
-import ProductsBrandsStatusCheck from "./ProductsBrandsStatusCheck"
+import StatusCheck from "../../globals/StatusCheck"
 
 function ProductsBrandsCard({ productImage, productStatus, productBrand, productName, productPrice, productQuantity }) {
   return (
@@ -7,7 +7,7 @@ function ProductsBrandsCard({ productImage, productStatus, productBrand, product
         <img src={productImage} alt="" className="object-cover w-full h-full" />
       </div>
       <div className="w-full flex justify-start">
-        <ProductsBrandsStatusCheck value={productStatus} className="text-sm px-2 py-1" />
+        <StatusCheck value={productStatus} className="text-sm px-2 py-1" />
       </div>
       <div className="flex flex-col gap[-2px] w-full text-md">
         <span>{productBrand}</span>

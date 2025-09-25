@@ -6,6 +6,7 @@ import BrandsOrderPage from "../../components/brands/brand-order";
 import BrandFinancePage from "../../components/brands/brand-finances";
 import BrandDisputePage from "../../components/brands/brand-dispute";
 import BrandsCompliancePage from "../../components/brands/brand-compliance";
+import StatusCheck from "../../components/globals/StatusCheck"
 import { useState } from "react";
 
 function DashboardBrandDetailsPage() {
@@ -23,9 +24,13 @@ function DashboardBrandDetailsPage() {
           subtitle="See how your brand is performing today across sales, orders & top products."
         />
         <div className="flex gap-1">
-          <button className="px-4 text-white bg-green-500 text-sm font-semibold">
-            Active
-          </button>
+          {activeTab !== "Compliance & Verification" ? (
+            <button className="px-4 text-white bg-green-500 text-sm font-semibold">
+              Active
+            </button>
+          ) : (
+            <StatusCheck value={"Pending"} className="text-xs font-semibold px-2 py-1"/>
+          )}
           <button className="border-2 px-2 text-black">
             {ellipsisIcon(10)}
           </button>

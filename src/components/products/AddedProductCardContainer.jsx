@@ -9,7 +9,7 @@ function NewlyAddedProductCardContainer() {
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-5">
         <NewlyAddedProductCard
-        productImage = "/assets/images/product-image2.png"
+        productImage = "/assets/images/product-placeholder2.png"
         productBrand="StylishCo"
         productStatus="Awaiting approval"
         productName="Off-White Grateful SS T-Shirt"
@@ -17,7 +17,7 @@ function NewlyAddedProductCardContainer() {
         />
 
         <NewlyAddedProductCard
-        productImage = "/assets/images/product-image2.png"
+        productImage = "/assets/images/product-placeholder2.png"
         productBrand="Ashluxe"
         productStatus="Awaiting approval"
         productName="Off-White Grateful SS T-Shirt"
@@ -25,7 +25,7 @@ function NewlyAddedProductCardContainer() {
         />
 
         <NewlyAddedProductCard
-        productImage = "/assets/images/product-image2.png"
+        productImage = "/assets/images/product-placeholder2.png"
         productBrand="Banke kuku"
         productStatus="Awaiting approval"
         productName="Off-White Grateful SS T-Shirt"

@@ -1,7 +1,7 @@
-import BrandsOrderStatusCheck from './BrandsOrderStatusCheck.jsx';
 import { Link } from "react-router-dom";
 import { formatter } from "../../../utils/helpers.js";
 import { FaChevronDown } from "react-icons/fa";
+import StatusCheck from "../../globals/StatusCheck.jsx"
 
 
 function BrandsOrderRowTemplate(item) {
@@ -18,7 +18,7 @@ function BrandsOrderRowTemplate(item) {
       <td className="py-4 text-sm">{item.product}</td>
       <td className="py-4 text-sm hidden lg:table-cell ">{item.quantity}</td>
       <td className="text-center">
-        <BrandsOrderStatusCheck value={item.orderStatus} className="text-sm px-2 max-w-[50%] py-1"/>
+        <StatusCheck value={item.orderStatus} className="text-sm px-2 max-w-[50%] py-1"/>
       </td>
       <td className="py-4 text-sm hidden lg:table-cell ">
         {formatter(item.totalAmount)}

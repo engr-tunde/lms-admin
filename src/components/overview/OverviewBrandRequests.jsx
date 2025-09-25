@@ -1,5 +1,5 @@
 
-import StatusCheck from "./OverviewStatusCheck";
+import StatusCheck from "../globals/StatusCheck";
 
 function OverviewBrandRequest({ title, product, country, email, status, date, size = "normal" }) {
   return (

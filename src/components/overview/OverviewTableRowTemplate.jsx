@@ -1,7 +1,7 @@
 // import { FaChevronDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { formatter } from "../../utils/helpers";
-import StatusCheck from "./OverviewStatusCheck";
+import StatusCheck from "../globals/StatusCheck";
 
 
 function OverviewRowTemplate(item) {
