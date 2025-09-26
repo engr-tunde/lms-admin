@@ -9,10 +9,12 @@ const CreateSubcategoryModal = ({ show, onClose, }) => {
   
   const initialValues = {
     subcategory: "",
+    categoryList: "",
   };
 
   const validationSchema = Yup.object({
     subcategory: Yup.string().required("Please, provide brand subcategory"),
+    categoryList: Yup.string().required("Kindly select from the listed categories"),
   });
 
 //   const handleSubmit = async (values, { resetForm }) => {
@@ -41,8 +43,25 @@ const CreateSubcategoryModal = ({ show, onClose, }) => {
         //   onSubmit={handleSubmit}
         >
           <Form className="space-y-4">
-            <div className="flex justify-between gap-4 h-full">
+            <div className="flex flex-col h-full">
               <div className="w-full h-full">
+                <div className="w-full h-full mb-8">
+                  <Field
+                    name="categoryList"
+                    as="select"
+                    className="w-full h-full text-sm border-2 focus:border-black outline-none px-3 py-2"
+                  >
+                    <option value="categoryList">Select a category</option>
+                    <option value="mensWear">Men's Wear</option>
+                    <option value="womensWear">Women's Wear</option>
+                    <option value="kidsWear">Kids Wear</option>
+                  </Field>
+                  <ErrorMessage
+                    name="categoryList"
+                    component="div"
+                    className="text-red-500 text-xs"
+                  />
+                </div>
                 <Field
                   name="subcategory"
                   placeholder="Subcategory name"
