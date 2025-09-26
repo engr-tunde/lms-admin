@@ -1,11 +1,11 @@
 export const brandHeader = [
     {
         header: "Brand Type", 
-        className: "text-left"
+        className: ""
     }, 
     {
         header: "Date Created", 
-        className: "text-right"
+        className: ""
     }, 
 ]
 
@@ -33,15 +33,15 @@ export const brandData = [
 export const categoryHeader = [
     {
         header: "Category", 
-        className: "text-left"
+        className: ""
     }, 
     {
         header: "Sub categories", 
-        className: "text-center"
+        className: ""
     }, 
     {
         header: "Date Created", 
-        className: "text-right"
+        className: ""
     }, 
 ]
 
@@ -71,15 +71,15 @@ export const categoryData = [
 export const subcategoryHeader = [
     {
         header: "Sub category", 
-        className: "text-left"
+        className: ""
     }, 
     {
         header: "Parent category", 
-        className: "text-center"
+        className: ""
     }, 
     {
         header: "Date Created", 
-        className: "text-right"
+        className: ""
     }, 
 ]
 
@@ -101,6 +101,40 @@ export const subcategoryData = [
         id: 3,
         subcategory: "Shirts",
         parentCategory: "Kid wear",
+        dateCreated: "2023-03-15"
+    },
+]
+
+
+
+
+
+export const collectionsHeader = [
+    {
+        header: "Collections", 
+        className: ""
+    }, 
+    {
+        header: "Date Created", 
+        className: ""
+    }, 
+]
+
+
+export const collectionsData = [
+    {
+        id: 1,
+        collectionsName: "Summer Collection",
+        dateCreated: "2023-03-15"
+    },
+    {
+        id: 2,
+        collectionsName: "Big Drop",
+        dateCreated: "2023-03-15"
+    },
+    {
+        id: 3,
+        collectionsName: "Discounted Items",
         dateCreated: "2023-03-15"
     },
 ]

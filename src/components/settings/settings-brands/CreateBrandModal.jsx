@@ -1,7 +1,7 @@
 import { IoMdClose }from "react-icons/io";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import AppFormButton from "../forms/buttons/AppFormButton";
+import AppFormButton from "../../forms/buttons/AppFormButton";
 
 
 const CreateBrandModal = ({ show, onClose, }) => {
@@ -28,7 +28,7 @@ const CreateBrandModal = ({ show, onClose, }) => {
   
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25 bg-opacity-40 w-full">
-      <div className="bg-white p-6 shadow-lg w-1/2">
+      <div className="bg-white p-6 shadow-lg w-1/3 flex flex-col gap-3">
         <div>
           <button className="ml-auto block">
             <IoMdClose size={20} onClick={onClose} className="" />

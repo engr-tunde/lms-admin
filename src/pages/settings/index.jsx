@@ -1,13 +1,14 @@
 import { FaChevronDown } from "react-icons/fa";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { RiCalendarLine } from "react-icons/ri";
-import SubcategorySettingsTable from "../../components/settings/SubcategorySettingsTable"
-import CategorySettingsTable from "../../components/settings/CategorySettingsTable";
-import BrandSettingsTable from "../../components/settings/BrandSettingsTable";
+import CollectionsSettingsTable from "../../components/settings/settings-collections";
+import SubcategorySettingsTable from "../../components/settings/settings-subcategory"
+import CategorySettingsTable from "../../components/settings/settings-category";
+import BrandSettingsTable from "../../components/settings/settings-brands";
 import { useState } from "react";
 
 function DashboardSettingsPage() {
-  const [activeTab, setActiveTab] = useState("Brand type")
+  const [activeTab, setActiveTab] = useState("brandType")
 
   return (
     <div className="flex flex-col gap-6">
@@ -17,28 +18,36 @@ function DashboardSettingsPage() {
       />
       <div className="flex gap-3">
         <button 
-          onClick={() => setActiveTab("Brand type")}
+          onClick={() => setActiveTab("brandType")}
           className={`pr-3 py-1 rounded ${
-              activeTab === "Brand type" ? "text-black" : "text-merseBorder"
+              activeTab === "brandType" ? "text-black" : "text-merseBorder"
           }`}
           >
-              Brand type
+              Brand Type
         </button>
         <button 
-          onClick={() => setActiveTab("Categories")}
+          onClick={() => setActiveTab("categories")}
           className={`pr-3 py-1 rounded ${
-              activeTab === "Categories" ? "text-black" : "text-merseBorder"
+              activeTab === "categories" ? "text-black" : "text-merseBorder"
           }`}
           >
               Categories
         </button>
         <button 
-          onClick={() => setActiveTab("Sub categories")}
+          onClick={() => setActiveTab("subcategories")}
           className={`pr-3 py-1 rounded ${
-              activeTab === "Sub categories" ? "text-black" : "text-merseBorder"
+              activeTab === "subcategories" ? "text-black" : "text-merseBorder"
           }`}
           >
               Sub categories
+        </button>
+        <button 
+          onClick={() => setActiveTab("collections")}
+          className={`pr-3 py-1 rounded ${
+              activeTab === "collections" ? "text-black" : "text-merseBorder"
+          }`}
+          >
+              Collections
         </button>
       </div>
       <div className="w-full flex flex-col gap-8">
@@ -49,14 +58,22 @@ function DashboardSettingsPage() {
             <FaChevronDown size={10} />
           </div>
         </div>
-        {activeTab === "Brand type" ? (
-            <BrandSettingsTable />
-        ) : activeTab === "Categories" ? 
-        (<CategorySettingsTable/>) : 
-        (<SubcategorySettingsTable/>)}
+        {SetActivePage(activeTab)}
       </div>
     </div>
   );
 }
+
+
+const SetActivePage = (activeTab) => {
+   if (activeTab === "brandType") return <BrandSettingsTable />
+   if (activeTab === "categories") return <CategorySettingsTable />
+   if (activeTab === "subcategories") return <SubcategorySettingsTable />
+   if (activeTab === "collections") return <CollectionsSettingsTable />
+};
+
+
+
+
 
 export default DashboardSettingsPage;

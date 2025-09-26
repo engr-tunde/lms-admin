@@ -1,5 +1,5 @@
 import { IoMdClose }from "react-icons/io";
-import AppFormButton from "../forms/buttons/AppFormButton";
+import AppFormButton from "../../forms/buttons/AppFormButton";
 
 
 const DeleteBrandModal = ({ show, onClose, brandToDelete }) => {

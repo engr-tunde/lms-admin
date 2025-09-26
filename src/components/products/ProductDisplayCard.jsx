@@ -9,10 +9,12 @@ function ProductDisplayCard({ productImage, productStatus, productBrand, product
   const [showModal, setShowModal] = useState(false);
 
   return (
+    <>
     <div 
       className="w-full col-span-1 flex flex-col items-start gap-2"
+      onClick={() => setShowModal(true)}
     >
-      <div className="w-full" onClick={() => setShowModal(true)}>
+      <div className="w-full">
         <img src={productImage} alt="" className="object-cover w-full h-full" />
       </div>
       <div className="w-full flex justify-start">
@@ -26,8 +28,9 @@ function ProductDisplayCard({ productImage, productStatus, productBrand, product
         <span>{productPrice}</span>
         <span>{productQuantity}</span>
       </div>
-      <ProductViewModal show={showModal} onClose={() => setShowModal(false)}/>
     </div>
+    <ProductViewModal show={showModal} onClose={() => setShowModal(false)}/>
+    </>
   );
 }
 

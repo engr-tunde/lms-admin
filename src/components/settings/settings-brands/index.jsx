@@ -1,6 +1,6 @@
-import TableSearch from "../globals/TableSearch"
-import Table from "../globals/Table"
-import { brandHeader, brandData } from "../../data/settingsData";
+import TableSearch from "../../globals/TableSearch"
+import Table from "../../globals/Table"
+import { brandHeader, brandData } from "../../../data/settingsData";
 import {useState} from "react"
 import { IoEllipsisVertical } from "react-icons/io5";
 import CreateBrandModal from "./CreateBrandModal";
@@ -47,9 +47,9 @@ function BrandSettingsRowTemplate(item, i) {
   return (
     <>
     <tr key={item.id} className="border-1 border-t border-merseBorder">
-      <td className="py-4 text-sm text-left">{item.brandType}</td>
-      <td className="py-4 text-sm text-right">{item.dateCreated}</td>
-      <td className="py-4 text-sm text-right">
+      <td className="py-4 text-sm">{item.brandType}</td>
+      <td className="py-4 text-sm">{item.dateCreated}</td>
+      <td className="py-4 text-sm">
         <div className="relative cursor-pointer">
           <button
            onClick={() => handleActionClick(i)}

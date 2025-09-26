@@ -1,8 +1,8 @@
 import { IoMdClose }from "react-icons/io";
-import AppFormButton from "../forms/buttons/AppFormButton";
+import AppFormButton from "../../forms/buttons/AppFormButton";
 
 
-const DeleteBrandCategoryModal = ({ show, onClose, categoryToDelete }) => {
+const DeleteCollectionsModal = ({ show, onClose, collectionsToDelete }) => {
   if (!show) return null;
   
   
@@ -26,11 +26,11 @@ const DeleteBrandCategoryModal = ({ show, onClose, categoryToDelete }) => {
           </button>
         </div>
         <div className="font-semibold text-sm">
-          Delete Brand Type
+          Delete Brand Collection
         </div>
         <div className="flex justify-between gap-4 h-full">
           <div className="w-full h-full text-sm">
-            {`Are you sure you want to delete "${categoryToDelete}"? This might affect the brands that have selected it`}
+            {`Are you sure you want to delete "${collectionsToDelete}"? This might affect the brands that have selected it`}
           </div>
         </div>
         <div className="flex justify-end gap-4">
@@ -54,6 +54,5 @@ const DeleteBrandCategoryModal = ({ show, onClose, categoryToDelete }) => {
   )
 }
 
-export default DeleteBrandCategoryModal
+export default DeleteCollectionsModal
 
-// AppFormButton = ({ title, className, isSubmitting, disabled })
