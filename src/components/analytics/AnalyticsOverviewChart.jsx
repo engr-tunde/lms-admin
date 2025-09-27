@@ -81,7 +81,6 @@ export default AnalyticsOverviewPage;
 
 
 
-
 const StatusToggle = ({title, figure, percentage, activeTab, setActiveTab}) => {
   const infoIcon = () => {
     return <IoInformationCircleOutline size={15}/>

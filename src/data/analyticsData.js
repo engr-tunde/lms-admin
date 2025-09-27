@@ -203,26 +203,88 @@ export const completedPayouts = [
 ];
 
 
-
-// export const chartData = [
-//   { day: "1", totalSales: 20000, totalOrders: 300, activeBrands: 100, newCustomers: 10, pendingPayouts: 2000, completedPayouts: 5000 },
-//   { day: "3", totalSales: 35000, totalOrders: 500, activeBrands: 250, newCustomers: 20, pendingPayouts: 4000, completedPayouts: 10000 },
-//   { day: "6", totalSales: 50000, totalOrders: 750, activeBrands: 400, newCustomers: 30, pendingPayouts: 6000, completedPayouts: 15000 },
-//   { day: "9", totalSales: 70000, totalOrders: 1000, activeBrands: 550, newCustomers: 40, pendingPayouts: 8000, completedPayouts: 20000 },
-//   { day: "12", totalSales: 85000, totalOrders: 1200, activeBrands: 650, newCustomers: 50, pendingPayouts: 9500, completedPayouts: 25000 },
-//   { day: "15", totalSales: 100000, totalOrders: 1500, activeBrands: 750, newCustomers: 60, pendingPayouts: 10500, completedPayouts: 30000 },
-//   { day: "18", totalSales: 120000, totalOrders: 1700, activeBrands: 850, newCustomers: 70, pendingPayouts: 11500, completedPayouts: 35000 },
-//   { day: "21", totalSales: 135000, totalOrders: 1850, activeBrands: 900, newCustomers: 75, pendingPayouts: 12000, completedPayouts: 40000 },
-//   { day: "24", totalSales: 160000, totalOrders: 2000, activeBrands: 950, newCustomers: 80, pendingPayouts: 12500, completedPayouts: 43000 },
-//   { day: "26", totalSales: 200000, totalOrders: 2200, activeBrands: 1000, newCustomers: 90, pendingPayouts: 13000, completedPayouts: 45000 },
-//   { day: "28", totalSales: 185000, totalOrders: 2100, activeBrands: 970, newCustomers: 85, pendingPayouts: 12000, completedPayouts: 42000 },
-//   { day: "31", totalSales: 150000, totalOrders: 1800, activeBrands: 900, newCustomers: 75, pendingPayouts: 10000, completedPayouts: 38000 },
-// ];
-
-
-
 export const deliverySummary = [
   { name: "Delivered", value: 63, fill: "#D9E021" },
   { name: "Pending", value: 35, fill: "#00A99D" },
   { name: "Returned", value: 18, fill: "#C1272D" }
 ];
+
+
+
+
+
+
+export const topBrandsColumnHeader = [
+    {
+        header: "#", 
+        className: "text-merseLightText text-sm font-semibold" 
+    }, 
+    {
+        header: "Brands", 
+        className: "text-merseLightText text-sm font-semibold" 
+    }, 
+    {
+        header: "Sales", 
+        className: "text-merseLightText text-sm font-semibold" 
+    }, 
+    {
+        header: "Orders", 
+        className: "text-merseLightText text-sm font-semibold" 
+    }, 
+    {
+        header: "AOV", 
+        className: "text-merseLightText text-sm font-semibold" 
+    }, 
+]
+
+export const topBrandsTableData = [
+    {
+        id: 1, 
+        brand: "Techstyle Co", 
+        sales: 156000,
+        orders: 432, 
+        aov: 32
+    }, 
+    {
+        id: 2, 
+        brand: "Techstyle Co", 
+        sales: 156000,
+        orders: 432, 
+        aov: 32
+    }, 
+    {
+        id: 3, 
+        brand: "Techstyle Co", 
+        sales: 156000,
+        orders: 432, 
+        aov: 32
+    }, 
+    {
+        id: 4, 
+        brand: "Techstyle Co", 
+        sales: 156000,
+        orders: 432, 
+        aov: 32
+    }, 
+    {
+        id: 5, 
+        brand: "Techstyle Co", 
+        sales: 156000,
+        orders: 432, 
+        aov: 32
+    }, 
+    {
+        id: 6, 
+        brand: "Techstyle Co", 
+        sales: 156000,
+        orders: 432, 
+        aov: 32
+    }, 
+    {
+        id: 7, 
+        brand: "Techstyle Co", 
+        sales: 156000,
+        orders: 432, 
+        aov: 32
+    }, 
+]

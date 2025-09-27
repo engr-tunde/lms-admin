@@ -1,7 +1,7 @@
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
-// import { useState } from "react";
 import AnalyticsOverviewPage from "../../components/analytics/AnalyticsOverviewChart"
 import AnalyticsSummaryChart from "../../components/analytics/AnalyticsSummaryChart"
+import AnalyticsTopBrandsTable from "../../components/analytics/AnalyticsTopBrandsTable"
 
 function DashboardAnalyticsPage() {
 
@@ -17,11 +17,13 @@ function DashboardAnalyticsPage() {
         <div className="col-span-2">
           <AnalyticsOverviewPage />
         </div>
-        <div className="col-span-2 lg:col-span-1">
+        <div className="col-span-2 lg:col-span-1"
+        >
           <AnalyticsSummaryChart />
         </div>
-        <div className="col-span-2 lg:col-span-1">
-          
+        <div className="col-span-2 lg:col-span-1"
+        >
+          <AnalyticsTopBrandsTable/>
         </div>
       </div>
     </div>

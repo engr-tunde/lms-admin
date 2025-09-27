@@ -5,7 +5,7 @@ import { RiCalendarLine } from "react-icons/ri";
 
 const AnalyticsSummaryChart = () => {
   return (
-    <div className="w-full p-3 border-[1px] border-merseBorder">
+    <div className="w-full p-3 border-[1px] border-merseBorder h-[400px] flex flex-col justify-between">
       <div className="w-full flex justify-between gap-5 mb-4">
           <div>Delivery Summary</div>
         <div className="flex">
@@ -16,7 +16,7 @@ const AnalyticsSummaryChart = () => {
           </div>
         </div>
       </div>
-    <CustomPieChart data={deliverySummary} title="Total Orders" />
+      <CustomPieChart data={deliverySummary} title="Total Orders" />
     </div>
   )
 }
