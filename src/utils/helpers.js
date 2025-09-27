@@ -13,6 +13,17 @@ export const formatter = (amount) => {
   return fm.format(amount);
 };
 
+export const compactFormatter = (amount) => {
+  const fm = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    notation: "compact",           // 👈 key part
+    maximumFractionDigits: 1,      // "$1.2M" instead of "$1.234M"
+  });
+  return fm.format(amount);
+};
+
+
 export const dateFormatter = (date) => {
   var dateString = new Date(date).toString();
   // console.log({ dateString });

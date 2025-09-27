@@ -17,6 +17,7 @@ import DashboardMembersPage from "./pages/members/index.jsx";
 import DashboardSettingsPage from "./pages/settings/index.jsx";
 import DashboardProductPage from "./pages/products/index.jsx";
 import DashboardBrandsPage from "./pages/brands/index.jsx";
+import DashboardAnalyticsPage from "./pages/analytics/index.jsx";
 import OrderViewPage from "./pages/orders/order-view.jsx";
 import DashboardBrandDetailsPage from "./pages/brands/brand-details.jsx";
 import PayoutDisputeViewPage from "./pages/dispute/payout-dispute-view.jsx";
@@ -52,6 +53,7 @@ function App() {
               <Route path="/dispute-payout/:id" element={<PayoutDisputeViewPage />} />
 
               <Route path="/members" element={<DashboardMembersPage />} />
+              <Route path="/analytics" element={<DashboardAnalyticsPage />} />
               <Route path="/settings" element={<DashboardSettingsPage />} />
               <Route path="/products" element={<DashboardProductPage />} />
 
