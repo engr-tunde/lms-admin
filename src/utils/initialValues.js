@@ -1,3 +1,12 @@
+export const addAdminValues = () => {
+  const initialValues = {
+    fullName: "",
+    email: "",
+    role: "",
+  };
+  return initialValues;
+};
+
 export const joinValues = () => {
   const initialValues = {
     email: "",

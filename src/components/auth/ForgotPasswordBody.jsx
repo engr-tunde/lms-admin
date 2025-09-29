@@ -4,21 +4,27 @@ import { validateForgotPassword } from "../../utils/validate";
 import { forgotPasswordValues } from "../../utils/initialValues";
 import SubmitButton from "../forms/SubmitButton";
 import { errorNotification, successNotification } from "../../utils/helpers";
-import { userForgotPassword } from "../../api";
+import { forgotPassword } from "../../api";
 import AuthHeader from "./AuthHeader";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPasswordBody = () => {
   const initialValues = forgotPasswordValues();
   const validationSchema = validateForgotPassword();
+  const history = useNavigate();
 
   const handleSubmit = async (values) => {
-    const response = await userForgotPassword({
-      email: values.email,
-    });
-    if (response.status === 200) {
+    const response = await forgotPassword(values);
+    console.log("response", response);
+    if (response.status.toString().includes("20")) {
       successNotification(response.data.message);
+      setTimeout(() => {
+        history("/verify-forgot-password", {
+          state: { email: values.email },
+        });
+      }, 300);
     } else {
-      errorNotification(response?.data?.error);
+      errorNotification(response?.data?.message);
     }
   };
 
@@ -38,8 +44,8 @@ const ForgotPasswordBody = () => {
             <InputField name="email" placeholder="Account email address" />
           </div>
           <SubmitButton
-            title="Send Password Reset Link"
-            className="mt-5 w-[100%]"
+            title="Send Password Reset Code"
+            className="mt-5 w-[100%] py-3"
           />
         </CustomFormik>
       </div>

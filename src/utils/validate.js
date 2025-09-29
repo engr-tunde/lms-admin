@@ -1,14 +1,18 @@
 import * as yup from "yup";
 import { z } from "zod";
 
-export const validateM2MTrade = (data) => {
-  z.object({
-    pay: z.string().min(1, { message: "How much are you paying?" }),
-  }).refine((sample) => data.order.min_limit < sample.pay, {
-    message: "Amount cannot be more than trade's minimum limit",
-    path: ["sample"],
+export const validateAddAdmin = () => {
+  const validationSchema = yup.object().shape({
+    fullName: yup.string().trim().required("Full Name is required"),
+    email: yup
+      .string()
+      .email("Invalid email")
+      .required("Account email is missing"),
+    role: yup.string().trim().required("Admin role is required"),
   });
+  return validationSchema;
 };
+
 // .object({
 //     username: z.string().min(1, { message: "Username is missing!" }),
 //     email: z.string().email({ message: "Invalid email adress" }),

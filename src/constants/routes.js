@@ -1,29 +1,18 @@
-const VERIFY_ACCOUNT = "/user-auth/verify-email";
-const RESEND_VERIFY_ACCOUNT_OTP = "/user-auth/resend-verification-otp";
-const FORGOT_PASSWORD = "/user-auth/forgot-password";
-const RESET_PASSWORD = "/user-auth/reset-password";
+export const FORGOT_PASSWORD = "/admins/forgot-password";
+export const VERIFY_FORGOT_PASSWORD = "/admins/verify-forgot-password";
+export const RESET_PASSWORD = "/admins/reset-password";
+export const SIGNIN = "/admins/login";
+export const VERIFY_LOGIN = "/admins/verify-login";
 
-const SIGNIN = "/user-auth/login";
-const RESEND_VERIFY_LOGIN_OTP = "/user-auth/resend-login-otp";
-const CHECK_SESSION = "/user-auth/check-session";
+export const CHECK_SESSION = "/admins/check-session";
 
+export const BRANDS = "/admins/brands";
+export const PRODUCTS = "/admins/products";
+export const DISPUTES = "/admins/disputes";
 //
 // DASHBOARD
-const FETCH_PRODUCTS = "/hfhfh";
-const USER_PROFILE = "/hfhfh";
-const USER_LOGOUT = "/hfhfh";
+
+// ADMIN
+export const ADMINS = "/admins";
 
 // HEADERS
-
-export {
-  VERIFY_ACCOUNT,
-  RESEND_VERIFY_ACCOUNT_OTP,
-  FORGOT_PASSWORD,
-  RESET_PASSWORD,
-  SIGNIN,
-  RESEND_VERIFY_LOGIN_OTP,
-  CHECK_SESSION,
-  FETCH_PRODUCTS,
-  USER_PROFILE,
-  USER_LOGOUT,
-};

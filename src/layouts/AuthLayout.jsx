@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { checkSession } from "../api";
+// import { checkSession } from "../api";
 
 const AuthLayout = () => {
   // const { session } = checkSession();

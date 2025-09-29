@@ -6,6 +6,7 @@ export const fetcher = ({ url, withCredentials = false }) =>
     .get(url, { withCredentials })
     .then((res) => {
       console.log("res.status", res.status);
+      // console.log("res", res);
       if (res.status == 401) {
         Cookies.remove("u-x");
         window.location.href = "/login";

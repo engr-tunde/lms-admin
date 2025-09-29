@@ -1,25 +1,23 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { errorNotification, successNotification } from "../../utils/helpers";
 import OTPInputField from "../forms/OTPInputField";
-import { userResendVerifyEmailOTP, userVerifyEmail } from "../../api";
-import Cookies from "js-cookie";
 import AuthHeader from "./AuthHeader";
 import GeneralButton from "../forms/GeneralButton";
+import { login, verifyLogin } from "../../api";
 
-const VerifyAccountBody = () => {
+const VerifyLoginBody = () => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(10);
   const [otp, setOtp] = useState("");
   const [isSubmitting, setisSubmitting] = useState(false);
   const [disabled, setdisabled] = useState(false);
+  const [resendOTPcount, setresendOTPcount] = useState(false);
   const onChange = (value) => setOtp(value);
 
   const history = useNavigate();
   const location = useLocation();
-  const userId = location?.state?.userId;
-  // console.log({ userId });
-
+  const credentials = location?.state?.credentials;
   let otpLength = 6;
 
   useEffect(() => {
@@ -40,14 +38,15 @@ const VerifyAccountBody = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [minutes, seconds]);
+  }, [minutes, seconds, resendOTPcount]);
 
   const resendOTP = async () => {
-    const response = await userResendVerifyEmailOTP({ userId });
-    if (response.status === 200) {
-      successNotification("New OTP successfully sent!");
+    const response = await login(credentials);
+    if (response.status.toString().includes("20")) {
+      successNotification(response.data.message);
+      setresendOTPcount(!resendOTPcount);
     } else {
-      errorNotification(response?.data?.error);
+      errorNotification(response?.data?.message);
     }
   };
 
@@ -55,22 +54,17 @@ const VerifyAccountBody = () => {
     setisSubmitting(true);
     setdisabled(true);
 
-    // const response = await userVerifyEmail({
-    //   otp: otp,
-    //   userId,
-    // });
-    // console.log("response", response);
-    // if (response.status === 200) {
-    //   Cookies.set("u-x", response?.headers["u-x-key"]);
-    //   setTimeout(() => history("/dashboard"), 3000);
-    // } else {
-    //   errorNotification(response?.data?.error);
-    // }
-    successNotification("Creadentials verified. Successfully logged in");
-    setTimeout(() => {
-      history("/");
-    }, 300);
-
+    const response = await verifyLogin({
+      otp: otp,
+      email: credentials.email,
+    });
+    console.log("response", response);
+    if (response.status.toString().includes("20")) {
+      successNotification("Successfully verified! Now set a new password.");
+      setTimeout(() => history("/"), 3000);
+    } else {
+      errorNotification(response?.data?.message);
+    }
     setisSubmitting(false);
     setdisabled(false);
   };
@@ -107,6 +101,8 @@ const VerifyAccountBody = () => {
           handleSubmit={handleSubmit}
           className="mt-6 w-[100%]"
           title="Verify Code"
+          disabled={disabled}
+          isSubmitting={isSubmitting}
         />
 
         <div className="mt-[20px]">
@@ -122,7 +118,7 @@ const VerifyAccountBody = () => {
               </div>
               <div
                 onClick={resendOTP}
-                className="text-[#fff] font-semibold cursor-pointer text-sm underline"
+                className=" font-semibold cursor-pointer text-sm underline"
               >
                 Resend OTP
               </div>
@@ -135,4 +131,4 @@ const VerifyAccountBody = () => {
   );
 };
 
-export default VerifyAccountBody;
+export default VerifyLoginBody;

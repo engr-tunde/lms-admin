@@ -1,33 +1,30 @@
-import { IoMdClose }from "react-icons/io";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import AppFormButton from "../forms/buttons/AppFormButton";
+import { IoMdClose } from "react-icons/io";
+import { addAdminValues } from "../../utils/initialValues";
+import { validateAddAdmin } from "../../utils/validate";
+import CustomFormik from "../../utils/CustomFormik";
+import SubmitButton from "../forms/SubmitButton";
+import InputField from "../forms/InputField";
+import SelectField from "../forms/SelectField";
+import { adminRoles } from "../../data/memberData";
+import { addAdmin } from "../../api";
+import { errorNotification, successNotification } from "../../utils/helpers";
 
+const AddMemberModal = ({ show, onClose }) => {
+  if (!show) return null;
 
-const AddMemberModal = ({ show, onClose, }) => {
-    if (!show) return null;
-  
-  const initialValues = {
-    emailAddress: "",
-    roles: "",
+  const initialValues = addAdminValues();
+  const validationSchema = validateAddAdmin();
+
+  const handleSubmit = async (values) => {
+    const response = await addAdmin(values);
+    if (response.status.toString().includes("20")) {
+      successNotification(response.data?.message);
+      onClose();
+    } else {
+      errorNotification(response?.data?.message);
+    }
   };
 
-  const validationSchema = Yup.object({
-    emailAddress: Yup.string().required("Email Address is required"),
-    roles: Yup.string().required("Roles are required"),
-  });
-
-//   const handleSubmit = async (values, { resetForm }) => {
-//     try {
-//       await axios.post(endpoint, values);
-//       alert(`${type === "category" ? "Category" : "Adjustment"} added!`);
-//       resetForm();
-//       onClose();
-//     } catch (error) {
-//       console.error("Submission error:", error);
-//     }
-//   };
-  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25 bg-opacity-40 w-full">
       <div className="bg-white p-6 shadow-lg w-[70%] lg:w-1/2">
@@ -38,69 +35,44 @@ const AddMemberModal = ({ show, onClose, }) => {
         </div>
         <div className="flex flex-col gap-1 mb-6">
           <span className="text-xl font-semibold">Add team members</span>
-          <span className="text-sm text-merseBorder">Each user will receive an email invitation to get them started</span>
+          <span className="text-sm text-merseBorder">
+            Each user will receive an email invitation to get them started
+          </span>
         </div>
-        <Formik
+        <CustomFormik
           initialValues={initialValues}
           validationSchema={validationSchema}
-        //   onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
         >
-          <Form className="space-y-4">
-            <div className="flex justify-between gap-4 h-full">
-              <div className="w-1/2 h-full">
-                <Field
-                  name="emailAddress"
-                  placeholder="Email address"
-                  className="w-full h-full text-sm border-2 focus:border-black outline-none px-3 py-2"
-                />
-                <ErrorMessage
-                  name="emailAddress"
-                  component="div"
-                  className="text-red-500 text-xs"
-                />
-              </div>
-              <div className="w-1/2 h-full">
-                <Field
-                  name="roles"
-                  as="select"
-                  className="w-full h-full text-sm border-2 focus:border-black outline-none px-3 py-2"
-                >
-                  <option value="roles">Select a role</option>
-                  <option value="admin">Admin</option>
-                  <option value="operationsManager">Operations Manager</option>
-                  <option value="financeManager">Finance Manager</option>
-                  <option value="brandManager">Brand Manager</option>
-                </Field>
-                <ErrorMessage
-                  name="roles"
-                  component="div"
-                  className="text-red-500 text-xs"
-                />
-              </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 ustify-between gap-4 h-full">
+            <div className="col-span-1 lg:col-span-2 h-full">
+              <InputField name="fullName" placeholder="Full name" />
             </div>
-            <div className="flex justify-end gap-4">
-              <button
-                type="button"
-                onClick={onClose}
-                className="px-3 py-1 border-2 text-sm"
-              >
-                Cancel
-              </button>
-              <AppFormButton 
-                title="Invite Member"
-                className="px-3 py-1 text-white bg-black text-sm"
-                // type="submit"
-                isSubmitting={false}
-                disabled={true}
+            <div className="col-span-1 h-full">
+              <InputField name="email" placeholder="Email address" />
+            </div>
+            <div className="col-span-1 h-full">
+              <SelectField
+                name="role"
+                array={adminRoles}
+                title="Select admin"
               />
             </div>
-          </Form>
-        </Formik>
+          </div>
+          <div className="flex justify-end gap-4 mt-6">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-3 py-1 border-2 text-sm"
+            >
+              Cancel
+            </button>
+            <SubmitButton title="Invite Member" className="px-3 py-1" />
+          </div>
+        </CustomFormik>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AddMemberModal
-
-// AppFormButton = ({ title, className, isSubmitting, disabled })
+export default AddMemberModal;

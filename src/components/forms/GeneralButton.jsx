@@ -2,8 +2,8 @@ const GeneralButton = ({
   title,
   className,
   handleSubmit,
-  disabled = false,
-  isSubmitting = false,
+  disabled,
+  isSubmitting,
 }) => {
   const label = isSubmitting ? "Loading..." : title;
 
@@ -12,9 +12,9 @@ const GeneralButton = ({
       type="button"
       onClick={handleSubmit}
       className={`primary-btnn py-3 ${className} ${
-        isSubmitting && "bg-opacity-60"
+        (isSubmitting || disabled) && "bg-opacity-60"
       }`}
-      disabled={disabled ? true : isSubmitting ? true : false}
+      disabled={isSubmitting || disabled ? true : false}
     >
       {label}
     </button>

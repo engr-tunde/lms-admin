@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 import Head from "../../../components/globals/Head";
-import VerifyEmailBody from "../../../components/auth/VerifyAccountBody";
+import VerifyLoginBody from "../../../components/auth/VerifyLoginBody";
 
-const VerifyEmailPage = () => {
+const VerifyLoginPage = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
   return (
     <>
       <Head pageTitle="Verify Account" />
-      <VerifyEmailBody />
+      <VerifyLoginBody />
     </>
   );
 };
 
-export default VerifyEmailPage;
+export default VerifyLoginPage;

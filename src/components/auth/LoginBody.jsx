@@ -5,8 +5,8 @@ import { loginValues } from "../../utils/initialValues";
 import SubmitButton from "../forms/SubmitButton";
 import { Link, useNavigate } from "react-router-dom";
 import { errorNotification, successNotification } from "../../utils/helpers";
-import { userLogin } from "../../api";
 import AuthHeader from "./AuthHeader";
+import { login } from "../../api";
 
 const LoginBody = () => {
   const initialValues = loginValues();
@@ -14,29 +14,20 @@ const LoginBody = () => {
   const history = useNavigate();
 
   const handleSubmit = async (values) => {
-    successNotification("Creadentials verified. Successfully logged in");
-    setTimeout(() => {
-      history("/verify-account");
-    }, 300);
-
-    // const response = await userLogin({
-    //   email: values.email,
-    //   password: values.password,
-    // });
-    // console.log("response", response);
-
-    // if (response.status === 200) {
-    //   successNotification(response.data.message);
-    //   setTimeout(
-    //     () =>
-    //       history("/verify-login", {
-    //         state: { userId: response.data.userId },
-    //       }),
-    //     1500
-    //   );
-    // } else {
-    //   errorNotification(response?.data?.error);
-    // }
+    const response = await login(values);
+    console.log("response", response);
+    if (response.status.toString().includes("20")) {
+      successNotification(response.data.message);
+      setTimeout(
+        () =>
+          history("/verify-login", {
+            state: { credentials: values },
+          }),
+        1500
+      );
+    } else {
+      errorNotification(response?.data?.message);
+    }
   };
 
   return (
@@ -59,7 +50,7 @@ const LoginBody = () => {
               type="password"
             />
           </div>
-          <SubmitButton title="Signin" className="mt-6 w-[100%]" />
+          <SubmitButton title="Signin" className="mt-6 w-[100%] py-3" />
           <div className="text-[13px] md:text-[14px] text-center mt-[20px] flex justify-end gap-2">
             <Link to="/forgot-password" className="font-semibold">
               Forgot password

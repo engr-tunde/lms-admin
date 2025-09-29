@@ -6,12 +6,17 @@ import { FaChevronDown } from "react-icons/fa";
 import BrandsOrderCardContainer from "../../components/brands/brand-order/BrandsOrderCardContainer";
 import AddedProductBrandsCardContainer from "../../components/brands/brand-overview/AddedProductBrandsCardContainer";
 import AllBrandsTable from "../../components/brands/AllBrandsTable";
+import { fetchBrands, fetchProducts } from "../../api";
 
 function DashboardBrandsPage() {
   const [activeTab, setActiveTab] = useState("Brand overview");
   const ellipsisIcon = (size) => {
     return <IoEllipsisHorizontalSharp size={size} />;
   };
+  const { brands, brandsLoading, brandsError } = fetchBrands();
+  const { products, productsLoading, productsError } = fetchProducts();
+  console.log("brands ss", brands);
+  console.log("products ss", products);
 
   return (
     <div className="flex flex-col gap-6">

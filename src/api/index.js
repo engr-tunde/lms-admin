@@ -1,90 +1,106 @@
 import useSWR from "swr";
 import {
-  FETCH_PRODUCTS,
+  ADMINS,
+  BRANDS,
+  DISPUTES,
   FORGOT_PASSWORD,
-  RESEND_VERIFY_ACCOUNT_OTP,
+  PRODUCTS,
   RESET_PASSWORD,
   SIGNIN,
-  USER_LOGOUT,
-  USER_PROFILE,
-  VERIFY_ACCOUNT,
+  VERIFY_FORGOT_PASSWORD,
+  VERIFY_LOGIN,
 } from "../constants/routes";
 import { mutationRequest } from "./sendData";
 import { fetcher, sessionFetcher } from "./fetcher";
 
 // WEBSITE
 // Tokens
-export const fetchProducts = () => {
-  const { data, error, mutate } = useSWR(
-    { url: FETCH_PRODUCTS, withCredentials: true },
-    fetcher
-  );
-  return {
-    tokens: data,
-    tokensLoading: !error && !data,
-    tokensError: error,
-    mutate,
-  };
-};
 
 // Auth
-export const checkSession = () => {
-  const { data, error, mutate } = useSWR(USER_PROFILE, sessionFetcher);
-  return {
-    session: data,
-    sessionLoading: !error && !data,
-    sessionError: error,
-    mutate,
-  };
-};
-export const userVerifyEmail = async (values) => {
-  const result = await mutationRequest(VERIFY_ACCOUNT, "post", values, true);
-  return result;
-};
-export const userResendVerifyEmailOTP = async (values) => {
-  const result = await mutationRequest(
-    RESEND_VERIFY_ACCOUNT_OTP,
-    "post",
-    values,
-    true
-  );
-  return result;
-};
+// export const checkSession = () => {
+//   const { data, error, mutate } = useSWR(USER_PROFILE, sessionFetcher);
+//   return {
+//     session: data,
+//     sessionLoading: !error && !data,
+//     sessionError: error,
+//     mutate,
+//   };
+// };
 
-export const userLogin = async (values) => {
-  const result = await mutationRequest(SIGNIN, "post", values, false);
-  return result;
-};
-export const userForgotPassword = async (values) => {
+export const forgotPassword = async (values) => {
   const result = await mutationRequest(FORGOT_PASSWORD, "post", values, false);
   return result;
 };
-export const userResetPassword = async (id, token, values) => {
+export const verifyForgotPassword = async (values) => {
   const result = await mutationRequest(
-    `${RESET_PASSWORD}?id=${id}&token=${token}`,
+    VERIFY_FORGOT_PASSWORD,
     "post",
     values,
     false
   );
   return result;
 };
+export const resetPassword = async (values) => {
+  const result = await mutationRequest(RESET_PASSWORD, "patch", values, false);
+  return result;
+};
+export const login = async (values) => {
+  const result = await mutationRequest(SIGNIN, "post", values, false);
+  return result;
+};
+export const verifyLogin = async (values) => {
+  const result = await mutationRequest(VERIFY_LOGIN, "post", values, false);
+  return result;
+};
 
-// Profile
-export const userProfile = () => {
-  const { data, error, mutate } = useSWR(
-    { url: USER_PROFILE, withCredentials: true },
-    fetcher
-  );
+// Admins
+export const addAdmin = async (values) => {
+  const result = await mutationRequest(ADMINS, "post", values, false);
+  return result;
+};
+// export const fetchAdmins = () => {
+//   const { data, error, mutate } = useSWR(withCredentials, fetcher);
+//   return {
+//     tokens: data,
+//     tokensLoading: !error && !data,
+//     tokensError: error,
+//     mutate,
+//   };
+// };
+
+export const fetchBrands = () => {
+  const { data, error, mutate } = useSWR(BRANDS, fetcher);
   return {
-    user: data,
-    userLoading: !error && !data,
-    userError: error,
+    brands: data,
+    brandsLoading: !error && !data,
+    brandsError: error,
     mutate,
   };
 };
-//
-export const userLogout = async () => {
-  const result = await mutationRequest(USER_LOGOUT, "post", null, true);
-  console.log("result", result);
-  return result;
+export const fetchProducts = () => {
+  const { data, error, mutate } = useSWR(PRODUCTS, fetcher);
+  return {
+    products: data,
+    productsLoading: !error && !data,
+    productsError: error,
+    mutate,
+  };
+};
+export const fetchSingleProduct = (id) => {
+  const { data, error, mutate } = useSWR(`${PRODUCTS}/${id}`, fetcher);
+  return {
+    product: data,
+    productLoading: !error && !data,
+    productError: error,
+    mutate,
+  };
+};
+export const fetchDisputes = (id) => {
+  const { data, error, mutate } = useSWR(`${DISPUTES}/${id}`, fetcher);
+  return {
+    disputes: data,
+    disputesLoading: !error && !data,
+    disputesError: error,
+    mutate,
+  };
 };

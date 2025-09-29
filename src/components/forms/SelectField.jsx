@@ -1,4 +1,4 @@
-import { useFormikContext } from "formik";
+import { Field, useFormikContext } from "formik";
 
 const SelectField = ({ name, placeholder, array, title, ...rest }) => {
   const { errors, values, touched, handleBlur, handleChange } =
@@ -8,23 +8,26 @@ const SelectField = ({ name, placeholder, array, title, ...rest }) => {
   const error = errors[name];
   const isInputTouched = touched[name];
 
+  console.log("typeof array[0]", typeof array[0]);
+
   return (
     <div className="col-span-1">
-      <select
-        value={value}
-        onChange={handleChange(name)}
-        onBlur={handleBlur(name)}
-        placeholder={placeholder}
-        className="border rounded-md w-[100%] bg-transparent p-3 text-[14px] font-[400]"
-        {...rest}
+      <Field
+        name={name}
+        as="select"
+        className={`w-full h-full text-sm border-2 focus:border-black outline-none px-3 py-2`}
       >
-        <option value="">{title}</option>
+        {title && <option value="roles">{title}</option>}
         {array.map((item, i) => (
-          <option className="" key={i} value={item}>
-            {item}
+          <option
+            className=""
+            key={i}
+            value={typeof array[0] == "object" ? item?.value : item}
+          >
+            {typeof array[0] == "object" ? item?.title : item}
           </option>
         ))}
-      </select>
+      </Field>
       {error && isInputTouched ? (
         <div className="text-red-500 text-[12px] font-400 lowercase">
           {error}

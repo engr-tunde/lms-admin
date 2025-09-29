@@ -5,38 +5,28 @@ import { resetPasswordValues } from "../../utils/initialValues";
 import SubmitButton from "../forms/SubmitButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import { errorNotification, successNotification } from "../../utils/helpers";
-import { userResetPassword } from "../../api";
 import AuthHeader from "./AuthHeader";
+import { resetPassword } from "../../api";
 
 const ResetPasswordBody = () => {
   const initialValues = resetPasswordValues();
   const validationSchema = validateResetPassword();
   const history = useNavigate();
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const token = queryParams.get("token");
-  const id = queryParams.get("id");
-  // if (!id || !token) {
-  //   errorNotification(
-  //     "Sorry, you cannot visit this page without a valid link sent to your email"
-  //   );
-  //   history("/login");
-  // }
+  const requestID = location?.state?.requestID;
+  if (!requestID) {
+    errorNotification("Sorry, you cannot visit this page without a token");
+    history("/login");
+  }
 
   const handleSubmit = async (values) => {
-    // const response = await userResetPassword(id, token, {
-    //   password: values.password,
-    // });
-    // if (response.status === 200) {
-    //   successNotification(response.data.message);
-    //   history("/login");
-    // } else {
-    //   errorNotification(response?.data?.error);
-    // }
-    successNotification("Password successfully updated! Now log in");
-    setTimeout(() => {
+    const response = await resetPassword({ requestID, ...values });
+    if (response.status === 200) {
+      successNotification(response.data.message);
       history("/login");
-    }, 300);
+    } else {
+      errorNotification(response?.data?.message);
+    }
   };
 
   return (
@@ -55,7 +45,7 @@ const ResetPasswordBody = () => {
             <InputField name="password" placeholder="Set password" />
             <InputField name="confirmPassword" placeholder="Confirm password" />
           </div>
-          <SubmitButton title="Reset Password" className="mt-6 w-[100%]" />
+          <SubmitButton title="Reset Password" className="mt-6 w-[100%] py-3" />
         </CustomFormik>
       </div>
     </>

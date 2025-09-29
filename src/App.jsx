@@ -4,7 +4,6 @@ import LoginPage from "./pages/auth/login/index.jsx";
 import ForgotPasswordPage from "./pages/auth/forgot-password/index.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import VerifyEmailPage from "./pages/auth/verify-account/index.jsx";
 import ResetPasswordPage from "./pages/auth/reset-password/index.jsx";
 import DashboardLayout from "./layouts/DashboardLayout.jsx";
 import DashboardOverviewPage from "./pages/overview/index.jsx";
@@ -12,7 +11,7 @@ import AuthLayout from "./layouts/AuthLayout.jsx";
 import DashboardOrdersPage from "./pages/orders/index.jsx";
 import DashboardPayoutPage from "./pages/payouts/index.jsx";
 import DashboardDisputePage from "./pages/dispute/index.jsx";
-import OrderDisputeViewPage from "./pages/dispute/order-dispute-view.jsx"
+import OrderDisputeViewPage from "./pages/dispute/order-dispute-view.jsx";
 import DashboardMembersPage from "./pages/members/index.jsx";
 import DashboardSettingsPage from "./pages/settings/index.jsx";
 import DashboardProductPage from "./pages/products/index.jsx";
@@ -22,6 +21,8 @@ import OrderViewPage from "./pages/orders/order-view.jsx";
 import DashboardBrandDetailsPage from "./pages/brands/brand-details.jsx";
 import PayoutDisputeViewPage from "./pages/dispute/payout-dispute-view.jsx";
 import PayoutDetailPage from "./pages/payouts/payout-detail.jsx";
+import VerifyForgotPasswordPage from "./pages/auth/verify-forgot-password/index.jsx";
+import VerifyLoginPage from "./pages/auth/verify-login/index.jsx";
 
 function App() {
   return (
@@ -47,10 +48,16 @@ function App() {
               <Route path="/orders/:id" element={<OrderViewPage />} />
               <Route path="/payout" element={<DashboardPayoutPage />} />
               <Route path="/payout/:id" element={<PayoutDetailPage />} />
-              
+
               <Route path="/dispute" element={<DashboardDisputePage />} />
-              <Route path="/dispute-order/:id" element={<OrderDisputeViewPage />} />
-              <Route path="/dispute-payout/:id" element={<PayoutDisputeViewPage />} />
+              <Route
+                path="/dispute-order/:id"
+                element={<OrderDisputeViewPage />}
+              />
+              <Route
+                path="/dispute-payout/:id"
+                element={<PayoutDisputeViewPage />}
+              />
 
               <Route path="/members" element={<DashboardMembersPage />} />
               <Route path="/analytics" element={<DashboardAnalyticsPage />} />
@@ -65,9 +72,13 @@ function App() {
             </Route>
 
             <Route element={<AuthLayout />}>
-              <Route path="/verify-account" element={<VerifyEmailPage />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/verify-login" element={<VerifyLoginPage />} />
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route
+                path="/verify-forgot-password"
+                element={<VerifyForgotPasswordPage />}
+              />
               <Route path="/reset-password" element={<ResetPasswordPage />} />
             </Route>
 
