@@ -2,10 +2,13 @@ import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import MemberTable from "../../components/members/MemberTable.jsx";
 import { useState } from "react";
 import AddMemberModal from "../../components/members/AddMemberModal.jsx";
+import { fetchAdmins } from "../../api/index.js";
 
 function DashboardMembersPage() {
   const [showModal, setShowModal] = useState(false);
-  
+  const { admins, adminsLoading, adminsError } = fetchAdmins();
+  console.log("admins ss", admins);
+
   return (
     <div className="flex flex-col gap-0">
       <DashboardNavBar
@@ -13,7 +16,7 @@ function DashboardMembersPage() {
         subtitle="Manage and search members with ease."
       />
       <div className="flex justify-end">
-        <button 
+        <button
           className="text-white bg-black px-3 py-2 cursor-pointer"
           onClick={() => setShowModal(true)}
         >

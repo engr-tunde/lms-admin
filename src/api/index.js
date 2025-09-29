@@ -58,15 +58,15 @@ export const addAdmin = async (values) => {
   const result = await mutationRequest(ADMINS, "post", values, false);
   return result;
 };
-// export const fetchAdmins = () => {
-//   const { data, error, mutate } = useSWR(withCredentials, fetcher);
-//   return {
-//     tokens: data,
-//     tokensLoading: !error && !data,
-//     tokensError: error,
-//     mutate,
-//   };
-// };
+export const fetchAdmins = () => {
+  const { data, error, mutate } = useSWR(ADMINS, fetcher);
+  return {
+    admins: data,
+    adminsLoading: !error && !data,
+    adminsError: error,
+    mutate,
+  };
+};
 
 export const fetchBrands = () => {
   const { data, error, mutate } = useSWR(BRANDS, fetcher);
