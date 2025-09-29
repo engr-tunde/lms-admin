@@ -15,10 +15,13 @@ function DashboardSidebar() {
       </div>
       <div className="flex flex-col gap-4">
         {dashboardSidebarMenu?.map((ele, i) => (
-          <Link to={ele.url}
+          <Link
+            to={ele.url}
             key={i}
             className={`text-[14px] hover:scale-105 hover:font-semibold duration-200 ease-in cursor-pointer ${
-              pathname === ele.url ? "font-semibold" : "font-light"
+              pathname === ele.url
+                ? "font-semibold bg-merseBorder/65 p-1"
+                : "font-light"
             }`}
           >
             {ele.title}
