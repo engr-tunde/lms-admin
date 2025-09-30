@@ -67,6 +67,10 @@ export const fetchAdmins = () => {
     mutate,
   };
 };
+export const deleteAdmin = async (id) => {
+  const result = await mutationRequest(`${ADMINS}/${id}`, "delete", false);
+  return result;
+};
 
 export const fetchBrands = () => {
   const { data, error, mutate } = useSWR(BRANDS, fetcher);

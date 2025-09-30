@@ -4,8 +4,22 @@ import { RiCalendarLine } from "react-icons/ri";
 import ProductCardContainer from "../../components/products/ProductCardContainer";
 import NewlyAddedProductCardContainer from "../../components/products/AddedProductCardContainer";
 import ProductDisplayContainer from "../../components/products/ProductDisplayContainer";
+import { useEffect, useState } from "react";
+import { fetchProducts } from "../../api";
 
 function DashboardProductPage() {
+  const { products, productsLoading, productsError } = fetchProducts();
+  const [filteredData, setfilteredData] = useState();
+  const [originalArr, setoriginalArr] = useState();
+  console.log("products", products);
+
+  useEffect(() => {
+    if (products) {
+      setoriginalArr(products?.products);
+      setfilteredData(products?.products);
+    }
+  }, [products]);
+
   return (
     <div className="flex flex-col gap-6 h-full">
       <DashboardNavBar
@@ -22,7 +36,11 @@ function DashboardProductPage() {
         </div>
         <ProductCardContainer />
         <NewlyAddedProductCardContainer />
-        <ProductDisplayContainer />
+        <ProductDisplayContainer
+          filteredData={filteredData}
+          setfilteredData={setfilteredData}
+          originalArr={originalArr}
+        />
       </div>
     </div>
   );

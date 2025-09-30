@@ -5,6 +5,7 @@ import OTPInputField from "../forms/OTPInputField";
 import AuthHeader from "./AuthHeader";
 import GeneralButton from "../forms/GeneralButton";
 import { login, verifyLogin } from "../../api";
+import Cookies from "js-cookie";
 
 const VerifyLoginBody = () => {
   const [minutes, setMinutes] = useState(0);
@@ -58,8 +59,8 @@ const VerifyLoginBody = () => {
       otp: otp,
       email: credentials.email,
     });
-    console.log("response", response);
     if (response.status.toString().includes("20")) {
+      Cookies.set("authToken", response.data.token);
       successNotification("Successfully verified! Now set a new password.");
       setTimeout(() => history("/"), 3000);
     } else {

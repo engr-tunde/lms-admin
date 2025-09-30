@@ -1,9 +1,11 @@
-
 const StatusCheck = ({ value, className = "" }) => {
   let bg = "";
 
   switch (value?.toLowerCase()) {
     case "active":
+      bg = "bg-green-500 text-white";
+      break;
+    case "isActive":
       bg = "bg-green-500 text-white";
       break;
     case "resolved":
@@ -64,14 +66,7 @@ const StatusCheck = ({ value, className = "" }) => {
       bg = "";
   }
 
-  return (
-    <span className={`${bg} ${className}`}>
-      {value}
-    </span>
-  );
+  return <span className={`${bg} ${className}`}>{value}</span>;
 };
 
 export default StatusCheck;
-
-
-    

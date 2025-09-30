@@ -1,6 +1,9 @@
 const ErrorWidget = ({ error, color, className }) => {
   return (
-    <div className={` w-full ${className}`} style={{ color }}>
+    <div
+      className={`h-full w-full flex justify-center items-center ${className}`}
+      style={{ color }}
+    >
       {error?.toString()}
     </div>
   );

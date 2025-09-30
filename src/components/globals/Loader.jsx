@@ -1,7 +1,6 @@
-import React from "react";
 import BounceLoader from "react-spinners/BounceLoader";
 
-const Loader = ({ size, color = "#00dbc2" }) => {
+const Loader = ({ size, color = "#000" }) => {
   return (
     <div
       style={{

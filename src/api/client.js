@@ -5,7 +5,7 @@ export const axiosInstance = () =>
   axios.create({
     baseURL: import.meta.env.VITE_API_URL_BASE.toString(),
     headers: {
-      authToken: String(Cookies.get("authToken")),
+      Authorization: `Bearer ${String(Cookies.get("authToken"))}`,
       // "Content-Type": "application/json",
     },
   });
