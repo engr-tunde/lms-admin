@@ -1,102 +1,101 @@
-import Search from "../globals/Search"
-import ProductDisplayCard from "./ProductDisplayCard"
-import { formatter } from "../../utils/helpers"
-import { useState } from "react"
-
+import Search from "../globals/Search";
+import ProductDisplayCard from "./ProductDisplayCard";
+import { formatter } from "../../utils/helpers";
+import { useState } from "react";
 
 function ProductDisplayContainer() {
-  const [filter, setFilter] = useState("All Products")
+  const [filter, setFilter] = useState("All Products");
   const filters = ["All Products", "Awaiting approval", "Approved", "Rejected"];
 
   const filterChildren = (children) => {
     return children.filter((child) => {
       if (!child.props?.productStatus) return true; // keep safe
       return filter === "All Products" || child.props.productStatus === filter;
-    });    
-  }
+    });
+  };
 
   const cards = [
     <ProductDisplayCard
-    productImage="/assets/images/brand-image1.png"
-    productStatus = "Awaiting approval"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(1, -3)}
-    productQuantity={200}
+      productImage="/assets/images/brand-image1.png"
+      productStatus="Awaiting approval"
+      productBrand="StylishCo"
+      productName="Off-White Grateful SS T-Shirt"
+      productPrice={formatter(140000)?.slice(1, -3)}
+      productQuantity={200}
     />,
     <ProductDisplayCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Rejected"
-    productBrand="Banke kuku"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
+      productImage="/assets/images/brand-image1.png"
+      productStatus="Rejected"
+      productBrand="Banke kuku"
+      productName="Off-White Grateful SS T-Shirt"
+      productPrice={formatter(140000)?.slice(0, -3)}
+      productQuantity={200}
     />,
     <ProductDisplayCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Awaiting approval"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
+      productImage="/assets/images/brand-image1.png"
+      productStatus="Awaiting approval"
+      productBrand="StylishCo"
+      productName="Off-White Grateful SS T-Shirt"
+      productPrice={formatter(140000)?.slice(0, -3)}
+      productQuantity={200}
     />,
     <ProductDisplayCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Rejected"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
+      productImage="/assets/images/brand-image1.png"
+      productStatus="Rejected"
+      productBrand="StylishCo"
+      productName="Off-White Grateful SS T-Shirt"
+      productPrice={formatter(140000)?.slice(0, -3)}
+      productQuantity={200}
     />,
     <ProductDisplayCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Awaiting approval"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
+      productImage="/assets/images/brand-image1.png"
+      productStatus="Awaiting approval"
+      productBrand="StylishCo"
+      productName="Off-White Grateful SS T-Shirt"
+      productPrice={formatter(140000)?.slice(0, -3)}
+      productQuantity={200}
     />,
     <ProductDisplayCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Approved"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
+      productImage="/assets/images/brand-image1.png"
+      productStatus="Approved"
+      productBrand="StylishCo"
+      productName="Off-White Grateful SS T-Shirt"
+      productPrice={formatter(140000)?.slice(0, -3)}
+      productQuantity={200}
     />,
     <ProductDisplayCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Approved"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
+      productImage="/assets/images/brand-image1.png"
+      productStatus="Approved"
+      productBrand="StylishCo"
+      productName="Off-White Grateful SS T-Shirt"
+      productPrice={formatter(140000)?.slice(0, -3)}
+      productQuantity={200}
     />,
     <ProductDisplayCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Approved"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
+      productImage="/assets/images/brand-image1.png"
+      productStatus="Approved"
+      productBrand="StylishCo"
+      productName="Off-White Grateful SS T-Shirt"
+      productPrice={formatter(140000)?.slice(0, -3)}
+      productQuantity={200}
     />,
     <ProductDisplayCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Approved"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
+      productImage="/assets/images/brand-image1.png"
+      productStatus="Approved"
+      productBrand="StylishCo"
+      productName="Off-White Grateful SS T-Shirt"
+      productPrice={formatter(140000)?.slice(0, -3)}
+      productQuantity={200}
     />,
     <ProductDisplayCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Awaiting approval"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
+      productImage="/assets/images/brand-image1.png"
+      productStatus="Awaiting approval"
+      productBrand="StylishCo"
+      productName="Off-White Grateful SS T-Shirt"
+      productPrice={formatter(140000)?.slice(0, -3)}
+      productQuantity={200}
     />,
-  ]
+  ];
 
   const filteredCards = filterChildren(cards);
 
@@ -104,13 +103,13 @@ function ProductDisplayContainer() {
     <div className="flex flex-col gap-3">
       <div className="w-full flex justify-between items-end mb-2">
         <div className="flex gap-6">
-          {filters.map((status) => (
-            <button 
-            key={status}
-            onClick={() => setFilter(status)}
-            className={`px-3 py-1 rounded ${
+          {filters.map((status, i) => (
+            <button
+              key={i}
+              onClick={() => setFilter(status)}
+              className={`px-3 py-1 rounded ${
                 filter === status ? "text-black" : "text-merseBorder"
-            }`}
+              }`}
             >
               {status}
             </button>
@@ -128,5 +127,3 @@ function ProductDisplayContainer() {
 }
 
 export default ProductDisplayContainer;
-
-

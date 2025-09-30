@@ -1,15 +1,16 @@
 import { axiosInstance } from "./client";
 import Cookies from "js-cookie";
 
-export const fetcher = ({ url, withCredentials = false }) =>
+export const fetcher = (url) =>
   axiosInstance()
-    .get(url, { withCredentials })
+    .get(url, { withCredentials: true })
     .then((res) => {
+      console.log("url", url);
       console.log("res.status", res.status);
       // console.log("res", res);
       if (res.status == 401) {
         Cookies.remove("u-x");
-        window.location.href = "/login";
+        // window.location.href = "/login";
       }
       return res.data;
     })
@@ -17,7 +18,7 @@ export const fetcher = ({ url, withCredentials = false }) =>
       console.log("fetch error", err);
       if (err.response.status == 401) {
         Cookies.remove("u-x");
-        window.location.href = "/login";
+        // window.location.href = "/login";
       }
       throw Error(err);
     });
