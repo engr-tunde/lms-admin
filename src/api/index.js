@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import {
   ADMINS,
+  APPROVE_REJECT_PRODUCT,
   BRANDS,
   DISPUTES,
   FORGOT_PASSWORD,
@@ -81,6 +82,7 @@ export const fetchBrands = () => {
     mutate,
   };
 };
+
 export const fetchProducts = () => {
   const { data, error, mutate } = useSWR(PRODUCTS, fetcher);
   return {
@@ -99,6 +101,16 @@ export const fetchSingleProduct = (id) => {
     mutate,
   };
 };
+export const approveRejectProduct = async (values, id) => {
+  const result = await mutationRequest(
+    `${APPROVE_REJECT_PRODUCT}/${id}`,
+    "patch",
+    values,
+    false
+  );
+  return result;
+};
+
 export const fetchDisputes = (id) => {
   const { data, error, mutate } = useSWR(`${DISPUTES}/${id}`, fetcher);
   return {

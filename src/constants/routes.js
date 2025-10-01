@@ -7,7 +7,6 @@ export const VERIFY_LOGIN = "/admins/verify-login";
 export const CHECK_SESSION = "/admins/check-session";
 
 export const BRANDS = "/admins/brands";
-export const PRODUCTS = "/admins/products";
 export const DISPUTES = "/admins/disputes";
 //
 // DASHBOARD
@@ -16,3 +15,5 @@ export const DISPUTES = "/admins/disputes";
 export const ADMINS = "/admins";
 
 // HEADERS
+export const PRODUCTS = "/admins/products";
+export const APPROVE_REJECT_PRODUCT = "/admins/approve-product";

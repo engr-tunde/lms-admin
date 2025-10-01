@@ -1,31 +1,36 @@
-import { IoMdClose }from "react-icons/io";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import AppFormButton from "../../forms/buttons/AppFormButton";
+import { IoMdClose } from "react-icons/io";
+import InputField from "../../forms/InputField";
+import SubmitButton from "../../forms/SubmitButton";
+import CustomFormik from "../../forms/CustomFormik";
+import { rejectProductValues } from "../../../utils/initialValues";
+import { validaterejectProduct } from "../../../utils/validate";
+import { errorNotification, successNotification } from "../../../utils/helpers";
+import { approveRejectProduct } from "../../../api";
 
+const RejectionFormModal = ({ show, onClose, data }) => {
+  if (!show) {
+    return null;
+  }
+  const initialValues = rejectProductValues();
+  const validationSchema = validaterejectProduct();
+  console.log("data rejectionmodal", data);
 
-const RejectionFormModal = ({ show, onClose, }) => {
-    if (!show) return null;
-  
-  const initialValues = {
-    rejectionReason: "",
+  const handleSubmit = async (values) => {
+    const response = await approveRejectProduct(
+      {
+        rejectReason: values?.rejectReason,
+        approvalStatus: "rejected",
+      },
+      data?._id
+    );
+    if (response?.status?.toString()?.includes("20")) {
+      successNotification(response?.data?.message);
+      onClose();
+    } else {
+      errorNotification(response?.data?.message[0]);
+    }
   };
 
-  const validationSchema = Yup.object({
-    rejectionReason: Yup.string().required("Please provide a reason for rejection"),
-  });
-
-//   const handleSubmit = async (values, { resetForm }) => {
-//     try {
-//       await axios.post(endpoint, values);
-//       alert(`${type === "category" ? "Category" : "Adjustment"} added!`);
-//       resetForm();
-//       onClose();
-//     } catch (error) {
-//       console.error("Submission error:", error);
-//     }
-//   };
-  
   return (
     <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50 bg-opacity-40 w-full">
       <div className="bg-white p-6 shadow-lg w-[70%] lg:w-1/2 gap-3">
@@ -34,32 +39,17 @@ const RejectionFormModal = ({ show, onClose, }) => {
             <IoMdClose size={20} onClick={onClose} className="" />
           </button>
         </div>
-        <div 
-          className="font-semibold mb-3"
-        >
-          Rejection Reason
-        </div>
-        <Formik
+        <div className="font-semibold mb-3">Rejection Reason</div>
+        <CustomFormik
           initialValues={initialValues}
           validationSchema={validationSchema}
-        //   onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
         >
-          <Form className="space-y-4">
+          <div className="space-y-4">
             <div className="flex justify-between gap-4 h-full">
               <div className="w-full h-full">
-              {/* <label htmlFor="rejectionReason">Rejection Reason</label> */}
-                <Field
-                  name="rejectionReason"
-                  placeholder="Leave Reasons"
-                  as="textarea"
-                  rows="10"
-                  className="w-full h-full text-sm border-2 focus:border-black outline-none px-3 py-2"
-                />
-                <ErrorMessage
-                  name="rejectionReason"
-                  component="div"
-                  className="text-red-500 text-xs"
-                />
+                {/* <label htmlFor="rejectionReason">Rejection Reason</label> */}
+                <InputField name="rejectReason" />
               </div>
             </div>
             <div className="flex justify-end gap-4">
@@ -70,19 +60,14 @@ const RejectionFormModal = ({ show, onClose, }) => {
               >
                 Cancel
               </button>
-              <AppFormButton 
-                title="Reject"
-                className="px-3 py-1 text-white bg-black text-sm"
-                // type="submit"
-                isSubmitting={false}
-                disabled={true}
-              />
+
+              <SubmitButton title="Reject" className="px-3 py-1" />
             </div>
-          </Form>
-        </Formik>
+          </div>
+        </CustomFormik>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default RejectionFormModal
+export default RejectionFormModal;

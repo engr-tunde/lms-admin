@@ -1,33 +1,7 @@
-export const addAdminValues = () => {
-  const initialValues = {
-    fullName: "",
-    email: "",
-    role: "",
-  };
-  return initialValues;
-};
-
-export const joinValues = () => {
-  const initialValues = {
-    email: "",
-  };
-  return initialValues;
-};
-
 export const loginValues = () => {
   const initialValues = {
     email: "",
     password: "",
-  };
-  return initialValues;
-};
-
-export const signUpValues = () => {
-  const initialValues = {
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
   };
   return initialValues;
 };
@@ -74,44 +48,18 @@ export const otpValues = () => {
   return initialValues;
 };
 
-export const requestServiceValues = (data) => {
+export const addAdminValues = () => {
   const initialValues = {
-    service: `Issue: ${data.title}`,
-    walletValue: "",
-    walletAddress: "",
-    social: "",
-    socialHandle: "",
+    fullName: "",
+    email: "",
+    role: "",
   };
   return initialValues;
 };
 
-// Trade
-export const p2pTradeValues = (selectedTrade) => {
-  console.log({ selectedTrade });
+export const rejectProductValues = () => {
   const initialValues = {
-    pay: "200",
-    // pay: selectedTrade?.min_limit,
-    get: "",
-  };
-  return initialValues;
-};
-
-export const tradeChatValues = () => {
-  const initialValues = {
-    message: "",
-  };
-  return initialValues;
-};
-
-// profile
-export const updateBankDetailsValues = (data) => {
-  console.log({ data });
-  const initialValues = {
-    account_name: data.account_name,
-    account_number: data.account_number,
-    bank_name: data.bank_name,
-    account_type: data.account_type,
-    sort_code: data.sort_code,
+    rejectReason: "",
   };
   return initialValues;
 };

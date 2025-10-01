@@ -9,7 +9,7 @@ export const fetcher = (url) =>
       console.log("res.status", res.status);
       // console.log("res", res);
       if (res.status == 401) {
-        Cookies.remove("u-x");
+        Cookies.remove("authToken");
         window.location.href = "/login";
       }
       return res.data;
@@ -17,7 +17,7 @@ export const fetcher = (url) =>
     .catch((err) => {
       console.log("fetch error", err);
       if (err.response.status == 401) {
-        Cookies.remove("u-x");
+        Cookies.remove("authToken");
         window.location.href = "/login";
       }
       throw Error(err);
@@ -31,14 +31,14 @@ export const sessionFetcher = (url) =>
         // return true;
         return res.data;
       } else if (res.status === 401) {
-        Cookies.remove("u-x");
+        Cookies.remove("authToken");
         return false;
       }
     })
     .catch((err) => {
       console.log("err err", err);
       // if (err.response.status == 401) {
-      //   Cookies.remove("u-x");
+      //   Cookies.remove("authToken");
       //   // return false;
       // }
       throw Error(err);

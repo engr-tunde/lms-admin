@@ -29,7 +29,7 @@ const ProductViewModal = ({ show, onClose, data }) => {
           </button>
         </div>
         <div className="text-lg font-semibold">Product Details</div>
-        <ImageSlider data={data} />
+        <ImageSlider variants={data?.variants} />
         <ProductViewDetails data={data} />
         <VariantContainer data={data} />
         <ProductViewFinancialBreakdown data={data} />

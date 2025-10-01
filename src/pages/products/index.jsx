@@ -36,6 +36,7 @@ function DashboardProductPage() {
         </div>
         <ProductCardContainer />
         <NewlyAddedProductCardContainer />
+
         <ProductDisplayContainer
           filteredData={filteredData}
           setfilteredData={setfilteredData}

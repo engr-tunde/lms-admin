@@ -17,12 +17,11 @@ export const compactFormatter = (amount) => {
   const fm = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
-    notation: "compact",           // 👈 key part
-    maximumFractionDigits: 1,      // "$1.2M" instead of "$1.234M"
+    notation: "compact", // 👈 key part
+    maximumFractionDigits: 1, // "$1.2M" instead of "$1.234M"
   });
   return fm.format(amount);
 };
-
 
 export const dateFormatter = (date) => {
   var dateString = new Date(date).toString();
@@ -62,14 +61,12 @@ export const shuffleArray = (array) => {
 };
 
 export const copyFunc = (txt, title) => {
-  // const txt = `app.prodox-ex.com/register?ref=${referralCode}`;
   const input = document.createElement("input");
   input.value = txt;
   document.body.appendChild(input);
   input.select();
   document.execCommand("copy");
   document.body.removeChild(input);
-  // successNotification(title);
   let sNotification = (message) => toast.success(message);
   sNotification(title);
 };
@@ -85,68 +82,4 @@ export const useOutsideClick = (ref, onClickOut) => {
     document.addEventListener("click", onCLick);
     return () => document.removeEventListener("click", onCLick);
   }, []);
-};
-
-export const validateWalletAddress = (value, network) => {
-  var stellar_alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
-
-  const btcPattern = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/g;
-  const btcPattern2 = /^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$/g;
-  const ethPattern = /^0x[a-fA-F0-9]{40}$/g;
-  const bchPattern = /^((bitcoincash:)?(q|p)[a-z0-9]{41})/;
-  const bscPattern = /^(0x)?[0-9a-fA-F]{40}$/;
-  const dashPattern = /X[1-9A-HJ-NP-Za-km-z]{33}$/g;
-  const trxPattern = /T[A-Za-z1-9]{33}/;
-  const dogePattern = /^D{1}[5-9A-HJ-NP-U]{1}[1-9A-HJ-NP-Za-km-z]{32}$/;
-  const ltcPattern =
-    /^([LM3]{1}[a-km-zA-HJ-NP-Z1-9]{26,33}||ltc1[a-z0-9]{39,59})$/g;
-  const xrpPattern = /^r[1-9A-HJ-NP-Za-km-z]{25,34}$/;
-  const solPattern = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
-  const tonPattern = /^(EQ|UQ)[A-Za-z0-9_-]{46}$/;
-  const stellarPattern = new RegExp("^[" + stellar_alphabet + "]{56}$");
-  const moneroPattern = /4[0-9AB][1-9A-HJ-NP-Za-km-z]{93}$/g;
-  let check;
-
-  let tokenNetwork = network.toLowerCase();
-
-  if (tokenNetwork == "btc" || tokenNetwork == "bitcoin") {
-    check = btcPattern.test(value);
-    if (!check) {
-      check = btcPattern2.test(value);
-    }
-  } else if (
-    tokenNetwork == "eth" ||
-    tokenNetwork == "celo" ||
-    tokenNetwork.includes("ethereum")
-  ) {
-    check = ethPattern.test(value);
-  } else if (tokenNetwork == "bch") {
-    check = bchPattern.test(value);
-  } else if (tokenNetwork == "bsc" || tokenNetwork.includes("binance")) {
-    check = bscPattern.test(value);
-  } else if (tokenNetwork == "dash" || tokenNetwork.includes("dash")) {
-    check = dashPattern.test(value);
-  } else if (tokenNetwork == "trx" || tokenNetwork.includes("tron")) {
-    check = trxPattern.test(value);
-  } else if (tokenNetwork == "doge") {
-    check = dogePattern.test(value);
-  } else if (tokenNetwork == "ltc" || tokenNetwork.includes("litecoin")) {
-    check = ltcPattern.test(value);
-  } else if (tokenNetwork == "xrp" || tokenNetwork.includes("ripple")) {
-    check = xrpPattern.test(value);
-  } else if (tokenNetwork == "sol" || tokenNetwork.includes("solana")) {
-    check = solPattern.test(value);
-  } else if (tokenNetwork == "ton") {
-    check = tonPattern.test(value);
-  } else if (tokenNetwork == "xlm" || tokenNetwork == "stellar") {
-    check = stellarPattern.test(value);
-  } else if (tokenNetwork == "xmr" || tokenNetwork == "monero") {
-    check = moneroPattern.test(value);
-    // } else if (tokenNetwork == "ton") {
-    //   check = tonPattern.test(value);
-    // } else if (tokenNetwork == "ton") {
-    //   check = tonPattern.test(value);
-  }
-  console.log("check", check);
-  return check;
 };
