@@ -4,7 +4,7 @@ const Head = ({ pageTitle }) => {
   return (
     <Helmet>
       <title>
-        {pageTitle} | {import.meta.env.VITE_APP_NAME} -
+        {`${pageTitle} | ${import.meta.env.VITE_APP_NAME} -`}
       </title>
       <meta
         name="description"

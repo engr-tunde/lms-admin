@@ -2,6 +2,7 @@ import { formatter } from "../../utils/helpers";
 import StatusCheck from "../globals/StatusCheck";
 import ProductViewModal from "./ProductViewModal";
 import { useState } from "react";
+import { fetchProducts } from "../../api/index.js"
 
 function ProductDisplayCard({ data }) {
   // console.log("data", data);
