@@ -9,7 +9,7 @@ function ProductDisplayContainer({
   setfilteredData,
   originalArr,
 }) {
-  console.log("filteredData", filteredData);
+  // console.log("filteredData", filteredData);
   const [filter, setFilter] = useState("");
 
   useEffect(() => {

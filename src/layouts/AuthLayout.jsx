@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-// import { checkSession } from "../api";
+import Cookies from "js-cookie";
 
 const AuthLayout = () => {
-  // const { session } = checkSession();
-  // useEffect(() => {
-  //   if (session) {
-  //     window.location.href = "/dashboard";
-  //   }
-  // }, [session]);
+  useEffect(() => {
+    let session = Cookies.get("authToken");
+    if (session) {
+      window.location.href = "/";
+    }
+  }, []);
 
   return (
     <>

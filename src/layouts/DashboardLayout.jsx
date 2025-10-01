@@ -3,16 +3,18 @@ import { Outlet } from "react-router-dom";
 import DashboardNavBar from "../components/globals/DashboardNavBar";
 // import { checkSession } from "../api";
 import DashboardSidebar from "../components/globals/DashboardSidebar";
+import Cookies from "js-cookie";
 
 const DashboardLayout = () => {
   const [nav, setNav] = useState(false);
 
-  // const { session, sessionLoading } = checkSession();
-  // useEffect(() => {
-  //   if (!session && !sessionLoading) {
-  //     // window.location.href = "/login";
-  //   }
-  // }, [session]);
+  useEffect(() => {
+    let session = Cookies.get("authToken");
+    console.log("session", session);
+    if (!session) {
+      window.location.href = "/login";
+    }
+  }, []);
 
   return (
     <>

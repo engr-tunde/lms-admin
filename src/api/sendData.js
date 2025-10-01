@@ -1,4 +1,5 @@
 import { axiosInstance } from "./client";
+import Cookies from "js-cookie";
 
 const postData = async (url, data, withCredentials) => {
   const result = await axiosInstance()
@@ -6,6 +7,7 @@ const postData = async (url, data, withCredentials) => {
     .then((res) => {
       console.log("res status", res.status);
       if (res.status == 401) {
+        Cookies.remove("authToken");
         window.location.href = "/login";
       }
       return res;
@@ -21,6 +23,7 @@ const putData = async (url, data, withCredentials) => {
     .then((res) => {
       console.log("res status", res.status);
       if (res.status == 401) {
+        Cookies.remove("authToken");
         window.location.href = "/login";
       }
       return res;
@@ -36,6 +39,7 @@ const patchData = async (url, data, withCredentials) => {
     .then((res) => {
       console.log("res status", res.status);
       if (res.status == 401) {
+        Cookies.remove("authToken");
         window.location.href = "/login";
       }
       return res;
@@ -51,6 +55,7 @@ const deleteData = async (url, withCredentials) => {
     .then((res) => {
       console.log("res status", res.status);
       if (res.status == 401) {
+        Cookies.remove("authToken");
         window.location.href = "/login";
       }
       return res;

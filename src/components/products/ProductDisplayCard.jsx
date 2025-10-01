@@ -5,12 +5,13 @@ import { useState } from "react";
 import { fetchProducts } from "../../api/index.js"
 
 function ProductDisplayCard({ data }) {
-  // console.log("data", data);
   const [showModal, setShowModal] = useState(false);
 
   let quantity = 0;
-  data?.sizes.forEach((size) => {
-    quantity += size.quantity;
+  data?.variants?.forEach((ele) => {
+    ele?.sizes?.forEach((size) => {
+      quantity += size.quantity;
+    });
   });
 
   return (
@@ -24,10 +25,12 @@ function ProductDisplayCard({ data }) {
             src={
               data?.images.length
                 ? data?.images[0]?.url
+                : data?.variants[0]?.images[0]?.url
+                ? data?.variants[0]?.images[0]?.url
                 : "/assets/images/brand-image1.png"
             }
             alt=""
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-[100px]"
           />
         </div>
         <div className="w-full flex justify-start">

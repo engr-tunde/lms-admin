@@ -2,13 +2,34 @@ import AppFormButton from "../../forms/buttons/AppFormButton";
 import StatusCheck from "../../globals/StatusCheck";
 import { useState } from "react";
 import RejectionFormModal from "./RejectionFormModal";
+import { approveRejectProduct } from "../../../api";
+import { errorNotification, successNotification } from "../../../utils/helpers";
 
 const ProductViewDetails = ({ data }) => {
   const [showRejectionForm, setShowRejectionForm] = useState(false);
   let quantity = 0;
-  data?.sizes.forEach((size) => {
-    quantity += size.quantity;
+  data?.variants?.forEach((ele) => {
+    ele?.sizes?.forEach((size) => {
+      quantity += size.quantity;
+    });
   });
+
+  const handleApproveProduct = async () => {
+    const response = await approveRejectProduct(
+      {
+        // rejectReason: values?.rejectReason,
+        approvalStatus: "approved",
+      },
+      data?._id
+    );
+    console.log("response", response);
+    if (response?.status?.toString()?.includes("20")) {
+      successNotification(response?.data?.message);
+      onClose();
+    } else {
+      errorNotification(response?.data?.message[0]);
+    }
+  };
 
   return (
     <>
@@ -27,16 +48,20 @@ const ProductViewDetails = ({ data }) => {
           <span>Subcategory: Shirt</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="flex items-center">
-            Color:
-            <span
-              className="w-3 h-3 rounded-full border inline-block mx-1"
-              style={{
-                backgroundColor: data?.color?.toString()?.toLowerCase(),
-              }}
-            ></span>
-            {data?.color}
-          </span>
+          <div className="flex items-center gap-2">
+            <div className="">Colors:</div>
+            <div className="flex gap-1">
+              {data?.variants?.map((ele, i) => (
+                <span
+                  key={i}
+                  className="w-5 h-5 rounded-full border inline-block"
+                  style={{
+                    backgroundColor: ele?.color?.toString()?.toLowerCase(),
+                  }}
+                ></span>
+              ))}
+            </div>
+          </div>
           <span>Total Qty: {quantity}</span>
         </div>
       </div>
@@ -58,13 +83,12 @@ const ProductViewDetails = ({ data }) => {
           >
             Reject
           </button>
-          <AppFormButton
-            title="Approve"
+          <button
             className="px-6 py-1 text-white bg-black text-sm"
-            // type="submit"
-            isSubmitting={false}
-            disabled={true}
-          />
+            onClick={handleApproveProduct}
+          >
+            Approve
+          </button>
         </div>
         <div className="flex flex-col">
           <TextsCard
@@ -81,6 +105,7 @@ const ProductViewDetails = ({ data }) => {
       <RejectionFormModal
         show={showRejectionForm}
         onClose={() => setShowRejectionForm(false)}
+        data={data}
       />
     </>
   );
