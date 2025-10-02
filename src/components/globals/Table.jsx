@@ -13,7 +13,7 @@ const Table = ({ columns, renderRow, data }) => {
         </tr>
       </thead>
       <tbody className="mt-20">
-        {data.map((item, i) => renderRow(item, i))}
+        {data?.map((item, i) => renderRow(item, i))}
       </tbody>
     </table>
   );

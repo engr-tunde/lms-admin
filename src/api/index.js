@@ -111,12 +111,23 @@ export const approveRejectProduct = async (values, id) => {
   return result;
 };
 
-export const fetchDisputes = (id) => {
+export const fetchDispute = (id) => {
   const { data, error, mutate } = useSWR(`${DISPUTES}/${id}`, fetcher);
+  return {
+    dispute: data,
+    disputeLoading: !error && !data,
+    disputeError: error,
+    mutate,
+  };
+};
+
+
+export const fetchAllDisputes = () => {
+  const { data, error, mutate } = useSWR(DISPUTES, fetcher);
   return {
     disputes: data,
     disputesLoading: !error && !data,
     disputesError: error,
     mutate,
   };
-};
+}

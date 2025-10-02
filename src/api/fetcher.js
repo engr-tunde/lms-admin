@@ -16,7 +16,7 @@ export const fetcher = (url) =>
     })
     .catch((err) => {
       console.log("fetch error", err);
-      if (err.response.status == 401) {
+      if (err?.response?.status == 401) {
         Cookies.remove("authToken");
         window.location.href = "/login";
       }

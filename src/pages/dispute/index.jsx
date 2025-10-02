@@ -2,12 +2,15 @@ import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import OrderDisputeTable from "../../components/dispute/OrderDisputeTable";
 import PayoutDisputeTable from "../../components/dispute/PayoutDisputeTable"
 import { useState } from "react";
-
+import { fetchAllDisputes } from "../../api";
 
 
 function DashboardDisputePage() {
   const [activeTab, setActiveTab] = useState("Order Dispute")
   const tabs = ["Order Dispute", "Payout Dispute"]
+  const { disputes, disputesLoading, disputesError } = fetchAllDisputes();
+  console.log("disputes", disputes);
+
 
   return (
     <div className="flex flex-col gap-6">

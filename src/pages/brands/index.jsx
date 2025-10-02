@@ -10,9 +10,6 @@ import { fetchBrands, fetchProducts } from "../../api";
 
 function DashboardBrandsPage() {
   const [activeTab, setActiveTab] = useState("Brand overview");
-  const ellipsisIcon = (size) => {
-    return <IoEllipsisHorizontalSharp size={size} />;
-  };
   const { brands, brandsLoading, brandsError } = fetchBrands();
   const { products, productsLoading, productsError } = fetchProducts();
   console.log("brands ss", brands);
@@ -37,7 +34,7 @@ function DashboardBrandsPage() {
       </div>
       <BrandsOrderCardContainer />
       <AddedProductBrandsCardContainer />
-      <AllBrandsTable />
+      <AllBrandsTable brandsData={brands} />
     </div>
   );
 }
