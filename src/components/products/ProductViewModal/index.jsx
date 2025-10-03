@@ -7,6 +7,7 @@ import VariantContainer from "./VariantContainer";
 const ProductViewModal = ({ show, onClose, data }) => {
   console.log("data", data);
   if (!show) return null;
+  
   return (
     <div
       className="fixed inset-0 z-20 flex items-stretch justify-end bg-black/25 bg-opacity-40 w-full"
