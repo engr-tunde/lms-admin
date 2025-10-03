@@ -17,3 +17,7 @@ export const ADMINS = "/admins";
 // HEADERS
 export const PRODUCTS = "/admins/products";
 export const APPROVE_REJECT_PRODUCT = "/admins/approve-product";
+
+
+// ORDERS
+export const ORDERS = "/admins/orders";

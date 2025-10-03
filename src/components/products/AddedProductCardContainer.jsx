@@ -1,6 +1,7 @@
+import { capitalize } from "../../utils/helpers";
 import NewlyAddedProductCard from "./AddedProductCard";
 
-function NewlyAddedProductCardContainer() {
+function NewlyAddedProductCardContainer({ products }) {
   
   return (
     <div className="flex flex-col gap-2">
@@ -8,29 +9,11 @@ function NewlyAddedProductCardContainer() {
         <div className="font-semibold">Recently added products</div>
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-5">
-        <NewlyAddedProductCard
-        productImage = "/assets/images/product-placeholder2.png"
-        productBrand="StylishCo"
-        productStatus="Awaiting approval"
-        productName="Off-White Grateful SS T-Shirt"
-        productQuantity="20"
-        />
-
-        <NewlyAddedProductCard
-        productImage = "/assets/images/product-placeholder2.png"
-        productBrand="Ashluxe"
-        productStatus="Awaiting approval"
-        productName="Off-White Grateful SS T-Shirt"
-        productQuantity="18"
-        />
-
-        <NewlyAddedProductCard
-        productImage = "/assets/images/product-placeholder2.png"
-        productBrand="Banke kuku"
-        productStatus="Awaiting approval"
-        productName="Off-White Grateful SS T-Shirt"
-        productQuantity="20"
-        />
+        {
+          products?.map((product, i) => (
+            <NewlyAddedProductCard data={product} key={i}/>
+          ))
+        }
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ function DashboardBrandsPage() {
       </div>
       <BrandsOrderCardContainer />
       <AddedProductBrandsCardContainer />
-      <AllBrandsTable brandsData={brands} />
+      <AllBrandsTable brandsData={brands?.brands} />
     </div>
   );
 }

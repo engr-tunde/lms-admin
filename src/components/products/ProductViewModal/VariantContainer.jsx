@@ -1,6 +1,8 @@
 import { FaChevronUp } from "react-icons/fa"
+import { capitalize } from "../../../utils/helpers"
 
-const VariantContainer = () => {
+const VariantContainer = ({ data }) => {
+
   return (
     <div className="flex border-[1px] border-merseBorder flex flex-col p-3">
       <div className="flex justify-between text-sm font-semibold mb-3">
@@ -10,34 +12,18 @@ const VariantContainer = () => {
         </button>
       </div>
       <div className="grid grid-cols-2 gap-6">
-        <Variant
-         image="/assets/images/product-placeholder.png"
-         product="Linen Shirt"
-         color="Black"
-         size={["SS", "M", "L"]}
-         quantity="24"
-        />
-        <Variant
-         image="/assets/images/product-placeholder.png"
-         product="Linen Shirt"
-         color="Black"
-         size={["SS", "M", "L"]}
-         quantity="24"
-        />
-        <Variant
-         image="/assets/images/product-placeholder.png"
-         product="Linen Shirt"
-         color="Black"
-         size={["SS", "M", "L"]}
-         quantity="24"
-        />
-        <Variant
-         image="/assets/images/product-placeholder.png"
-         product="Linen Shirt"
-         color="Black"
-         size={["SS", "M", "L"]}
-         quantity="24"
-        />
+        {
+          data?.variants?.map((variant, i) => (
+            <Variant
+             key={i}
+             image={variant?.images?.length ? variant?.images[0]?.url : "/assets/images/product-placeholder.png"}
+             product={capitalize(variant?.product ?? data?.title)}
+             color={variant?.color || "N/A"}
+             size={variant?.sizes?.map(size => size?.label)}
+             quantity={variant?.sizes?.reduce((acc, size) => acc + size?.quantity, 0)}
+            />
+          ))
+        }
       </div>
     </div>
   )

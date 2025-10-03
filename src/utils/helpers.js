@@ -5,6 +5,10 @@ export const successNotification = (message) => toast.success(message);
 export const errorNotification = (message) => toast.error(message);
 export const infoNotification = (message) => toast.info(message);
 
+
+export const capitalize = str => str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
+
+
 export const formatter = (amount) => {
   const fm = new Intl.NumberFormat("en-US", {
     style: "currency",

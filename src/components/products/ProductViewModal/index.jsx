@@ -13,7 +13,7 @@ const ProductViewModal = ({ show, onClose, data }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white p-6 shadow-lg w-1/2 flex flex-col gap-6 overflow-y-auto h-full"
+        className="bg-white p-6 shadow-lg sm:w-[80%] md:w-[70%] lg:w-1/2 flex flex-col gap-6 overflow-y-auto h-full"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky -top-6 z-40 w-full bg-white py-4">
@@ -31,8 +31,8 @@ const ProductViewModal = ({ show, onClose, data }) => {
         <div className="text-lg font-semibold">Product Details</div>
         <ImageSlider variants={data?.variants} />
         <ProductViewDetails data={data} />
-        <VariantContainer data={data} />
-        <ProductViewFinancialBreakdown data={data} />
+        {data?.hasVariants && <VariantContainer data={data} />}
+        {data?.pricing && <ProductViewFinancialBreakdown pricing={data?.pricing} />}
       </div>
     </div>
   );

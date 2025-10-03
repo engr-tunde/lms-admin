@@ -1,8 +1,7 @@
-import { formatter } from "../../utils/helpers";
+import { capitalize, formatter } from "../../utils/helpers";
 import StatusCheck from "../globals/StatusCheck";
 import ProductViewModal from "./ProductViewModal";
 import { useState } from "react";
-import { fetchProducts } from "../../api/index.js"
 
 function ProductDisplayCard({ data }) {
   const [showModal, setShowModal] = useState(false);
@@ -17,7 +16,7 @@ function ProductDisplayCard({ data }) {
   return (
     <>
       <div
-        className="w-full col-span-1 flex flex-col items-start gap-2"
+        className="w-full col-span-1 flex flex-col items-start justify-between border-merseBorder h-[220px] cursor-pointer"
         onClick={() => setShowModal(true)}
       >
         <div className="w-full">
@@ -35,13 +34,13 @@ function ProductDisplayCard({ data }) {
         </div>
         <div className="w-full flex justify-start">
           <StatusCheck
-            value={data?.approvalStatus}
+            value={capitalize(data?.approvalStatus)}
             className="text-sm px-2 py-1"
           />
         </div>
         <div className="flex flex-col gap[-2px] w-full text-md">
-          <span>{data?.brandName}</span>
-          <span className="font-semibold">{data?.title}</span>
+          <span>{capitalize(data?.brandName)}</span>
+          <span className="font-semibold">{capitalize(data?.title)}</span>
         </div>
         <div className="flex justify-between w-full text-xs font-semibold">
           <span>{formatter(data?.pricing?.sellingPrice)}</span>

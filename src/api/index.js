@@ -10,6 +10,7 @@ import {
   SIGNIN,
   VERIFY_FORGOT_PASSWORD,
   VERIFY_LOGIN,
+  ORDERS
 } from "../constants/routes";
 import { mutationRequest } from "./sendData";
 import { fetcher, sessionFetcher } from "./fetcher";
@@ -128,6 +129,16 @@ export const fetchAllDisputes = () => {
     disputes: data,
     disputesLoading: !error && !data,
     disputesError: error,
+    mutate,
+  };
+}
+
+export const fetchOrders = () => {
+  const { data, error, mutate } = useSWR(ORDERS, fetcher);
+  return {
+    orders: data,
+    ordersLoading: !error && !data,
+    ordersError: error,
     mutate,
   };
 }

@@ -13,6 +13,15 @@ function DashboardProductPage() {
   const [originalArr, setoriginalArr] = useState();
   console.log("products", products);
 
+  const newlyAdded = () => {
+    if (!products?.products) return [];
+    const sorted = [...products.products].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+    return sorted.slice(0, 3);
+  };
+
+
   useEffect(() => {
     if (products) {
       setoriginalArr(products?.products);
@@ -35,7 +44,7 @@ function DashboardProductPage() {
           </div>
         </div>
         <ProductCardContainer />
-        <NewlyAddedProductCardContainer />
+        <NewlyAddedProductCardContainer products={newlyAdded()}/>
 
         <ProductDisplayContainer
           filteredData={filteredData}
