@@ -6,17 +6,10 @@ import SubcategorySettingsTable from "../../components/settings/settings-subcate
 import CategorySettingsTable from "../../components/settings/settings-category";
 import BrandSettingsTable from "../../components/settings/settings-brands";
 import { useState } from "react";
-import { fetchCategory, fetchSubcategory, fetchCollection } from "../../api";
 
 function DashboardSettingsPage() {
+  
   const [activeTab, setActiveTab] = useState("brandType")
-  const { category, categoryLoading, categoryError } = fetchCategory();
-  const { subcategory, subcategoryLoading, subcategoryError } = fetchSubcategory();
-  const { collection, collectionLoading, collectionError } = fetchCollection();
-  console.log("Fetched categories:", category);
-  console.log("Fetched subcategories:", subcategory);
-  console.log("Fetched collections:", collection);
-
   return (
     <div className="flex flex-col gap-6">
       <DashboardNavBar
@@ -65,19 +58,28 @@ function DashboardSettingsPage() {
             <FaChevronDown size={10} />
           </div>
         </div>
-        {SetActivePage(activeTab, category, subcategory, collection)}
+        {renderActivePage(activeTab)}
       </div>
     </div>
   );
 }
 
 
-const SetActivePage = (activeTab, category, subcategory, collection) => {
-   if (activeTab === "brandType") return <BrandSettingsTable />
-   if (activeTab === "categories") return <CategorySettingsTable categoryData={category} />
-   if (activeTab === "subcategories") return <SubcategorySettingsTable categoryData={category} subcategoryData={subcategory} />
-   if (activeTab === "collections") return <CollectionsSettingsTable collectionData={collection} />
+const renderActivePage = (activeTab) => {
+  switch (activeTab) {
+    case "brandType":
+      return <BrandSettingsTable />;
+    case "categories":
+      return <CategorySettingsTable />;
+    case "subcategories":
+      return <SubcategorySettingsTable />;
+    case "collections":
+      return <CollectionsSettingsTable />;
+    default:
+      return null;
+  }
 };
+
 
 
 

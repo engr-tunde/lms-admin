@@ -1,16 +1,26 @@
 import { IoEllipsisVertical } from "react-icons/io5";
 import DeleteSubcategoryModal from "./DeleteSubcategoryModal";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { capitalize, compactDateFormatter } from "../../../utils/helpers";
 
 
-function SubcategorySettingsRowTemplate(item, i) {
-  const [actionOpen, setActionOpen] = useState(null)
+function SubcategorySettingsRowTemplate(item, i, openIndex, setOpenIndex) {
   const [showDeleteSubcategoryModal, setShowDeleteSubcategoryModal] = useState(false);
-  // const [subcategoryToDelete, setSubcategoryToDelete] = useState(null);
-  const handleActionClick = (i) => {
-    setActionOpen(actionOpen === i ? null : i);
-  }
+  const actionRef = useRef();
+
+  const isOpen = openIndex === i;
+  const handleActionClick = () =>  setOpenIndex(isOpen ? null : i);
+  
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (actionRef.current && !actionRef.current.contains(e.target)) {
+        setOpenIndex(null);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   return (
     <>
@@ -19,13 +29,19 @@ function SubcategorySettingsRowTemplate(item, i) {
       <td className="py-4 text-sm">{capitalize(item?.category?.name)}</td>
       <td className="py-4 text-sm">{compactDateFormatter(item.created_at || item.createdAt) || null}</td>
       <td className="py-4 text-sm">
-        <div className="relative cursor-pointer">
+        <div 
+          className="relative cursor-pointer"
+          ref={actionRef}
+        >
           <button
-            onClick={() => handleActionClick(i)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleActionClick();
+            }}
           >
             <IoEllipsisVertical size={20} />
           </button>
-          {actionOpen === i && (
+          {isOpen && (
             <div className="absolute z-10 w-[100px] text-xs rounded-md flex flex-col top-6 left-0 bg-white shadow-xl">
               <button
                 className="text-sm text-left px-5 py-2"

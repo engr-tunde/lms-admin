@@ -2,24 +2,47 @@ import TableSearch from "../../globals/TableSearch"
 import Table from "../../globals/Table"
 import { categoryHeader } from "../../../data/settingsData";
 import CategorySettingsRowTemplate from "./CategorySettingsRowTemplate";
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import BulkUploadCategoryModal from "./BulkUploadCategoryModal"
 import CreateBrandCategoryModal from "./CreateBrandCategoryModal";
+import { fetchCategory } from "../../../api"; 
+import Loader from "../../globals/Loader";
+import ErrorWidget from "../../globals/ErrorWidget";
 
-function CategorySettingsTable({ categoryData }) {
+
+function CategorySettingsTable() {
   const [showBulkUploadModal, setShowBulkUploadModal] = useState(false);
   const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
-
-  categoryData = categoryData?.slice(0, 10)
+  const { category, categoryLoading, categoryError } = fetchCategory();
+  const categoryData = category?.slice(0, 10);
   console.log("Category in CategorySettingsTable:", categoryData);
 
+  const [originalArr, setoriginalArr] = useState();
+  const [filteredData, setfilteredData] = useState();
+  const [openIndex, setOpenIndex] = useState(null);
+
+  useEffect(() => {
+    if (categoryData) {
+      setoriginalArr(categoryData);
+      setfilteredData(categoryData);
+    }
+  }, [categoryData, filteredData, originalArr]);
+
+
+  if (categoryLoading) return <Loader />
+  if (categoryError) return <ErrorWidget error={categoryError} />
+  if (!categoryData?.length) return <div>No category found</div>;
 
   return (
     <>
     <div className="flex flex-col gap-2">
       <div className="w-full flex justify-end gap-4">
         <div className="flex items-center cursor-pointer">
-            <TableSearch />
+            <TableSearch 
+              filteredData={filteredData}
+              setfilteredData={setfilteredData}
+              originalArr={originalArr}
+            />
         </div>
         <button 
           className="text-black px-3 py-2 cursor-pointer border-2"
@@ -36,8 +59,8 @@ function CategorySettingsTable({ categoryData }) {
       </div>
       <Table 
       columns={categoryHeader}
-      renderRow={CategorySettingsRowTemplate}
-      data={categoryData} // Display only the first 20 items
+      renderRow={(item, i) => CategorySettingsRowTemplate(item, i, openIndex, setOpenIndex)}
+      data={filteredData} // Display only the first 20 items
       />
     </div>
     <BulkUploadCategoryModal show={showBulkUploadModal} onClose={() => setShowBulkUploadModal(false)} />

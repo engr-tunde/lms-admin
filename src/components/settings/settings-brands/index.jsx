@@ -1,14 +1,13 @@
 import TableSearch from "../../globals/TableSearch"
 import Table from "../../globals/Table"
 import { brandHeader, brandData } from "../../../data/settingsData";
-import {useState} from "react"
-import { IoEllipsisVertical } from "react-icons/io5";
+import { useState } from "react"
 import CreateBrandModal from "./CreateBrandModal";
-import DeleteBrandModal from "./DeleteBrandModal";
 import BrandSettingsRowTemplate from "./BrandSettingsRowTemplate";
 
 function BrandSettingsTable() {
   const [showCreateBrandModal, setShowCreateBrandModal] = useState(false);
+  const [openIndex, setOpenIndex] = useState(null);
 
   return (
     <div className="flex flex-col gap-2">
@@ -25,7 +24,7 @@ function BrandSettingsTable() {
       </div>
       <Table 
       columns={brandHeader}
-      renderRow={BrandSettingsRowTemplate}
+      renderRow={(item, i) => BrandSettingsRowTemplate(item, i, openIndex, setOpenIndex)}
       data={brandData}
       />
       <CreateBrandModal show={showCreateBrandModal} onClose={() => setShowCreateBrandModal(false)} />
