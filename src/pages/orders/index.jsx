@@ -4,9 +4,12 @@ import { RiCalendarLine } from "react-icons/ri";
 import OrderCardsContainer from "../../components/orders/OrderCardContainer";
 import NewOrderCardContainer from "../../components/orders/NewOrderCardContainer";
 import OrderTable from "../../components/orders/OrderTable.jsx";
+import { fetchOrders } from "../../api/index.js";
 
 
 function DashboardOrdersPage() {
+  const { orders, ordersLoading, ordersError, mutate } = fetchOrders();
+  console.log("orders ss", orders);
 
   return (
     <div className="flex flex-col gap-6">

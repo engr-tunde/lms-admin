@@ -14,7 +14,7 @@ function SubcategorySettingsTable() {
   const [showBulkUploadSubcategoryModal, setShowBulkUploadSubcategoryModal] = useState(false);
 
   const { category } = fetchCategory();
-  const { subcategory, subcategoryLoading, subcategoryError } = fetchSubcategory();
+  const { subcategory, subcategoryLoading, subcategoryError, mutate } = fetchSubcategory();
 
   const categoryData = category?.slice(0, 10);
   const subcategoryData = subcategory?.slice(0, 10);
@@ -65,11 +65,20 @@ function SubcategorySettingsTable() {
       </div>
       <Table 
       columns={subcategoryHeader}
-      renderRow={(item, i) => SubcategorySettingsRowTemplate(item, i, openIndex, setOpenIndex)}
+      renderRow={(item, i) => 
+        <SubcategorySettingsRowTemplate 
+          key={item.id} 
+          item={item} 
+          i={i} 
+          openIndex={openIndex} 
+          setOpenIndex={setOpenIndex} 
+          mutate={mutate} 
+        />
+      }
       data={filteredData}
       />
     </div>
-    <CreateSubcategoryModal show={showCreateSubcategoryModal} onClose={() => setShowCreateSubcategoryModal(false)} categoryData={categoryData} />
+    <CreateSubcategoryModal show={showCreateSubcategoryModal} onClose={() => setShowCreateSubcategoryModal(false)} categoryData={categoryData} mutate={mutate} />
     <BulkUploadSubcategoryModal show={showBulkUploadSubcategoryModal} onClose={() => setShowBulkUploadSubcategoryModal(false)} />
     </>
   );

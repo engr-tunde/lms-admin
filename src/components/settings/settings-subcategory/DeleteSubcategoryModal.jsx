@@ -3,15 +3,15 @@ import { deleteSubcategory } from "../../../api";
 import { errorNotification, successNotification } from "../../../utils/helpers";
 
 
-const DeleteSubcategoryModal = ({ show, onClose, subcategoryToDelete, subcategoryToDeleteId }) => {
+const DeleteSubcategoryModal = ({ show, onClose, subcategoryToDelete, subcategoryToDeleteId, mutate }) => {
   if (!show) return null;
-  
-  
-const handleDelete = async () => {
+
+  const handleDelete = async () => {
     const response = await deleteSubcategory(subcategoryToDeleteId);
     if (response.status.toString().includes("20")) {
       successNotification(response.data?.message || "Subcategory deleted");
       onClose();
+      mutate();
     } else {
       errorNotification(response?.data?.message || "Error deleting subcategory");
     }

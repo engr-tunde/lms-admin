@@ -10,7 +10,7 @@ import ErrorWidget from "../../globals/ErrorWidget";
 
 function CollectionsSettingsTable() {
   const [showCreateCollectionsModal, setShowCreateCollectionsModal] = useState(false);
-  const { collection, collectionLoading, collectionError } = fetchCollection();
+  const { collection, collectionLoading, collectionError, mutate } = fetchCollection();
   const collectionData = collection?.slice(0, 10);
   console.log("Collections in CollectionsSettingsTable:", collectionData);
 
@@ -49,11 +49,19 @@ function CollectionsSettingsTable() {
       </div>
       <Table 
       columns={collectionsHeader}
-      renderRow={(item, i) => CollectionsSettingsRowTemplate(item, i, openIndex, setOpenIndex)}
+      renderRow={(item, i) => (
+        <CollectionsSettingsRowTemplate 
+          item={item} 
+          i={i} 
+          openIndex={openIndex} 
+          setOpenIndex={setOpenIndex} 
+          mutate={mutate} 
+        />
+      )}
       data={filteredData}
       />
     </div>
-    <CreateCollectionsModal show={showCreateCollectionsModal} onClose={() => setShowCreateCollectionsModal(false)} />
+    <CreateCollectionsModal show={showCreateCollectionsModal} onClose={() => setShowCreateCollectionsModal(false)} mutate={mutate} />
     </>
   );
 }

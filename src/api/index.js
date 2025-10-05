@@ -21,6 +21,7 @@ import {
   FETCH_CATEGORIES,
   FETCH_COLLECTIONS,
   FETCH_SUBCATEGORIES,
+  FETCH_ORDERS,
 } from "../constants/routes";
 import { mutationRequest } from "./sendData";
 import { fetcher, sessionFetcher } from "./fetcher";
@@ -80,9 +81,7 @@ export const logout = () => {
 
 
 
-
-
-// ##SETTINGS(Remains the last 2)
+// ##SETTINGS(Done: deleteAdmin endpoint not working. Sending request but not showing changes on the data array. Backend issue)
 export const addAdmin = async (values) => {
   const result = await mutationRequest(ADMINS, "post", values, false);
   return result;
@@ -170,7 +169,8 @@ export const approveRejectProduct = async (values, id) => {
 
 
 
-// ##SETTINGS (DONE: The deleteCollection endpoint is not working. Sending request bit not showing on the data array. Backend issue)
+// ##SETTINGS (DONE: The deleteCollection endpoint is not working. Sending request but not showing on the data array. Backend issue)
+//Also, no BrandType endpoint is in the documentation. CATEGORIES endpoint only accept csvs. while addSubcategory only accept plains
 export const addCategory = async (values) => {
   const result = await mutationRequest(CATEGORIES, "post", values, false, "text/csv");
   return result;
@@ -244,11 +244,20 @@ export const fetchDisputes = (type) => {
 };
 
 
-
-
 // ##ORDERS(Unable to do without knowing fields to patch)
 export const updateOrderStatus = async (id) => {
   const result = await mutationRequest(`${UPDATE_ORDER_STATUS}/${id}`, "patch", false);
   return result;
 };
+export const fetchOrders = () => {
+  const { data, error, mutate } = useSWR(FETCH_ORDERS, fetcher);
+  return {
+    orders: data,
+    ordersLoading: !error && !data,
+    ordersError: error,
+    mutate,
+  };
+};
+
+
 

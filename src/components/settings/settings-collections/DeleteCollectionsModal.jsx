@@ -3,7 +3,7 @@ import { deleteSubcategory } from "../../../api";
 import { errorNotification, successNotification } from "../../../utils/helpers";
 
 
-const DeleteCollectionsModal = ({ show, onClose, collectionToDelete, collectionToDeleteId }) => {
+const DeleteCollectionsModal = ({ show, onClose, collectionToDelete, collectionToDeleteId, mutate }) => {
   if (!show) return null;
   
   
@@ -12,6 +12,7 @@ const handleDelete = async () => {
     if (response.status.toString().includes("20")) {
       successNotification(response.data?.message || "Collection deleted");
       onClose();
+      mutate();
     } else {
       errorNotification(response?.data?.message || "Error deleting collection");
     }

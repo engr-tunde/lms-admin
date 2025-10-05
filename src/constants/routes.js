@@ -27,6 +27,7 @@ export const APPROVE_REJECT_PRODUCT = "/admins/approve-product";
 
 // Admin Orders
 export const UPDATE_ORDER_STATUS = "/admins/order-status";
+export const FETCH_ORDERS = "/orders"
 
 
 // Admin Settings  

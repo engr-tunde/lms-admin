@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { capitalize, compactDateFormatter } from "../../../utils/helpers";
 
 
-function SubcategorySettingsRowTemplate(item, i, openIndex, setOpenIndex) {
+function SubcategorySettingsRowTemplate({ item, i, openIndex, setOpenIndex, mutate }) {
   const [showDeleteSubcategoryModal, setShowDeleteSubcategoryModal] = useState(false);
   const actionRef = useRef();
 
@@ -64,6 +64,7 @@ function SubcategorySettingsRowTemplate(item, i, openIndex, setOpenIndex) {
       onClose={() => setShowDeleteSubcategoryModal(false)} 
       subcategoryToDelete={item.name} 
       subcategoryToDeleteId={item.id} 
+      mutate={mutate}
     />
     </>
   );

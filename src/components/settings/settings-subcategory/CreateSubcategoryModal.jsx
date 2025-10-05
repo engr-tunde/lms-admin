@@ -6,7 +6,7 @@ import { addSubcategory } from "../../../api"
 import { errorNotification, successNotification } from "../../../utils/helpers";
 
 
-const CreateSubcategoryModal = ({ show, onClose, categoryData }) => {
+const CreateSubcategoryModal = ({ show, onClose, categoryData, mutate }) => {
   if (!show) return null;
 
   const initialValues = addSubcategoryValues();
@@ -41,6 +41,7 @@ const CreateSubcategoryModal = ({ show, onClose, categoryData }) => {
     if (response.status.toString().includes("20")) {
       successNotification(response.data?.message || "Subcategory created");
       onClose();
+      mutate();
     } else {
       errorNotification(response?.data?.message || "Error creating subcategory");
     }

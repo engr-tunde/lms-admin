@@ -3,7 +3,7 @@ import { IoEllipsisVertical } from "react-icons/io5";
 import { useEffect, useRef, useState } from "react"
 import { capitalize, compactDateFormatter } from "../../../utils/helpers";
 
-function CollectionsSettingsRowTemplate(item, i, openIndex, setOpenIndex) {
+function CollectionsSettingsRowTemplate({ item, i, openIndex, setOpenIndex, mutate }) {
   const [showDeleteCollectionsModal, setShowDeleteCollectionsModal] = useState(false);
   const actionRef = useRef();
 
@@ -60,8 +60,9 @@ function CollectionsSettingsRowTemplate(item, i, openIndex, setOpenIndex) {
       show={showDeleteCollectionsModal} 
       onClose={() => setShowDeleteCollectionsModal(false)} 
       collectionToDelete={item.name} 
-      collectionToDeleteId={item.id} 
-      />
+      collectionToDeleteId={item.id}
+      mutate={mutate} 
+    />
     </>
   );
 }

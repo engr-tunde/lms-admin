@@ -91,7 +91,7 @@ import CustomModal from "../../globals/Modals"
 import { addCollection } from "../../../api"
 import { errorNotification, successNotification } from "../../../utils/helpers";
 
-const CreateCollectionsModal = ({ show, onClose, }) => {
+const CreateCollectionsModal = ({ show, onClose, mutate }) => {
   if (!show) return null;
 
   const initialValues = addCollectionValues();
@@ -103,6 +103,7 @@ const CreateCollectionsModal = ({ show, onClose, }) => {
     if (response.status.toString().includes("20")) {
       successNotification(response.data?.message || "Collection created");
       onClose();
+      mutate();
     } else {
       errorNotification(response?.data?.message || "Error creating collections");
     }
