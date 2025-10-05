@@ -1,31 +1,66 @@
 import StatusCheck from "../globals/StatusCheck";
 import { IoEllipsisVertical } from "react-icons/io5";
-import { useState } from "react";
-import AppFormButton from "../forms/buttons/AppFormButton";
+import { useEffect, useRef, useState } from "react";
 import {
   dateFormatter,
   errorNotification,
   successNotification,
 } from "../../utils/helpers";
-import { deleteAdmin } from "../../api";
+import { deleteAdmin, updateAdminStatus } from "../../api";
 
-function MemberTableRowTemplate(member, i) {
-  const [actionOpen, setActionOpen] = useState(null);
+function MemberTableRowTemplate({ member, i, openIndex, setOpenIndex, mutate }) {
   const [isSubmitting, setisSubmitting] = useState(false);
-  const handleActionClick = (i) => {
-    setActionOpen(actionOpen === i ? null : i);
-  };
+  const [isTogglingStatus, setisTogglingStatus] = useState(false);
+  const actionRef = useRef();
+
+  const isOpen = openIndex === i;
+  const handleActionClick = () => setOpenIndex(isOpen ? null : i);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (actionRef.current && !actionRef.current.contains(e.target)) {
+        setOpenIndex(null);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
+
 
   const handleRemoveMember = async (id) => {
-    setisSubmitting(true);
-    const response = await deleteAdmin(id);
-    console.log("response", response);
-    if (response.status.toString().includes("20")) {
-      successNotification(response.data.message);
-    } else {
-      errorNotification(response?.data?.message);
+    try {
+      setisSubmitting(true);
+      const response = await deleteAdmin(id);
+      console.log("response", response);
+      if (response.status.toString().includes("20")) {
+        successNotification(response.data.message);
+        mutate()
+      } else {
+        errorNotification(response?.data?.message);
+      }
+    } finally {
+      setisSubmitting(false);
+      setOpenIndex(null);
     }
   };
+
+  const updateMemberStatus = async (id) => {
+    try {
+      setisTogglingStatus(true);
+      const newStatus = member?.isActive ? "DEACTIVATE" : "ACTIVATE";
+      const response = await updateAdminStatus(id, { status: newStatus });
+      console.log("response", response);
+      if (response.status.toString().includes("20")) {
+        successNotification(response.data.message);
+        mutate()
+      } else {
+        errorNotification(response?.data?.message);
+      }
+    } finally {
+      setisTogglingStatus(false);
+    }
+  }
 
   return (
     <tr key={member._id} className="border-1 border-t border-merseBorder">
@@ -44,7 +79,7 @@ function MemberTableRowTemplate(member, i) {
       </td>
       <td className="py-6 text-sm">
         <StatusCheck
-          value={member?.isActive ? "Active" : "InActive"}
+          value={member?.isActive ? "Active" : "Inactive"}
           className="px-2 py-1"
         />
       </td>
@@ -52,37 +87,48 @@ function MemberTableRowTemplate(member, i) {
         {dateFormatter(member?.createdAt)}
       </td>
       <td className="py-6 text-sm text-right text-merseLightText">
-        <div className="relative cursor-pointer">
-          <button onClick={() => handleActionClick(i)}>
+        <div 
+          className="relative cursor-pointer"
+          ref={actionRef}
+        >
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              handleActionClick();
+            }}
+          >
             <IoEllipsisVertical size={20} />
           </button>
-          {actionOpen === i && (
-            <div className="absolute z-10 w-[150px] text-xs rounded-md flex flex-col top-6 right-0 bg-white shadow-xl">
+          {isOpen && (
+            <div 
+              className="absolute z-10 w-[150px] text-xs rounded-md flex flex-col top-6 right-0 bg-white shadow-xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className={`btnn1-disabled py-2 text-center text-sm font-medium`}
+                disabled={isTogglingStatus}
+                onClick={() => {
+                  isTogglingStatus ? null : updateMemberStatus(member?._id);
+                  setOpenIndex(null);
+                }}
+              >
+                {
+                  isTogglingStatus ?
+                  member?.isActive ? "Disabling..." : "Activating..." :
+                  member?.isActive ? "Disable member" : "Activate member"
+                }
+              </button>
               <button
                 className={`btnn1-disabled py-2 text-center text-sm font-medium ${
                   isSubmitting && "opacity-50"
                 }`}
-                onClick={() =>
-                  isSubmitting ? null : handleRemoveMember(member?._id)
-                }
+                onClick={() => {
+                  isSubmitting ? null : handleRemoveMember(member?._id);
+                  setOpenIndex(null);
+                }}
               >
                 {isSubmitting ? "Deleting..." : "Remove member"}
               </button>
-
-              <AppFormButton
-                title="Activate member"
-                // className={"text-xs"}
-                // type="submit"
-                isSubmitting={false}
-                disabled={true}
-              />
-              <AppFormButton
-                title="Remove member"
-                // className={"text-xs"}
-                // type="submit"
-                isSubmitting={false}
-                disabled={true}
-              />
             </div>
           )}
         </div>

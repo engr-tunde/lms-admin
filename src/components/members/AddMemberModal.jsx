@@ -1,4 +1,3 @@
-import { IoMdClose } from "react-icons/io";
 import { addAdminValues } from "../../utils/initialValues";
 import { validateAddAdmin } from "../../utils/validate";
 import { adminRoles } from "../../data/memberData";
@@ -6,7 +5,7 @@ import { addAdmin } from "../../api";
 import { errorNotification, successNotification } from "../../utils/helpers";
 import CustomModal from "../globals/Modals";
 
-const AddMemberModal = ({ show, onClose }) => {
+const AddMemberModal = ({ show, onClose, mutate }) => {
   if (!show) return null;
 
   const initialValues = addAdminValues();
@@ -17,6 +16,7 @@ const AddMemberModal = ({ show, onClose }) => {
     if (response.status.toString().includes("20")) {
       successNotification(response.data?.message);
       onClose();
+      mutate();
     } else {
       errorNotification(response?.data?.message);
     }

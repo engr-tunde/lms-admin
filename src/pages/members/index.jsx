@@ -7,7 +7,7 @@ import Loader from "../../components/globals/Loader.jsx";
 import ErrorWidget from "../../components/globals/ErrorWidget.jsx";
 
 function DashboardMembersPage() {
-  const { admins, adminsLoading, adminsError } = fetchAdmins();
+  const { admins, adminsLoading, adminsError, mutate } = fetchAdmins();
   const [showModal, setShowModal] = useState(false);
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState();
@@ -79,6 +79,7 @@ function DashboardMembersPage() {
             filteredData={filteredData}
             setfilteredData={setfilteredData}
             originalArr={originalArr}
+            mutate={mutate}
           />
         ) : adminsLoading ? (
           <Loader />
@@ -86,7 +87,7 @@ function DashboardMembersPage() {
           <ErrorWidget error={adminsError} />
         ) : null}
       </div>
-      <AddMemberModal show={showModal} onClose={() => setShowModal(false)} />
+      <AddMemberModal show={showModal} onClose={() => setShowModal(false)} mutate={mutate} />
     </div>
   );
 }

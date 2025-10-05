@@ -47,6 +47,9 @@ const StatusCheck = ({ value, className = "" }) => {
     case "medium":
       bg = "bg-amber-500 text-black";
       break;
+    case "inactive":
+      bg = "bg-red-600 text-white";
+      break;
     case "rejected":
       bg = "bg-red-600 text-white";
       break;

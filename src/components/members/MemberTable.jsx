@@ -11,7 +11,10 @@ function MemberTable({
   filteredData,
   setfilteredData,
   originalArr,
+  mutate
 }) {
+  const [openIndex, setOpenIndex] = useState(null);
+
   return (
     <div className="flex flex-col gap-2">
       <div className="w-full flex justify-end">
@@ -25,7 +28,16 @@ function MemberTable({
       </div>
       <Table
         columns={memberColumnHeader}
-        renderRow={MemberTableRowTemplate}
+        renderRow={(item, i) => (
+          <MemberTableRowTemplate
+            key={item._id}
+            member={item}
+            i={i}
+            openIndex={openIndex}
+            setOpenIndex={setOpenIndex}
+            mutate={mutate}
+          />
+        )}
         data={filteredData}
       />
     </div>

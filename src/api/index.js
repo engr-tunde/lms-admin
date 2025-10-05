@@ -96,8 +96,8 @@ export const fetchAdmins = () => {
     mutate,
   };
 };
-export const updateAdminStatus = async (id) => {
-  const result = await mutationRequest(`${UPDATE_ADMIN_STATUS}/${id}`, "patch", false);
+export const updateAdminStatus = async (id, payload) => {
+  const result = await mutationRequest(`${UPDATE_ADMIN_STATUS}/${id}`, "patch", payload, false);
   return result;
 };
 export const deleteAdmin = async (id) => {
