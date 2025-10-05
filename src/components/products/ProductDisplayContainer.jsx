@@ -7,6 +7,7 @@ function ProductDisplayContainer({
   filteredData,
   setfilteredData,
   originalArr,
+  mutate,
 }) {
   const [filter, setFilter] = useState("");
 
@@ -43,7 +44,7 @@ function ProductDisplayContainer({
         {/* {filteredCards} */}
         {currentItems?.length > 0 &&
           currentItems.map((ele, i) => (
-            <ProductDisplayCard key={i} data={ele} />
+            <ProductDisplayCard key={i} data={ele} mutate={mutate} />
           ))}
       </div>
 

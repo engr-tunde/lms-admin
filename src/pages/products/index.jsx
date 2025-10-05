@@ -6,9 +6,11 @@ import NewlyAddedProductCardContainer from "../../components/products/AddedProdu
 import ProductDisplayContainer from "../../components/products/ProductDisplayContainer";
 import { useEffect, useState } from "react";
 import { fetchProducts } from "../../api";
+import Loader from "../../components/globals/Loader";
+import ErrorWidget from "../../components/globals/ErrorWidget";
 
 function DashboardProductPage() {
-  const { products, productsLoading, productsError } = fetchProducts();
+  const { products, productsLoading, productsError, mutate } = fetchProducts();
   const [filteredData, setfilteredData] = useState();
   const [originalArr, setoriginalArr] = useState();
   console.log("products", products);
@@ -44,13 +46,23 @@ function DashboardProductPage() {
           </div>
         </div>
         <ProductCardContainer />
-        <NewlyAddedProductCardContainer products={newlyAdded()}/>
-
-        <ProductDisplayContainer
-          filteredData={filteredData}
-          setfilteredData={setfilteredData}
-          originalArr={originalArr}
-        />
+        {
+          filteredData ? (
+            <>
+            <NewlyAddedProductCardContainer products={newlyAdded()}/>
+            <ProductDisplayContainer
+              filteredData={filteredData}
+              setfilteredData={setfilteredData}
+              originalArr={originalArr}
+              mutate={mutate}
+            />
+            </>
+          ) : productsLoading ? (
+            <Loader />
+          ) : productsError ? (
+            <ErrorWidget error={productsError} />
+          ) : null
+        }
       </div>
     </div>
   );

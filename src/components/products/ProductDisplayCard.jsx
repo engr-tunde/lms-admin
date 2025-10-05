@@ -3,7 +3,7 @@ import StatusCheck from "../globals/StatusCheck";
 import ProductViewModal from "./ProductViewModal";
 import { useState } from "react";
 
-function ProductDisplayCard({ data }) {
+function ProductDisplayCard({ data, mutate }) {
   const [showModal, setShowModal] = useState(false);
 
   let quantity = 0;
@@ -51,6 +51,7 @@ function ProductDisplayCard({ data }) {
         show={showModal}
         onClose={() => setShowModal(false)}
         data={data}
+        mutate={mutate}
       />
     </>
   );

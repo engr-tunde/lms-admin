@@ -4,7 +4,7 @@ import ProductViewDetails from "./Details";
 import ProductViewFinancialBreakdown from "./FinancialBreakdown";
 import VariantContainer from "./VariantContainer";
 
-const ProductViewModal = ({ show, onClose, data }) => {
+const ProductViewModal = ({ show, onClose, data, mutate }) => {
   console.log("data", data);
   if (!show) return null;
   
@@ -31,7 +31,7 @@ const ProductViewModal = ({ show, onClose, data }) => {
         </div>
         <div className="text-lg font-semibold">Product Details</div>
         <ImageSlider variants={data?.variants} />
-        <ProductViewDetails data={data} />
+        <ProductViewDetails data={data} mutate={mutate} />
         {data?.hasVariants && <VariantContainer data={data} />}
         {data?.pricing && <ProductViewFinancialBreakdown pricing={data?.pricing} />}
       </div>

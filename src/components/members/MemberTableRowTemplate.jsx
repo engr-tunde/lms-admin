@@ -1,32 +1,18 @@
 import StatusCheck from "../globals/StatusCheck";
 import { IoEllipsisVertical } from "react-icons/io5";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import {
   dateFormatter,
   errorNotification,
   successNotification,
+  useToggleOpen,
 } from "../../utils/helpers";
 import { deleteAdmin, updateAdminStatus } from "../../api";
 
 function MemberTableRowTemplate({ member, i, openIndex, setOpenIndex, mutate }) {
   const [isSubmitting, setisSubmitting] = useState(false);
   const [isTogglingStatus, setisTogglingStatus] = useState(false);
-  const actionRef = useRef();
-
-  const isOpen = openIndex === i;
-  const handleActionClick = () => setOpenIndex(isOpen ? null : i);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (actionRef.current && !actionRef.current.contains(e.target)) {
-        setOpenIndex(null);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
-
-
+  const { isOpen, toggle, close, ref } = useToggleOpen(openIndex, setOpenIndex, i);
 
   const handleRemoveMember = async (id) => {
     try {
@@ -41,7 +27,7 @@ function MemberTableRowTemplate({ member, i, openIndex, setOpenIndex, mutate }) 
       }
     } finally {
       setisSubmitting(false);
-      setOpenIndex(null);
+      close();
     }
   };
 
@@ -59,6 +45,7 @@ function MemberTableRowTemplate({ member, i, openIndex, setOpenIndex, mutate }) 
       }
     } finally {
       setisTogglingStatus(false);
+      close()
     }
   }
 
@@ -89,12 +76,12 @@ function MemberTableRowTemplate({ member, i, openIndex, setOpenIndex, mutate }) 
       <td className="py-6 text-sm text-right text-merseLightText">
         <div 
           className="relative cursor-pointer"
-          ref={actionRef}
+          ref={ref}
         >
           <button 
             onClick={(e) => {
               e.stopPropagation();
-              handleActionClick();
+              toggle();
             }}
           >
             <IoEllipsisVertical size={20} />
@@ -107,10 +94,7 @@ function MemberTableRowTemplate({ member, i, openIndex, setOpenIndex, mutate }) 
               <button
                 className={`btnn1-disabled py-2 text-center text-sm font-medium`}
                 disabled={isTogglingStatus}
-                onClick={() => {
-                  isTogglingStatus ? null : updateMemberStatus(member?._id);
-                  setOpenIndex(null);
-                }}
+                onClick={() => updateMemberStatus(member?._id)}
               >
                 {
                   isTogglingStatus ?
@@ -122,10 +106,7 @@ function MemberTableRowTemplate({ member, i, openIndex, setOpenIndex, mutate }) 
                 className={`btnn1-disabled py-2 text-center text-sm font-medium ${
                   isSubmitting && "opacity-50"
                 }`}
-                onClick={() => {
-                  isSubmitting ? null : handleRemoveMember(member?._id);
-                  setOpenIndex(null);
-                }}
+                onClick={() => handleRemoveMember(member?._id)}
               >
                 {isSubmitting ? "Deleting..." : "Remove member"}
               </button>

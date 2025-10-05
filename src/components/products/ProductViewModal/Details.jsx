@@ -4,7 +4,7 @@ import RejectionFormModal from "./RejectionFormModal";
 import { approveRejectProduct } from "../../../api";
 import { capitalize, errorNotification, successNotification } from "../../../utils/helpers";
 
-const ProductViewDetails = ({ data }) => {
+const ProductViewDetails = ({ data, mutate }) => {
   const [showRejectionForm, setShowRejectionForm] = useState(false);
   let quantity = 0;
   data?.variants?.forEach((ele) => {
@@ -25,6 +25,7 @@ const ProductViewDetails = ({ data }) => {
     if (response?.status?.toString()?.includes("20")) {
       successNotification(response?.data?.message);
       onClose();
+      mutate();
     } else {
       errorNotification(response?.data?.message[0]);
     }

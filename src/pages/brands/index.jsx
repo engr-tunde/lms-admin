@@ -1,17 +1,27 @@
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
-import { IoEllipsisHorizontalSharp } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiCalendarLine } from "react-icons/ri";
 import { FaChevronDown } from "react-icons/fa";
 import BrandsOrderCardContainer from "../../components/brands/brand-order/BrandsOrderCardContainer";
-import AddedProductBrandsCardContainer from "../../components/brands/brand-overview/AddedProductBrandsCardContainer";
 import AllBrandsTable from "../../components/brands/AllBrandsTable";
-import { fetchBrands, fetchProductByBrand } from "../../api";
+import { fetchBrands } from "../../api";
 import BrandRequestContainer from "../../components/globals/BrandRequestContainer";
+import Loader from "../../components/globals/Loader";
+import ErrorWidget from "../../components/globals/ErrorWidget";
 
 function DashboardBrandsPage() {
-  const { brands, brandsLoading, brandsError } = fetchBrands();
+  const { brands, brandsLoading, brandsError, mutate } = fetchBrands();
+  const [filteredData, setfilteredData] = useState();
+  const [originalArr, setoriginalArr] = useState();
   console.log("brands ss", brands);
+
+  useEffect(() => {
+    if (brands) {
+      setoriginalArr(brands?.brands);
+      setfilteredData(brands?.brands);
+    }
+  }, [brands]);
+
   
   // const newlyAddedBrands = () => {
   //   if (!brands?.brands) return [];
@@ -53,8 +63,21 @@ function DashboardBrandsPage() {
         </div>
       </div>
       <BrandsOrderCardContainer />
-      <BrandRequestContainer brandsData={newlyAddedBrands()} />
-      <AllBrandsTable brandsData={brands?.brands} />
+      {filteredData ? (
+        <>
+          <BrandRequestContainer brandsData={newlyAddedBrands()} />
+          <AllBrandsTable
+            filteredData={filteredData}
+            setfilteredData={setfilteredData}
+            originalArr={originalArr}
+            mutate={mutate}
+          />
+        </>
+        ) : brandsLoading ? (
+        <Loader />
+      ) : brandsError ? (
+        <ErrorWidget error={brandsError} />
+      ) : null}
     </div>
   );
 }

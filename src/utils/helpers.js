@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 
 export const successNotification = (message) => toast.success(message);
@@ -96,3 +96,28 @@ export const useOutsideClick = (ref, onClickOut) => {
     return () => document.removeEventListener("click", onCLick);
   }, []);
 };
+
+
+
+
+
+export const useToggleOpen = (openIndex, setOpenIndex, index) => {
+  const ref = useRef();
+  const isOpen = openIndex === index;
+
+  const toggle = () => setOpenIndex(isOpen ? null : index);
+  const close = () => setOpenIndex(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        close();
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [ref]);
+
+  return { isOpen, toggle, close, ref };
+};
+

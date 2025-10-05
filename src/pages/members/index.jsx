@@ -75,7 +75,6 @@ function DashboardMembersPage() {
       <div className="h-full min-h-[400px] w-full flex flex-col gap-8">
         {filteredData ? (
           <MemberTable
-            data={filteredData}
             filteredData={filteredData}
             setfilteredData={setfilteredData}
             originalArr={originalArr}

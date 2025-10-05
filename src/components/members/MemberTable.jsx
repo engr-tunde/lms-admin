@@ -5,7 +5,6 @@ import MemberTableRowTemplate from "./MemberTableRowTemplate.jsx";
 import { useEffect, useState } from "react";
 
 function MemberTable({
-  data,
   setsearch,
   search,
   filteredData,

@@ -1,25 +1,12 @@
 import DeleteBrandCategoryModal from "./DeleteBrandCategoryModal";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { useEffect, useRef, useState } from "react"
-import { capitalize, compactDateFormatter } from "../../../utils/helpers";
+import { capitalize, compactDateFormatter, useToggleOpen } from "../../../utils/helpers";
 
 
 function CategorySettingsRowTemplate(item, i, openIndex, setOpenIndex) {
   const [showDeleteCategoryModal, setShowDeleteCategoryModal] = useState(false);
-  const actionRef = useRef();
-
-  const isOpen = openIndex === i;
-  const handleActionClick = () => setOpenIndex(isOpen ? null : i);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (actionRef.current && !actionRef.current.contains(e.target)) {
-        setOpenIndex(null);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
+  const { isOpen, toggle, close, ref } = useToggleOpen(openIndex, setOpenIndex, i);
   
 
   return (
@@ -31,26 +18,27 @@ function CategorySettingsRowTemplate(item, i, openIndex, setOpenIndex) {
       <td className="py-4 text-sm">
         <div 
           className="relative cursor-pointer"
-          ref={actionRef}
+          ref={ref}
         >
           <button
             onClick={(e) => {
               e.stopPropagation();
-              handleActionClick();
+              toggle();
             }}
           >
             <IoEllipsisVertical size={20} />
           </button>
           {isOpen && (
-            <div className="absolute z-10 w-[100px] text-xs rounded-md flex flex-col top-6 left-0 bg-white shadow-xl">
+            <div className="absolute z-10 w-[100px] text-xs rounded-md flex flex-col top-6 right-0 bg-white shadow-xl border-[1px]">
               <button
                 className="text-sm text-left px-5 py-2"
+                onClick={close}
               >
                 Edit
               </button>
               <button
                 className="text-sm text-left px-5 py-2"
-                onClick={() => setShowDeleteCategoryModal(true)}
+                onClick={() => {setShowDeleteCategoryModal(true); close()}}
               >
                 Delete
               </button>
