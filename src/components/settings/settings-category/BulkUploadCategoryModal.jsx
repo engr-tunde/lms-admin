@@ -1,26 +1,41 @@
 import { useState } from "react";
-import AppFormButton from "../../forms/buttons/AppFormButton";
 import { IoMdClose } from "react-icons/io";
 import { FiUpload } from "react-icons/fi";
-
+import SubmitButton from "../../forms/SubmitButton";
+import { Field, useFormikContext } from "formik";
+import CustomFormik from "../../forms/CustomFormik"
+import { bulkUploadCategoryValues } from "../../../utils/initialValues";
+import { validateBulkUploadCategoryValues } from "../../../utils/validate";
+import { bulkUploadCategory } from "../../../api";
+import { errorNotification, successNotification } from "../../../utils/helpers";
+import CsvFileUploadField from "../../forms/CsvFileUploadField";
 
 
 const BulkUploadCategoryModal = ({ show, onClose }) => {
-  const [file, setFile] = useState(null)
 
-  const uploadIcon = () => (
-    <FiUpload size={30} className="text-merseBorder" />
-  );
+  const handleBulkUpload = async (values) => {
+    const file = values.csvFile;
+    if (!file) {
+      errorNotification("Please upload a CSV file");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await bulkUploadCategory(formData);
+    if (response.status.toString().includes("20")) {
+      console.log("Bulk upload response:", response);
+      successNotification(  response.data?.message || "Categories uploaded successfully");
+      onClose();
+    } else {
+      errorNotification(response?.data?.message || "Failed to upload categories");
+    }
+  };
+
+  const initialValues = bulkUploadCategoryValues();
+  const validationSchema = validateBulkUploadCategoryValues();
 
   if (!show) return null;
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  }
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setFile(e.dataTransfer.files[0]);
-  };
 
 
   return (
@@ -32,32 +47,19 @@ const BulkUploadCategoryModal = ({ show, onClose }) => {
           </button>
         </div>
         <div className="font-semibold text-sm mb-3">Bulk Upload Categories</div>
-        {!file ? (
-          <>
+        <CustomFormik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleBulkUpload}
+        >
+          <div className="flex flex-col gap-3">
             <span className="text-sm text-merseLightText mb-4">
               Upload a CSV file with your categories. The file should have{" "}
-              <span className="font-semibold">category name</span> column
+              <span className="font-semibold">category name</span> column.
             </span>
-            <label 
-              htmlFor=""
-              onDrop={handleDrop}
-              onDragOver={(e) => e.preventDefault()}
-              className="flex flex-col gap-1 items-center justify-center border border-gray-300 border-dashed rounded-md py-10 cursor-pointer hover:bg-gray-50"
-            >
-              <input 
-                type="file"
-                accept=".csv"
-                className="hidden"
-                onChange={handleFileChange}
-               />
-              {uploadIcon()}
-              <span className="text-gray-500 text-sm">
-                Drag and drop your CSV file here, or click to browse
-              </span>
-              <span className="text-xs text-gray-400 mt-1">
-                Supports CSV files up to 5MB
-              </span>
-            </label>
+
+            <CsvFileUploadField name="csvFile" />
+
             <div className="flex justify-end gap-4">
               <button
                 type="button"
@@ -66,32 +68,13 @@ const BulkUploadCategoryModal = ({ show, onClose }) => {
               >
                 Cancel
               </button>
-              <AppFormButton 
+              <SubmitButton
                 title="Upload"
                 className="px-3 py-1 text-white bg-black text-sm"
-                // type="submit"
-                isSubmitting={false}
-                disabled={!file}
               />
             </div>
-          </>
-        ) : (
-          <>
-            <div className="border border-gray-200 rounded-md py-6 px-4 text-center">
-              <p className="text-gray-700 font-medium">File uploaded</p>
-              <p className="text-sm text-gray-500 mt-1">{file.name}</p>
-            </div>
-            <div className="flex justify-end gap-4">
-              <button
-                type="button"
-                className="px-3 py-1 border-2 text-sm"
-                onClick={onClose}
-              >
-                Done
-              </button>
-            </div>
-          </>
-        )}
+          </div>
+        </CustomFormik>
       </div>
     </div>
   )

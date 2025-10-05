@@ -38,6 +38,15 @@ export const dateFormatter = (date) => {
   var formatttedDate = `${day}, ${day2} ${month}, ${year}`;
   return formatttedDate;
 };
+export const compactDateFormatter = (date) => {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
 export const dateTimeFormatter = (date) => {
   var dateString = new Date(date).toString();
   // console.log({ dateString });

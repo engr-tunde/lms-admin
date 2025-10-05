@@ -2,10 +2,28 @@ import { FaChevronDown } from "react-icons/fa";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { RiCalendarLine } from "react-icons/ri";
 import OverviewCards from "../../components/overview/OverviewCardsContainer";
-import OverviewBrandRequestContainer from "../../components/overview/OverviewBrandRequestContainer";
+import BrandRequestContainer from "../../components/globals/BrandRequestContainer";
 import OverviewTable from "../../components/overview/OverviewTable";
+import { fetchBrands } from "../../api";
 
 function DashboardOverviewPage() {
+  const { brands, brandsLoading, brandsError } = fetchBrands();
+    console.log("brands ss", brands);
+  
+    const newlyAddedBrands = () => {
+      let allBrands = brands?.brands
+
+      if (!allBrands) return [];
+      const pendingBrands = allBrands.filter(brand => brand.status === "pending");
+      if (pendingBrands.length > 0) {
+         allBrands = pendingBrands
+      };
+      const sorted = [...allBrands].sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+      return sorted.slice(0, 3);
+    };
+
   return (
     <div className="flex flex-col gap-6 h-full">
       <DashboardNavBar
@@ -21,7 +39,7 @@ function DashboardOverviewPage() {
           </div>
         </div>
         <OverviewCards />
-        <OverviewBrandRequestContainer />
+        <BrandRequestContainer brandsData={newlyAddedBrands()} />
         <OverviewTable />
       </div>
     </div>

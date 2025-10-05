@@ -63,3 +63,43 @@ export const rejectProductValues = () => {
   };
   return initialValues;
 };
+
+
+//Settings 
+
+export const addBrandValues = () => {
+  const initialValues = {
+    brandType: "",
+  };
+  return initialValues;
+};
+
+export const addCategoryValues = () => {
+  const initialValues = {
+    category: "",
+  };
+  return initialValues;
+};
+export const bulkUploadCategoryValues = () => {
+  const initialValues = {
+    csvFile: null, // CSV file
+  };
+  return initialValues;
+};
+
+export const addSubcategoryValues = () => {
+  const initialValues = {
+    category: "",
+    subcategory: "",
+  };
+  return initialValues;
+};
+
+export const addCollectionValues = () => {
+  const initialValues = {
+    collection: "",
+  };
+  return initialValues;
+};
+
+

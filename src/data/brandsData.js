@@ -9,21 +9,21 @@ export const brandsTableColumnHeader = [
     header: "Brand",
     className: "text-sm font-medium text-merseLightText tracking-wider",
   },
-  {
-    header: "Products",
-    className:
-      "hidden lg:table-cell text-sm font-medium text-merseLightText tracking-wider",
-  },
-  {
-    header: "Total Sales",
-    className:
-      "hidden lg:table-cell text-sm font-medium text-merseLightText tracking-wider",
-  },
-  {
-    header: "Orders",
-    className:
-      "hidden lg:table-cell text-sm font-medium text-merseLightText tracking-wider",
-  },
+  // {
+  //   header: "Products",
+  //   className:
+  //     "hidden lg:table-cell text-sm font-medium text-merseLightText tracking-wider",
+  // },
+  // {
+  //   header: "Total Sales",
+  //   className:
+  //     "hidden lg:table-cell text-sm font-medium text-merseLightText tracking-wider",
+  // },
+  // {
+  //   header: "Orders",
+  //   className:
+  //     "hidden lg:table-cell text-sm font-medium text-merseLightText tracking-wider",
+  // },
 
   {
     header: "Status",

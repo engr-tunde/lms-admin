@@ -30,8 +30,8 @@ function MemberTableRowTemplate(member, i) {
   return (
     <tr key={member._id} className="border-1 border-t border-merseBorder">
       <td className="py-6 text-sm flex flex-col items-start">
-        <span className="text-lg">{member.fullName}</span>
-        <span className="text-merseLightText">{member.email}</span>
+        <span className="text-lg">{member?.fullName}</span>
+        <span className="text-merseLightText">{member?.email}</span>
       </td>
       <td className="py-6 text-sm">
         {member.role === "finance_manager"
@@ -49,7 +49,7 @@ function MemberTableRowTemplate(member, i) {
         />
       </td>
       <td className="py-6 text-sm text-merseLightText hidden lg:table-cell">
-        {dateFormatter(member.createdAt)}
+        {dateFormatter(member?.createdAt)}
       </td>
       <td className="py-6 text-sm text-right text-merseLightText">
         <div className="relative cursor-pointer">

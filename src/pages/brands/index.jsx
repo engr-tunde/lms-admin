@@ -6,14 +6,34 @@ import { FaChevronDown } from "react-icons/fa";
 import BrandsOrderCardContainer from "../../components/brands/brand-order/BrandsOrderCardContainer";
 import AddedProductBrandsCardContainer from "../../components/brands/brand-overview/AddedProductBrandsCardContainer";
 import AllBrandsTable from "../../components/brands/AllBrandsTable";
-import { fetchBrands, fetchProducts } from "../../api";
+import { fetchBrands, fetchProductByBrand } from "../../api";
+import BrandRequestContainer from "../../components/globals/BrandRequestContainer";
 
 function DashboardBrandsPage() {
-  const [activeTab, setActiveTab] = useState("Brand overview");
   const { brands, brandsLoading, brandsError } = fetchBrands();
-  const { products, productsLoading, productsError } = fetchProducts();
   console.log("brands ss", brands);
-  console.log("products ss", products);
+  
+  // const newlyAddedBrands = () => {
+  //   if (!brands?.brands) return [];
+  //   const sorted = [...brands.brands].sort(
+  //     (a, b) => new Date(b.created_at) - new Date(a.created_at)
+  //   );
+  //   return sorted.slice(0, 3);
+  // };
+
+  const newlyAddedBrands = () => {
+    let allBrands = brands?.brands
+
+    if (!allBrands) return [];
+    const pendingBrands = allBrands.filter(brand => brand.status === "pending");
+    if (pendingBrands.length > 0) {
+        allBrands = pendingBrands
+    };
+    const sorted = [...allBrands].sort(
+      (a, b) => new Date(b.created_at) - new Date(a.created_at)
+    );
+    return sorted.slice(0, 3);
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -33,7 +53,7 @@ function DashboardBrandsPage() {
         </div>
       </div>
       <BrandsOrderCardContainer />
-      <AddedProductBrandsCardContainer />
+      <BrandRequestContainer brandsData={newlyAddedBrands()} />
       <AllBrandsTable brandsData={brands?.brands} />
     </div>
   );

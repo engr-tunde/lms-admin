@@ -102,3 +102,50 @@ export const validaterejectProduct = () => {
   });
   return validationSchema;
 };
+
+
+
+
+//# SETTINGS PAGE VALIDATIONS # 
+
+export const validateAddBrandValues = () => {
+  const validationSchema = yup.object({
+    brandType: yup.string().required("Please, provide brand type"),
+  });
+  return validationSchema;
+}
+
+export const validateAddCategoryValues = () => {
+  const validationSchema = yup.object({
+    category: yup.string().required("Please, provide category name"),
+  });
+  return validationSchema;
+}
+export const validateBulkUploadCategoryValues = () => {
+  const validationSchema = yup.object({
+    csvFile: yup
+      .mixed()
+      .required("Please, upload a CSV file")
+      .test(
+        "fileType",
+        "Only CSV files are allowed",
+        (value) => value && value.type === "text/csv"
+      ),
+  });
+  return validationSchema;
+};
+
+
+export const validateAddSubcategoryValues = () => {
+  const validationSchema = yup.object({
+    category: yup.string().required("Kindly pick a category from the list"),
+    subcategory: yup.string().required("Please, provide subcategory name"),
+  });
+  return validationSchema;
+}
+export const validateAddCollectionValues = () => {
+  const validationSchema = yup.object({
+    collection: yup.string().required("Please, provide collection name"),
+  });
+  return validationSchema;
+}

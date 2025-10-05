@@ -1,30 +1,41 @@
 import { IoMdClose }from "react-icons/io";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import AppFormButton from "../../forms/buttons/AppFormButton";
-
+import { validateAddCategoryValues } from "../../../utils/validate"
+import { addCategoryValues } from "../../../utils/initialValues"
+import CustomModal from "../../globals/Modals"
+import { addCategory } from "../../../api"
+import { errorNotification, successNotification } from "../../../utils/helpers";
 
 const CreateBrandCategoryModal = ({ show, onClose, }) => {
-    if (!show) return null;
-  
-  const initialValues = {
-    category: "",
+  if (!show) return null;
+
+  const initialValues = addCategoryValues();
+  const validationSchema = validateAddCategoryValues()
+
+  const handleSubmit = async (values) => {
+    const categoriesArray = values.category
+      .split(/[\n,]+/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+
+    if (categoriesArray.length === 0) {
+      errorNotification("Please enter at least one valid category");
+      return;
+    }
+    const csvHeader = "category\n";
+    const csvBody = categoriesArray.join("\n");
+    const csvText = csvHeader + csvBody;
+    const csvFile = new Blob([csvText], { type: "text/csv" });
+    const formData = new FormData();
+    formData.append("file", csvFile, "categories.csv");
+
+    const response = await addCategory(formData);
+    if (response.status.toString().includes("20")) {
+      successNotification(response.data?.message || "Category created");
+      onClose();
+    } else {
+      errorNotification(response?.data?.message || "Error creating category");
+    }
   };
-
-  const validationSchema = Yup.object({
-    category: Yup.string().required("Please, provide brand category"),
-  });
-
-//   const handleSubmit = async (values, { resetForm }) => {
-//     try {
-//       await axios.post(endpoint, values);
-//       alert(`${type === "category" ? "Category" : "Adjustment"} added!`);
-//       resetForm();
-//       onClose();
-//     } catch (error) {
-//       console.error("Submission error:", error);
-//     }
-//   };
   
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25 bg-opacity-40 w-full">
@@ -34,50 +45,35 @@ const CreateBrandCategoryModal = ({ show, onClose, }) => {
             <IoMdClose size={20} onClick={onClose} className="" />
           </button>
         </div>
-          <div className="font-semibold text-sm mb-3">Create Brand Category</div>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-        //   onSubmit={handleSubmit}
-        >
-          <Form className="space-y-4">
-            <div className="flex justify-between gap-4 h-full">
-              <div className="w-full h-full">
-                <Field
-                  name="category"
-                  placeholder="Category name"
-                  className="w-full h-full text-sm border-2 focus:border-black outline-none px-3 py-2"
-                />
-                <ErrorMessage
-                  name="category"
-                  component="div"
-                  className="text-red-500 text-xs"
-                />
-              </div>
-            </div>
-            <div className="flex justify-end gap-4">
-              <button
-                type="button"
-                onClick={onClose}
-                className="px-3 py-1 border-2 text-sm"
-              >
-                Cancel
-              </button>
-              <AppFormButton 
-                title="Create"
-                className="px-3 py-1 text-white bg-black text-sm"
-                // type="submit"
-                isSubmitting={false}
-                disabled={true}
-              />
-            </div>
-          </Form>
-        </Formik>
+          <div className="font-semibold text-sm mb-3">
+            Create Brand Category
+          </div>
+          <CustomModal
+            show={show}
+            onClose={onClose}
+            fields={addCategoryFields}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+            title="Create Brand Category"
+            description=""
+            submitButtonTitle="Create"
+          />
       </div>
     </div>
   )
 }
 
+
+export const addCategoryFields = [
+  {
+    type: "text",
+    name: "category",
+    placeholder: "Category name",
+    colSpan: 2,
+  },
+];
+
+
 export default CreateBrandCategoryModal
 
-// AppFormButton = ({ title, className, isSubmitting, disabled })

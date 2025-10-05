@@ -1,6 +1,6 @@
 import {
   brandsTableColumnHeader,
-  brandsTableData,
+  // brandsTableData,
 } from "../../data/brandsData";
 import Table from "../globals/Table";
 import TableSearch from "../globals/TableSearch";

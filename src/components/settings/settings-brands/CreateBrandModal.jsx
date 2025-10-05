@@ -1,26 +1,22 @@
 import { IoMdClose }from "react-icons/io";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import { validateAddBrandValues } from "../../../utils/validate"
+// import { addBrandValues } from "../../../utils/initialValues";
 import AppFormButton from "../../forms/buttons/AppFormButton";
 
 
 const CreateBrandModal = ({ show, onClose, }) => {
     if (!show) return null;
-  
-  const initialValues = {
-    brandType: "",
-  };
 
-  const validationSchema = Yup.object({
-    brandType: Yup.string().required("Please, provide brand type"),
-  });
+  // const initialValues = addBrandValues();
+  // const validationSchema = validateAddBrandValues();
 
-//   const handleSubmit = async (values, { resetForm }) => {
-//     try {
-//       await axios.post(endpoint, values);
-//       alert(`${type === "category" ? "Category" : "Adjustment"} added!`);
-//       resetForm();
-//       onClose();
+  //   const handleSubmit = async (values, { resetForm }) => {
+  //     try {
+  //       await axios.post(endpoint, values);
+  //       alert(`${type === "category" ? "Category" : "Adjustment"} added!`);
+  //       resetForm();
+  //       onClose();
 //     } catch (error) {
 //       console.error("Submission error:", error);
 //     }
@@ -38,7 +34,6 @@ const CreateBrandModal = ({ show, onClose, }) => {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-        //   onSubmit={handleSubmit}
         >
           <Form className="space-y-4">
             <div className="flex justify-between gap-4 h-full">

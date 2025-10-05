@@ -3,7 +3,7 @@ import Table from "../globals/Table"
 import { payoutDisputeTableColumn, payoutDisputeData } from "../../data/disputeData.js";
 import PayoutDisputeRowTemplate from "./PayoutDisputeRowTemplate.jsx";
 
-function PayoutDisputeTable({ activeTab, setActiveTab }) {
+function PayoutDisputeTable({ activeTab, setActiveTab, data }) {
   return (
     <div className="flex flex-col gap-2">
       <div className="w-full flex justify-between">

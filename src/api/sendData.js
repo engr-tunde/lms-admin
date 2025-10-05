@@ -1,9 +1,14 @@
 import { axiosInstance } from "./client";
 import Cookies from "js-cookie";
 
-const postData = async (url, data, withCredentials) => {
+const postData = async (url, data, withCredentials, contentType = "application/json") => {
   const result = await axiosInstance()
-    .post(url, data, { withCredentials: withCredentials })
+    .post(url, data, { 
+      withCredentials,
+      headers: {
+        'Content-Type': contentType
+      }
+    })
     .then((res) => {
       console.log("res status", res.status);
       if (res.status == 401) {
@@ -12,7 +17,8 @@ const postData = async (url, data, withCredentials) => {
       }
       return res;
     })
-    .catch((err) => err.response);
+
+    .catch((err) => { console.log(err.response.data); return err.response; });
 
   return result;
 };
@@ -77,11 +83,12 @@ export const mutationRequest = (
   url,
   type = "post",
   data,
-  withCredentials = false
+  withCredentials = false, 
+  contentType = "application/json"
 ) => {
   switch (type.toLowerCase()) {
     case "post":
-      return postData(url, data, withCredentials);
+      return postData(url, data, withCredentials, contentType);
 
     case "put":
       return putData(url, data, withCredentials);
@@ -96,6 +103,6 @@ export const mutationRequest = (
       return postMultipartData(url, data, withCredentials);
 
     default:
-      return postData(url, data, withCredentials);
+      return postData(url, data, withCredentials, contentType);
   }
 };

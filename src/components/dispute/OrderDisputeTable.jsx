@@ -3,7 +3,7 @@ import Table from "../globals/Table"
 import { orderDisputeTableColumn, orderDisputeData } from "../../data/disputeData.js";
 import OrderDisputeRowTemplate from "./OrderDisputeRowTemplate.jsx";
 
-function OrderDisputeTable({ activeTab, setActiveTab}) {
+function OrderDisputeTable({ activeTab, setActiveTab, data}) {
   return (
     <div className="flex flex-col gap-2">
       <div className="w-full flex justify-between">

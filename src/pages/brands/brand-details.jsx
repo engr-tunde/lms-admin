@@ -7,10 +7,18 @@ import BrandFinancePage from "../../components/brands/brand-finances";
 import BrandDisputePage from "../../components/brands/brand-dispute";
 import BrandsCompliancePage from "../../components/brands/brand-compliance";
 import StatusCheck from "../../components/globals/StatusCheck"
+import { useParams } from "react-router-dom"
 import { useState } from "react";
+// import { fetchProductByBrand } from "../../api";
 
 function DashboardBrandDetailsPage() {
   const [activeTab, setActiveTab] = useState("Brand overview");
+
+  const { id } = useParams();
+  const brandId = id;
+  console.log("brand id", id);
+
+
   const ellipsisIcon = (size) => {
     return <IoEllipsisHorizontalSharp size={size} />;
   };
@@ -89,7 +97,7 @@ function DashboardBrandDetailsPage() {
             Dispute
           </button>
         </div>
-        {SetActivePage(activeTab)}
+        {SetActivePage(activeTab, brandId)}
       </div>
     </div>
   );
@@ -97,12 +105,11 @@ function DashboardBrandDetailsPage() {
 
 export default DashboardBrandDetailsPage;
 
-const SetActivePage = (activeTab) => {
-  if (activeTab === "Brand overview") return <BrandsOverviewPage />;
-  if (activeTab === "Products") return <ProductBrandsPage />;
-  if (activeTab === "Orders") return <BrandsOrderPage />;
-  if (activeTab === "Finances") return <BrandFinancePage />;
-  if (activeTab === "Dispute") return <BrandDisputePage />;
-  if (activeTab === "Compliance & Verification")
-    return <BrandsCompliancePage />;
+const SetActivePage = (activeTab, brandId) => {
+  if (activeTab === "Brand overview") return <BrandsOverviewPage brandId={brandId} />;
+  if (activeTab === "Products") return <ProductBrandsPage brandId={brandId} />;
+  if (activeTab === "Orders") return <BrandsOrderPage brandId={brandId} />;
+  if (activeTab === "Finances") return <BrandFinancePage brandId={brandId} />;
+  if (activeTab === "Dispute") return <BrandDisputePage brandId={brandId} />;
+  if (activeTab === "Compliance & Verification") return <BrandsCompliancePage brandId={brandId} />;
 };
