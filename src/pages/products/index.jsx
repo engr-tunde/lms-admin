@@ -5,14 +5,20 @@ import ProductCardContainer from "../../components/products/ProductCardContainer
 import NewlyAddedProductCardContainer from "../../components/products/AddedProductCardContainer";
 import ProductDisplayContainer from "../../components/products/ProductDisplayContainer";
 import { useEffect, useState } from "react";
-import { fetchProducts } from "../../api";
+import { fetchBrands, fetchProducts } from "../../api";
 import Loader from "../../components/globals/Loader";
 import ErrorWidget from "../../components/globals/ErrorWidget";
 
 function DashboardProductPage() {
-  const { products, productsLoading, productsError, mutate } = fetchProducts();
   const [filteredData, setfilteredData] = useState();
   const [originalArr, setoriginalArr] = useState();
+  const [productCount, setproductCount] = useState(0);
+  const [brandCount, setbrandCount] = useState(0);
+  const [pendingProductsCount, setpendingProductsCount] = useState(0);
+  const [rejectedProductsCount, setrejectedProductsCount] = useState(0);
+
+  const { products, productsLoading, productsError, mutate } = fetchProducts();
+  const { brands } = fetchBrands();
   console.log("products", products);
 
   const newlyAdded = () => {
@@ -23,13 +29,28 @@ function DashboardProductPage() {
     return sorted.slice(0, 3);
   };
 
-
   useEffect(() => {
     if (products) {
+      let pendingProds = products?.products?.filter(
+        (ele) => ele.approvalStatus?.toLowerCase() === "pending"
+      )?.length;
+      let rejectedProds = products?.products?.filter(
+        (ele) => ele.approvalStatus?.toLowerCase() === "rejected"
+      )?.length;
+
       setoriginalArr(products?.products);
       setfilteredData(products?.products);
+      setproductCount(products?.products?.length);
+      setpendingProductsCount(pendingProds);
+      setrejectedProductsCount(rejectedProds);
     }
   }, [products]);
+
+  useEffect(() => {
+    if (brands) {
+      setbrandCount(brands?.brands?.length);
+    }
+  }, [brands]);
 
   return (
     <div className="flex flex-col gap-6 h-full">
@@ -45,24 +66,27 @@ function DashboardProductPage() {
             <FaChevronDown size={10} />
           </div>
         </div>
-        <ProductCardContainer />
-        {
-          filteredData ? (
-            <>
-            <NewlyAddedProductCardContainer products={newlyAdded()}/>
+        <ProductCardContainer
+          productCount={productCount}
+          brandCount={brandCount}
+          pendingProductsCount={pendingProductsCount}
+          rejectedProductsCount={rejectedProductsCount}
+        />
+        {filteredData ? (
+          <>
+            <NewlyAddedProductCardContainer products={newlyAdded()} />
             <ProductDisplayContainer
               filteredData={filteredData}
               setfilteredData={setfilteredData}
               originalArr={originalArr}
               mutate={mutate}
             />
-            </>
-          ) : productsLoading ? (
-            <Loader />
-          ) : productsError ? (
-            <ErrorWidget error={productsError} />
-          ) : null
-        }
+          </>
+        ) : productsLoading ? (
+          <Loader />
+        ) : productsError ? (
+          <ErrorWidget error={productsError} />
+        ) : null}
       </div>
     </div>
   );
