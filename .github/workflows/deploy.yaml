@@ -98,6 +98,8 @@ jobs:
             VITE_API_APP_VERSION=${{ github.ref_name }}-${{ github.sha }}
             VITE_API_URL_BASE=${{ steps.set-env.outputs.api_server }}
 
+            echo $VITE_API_URL_BASE
+
   deploy:
     needs: dockerize
     runs-on: ubuntu-latest
