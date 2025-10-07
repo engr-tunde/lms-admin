@@ -21,6 +21,7 @@ COPY . .
 # Build the Vite app
 RUN npm run build
 
+
 # Expose the preview port
 EXPOSE 5173
 
