@@ -121,3 +121,20 @@ export const useToggleOpen = (openIndex, setOpenIndex, index) => {
   return { isOpen, toggle, close, ref };
 };
 
+export const getLastUpdatedText = (dateString) => {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffMs = now - date; // difference in milliseconds
+  const diffSec = Math.floor(diffMs / 1000);
+  const diffMin = Math.floor(diffSec / 60);
+  const diffHr = Math.floor(diffMin / 60);
+  const diffDay = Math.floor(diffHr / 24);
+
+  if (diffSec < 60) return "Updated just now";
+  if (diffMin < 2) return "Updated a min ago";
+  if (diffMin < 60) return `Updated ${diffMin} mins ago`;
+  if (diffHr < 2) return "Updated an hour ago";
+  if (diffHr < 24) return `Updated ${diffHr} hrs ago`;
+  if (diffDay === 1) return "Updated yesterday";
+  return `Updated ${diffDay} days ago`;
+}

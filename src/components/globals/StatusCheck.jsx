@@ -17,6 +17,9 @@ const StatusCheck = ({ value, className = "" }) => {
     case "delivered":
       bg = "bg-green-500 text-white";
       break;
+    case "confirmed":
+      bg = "bg-green-500 text-white";
+      break;
     case "paid":
       bg = "bg-green-500 text-white";
       break;

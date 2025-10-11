@@ -7,7 +7,7 @@ import {
   useToggleOpen,
 } from "../../../utils/helpers";
 
-function SubcategorySettingsRowTemplate({
+function SubcategoryRowTemplate({
   item,
   i,
   openIndex,
@@ -70,4 +70,4 @@ function SubcategorySettingsRowTemplate({
   );
 }
 
-export default SubcategorySettingsRowTemplate;
+export default SubcategoryRowTemplate;

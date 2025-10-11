@@ -5,10 +5,36 @@ import OrderCardsContainer from "../../components/orders/OrderCardContainer";
 import NewOrderCardContainer from "../../components/orders/NewOrderCardContainer";
 import OrderTable from "../../components/orders/OrderTable.jsx";
 import { fetchOrders } from "../../api/index.js";
+import { useEffect, useState } from "react";
+import ErrorWidget from "../../components/globals/ErrorWidget.jsx";
+import Loader from "../../components/globals/Loader.jsx";
 
 
 function DashboardOrdersPage() {
   const { orders, ordersLoading, ordersError, mutate } = fetchOrders();
+  const [originalArr, setoriginalArr] = useState();
+  const [filteredData, setfilteredData] = useState();  
+  useEffect(() => {
+    if (orders) {
+      setoriginalArr(orders?.orders);
+      setfilteredData(orders?.orders);
+    }
+  }, [orders]);
+
+  const newlyAddedOrders = () => {
+      let allOrders = orders?.orders
+
+      if (!allOrders) return [];
+      const pendingOrders = allOrders.filter(order => order.status === "pending");
+      if (pendingOrders.length > 0) {
+         allOrders = pendingOrders
+      };
+      const sorted = [...allOrders].sort(
+        (a, b) => new Date(b.created_at || b.createdAt) - new Date(a.created_at || a.createdAt)
+      );
+      return sorted.slice(0, 3);
+    };
+
   console.log("orders ss", orders);
 
   return (
@@ -25,9 +51,25 @@ function DashboardOrdersPage() {
             <FaChevronDown size={10} />
           </div>
         </div>
-        <OrderCardsContainer />
-        <NewOrderCardContainer />
-        <OrderTable />
+        {filteredData ? (
+          <>
+          <OrderCardsContainer 
+            summary={orders?.summary}
+            total={orders?.total}
+          />
+          <NewOrderCardContainer newOrders={newlyAddedOrders()} />
+          <OrderTable
+            filteredData={filteredData}
+            setfilteredData={setfilteredData}
+            originalArr={originalArr}
+            mutate={mutate}
+          />
+          </>
+        ) : ordersLoading ? (
+          <Loader />
+        ) : ordersError ? (
+          <ErrorWidget error={ordersError} />
+        ) : null}
       </div>
     </div>
   );

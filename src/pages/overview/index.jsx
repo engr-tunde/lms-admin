@@ -4,25 +4,37 @@ import { RiCalendarLine } from "react-icons/ri";
 import OverviewCards from "../../components/overview/OverviewCardsContainer";
 import BrandRequestContainer from "../../components/globals/BrandRequestContainer";
 import OverviewTable from "../../components/overview/OverviewTable";
-import { fetchBrands } from "../../api";
+import { fetchAllBrands, fetchOrders } from "../../api";
+import { useEffect, useState } from "react";
 
 function DashboardOverviewPage() {
-  const { brands, brandsLoading, brandsError } = fetchBrands();
-    console.log("brands ss", brands);
-  
-    const newlyAddedBrands = () => {
-      let allBrands = brands?.brands
+  const [originalArr, setoriginalArr] = useState();
+  const [filteredData, setfilteredData] = useState();
+  const { brands } = fetchAllBrands();
+  const { orders, ordersLoading, ordersError, mutate } = fetchOrders();
+  console.log("brands ss", brands);
+  console.log("orders ss", orders);
 
-      if (!allBrands) return [];
-      const pendingBrands = allBrands.filter(brand => brand.status === "pending");
-      if (pendingBrands.length > 0) {
-         allBrands = pendingBrands
-      };
-      const sorted = [...allBrands].sort(
-        (a, b) => new Date(b.created_at) - new Date(a.created_at)
-      );
-      return sorted.slice(0, 3);
+  useEffect(() => {
+    if (orders) {
+      setoriginalArr(orders?.orders);
+      setfilteredData(orders?.orders);
+    }
+  }, [orders]); 
+
+  const newlyAddedBrands = () => {
+    let allBrands = brands?.brands
+
+    if (!allBrands) return [];
+    const pendingBrands = allBrands.filter(brand => brand.status === "pending");
+    if (pendingBrands.length > 0) {
+        allBrands = pendingBrands
     };
+    const sorted = [...allBrands].sort(
+      (a, b) => new Date(b.created_at) - new Date(a.created_at)
+    );
+    return sorted.slice(0, 3);
+  };
 
   return (
     <div className="flex flex-col gap-6 h-full">
@@ -40,7 +52,12 @@ function DashboardOverviewPage() {
         </div>
         <OverviewCards />
         <BrandRequestContainer brandsData={newlyAddedBrands()} />
-        <OverviewTable />
+        <OverviewTable 
+          filteredData={filteredData}
+          setfilteredData={setfilteredData}
+          originalArr={originalArr}
+          mutate={mutate}
+        />
       </div>
     </div>
   );

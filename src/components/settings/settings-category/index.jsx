@@ -1,26 +1,30 @@
 import TableSearch from "../../globals/TableSearch";
 import Table from "../../globals/Table";
 import { categoryHeader } from "../../../data/settingsData";
-import CategorySettingsRowTemplate from "./CategorySettingsRowTemplate";
 import { useEffect, useState } from "react";
 import BulkUploadCategoryModal from "./BulkUploadCategoryModal";
-import CreateBrandCategoryModal from "./CreateBrandCategoryModal";
-import { fetchCategory } from "../../../api";
+import { fetchCategory, fetchSubcategory } from "../../../api";
 import Loader from "../../globals/Loader";
 import ErrorWidget from "../../globals/ErrorWidget";
+import CreateUpdateCategoryModal from "./CreateUpdateCategoryModal";
+import CategoryRowTemplate from "./CategoryRowTemplate";
 
 function CategorySettingsTable() {
   const [showBulkUploadModal, setShowBulkUploadModal] = useState(false);
   const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
   const [categoryData, setcategoryData] = useState(false);
-  const { category, categoryLoading, categoryError } = fetchCategory();
+
+  const { category, categoryLoading, categoryError, mutate } = fetchCategory();
+  const { subcategory } = fetchSubcategory();
 
   useEffect(() => {
     if (category) {
-      const catData = category?.slice(0, 10);
+      const catData = category;
       setcategoryData(catData);
     }
   }, [category]);
+  console.log("categoryData", categoryData);
+  console.log("subcategoryData", subcategory);
 
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState();
@@ -31,6 +35,7 @@ function CategorySettingsTable() {
       setoriginalArr(categoryData);
       setfilteredData(categoryData);
     }
+    
   }, [categoryData, filteredData, originalArr]);
 
   if (categoryLoading) return <Loader />;
@@ -64,11 +69,13 @@ function CategorySettingsTable() {
         <Table
           columns={categoryHeader}
           renderRow={(item, i) => (
-            <CategorySettingsRowTemplate
+            <CategoryRowTemplate
               item={item}
               i={i}
               openIndex={openIndex}
               setOpenIndex={setOpenIndex}
+              mutate={mutate}
+              subcategory={subcategory}
             />
           )}
           data={filteredData} // Display only the first 20 items
@@ -78,7 +85,7 @@ function CategorySettingsTable() {
         show={showBulkUploadModal}
         onClose={() => setShowBulkUploadModal(false)}
       />
-      <CreateBrandCategoryModal
+      <CreateUpdateCategoryModal
         show={showCreateCategoryModal}
         onClose={() => setShowCreateCategoryModal(false)}
       />

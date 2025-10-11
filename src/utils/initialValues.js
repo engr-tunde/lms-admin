@@ -67,9 +67,10 @@ export const rejectProductValues = () => {
 
 //Settings 
 
-export const addBrandValues = () => {
+export const addBrandTypeValues = () => {
   const initialValues = {
     brandType: "",
+    description: "",
   };
   return initialValues;
 };

@@ -21,9 +21,9 @@ function DashboardDisputePage() {
       />
       <div className="w-full flex flex-col gap-8">
         {activeTab === "Order Dispute" ? (
-            <OrderDisputeTable activeTab={activeTab} setActiveTab={setActiveTab} data={orderDispute}/>
+            <OrderDisputeTable activeTab={activeTab} setActiveTab={setActiveTab} data={orderDispute.disputes}/>
         ) : (
-            <PayoutDisputeTable activeTab={activeTab} setActiveTab={setActiveTab} data={payoutDispute}/>
+            <PayoutDisputeTable activeTab={activeTab} setActiveTab={setActiveTab} data={payoutDispute.disputes}/>
         )}
       </div>
     </div>

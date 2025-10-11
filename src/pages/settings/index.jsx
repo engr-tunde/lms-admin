@@ -4,7 +4,7 @@ import { RiCalendarLine } from "react-icons/ri";
 import CollectionsSettingsTable from "../../components/settings/settings-collections";
 import SubcategorySettingsTable from "../../components/settings/settings-subcategory"
 import CategorySettingsTable from "../../components/settings/settings-category";
-import BrandSettingsTable from "../../components/settings/settings-brands";
+import BrandTypeSettingsTable from "../../components/settings/settings-brand-type";
 import { useState } from "react";
 
 function DashboardSettingsPage() {
@@ -68,7 +68,7 @@ function DashboardSettingsPage() {
 const renderActivePage = (activeTab) => {
   switch (activeTab) {
     case "brandType":
-      return <BrandSettingsTable />;
+      return <BrandTypeSettingsTable />;
     case "categories":
       return <CategorySettingsTable />;
     case "subcategories":

@@ -2,8 +2,25 @@ import TableSearch from "../globals/TableSearch"
 import Table from "../globals/Table"
 import { orderDisputeTableColumn, orderDisputeData } from "../../data/disputeData.js";
 import OrderDisputeRowTemplate from "./OrderDisputeRowTemplate.jsx";
+import { fetchDisputes } from "../../api/index.js";
 
 function OrderDisputeTable({ activeTab, setActiveTab, data}) {
+  const [originalArr, setoriginalArr] = useState();
+  const [filteredData, setfilteredData] = useState();
+  const { disputes: orderDispute, disputesLoading, disputeError } = fetchDisputes("order");
+
+  useEffect(() => {
+    if (orderDispute) {
+      setoriginalArr(orderDispute?.disputes);
+      setfilteredData(orderDispute?.disputes);
+    }
+  }, [orderDispute]);
+
+   
+  if (disputesLoading) return <Loader />;
+  if (disputeError) return <ErrorWidget error={disputeError} />;
+  if (!orderDispute?.length) return <div>No order disputes found</div>;
+
   return (
     <div className="flex flex-col gap-2">
       <div className="w-full flex justify-between">
@@ -31,8 +48,14 @@ function OrderDisputeTable({ activeTab, setActiveTab, data}) {
       </div>
       <Table 
       columns={orderDisputeTableColumn}
-      renderRow={OrderDisputeRowTemplate}
-      data={orderDisputeData}
+      renderRow={(item, i) => (
+          <OrderDisputeRowTemplate
+            key={item?._id}
+            member={item}
+            i={i}
+          />
+        )}
+      data={data}
       />
     </div>
   );

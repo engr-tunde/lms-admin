@@ -5,7 +5,7 @@ import ProductCardContainer from "../../components/products/ProductCardContainer
 import NewlyAddedProductCardContainer from "../../components/products/AddedProductCardContainer";
 import ProductDisplayContainer from "../../components/products/ProductDisplayContainer";
 import { useEffect, useState } from "react";
-import { fetchBrands, fetchProducts } from "../../api";
+import { fetchAllBrands, fetchProducts } from "../../api";
 import Loader from "../../components/globals/Loader";
 import ErrorWidget from "../../components/globals/ErrorWidget";
 
@@ -18,7 +18,7 @@ function DashboardProductPage() {
   const [rejectedProductsCount, setrejectedProductsCount] = useState(0);
 
   const { products, productsLoading, productsError, mutate } = fetchProducts();
-  const { brands } = fetchBrands();
+  const { brands } = fetchAllBrands();
   console.log("products", products);
 
   const newlyAdded = () => {

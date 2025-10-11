@@ -1,19 +1,21 @@
-function NewOrderCard({ orderImage, orderNumber, orderStatus, product, quantity }) {
+import { capitalize } from "../../utils/helpers";
+
+function NewOrderCard({ order }) {
   return (
-    <div className="w-full col-span-1 border-[1px] border-merseBorder p-3 flex justify-between">
+    <div className="w-full col-span-1 border-[1px] border-merseBorder p-3 flex gap-3 justify-between">
       <div className="w-[25%]">
-        <img src={orderImage} alt={``} className="w-full h-full object-cover"/>
+        <img src={order.items[0]?.image} alt={order.items[0]?.productName} className="w-full h-full object-cover"/>
       </div>
       <div className="flex flex-col gap-2 w-[75%]">
         <div className="flex justify-between"> 
-          <span className="text-merseLightText text-xs">{orderNumber}</span>
-          <span className="text-merseLightText text-xs">{orderStatus}</span>
+          <span className="text-merseLightText text-xs">#{order?._id.slice(0, 5)}</span>
+          <span className="text-merseLightText text-xs">{capitalize(order?.status)}</span>
         </div>
         <div className="">
-          <span className="text-sm">{product}</span>
+          <span className="text-sm">{capitalize(order?.items[0]?.productName)}</span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-sm">Qty: {quantity}</span>
+          <span className="text-sm">Qty: {order?.items.reduce((acc, item) => acc + item.quantity, 0)}</span>
           <span className="border-2 px-1 text-[13px]">Confirm receipt</span>
         </div>
       </div>

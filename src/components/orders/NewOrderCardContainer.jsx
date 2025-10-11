@@ -1,7 +1,7 @@
 import NewOrderCard from './NewOrderCard'
 
 
-function NewOrderCardContainer() {
+function NewOrderCardContainer({ newOrders }) {
   
   return (
     <div className="flex flex-col gap-2">
@@ -9,6 +9,13 @@ function NewOrderCardContainer() {
         <div className="font-semibold">New Orders</div>
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-5">
+        {newOrders?.length > 0 && 
+          newOrders.map((order, index) => (
+            <NewOrderCard order={order} key={index} />
+          ))}
+        {/* <NewOrderCard order={newOrders} key={newOrders?._id} /> */}
+      </div>
+      {/* <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-5">
         <NewOrderCard
         orderImage = "/assets/images/product-placeholder.png"
         orderNumber="#12345"
@@ -32,7 +39,7 @@ function NewOrderCardContainer() {
         product="Off-White Grateful SS T-Shirt"
         quantity="2"
         />
-      </div>
+      </div> */}
     </div>
   );
 }

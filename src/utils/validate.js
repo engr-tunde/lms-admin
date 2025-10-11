@@ -108,9 +108,10 @@ export const validaterejectProduct = () => {
 
 //# SETTINGS PAGE VALIDATIONS # 
 
-export const validateAddBrandValues = () => {
+export const validateAddBrandTypeValues = () => {
   const validationSchema = yup.object({
     brandType: yup.string().required("Please, provide brand type"),
+    description: yup.string().required("Please, provide brand type description"),
   });
   return validationSchema;
 }

@@ -1,55 +1,59 @@
 import StatusCheck from '../globals/StatusCheck'
 import { Link } from "react-router-dom";
-import { formatter } from "../../utils/helpers";
+import { capitalize, formatter, useToggleOpen } from "../../utils/helpers";
 import { useState } from 'react';
 import { RiArrowDownSFill } from 'react-icons/ri';
 
 
-function OrderRowTemplate(item, i) {
-
-  const [actionOpen, setActionOpen] = useState(null);
-  const handleActionClick = (i) => {
-    setActionOpen(actionOpen === i ? null : i);
-  };
+function OrderRowTemplate({order, i, openIndex, setOpenIndex, mutate }) {
+  const { isOpen, toggle, close, ref } = useToggleOpen(openIndex, setOpenIndex, i);
 
   return (
-    <tr key={item.id} className="border-1 border-t border-merseBorder">
+    <tr key={order._id} className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm hidden lg:table-cell">
-          <Link to={`/orders/${item.id}`}className="px-3 py-1 underline">
+          <Link to={`/orders/${order._id}`}className="px-3 py-1 underline">
             View
           </Link>
       </td>
-      <td className="py-4 text-sm hidden lg:table-cell">{item.orderID}</td>
-      <td className="py-4 text-sm hidden lg:table-cell">{item.customer}</td>
-      <td className="py-4 text-sm hidden lg:table-cell">{item.brand}</td>
-      <td className="py-4 text-sm">{item.product}</td>
-      <td className="py-4 text-sm hidden lg:table-cell">{item.quantity}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{order?._id.slice(-5)}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{order?.shippingAddress?.fullName}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{capitalize(order.items[0]?.brandName)}</td>
+      <td className="py-4 text-sm">{capitalize(order.items[0]?.productName)}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">
+        {order.items.reduce((sum, item) => sum + item.quantity, 0)}
+      </td>
       <td className="">
-        <StatusCheck value={item.orderStatus} className="text-sm px-2 py-1"/>
+        <StatusCheck value={capitalize(order?.status)} className="text-sm px-2 py-1"/>
       </td>
       <td className="py-4 text-sm hidden lg:table-cell">
-        {formatter(item.totalAmount)}
+        {formatter(order?.totalAmount).slice(0, -3)}
       </td>
-      <td className="p-4">
-        <div className="relative">
+      <td className="py-4">
+        <div className="relative" ref={ref}>
           <button 
             className="flex text-sm items-center gap-1 px-3 py-1 border"
-            onClick={() => handleActionClick(i)}
-            >
+            onClick={(e) => {
+              e.stopPropagation();
+              toggle();
+            }}
+          >
             Action
             <RiArrowDownSFill size={10} />
           </button>
-          {actionOpen === i && (
-              <div className="absolute z-10 w-[150px] text-xs rounded-md flex flex-col p-3 gap-3 top-9 left-0 bg-white shadow-xl">
-                <div className="flex items-center gap-1">
-                  <span>View details</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <span>Refund</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <span>Cancel</span>
-                </div>
+          {isOpen && (
+              <div 
+               className="absolute z-10 w-[100px] text-xs rounded-md flex flex-col p-3 gap-3 top-6 right-0 bg-white shadow-xl"
+               onClick={(e) => e.stopPropagation()}
+              >
+                <Link to={`/orders/${order._id}`}className="flex items-center gap-1">
+                  View details
+                </Link>
+                <button className={`flex items-center gap-1`}>
+                 Refund
+                </button>
+                <button className={`flex items-center gap-1`}>
+                 Cancel
+                </button>
               </div>
             )}
         </div>

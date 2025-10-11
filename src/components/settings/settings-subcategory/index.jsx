@@ -4,7 +4,7 @@ import { subcategoryHeader } from "../../../data/settingsData";
 import { useEffect, useState } from "react";
 import CreateSubcategoryModal from "./CreateSubcategoryModal";
 import BulkUploadSubcategoryModal from "./BulkUploadSubcategoryModal";
-import SubcategorySettingsRowTemplate from "./SubcategorySettingsRowTemplate";
+import SubcategoryRowTemplate from "./SubcategoryRowTemplate";
 import { fetchSubcategory, fetchCategory } from "../../../api";
 import Loader from "../../globals/Loader";
 import ErrorWidget from "../../globals/ErrorWidget";
@@ -78,7 +78,7 @@ function SubcategorySettingsTable() {
         <Table
           columns={subcategoryHeader}
           renderRow={(item, i) => (
-            <SubcategorySettingsRowTemplate
+            <SubcategoryRowTemplate
               key={item.id}
               item={item}
               i={i}

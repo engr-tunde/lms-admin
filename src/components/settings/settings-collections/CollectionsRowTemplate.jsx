@@ -1,10 +1,12 @@
 import DeleteCollectionsModal from "./DeleteCollectionsModal";
 import { IoEllipsisVertical } from "react-icons/io5";
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 import { capitalize, compactDateFormatter, useToggleOpen } from "../../../utils/helpers";
+import CreateUpdateCollectionsModal from "./CreateUpdateCollectionsModal";
 
-function CollectionsSettingsRowTemplate({ item, i, openIndex, setOpenIndex, mutate }) {
+function CollectionsRowTemplate({ item, i, openIndex, setOpenIndex, mutate }) {
   const [showDeleteCollectionsModal, setShowDeleteCollectionsModal] = useState(false);
+  const [showUpdateCollectionsModal, setShowUpdateCollectionsModal] = useState(false);
   const { isOpen, toggle, close, ref } = useToggleOpen(openIndex, setOpenIndex, i);
 
   return (
@@ -29,7 +31,10 @@ function CollectionsSettingsRowTemplate({ item, i, openIndex, setOpenIndex, muta
             <div className="absolute z-10 w-[100px] text-xs rounded-md flex flex-col top-6 right-0 bg-white shadow-xl border-[1px]">
               <button
                 className="text-sm text-left px-5 py-2"
-                onClick={close}
+                onClick={() => {
+                  setShowUpdateCollectionsModal(true); 
+                  close();
+                }}
               >
                 Edit
               </button>
@@ -44,6 +49,13 @@ function CollectionsSettingsRowTemplate({ item, i, openIndex, setOpenIndex, muta
         </div>
       </td>
     </tr>
+    <CreateUpdateCollectionsModal 
+      show={showUpdateCollectionsModal}
+      onClose={() => setShowUpdateCollectionsModal(false)}
+      mutate={mutate}
+      isEdit={true}
+      updateData={item}
+    />
     <DeleteCollectionsModal 
       show={showDeleteCollectionsModal} 
       onClose={() => setShowDeleteCollectionsModal(false)} 
@@ -56,7 +68,7 @@ function CollectionsSettingsRowTemplate({ item, i, openIndex, setOpenIndex, muta
 }
 
 
-export default CollectionsSettingsRowTemplate;
+export default CollectionsRowTemplate;
 
 
 

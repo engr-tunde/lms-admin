@@ -1,12 +1,12 @@
 import TableSearch from "../../globals/TableSearch";
 import Table from "../../globals/Table";
-import { collectionsHeader, collectionsData } from "../../../data/settingsData";
+import { collectionsHeader } from "../../../data/settingsData";
 import { useEffect, useState } from "react";
-import CreateCollectionsModal from "./CreateCollectionsModal";
-import CollectionsSettingsRowTemplate from "./CollectionsSettingsRowTemplate";
 import { fetchCollection } from "../../../api";
 import Loader from "../../globals/Loader";
 import ErrorWidget from "../../globals/ErrorWidget";
+import CollectionsRowTemplate from "./CollectionsRowTemplate";
+import CreateUpdateCollectionsModal from "./CreateUpdateCollectionsModal";
 
 function CollectionsSettingsTable() {
   const [showCreateCollectionsModal, setShowCreateCollectionsModal] =
@@ -58,7 +58,7 @@ function CollectionsSettingsTable() {
         <Table
           columns={collectionsHeader}
           renderRow={(item, i) => (
-            <CollectionsSettingsRowTemplate
+            <CollectionsRowTemplate
               item={item}
               i={i}
               openIndex={openIndex}
@@ -69,7 +69,7 @@ function CollectionsSettingsTable() {
           data={filteredData}
         />
       </div>
-      <CreateCollectionsModal
+      <CreateUpdateCollectionsModal
         show={showCreateCollectionsModal}
         onClose={() => setShowCreateCollectionsModal(false)}
         mutate={mutate}

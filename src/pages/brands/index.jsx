@@ -4,13 +4,13 @@ import { RiCalendarLine } from "react-icons/ri";
 import { FaChevronDown } from "react-icons/fa";
 import BrandsOrderCardContainer from "../../components/brands/brand-order/BrandsOrderCardContainer";
 import AllBrandsTable from "../../components/brands/AllBrandsTable";
-import { fetchBrands } from "../../api";
+import { fetchAllBrands } from "../../api";
 import BrandRequestContainer from "../../components/globals/BrandRequestContainer";
 import Loader from "../../components/globals/Loader";
 import ErrorWidget from "../../components/globals/ErrorWidget";
 
 function DashboardBrandsPage() {
-  const { brands, brandsLoading, brandsError, mutate } = fetchBrands();
+  const { brands, brandsLoading, brandsError, mutate } = fetchAllBrands();
   const [filteredData, setfilteredData] = useState();
   const [originalArr, setoriginalArr] = useState();
   console.log("brands ss", brands);

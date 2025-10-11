@@ -1,5 +1,5 @@
 import { IoMdClose }from "react-icons/io";
-import { deleteSubcategory } from "../../../api";
+import { deleteCollection, deleteSubcategory } from "../../../api";
 import { errorNotification, successNotification } from "../../../utils/helpers";
 
 
@@ -8,7 +8,7 @@ const DeleteCollectionsModal = ({ show, onClose, collectionToDelete, collectionT
   
   
 const handleDelete = async () => {
-    const response = await deleteSubcategory(collectionToDeleteId);
+    const response = await deleteCollection(collectionToDeleteId);
     if (response.status.toString().includes("20")) {
       successNotification(response.data?.message || "Collection deleted");
       onClose();

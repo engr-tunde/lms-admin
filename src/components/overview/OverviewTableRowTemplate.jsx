@@ -1,27 +1,29 @@
 // import { FaChevronDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { formatter } from "../../utils/helpers";
+import { capitalize, formatter } from "../../utils/helpers";
 import StatusCheck from "../globals/StatusCheck";
 
 
-function OverviewRowTemplate(item) {
+function OverviewRowTemplate({ order, i }) {
   return (
-    <tr key={item.id} className="border-1 border-t border-merseBorder">
+    <tr key={order._id} className="border-1 border-t border-merseBorder">
       <td className="py-4 text-[15px] hidden lg:table-cell ">
-          <Link to={`/orders/${item.id}`} className="px-3 py-1 underline">
+          <Link to={`/orders/${order._id}`} className="px-3 py-1 underline">
             View
           </Link>
       </td>
-      <td className="py-4 text-[15px] hidden lg:table-cell ">{item.order}</td>
-      <td className="py-4 text-[15px]">{item.customer}</td>
-      <td className="py-4 text-[15px] hidden lg:table-cell ">{item.brand}</td>
-      <td className="py-4 text-[15px]">{item.product}</td>
-      <td className="py-4 text-[15px] hidden lg:table-cell ">{item.quantity}</td>
+      <td className="py-4 text-[15px] hidden lg:table-cell ">{order.order}</td>
+      <td className="py-4 text-[15px]">{capitalize(order?.shippingAddress?.fullName)}</td>
+      <td className="py-4 text-[15px] hidden lg:table-cell ">{order?.items[0]?.brand}</td>
+      <td className="py-4 text-[15px]">{capitalize(order?.items[0]?.productName)}</td>
       <td className="py-4 text-[15px] hidden lg:table-cell ">
-        {formatter(item.totalAmount)}
+        {order?.items.reduce((acc, item) => acc + item.quantity, 0)}
+      </td>
+      <td className="py-4 text-[15px] hidden lg:table-cell ">
+        {formatter(order?.totalAmount).slice(0, -3)}
       </td>
       <td className="">
-        <StatusCheck className="text-[15px] px-2 py-1" value={item.deliveryStatus} />
+        <StatusCheck className="text-[15px] px-2 py-1" value={capitalize(order?.status)} />
       </td>
     </tr>
   );
