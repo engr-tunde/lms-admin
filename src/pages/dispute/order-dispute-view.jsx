@@ -5,12 +5,28 @@ import OrderDisputeViewSummaryCard from "../../components/dispute/order-dispute-
 import OrderDisputeViewDeliveryInfo from "../../components/dispute/order-dispute-view/OrderDisputeViewDeliveryInfo.jsx";
 import { FaChevronDown, FaCopy } from "react-icons/fa";
 import { useState } from 'react'
+import { fetchDisputeView } from "../../api/index.js";
+import { useParams } from "react-router-dom";
 
 function OrderDisputeViewPage() {
   const [updateStatusButtonOpen, setUpdateStatusButtonOpen] = useState(null);
   const handleActionClick = (i) => {
     setUpdateStatusButtonOpen(!updateStatusButtonOpen);
   };
+
+   const { id } = useParams();
+  const { disputeView, disputeViewLoading, disputeViewError, mutate } = fetchDisputeView(id);
+  console.log("disputeView", disputeView);
+    // const [dispute, setDispute] = useState(null);
+  
+  
+  
+    // useEffect(() => {
+    //   const currentDispute = orders?.orders?.find((item) => item._id === id)
+    //   setOrder(foundOrder)
+    // }, [orders, id])
+  
+    // console.log("picked order", order);
 
   return (
     <div className="flex flex-col gap-9">

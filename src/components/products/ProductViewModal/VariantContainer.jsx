@@ -1,17 +1,29 @@
 import { FaChevronUp } from "react-icons/fa"
 import { capitalize } from "../../../utils/helpers"
+import { useState } from "react"
 
 const VariantContainer = ({ data }) => {
+  const [toggleVariant, setToggleVariant] = useState(true)
+
+  const ToggleButton = ({size}) => {
+    return (
+      <FaChevronUp size={size} className={`${toggleVariant ? "rotate-180 transition-transform" : "transition-transform"}`} />
+    )
+  }
 
   return (
     <div className="flex border-[1px] border-merseBorder flex flex-col p-3">
-      <div className="flex justify-between text-sm font-semibold mb-3">
+      <div className="flex justify-between text-sm font-semibold">
         <span>Variant</span>
-        <button>
-          <FaChevronUp size={15} />
+        <button
+         onClick={() => setToggleVariant(!toggleVariant)}
+        >
+          <ToggleButton size={15} />
         </button>
       </div>
-      <div className="grid grid-cols-2 gap-6">
+      <div 
+        className={`grid grid-cols-2 gap-6 mt-3 ${!toggleVariant ? "hidden" : ""}`}
+      >
         {
           data?.variants?.map((variant, i) => (
             <Variant

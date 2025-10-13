@@ -84,10 +84,12 @@ function CategorySettingsTable() {
       <BulkUploadCategoryModal
         show={showBulkUploadModal}
         onClose={() => setShowBulkUploadModal(false)}
+        mutate={mutate}
       />
       <CreateUpdateCategoryModal
         show={showCreateCategoryModal}
         onClose={() => setShowCreateCategoryModal(false)}
+        mutate={mutate}
       />
     </>
   );

@@ -6,7 +6,7 @@ const Table = ({ columns, renderRow, data }) => {
       <thead className="py-10 border-3">
         <tr className="text-left">
           {columns.map((col, i) => (
-            <th key={i} className={`${col.className} py-3 bg-merseBorder/10`}>
+            <th key={i} className={`${col.className} py-3 pr-3 bg-merseBorder/10`}>
               {col.header}
             </th>
           ))}

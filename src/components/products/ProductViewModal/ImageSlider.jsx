@@ -15,6 +15,8 @@ const ImageSlider = ({ variants }) => {
     return <FaExpandArrowsAlt size={15} />;
   };
 
+  if (!images || !currentImg) return null;
+
   return (
     <div className="w-full flex flex-col gap-5">
       <div className="relative w-full" onClick={() => setisImageModalOpen(true)}>
@@ -22,7 +24,7 @@ const ImageSlider = ({ variants }) => {
           src={
             currentImg
               ? currentImg
-              : "/assets/images/product-images/product-image.png"
+              : null
           }
           alt=""
           className="object-cover w-full h-[250px]"

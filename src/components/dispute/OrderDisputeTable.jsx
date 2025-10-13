@@ -2,12 +2,16 @@ import TableSearch from "../globals/TableSearch"
 import Table from "../globals/Table"
 import { orderDisputeTableColumn, orderDisputeData } from "../../data/disputeData.js";
 import OrderDisputeRowTemplate from "./OrderDisputeRowTemplate.jsx";
-import { fetchDisputes } from "../../api/index.js";
+import { fetchAllDisputes } from "../../api/index.js";
+import { useEffect, useState } from "react";
+import Loader from "../globals/Loader.jsx";
+import ErrorWidget from "../globals/ErrorWidget.jsx";
 
-function OrderDisputeTable({ activeTab, setActiveTab, data}) {
+function OrderDisputeTable({ activeTab, setActiveTab}) {
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState();
-  const { disputes: orderDispute, disputesLoading, disputeError } = fetchDisputes("order");
+  const { disputes: orderDispute, disputesLoading, disputeError } = fetchAllDisputes("order");
+  console.log("orderDispute", orderDispute);
 
   useEffect(() => {
     if (orderDispute) {
@@ -16,10 +20,9 @@ function OrderDisputeTable({ activeTab, setActiveTab, data}) {
     }
   }, [orderDispute]);
 
-   
   if (disputesLoading) return <Loader />;
   if (disputeError) return <ErrorWidget error={disputeError} />;
-  if (!orderDispute?.length) return <div>No order disputes found</div>;
+  if (!orderDispute) return <div>No order disputes found</div>;
 
   return (
     <div className="flex flex-col gap-2">
@@ -43,7 +46,11 @@ function OrderDisputeTable({ activeTab, setActiveTab, data}) {
             </button>
         </div>
         <div className="flex items-center cursor-pointer">
-            <TableSearch />
+            <TableSearch 
+              filteredData={filteredData}
+              setfilteredData={setfilteredData}
+              originalArr={originalArr}
+            />
         </div>
       </div>
       <Table 
@@ -51,11 +58,11 @@ function OrderDisputeTable({ activeTab, setActiveTab, data}) {
       renderRow={(item, i) => (
           <OrderDisputeRowTemplate
             key={item?._id}
-            member={item}
+            item={item}
             i={i}
           />
         )}
-      data={data}
+      data={filteredData}
       />
     </div>
   );

@@ -16,7 +16,7 @@ const ProductViewModal = ({ show, onClose, data, mutate }) => {
         className="bg-white p-6 shadow-lg sm:w-[80%] md:w-[70%] lg:w-1/2 flex flex-col gap-6 overflow-y-auto h-full"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky -top-6 z-40 w-full bg-white py-4">
+        <div className="sticky -top-6 w-full bg-white py-4 z-10">
           <button className="ml-auto block">
             <IoMdClose
               size={20}

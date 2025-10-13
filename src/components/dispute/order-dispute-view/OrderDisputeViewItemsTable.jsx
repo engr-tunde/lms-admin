@@ -2,7 +2,6 @@ import Table from "../../globals/Table"
 import OrderDisputeViewItemsRowTemplate from "./OrderDisputeViewItemsRowTemplate"
 import { orderDisputeViewTableColumnHeader, orderDisputeViewTableData } from "../../../data/disputeData"
 
-
 const OrderDisputeViewItemsTable = () => {
   return (
     <div>

@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Loader from "../../components/globals/Loader.jsx";
 import ErrorWidget from "../../components/globals/ErrorWidget.jsx";
-import { capitalize, dateFormatter, dateTimeFormatter, formatter } from "../../utils/helpers.js";
 
 function OrderViewPage() {
   const { orders, ordersLoading, ordersError, mutate } = fetchOrders();
@@ -29,7 +28,7 @@ function OrderViewPage() {
     <div className="flex flex-col gap-9">
       <DashboardNavBar
         path="< Back Orders > Order details"
-        title="Order 12345"
+        title={`Order ${id?.slice(-5)}`} // Making the order ID short and
         copyable
         subtitle="See how your brand is performing today across sales orders & top products."
       />

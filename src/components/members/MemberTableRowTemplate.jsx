@@ -7,29 +7,29 @@ import {
   successNotification,
   useToggleOpen,
 } from "../../utils/helpers";
-import { deleteAdmin, updateAdminStatus } from "../../api";
+import { updateAdminStatus } from "../../api";
 
 function MemberTableRowTemplate({ member, i, openIndex, setOpenIndex, mutate }) {
-  const [isSubmitting, setisSubmitting] = useState(false);
+  // const [isSubmitting, setisSubmitting] = useState(false);
   const [isTogglingStatus, setisTogglingStatus] = useState(false);
   const { isOpen, toggle, close, ref } = useToggleOpen(openIndex, setOpenIndex, i);
 
-  const handleRemoveMember = async (id) => {
-    try {
-      setisSubmitting(true);
-      const response = await deleteAdmin(id);
-      console.log("response", response);
-      if (response.status.toString().includes("20")) {
-        successNotification(response.data.message);
-        mutate()
-      } else {
-        errorNotification(response?.data?.message);
-      }
-    } finally {
-      setisSubmitting(false);
-      close();
-    }
-  };
+  // const handleRemoveMember = async (id) => {
+  //   try {
+  //     setisSubmitting(true);
+  //     const response = await deleteAdmin(id);
+  //     console.log("response", response);
+  //     if (response.status.toString().includes("20")) {
+  //       successNotification(response.data.message);
+  //       mutate()
+  //     } else {
+  //       errorNotification(response?.data?.message);
+  //     }
+  //   } finally {
+  //     setisSubmitting(false);
+  //     close();
+  //   }
+  // };
 
   const updateMemberStatus = async (id) => {
     try {
@@ -102,14 +102,14 @@ function MemberTableRowTemplate({ member, i, openIndex, setOpenIndex, mutate }) 
                   member?.isActive ? "Disable member" : "Activate member"
                 }
               </button>
-              <button
+              {/* <button
                 className={`btnn1-disabled py-2 text-center text-sm font-medium ${
                   isSubmitting && "opacity-50"
                 }`}
                 onClick={() => handleRemoveMember(member?._id)}
               >
                 {isSubmitting ? "Deleting..." : "Remove member"}
-              </button>
+              </button> */}
             </div>
           )}
         </div>

@@ -29,6 +29,7 @@ import {
   FETCH_BRAND_DISPUTES,
   FETCH_BRAND_FINANCES,
   FETCH_PRODUCTS,
+  CREATE_FETCH_ADMINS,
 } from "../constants/routes";
 import { mutationRequest } from "./sendData";
 import { fetcher, sessionFetcher } from "./fetcher";
@@ -106,11 +107,11 @@ export const updateAdminStatus = async (id, payload) => {
   const result = await mutationRequest(`${UPDATE_ADMIN_STATUS}/${id}`, "patch", payload, false);
   return result;
 };
-export const deleteAdmin = async (id) => {
-  console.log("Deleting admin:", `${ADMINS}/${id}`);
-  const result = await mutationRequest(`${ADMINS}/${id}`, "delete", false);
-  return result;
-};
+// export const deleteAdmin = async (id) => {
+//   console.log("Deleting admin:", `${ADMINS}/${id}`);
+//   const result = await mutationRequest(`${ADMINS}/${id}`, "delete", false);
+//   return result;
+// };
 
 
 
@@ -318,12 +319,21 @@ export const deleteCollection = async (id) => {
 
 
 // ##DISPUTES(DONE: Pending field availability for both payout and order disputes)
-export const fetchDisputes = (type) => {
+export const fetchAllDisputes = (type) => {
   const { data, error, mutate } = useSWR(`${FETCH_DISPUTES}?disputeRequestType=${type}`, fetcher);
   return {
     disputes: data,
     disputesLoading: !error && !data,
     disputesError: error,
+    mutate,
+  };
+};
+export const fetchDisputeView = (id) => {
+  const { data, error, mutate } = useSWR(`${DISPUTE_VIEW}/${id}`, fetcher);
+  return {
+    disputeView: data,
+    disputeViewLoading: !error && !data,
+    disputeViewError: error,
     mutate,
   };
 };

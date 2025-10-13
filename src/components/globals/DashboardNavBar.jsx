@@ -15,6 +15,8 @@
 
 
 import { RiFileCopyLine } from "react-icons/ri";
+import { FaCheck } from "react-icons/fa";
+import { useState } from "react";
 
 const statusColors = {
   pending: "bg-amber-500 text-white",
@@ -27,12 +29,20 @@ const statusColors = {
 };
 
 const DashboardNavBar = ({ path, title, subtitle, status, copyable }) => {
+  const [copied, setCopied] = useState(false);
   
   const handleCopy = () => {
-    if (copyable) {
+    if (!copyable) return; 
+    try {
       navigator.clipboard.writeText(title);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
     }
   };
+
+  if (!copyable) return null;
 
   const getStatusClass = (status) => {
     if (!status) return "";
@@ -51,12 +61,23 @@ const DashboardNavBar = ({ path, title, subtitle, status, copyable }) => {
         {copyable && (
           <button
             onClick={handleCopy}
-            className="text-gray-400 hover:text-gray-600 flex items-center gap-1 text-xs"
+            className={`flex items-center gap-1 text-xs ${
+              copied ? "text-green-600 bg-green-50" : "text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+            }`}
           >
-            <RiFileCopyLine size={16} /> Copy
-          </button>
-        )}
-
+            {copied ? (
+              <>
+                <FaCheck size={14} />
+                Copied!
+              </>
+            ) : (
+              <>
+                <RiFileCopyLine size={16} />
+                Copy
+              </>
+            )}
+                </button>
+            )}
         {status && (
           <span
             className={`px-2 py-1 text-xs capitalize ${getStatusClass(

@@ -11,7 +11,7 @@ import { errorNotification, successNotification } from "../../../utils/helpers";
 import CsvFileUploadField from "../../forms/CsvFileUploadField";
 
 
-const BulkUploadCategoryModal = ({ show, onClose }) => {
+const BulkUploadCategoryModal = ({ show, onClose, mutate }) => {
 
   const handleBulkUpload = async (values) => {
     const file = values.csvFile;
@@ -27,6 +27,7 @@ const BulkUploadCategoryModal = ({ show, onClose }) => {
       console.log("Bulk upload response:", response);
       successNotification(  response.data?.message || "Categories uploaded successfully");
       onClose();
+      mutate()
     } else {
       errorNotification(response?.data?.message || "Failed to upload categories");
     }

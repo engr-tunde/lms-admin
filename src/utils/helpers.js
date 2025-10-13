@@ -138,3 +138,11 @@ export const getLastUpdatedText = (dateString) => {
   if (diffDay === 1) return "Updated yesterday";
   return `Updated ${diffDay} days ago`;
 }
+
+
+
+export function getPercentOfTotal(value, total) {
+  if (!total || total === 0) return 0;
+  const percent = (value / total) * 100;
+  return Math.round(percent); // or toFixed(2) if you want decimals
+}
