@@ -12,7 +12,7 @@ const ExtraOrderItemsBadge = ({ items = [] }) => {
     <>
       <button
         onClick={() => setIsModalOpen(true)}
-        className="bg-black text-white text-[11px] px-2 py-[2px] rounded-sm"
+        className="bg-black text-white text-xs px-2 py-[1px]"
       >
         +{extraCount} more
       </button>
