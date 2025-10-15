@@ -3,8 +3,11 @@ import { FaChevronDown } from "react-icons/fa";
 import BrandOverviewCardContainer from "./BrandOverviewCardContainer"
 import NewOrderBrandsCardContainer from "./NewOrderCardBrandsContainer"
 import AddedProductBrandsCardContainer from "./AddedProductBrandsCardContainer";
+import { fetchBrand } from "../../../api/index.js";
 
-function BrandsOverviewPage() {
+function BrandsOverviewPage({brandId}) {
+  const { brand, brandLoading, brandError } = fetchBrand(brandId);
+  console.log("brand overview", brand);
   return (
     <>
       <div className="w-full flex flex-col gap-5">

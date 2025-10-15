@@ -9,7 +9,9 @@ function BrandsOrderTable() {
       <div className="w-full flex justify-between">
         <div className="font-semibold">All orders</div>
         <div className="flex items-center cursor-pointer">
-            <TableSearch />
+            <TableSearch
+
+            />
         </div>
       </div>
       <Table 

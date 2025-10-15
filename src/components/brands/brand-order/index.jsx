@@ -2,8 +2,12 @@ import { RiCalendarLine } from "react-icons/ri";
 import { FaChevronDown } from "react-icons/fa";
 import BrandsOrderCardContainer from "./BrandsOrderCardContainer";
 import BrandsOrderTable from "./BrandsOrderTable";
+import { fetchBrandOrder } from "../../../api/index.js";
 
-function BrandsOrderPage() {
+function BrandsOrderPage({ brandId }) {
+  const { brandOrder, brandOrderLoading, brandOrderError } = fetchBrandOrder(brandId);
+  console.log("brand orders", brandOrder);
+  
   return (
     <>
       <div className="w-full flex flex-col gap-5">

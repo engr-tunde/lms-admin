@@ -4,10 +4,13 @@ import { RiCalendarLine } from "react-icons/ri";
 import { FaChevronDown } from "react-icons/fa";
 import BrandDisputeOrderTable from "./BrandDisputeOrderTable"
 import BrandDisputePayoutTable from "./BrandDisputePayoutTable";
+import { fetchBrandDispute } from "../../../api";
 
-function BrandDisputePage() {
+function BrandDisputePage({ brandId }) {
   const [activeTab, setActiveTab] = useState("Order Dispute")
   const tabs = ["Order Dispute", "Payout Dispute"]
+  const {brandDispute, brandDisputeLoading, brandDisputeError} = fetchBrandDispute(brandId);
+  console.log("brand disputes", brandDispute);
 
   return (
     <>

@@ -36,7 +36,7 @@ function CategorySettingsTable() {
       setfilteredData(categoryData);
     }
     
-  }, [categoryData, filteredData, originalArr]);
+  }, [categoryData]);
 
   if (categoryLoading) return <Loader />;
   if (categoryError) return <ErrorWidget error={categoryError} />;
@@ -51,6 +51,7 @@ function CategorySettingsTable() {
               filteredData={filteredData}
               setfilteredData={setfilteredData}
               originalArr={originalArr}
+              searchable={["name"]}
             />
           </div>
           <button

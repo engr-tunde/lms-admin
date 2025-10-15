@@ -45,7 +45,7 @@ function SubcategorySettingsTable() {
       setoriginalArr(subcategoryData);
       setfilteredData(subcategoryData);
     }
-  }, [subcategoryData, filteredData, originalArr]);
+  }, [subcategoryData]);
 
   if (subcategoryLoading) return <Loader />;
   if (subcategoryError) return <ErrorWidget error={subcategoryError} />;
@@ -60,6 +60,7 @@ function SubcategorySettingsTable() {
               filteredData={filteredData}
               setfilteredData={setfilteredData}
               originalArr={originalArr}
+              searchable={["name", "category.name"]}
             />
           </div>
           {/* <button 

@@ -12,9 +12,9 @@ export const FETCH_BRANDS = "/admins/brands";
 export const VERIFY_BRAND = "/admins/verify-brand";
 export const ACTIVATE_DEACTIVATE_BRAND = "/admins/activate-brand";
 export const FETCH_BRAND_PRODUCTS = "/admins/brand-products"
-export const FETCH_BRAND_ORDERS = "/admin/brand-orders"
-export const FETCH_BRAND_DISPUTES = "/admin/brand-disputes"
-export const FETCH_BRAND_FINANCES = "/admin/brand-finances"
+export const FETCH_BRAND_ORDERS = "/admins/brand-orders"
+export const FETCH_BRAND_DISPUTES = "/admins/brand-disputes"
+export const FETCH_BRAND_FINANCES = "/admins/brand-finances"
 
 
 

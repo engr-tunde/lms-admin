@@ -2,8 +2,11 @@ import BrandFinanceTable from "./BrandFinanceTable.jsx";
 import BrandFinanceCardContainer from "./BrandFinanceCardContainer.jsx";
 import { RiCalendarLine } from "react-icons/ri";
 import { FaChevronDown } from "react-icons/fa";
+import { fetchBrandFinance } from "../../../api/index.js";
 
-function BrandFinancePage() {
+function BrandFinancePage({ brandId }) {
+  const { brandFinance, brandFinanceLoading, brandFinanceError } = fetchBrandFinance(brandId);
+  console.log("brand finances", brandFinance);
   return (
     <>
       <div className="w-full flex flex-col gap-5">

@@ -19,6 +19,7 @@ function AllBrandsTable({ filteredData, setfilteredData, originalArr, mutate }) 
             filteredData={filteredData}
             setfilteredData={setfilteredData}
             originalArr={originalArr}
+            searchable={["name"]}
            />
         </div>
       </div>
@@ -41,3 +42,6 @@ function AllBrandsTable({ filteredData, setfilteredData, originalArr, mutate }) 
 }
 
 export default AllBrandsTable;
+
+
+

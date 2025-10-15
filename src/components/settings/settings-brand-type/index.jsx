@@ -22,12 +22,17 @@ function BrandTypeSettingsTable() {
       setoriginalArr(brandtype);
       setfilteredData(brandtype);
     }
+      console.log("filteredData Name", filteredData);
 
-  }, [brandtype, filteredData, originalArr]);
+
+  }, [brandtype]);
 
   if (brandtypeLoading) return <Loader />;
   if (brandtypeError) return <ErrorWidget error={brandtypeError} />;
   if (!brandtype?.length) return <div>No brand type found</div>;
+  
+  
+
 
   return (
     <div className="flex flex-col gap-2">
@@ -37,6 +42,7 @@ function BrandTypeSettingsTable() {
             filteredData={filteredData}
             setfilteredData={setfilteredData}
             originalArr={originalArr}
+            searchable={["name"]}
           />
         </div>
         <button

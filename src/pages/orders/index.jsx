@@ -13,7 +13,10 @@ import Loader from "../../components/globals/Loader.jsx";
 function DashboardOrdersPage() {
   const { orders, ordersLoading, ordersError, mutate } = fetchOrders();
   const [originalArr, setoriginalArr] = useState();
-  const [filteredData, setfilteredData] = useState();  
+  const [filteredData, setfilteredData] = useState(); 
+  
+
+
   useEffect(() => {
     if (orders) {
       setoriginalArr(orders?.orders);

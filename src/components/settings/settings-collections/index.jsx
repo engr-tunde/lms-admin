@@ -14,6 +14,7 @@ function CollectionsSettingsTable() {
   const [collectionData, setcollectionData] = useState();
   const { collection, collectionLoading, collectionError, mutate } =
     fetchCollection();
+    console.log("collection", collection);
 
   useEffect(() => {
     if (collection) {
@@ -31,7 +32,7 @@ function CollectionsSettingsTable() {
       setoriginalArr(collectionData);
       setfilteredData(collectionData);
     }
-  }, [collectionData, filteredData, originalArr]);
+  }, [collectionData]);
 
   if (collectionLoading) return <Loader />;
   if (collectionError) return <ErrorWidget error={collectionError} />;
@@ -46,6 +47,7 @@ function CollectionsSettingsTable() {
               filteredData={filteredData}
               setfilteredData={setfilteredData}
               originalArr={originalArr}
+              searchable={["name"]}
             />
           </div>
           <button

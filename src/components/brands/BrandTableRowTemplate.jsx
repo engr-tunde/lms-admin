@@ -9,7 +9,7 @@ import {
 } from "../../utils/helpers";
 import StatusCheck from "../globals/StatusCheck.jsx";
 import { RiArrowDownSFill } from "react-icons/ri";
-import { verifyBrand, activateDeactivateBrand } from "../../api";
+import { activateDeactivateBrand } from "../../api";
 import { useState } from "react";
 
 function BrandTableRowTemplate({ brand, openIndex, setOpenIndex, mutate }) {
@@ -18,48 +18,15 @@ function BrandTableRowTemplate({ brand, openIndex, setOpenIndex, mutate }) {
     setOpenIndex,
     brand?.id
   );
-  const [rejectReason, setRejectReason] = useState(
-    "GoodLuck Lets get things started. Lets make great waves in ecommerce"
-  );
 
-  const handleBrandVerification = async (id, action) => {
-    try {
-      const payload = { status: action }; // 'accept' or 'reject'
-      payload.rejectReason = rejectReason;
-      // ## The code commented below should run. But backend insisting on rejectReason for both actions
-      // if (action === "reject") {
-      //   if (!rejectReason) {
-      //     errorNotification("Please provide a reason for rejection");
-      //     return;
-      //   }
-      //   payload.rejectReason = rejectReason;
-      // }
-      const response = await verifyBrand(payload, id);
-      console.log("response", response);
-      if (response.status.toString().includes("20")) {
-        successNotification(response.data.message);
-        mutate();
-        setRejectReason("");
-        close();
-      } else {
-        errorNotification(response?.data?.message);
-      }
-    } finally {
-      close();
-    }
-  };
-
-  const handleActivateDeactivateBrand = async (id, action) => {
+  const handleActivateDeactivateBrand = async (action, id) => {
     try {
       const payload = { status: action };
-      payload.rejectReason = rejectReason;
-      // ## The oneliner above should not run. But backend insisting on rejectReason for both actions eventhough neither needs it
-      const response = await verifyBrand(payload, id);
+      const response = await activateDeactivateBrand(payload, id);
       console.log("response", response);
       if (response.status.toString().includes("20")) {
         successNotification(response.data.message);
         mutate();
-        setRejectReason("");
         close();
       } else {
         errorNotification(response?.data?.message);
@@ -116,7 +83,7 @@ function BrandTableRowTemplate({ brand, openIndex, setOpenIndex, mutate }) {
                 <button
                   className="text-sm text-left px-5 py-2"
                   onClick={() =>
-                    handleActivateDeactivateBrand(brand?.id, "active")
+                    handleActivateDeactivateBrand("activate", brand?.id)
                   }
                 >
                   Activate
@@ -126,7 +93,7 @@ function BrandTableRowTemplate({ brand, openIndex, setOpenIndex, mutate }) {
                 <button
                   className="text-sm text-left px-5 py-2"
                   onClick={() =>
-                    handleActivateDeactivateBrand(brand?.id, "inActive")
+                    handleActivateDeactivateBrand("deactivate", brand?.id)
                   }
                 >
                   Deactivate

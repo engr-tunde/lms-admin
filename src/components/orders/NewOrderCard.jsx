@@ -20,7 +20,7 @@ function NewOrderCard({ order }) {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-sm">Qty: {totalQty}</span>
-          <span className="border-2 px-1 text-[13px]">Confirm receipt</span>
+          <span className="border-2 px-1 text-[13px] cursor-pointer">Confirm receipt</span>
         </div>
       </div>
     </div>

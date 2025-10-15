@@ -170,7 +170,7 @@ export const fetchBrandOrder = (id) => {
     mutate,
   };
 };
-export const fetchBrandDispute = () => {
+export const fetchBrandDispute = (id) => {
   const { data, error, mutate } = useSWR(`${FETCH_BRAND_DISPUTES}/${id}`, fetcher);
   return {
     brandDispute: data,
@@ -179,7 +179,7 @@ export const fetchBrandDispute = () => {
     mutate,
   };
 };
-export const fetchBrandFinance = () => {
+export const fetchBrandFinance = (id) => {
   const { data, error, mutate } = useSWR(`${FETCH_BRAND_FINANCES}/${id}`, fetcher);
   return {
     brandFinance: data,
@@ -198,15 +198,6 @@ export const fetchProducts = () => {
     products: data,
     productsLoading: !error && !data,
     productsError: error,
-    mutate,
-  };
-};
-export const fetchProductByBrand = (brandID) => {
-  const { data, error, mutate } = useSWR(`${FETCH_PRODUCTS}/${brandID}`, fetcher);
-  return {
-    brandProduct: data,
-    brandProductLoading: !error && !data,
-    brandProductError: error,
     mutate,
   };
 };

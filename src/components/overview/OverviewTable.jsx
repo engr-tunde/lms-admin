@@ -13,6 +13,7 @@ function OverviewTable({ filteredData, setfilteredData, originalArr }) {
             filteredData={filteredData}
             setfilteredData={setfilteredData}
             originalArr={originalArr}
+            searchable={["_id", "status", "shippingAddress.fullName", "shippingAddress.email", "items.brandName", "items.productName"]}
           />
         </div>
       </div>

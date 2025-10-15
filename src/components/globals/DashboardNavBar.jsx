@@ -1,19 +1,3 @@
-// const DashboardNavBar = ({ title, subtitle, path }) => {
-//   return (
-//     <div className="flex flex-col gap-2">
-//       <div className="text-xs text-light">{path}</div>
-//       <div className="text-xl font-semibold">{title}</div>
-//       <div className="text-sm">{subtitle}</div>
-//     </div>
-//   );
-// };
-
-// export default DashboardNavBar;
-
-
-
-
-
 import { RiFileCopyLine } from "react-icons/ri";
 import { FaCheck } from "react-icons/fa";
 import { useState } from "react";
@@ -42,7 +26,6 @@ const DashboardNavBar = ({ path, title, subtitle, status, copyable }) => {
     }
   };
 
-  if (!copyable) return null;
 
   const getStatusClass = (status) => {
     if (!status) return "";

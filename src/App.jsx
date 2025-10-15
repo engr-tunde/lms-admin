@@ -23,6 +23,7 @@ import PayoutDisputeViewPage from "./pages/dispute/payout-dispute-view.jsx";
 import PayoutDetailPage from "./pages/payouts/payout-detail.jsx";
 import VerifyForgotPasswordPage from "./pages/auth/verify-forgot-password/index.jsx";
 import VerifyLoginPage from "./pages/auth/verify-login/index.jsx";
+import DashboardBrandRequests from "./pages/brands/brand-requests.jsx";
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
               <Route path="/products" element={<DashboardProductPage />} />
 
               <Route path="/brands" element={<DashboardBrandsPage />} />
+              <Route path="/brands/requests" element={<DashboardBrandRequests />} />
               <Route
                 path="/brands/:id"
                 element={<DashboardBrandDetailsPage />}

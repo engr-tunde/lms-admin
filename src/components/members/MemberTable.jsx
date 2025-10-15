@@ -5,8 +5,6 @@ import MemberTableRowTemplate from "./MemberTableRowTemplate.jsx";
 import { useEffect, useState } from "react";
 
 function MemberTable({
-  setsearch,
-  search,
   filteredData,
   setfilteredData,
   originalArr,
@@ -22,6 +20,7 @@ function MemberTable({
             filteredData={filteredData}
             setfilteredData={setfilteredData}
             originalArr={originalArr}
+            searchable={["fullName", "email", "role".split("_").join(" ")]}
           />
         </div>
       </div>

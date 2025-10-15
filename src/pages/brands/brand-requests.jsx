@@ -2,23 +2,22 @@ import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { useEffect, useState } from "react";
 import { RiCalendarLine } from "react-icons/ri";
 import { FaChevronDown } from "react-icons/fa";
-import AllBrandsTable from "../../components/brands/AllBrandsTable";
-import { fetchAllBrands } from "../../api";
 import Loader from "../../components/globals/Loader";
 import ErrorWidget from "../../components/globals/ErrorWidget";
-import AllBrandsCardContainer from "../../components/brands/AllBrandsCardContainer";
-import BrandRequestContainer from "../../components/brands/brand-requests/BrandRequestContainer";
+import BrandRequestsTable from "../../components/brands/brand-requests/BrandRequestsTable";
+import { fetchAllBrands } from "../../api";
 
-function DashboardBrandsPage() {
+
+function DashboardBrandRequests() {
   const { brands, brandsLoading, brandsError, mutate } = fetchAllBrands();
   const [filteredData, setfilteredData] = useState();
   const [originalArr, setoriginalArr] = useState();
-  console.log("brands ss", brands);
+  console.log("brands requests", brands?.summary?.brandRequests);
 
   useEffect(() => {
     if (brands) {
-      setoriginalArr(brands?.brands);
-      setfilteredData(brands?.brands);
+      setoriginalArr(brands?.summary?.brandRequests);
+      setfilteredData(brands?.summary?.brandRequests);
     }
   }, [brands]);
 
@@ -27,7 +26,7 @@ function DashboardBrandsPage() {
     <div className="flex flex-col gap-6">
       <div className="flex justify-between items-end">
         <DashboardNavBar
-          title="Brands"
+          title="Brand Requests"
           subtitle="See how your brand is performing today across sales, orders & top products."
         />
       </div>
@@ -40,17 +39,9 @@ function DashboardBrandsPage() {
           </div>
         </div>
       </div>
-      <AllBrandsCardContainer 
-       summary={brands?.summary}
-      />
       {filteredData ? (
         <>
-          {
-            brands?.summary?.brandRequests ? 
-            (<BrandRequestContainer requests={brands?.summary?.brandRequests} />): 
-            null
-          }
-          <AllBrandsTable
+          <BrandRequestsTable
             filteredData={filteredData}
             setfilteredData={setfilteredData}
             originalArr={originalArr}
@@ -66,4 +57,4 @@ function DashboardBrandsPage() {
   );
 }
 
-export default DashboardBrandsPage;
+export default DashboardBrandRequests;

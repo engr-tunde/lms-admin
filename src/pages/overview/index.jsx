@@ -2,10 +2,10 @@ import { FaChevronDown } from "react-icons/fa";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { RiCalendarLine } from "react-icons/ri";
 import OverviewCards from "../../components/overview/OverviewCardsContainer";
-import BrandRequestContainer from "../../components/globals/BrandRequestContainer";
 import OverviewTable from "../../components/overview/OverviewTable";
 import { fetchAllBrands, fetchOrders } from "../../api";
 import { useEffect, useState } from "react";
+import BrandRequestContainer from "../../components/brands/brand-requests/BrandRequestContainer";
 
 function DashboardOverviewPage() {
   const [originalArr, setoriginalArr] = useState();
@@ -51,7 +51,11 @@ function DashboardOverviewPage() {
           </div>
         </div>
         <OverviewCards />
-        <BrandRequestContainer brandsData={newlyAddedBrands()} />
+        {
+          brands?.summary?.brandRequests ? 
+          (<BrandRequestContainer requests={brands?.summary?.brandRequests} />): 
+          null
+        }
         <OverviewTable 
           filteredData={filteredData}
           setfilteredData={setfilteredData}

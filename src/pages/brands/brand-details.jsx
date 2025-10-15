@@ -9,14 +9,13 @@ import BrandsCompliancePage from "../../components/brands/brand-compliance";
 import StatusCheck from "../../components/globals/StatusCheck"
 import { useParams } from "react-router-dom"
 import { useState } from "react";
-// import { fetchProductByBrand } from "../../api";
 
 function DashboardBrandDetailsPage() {
   const [activeTab, setActiveTab] = useState("Brand overview");
 
   const { id } = useParams();
-  const brandId = id;
   console.log("brand id", id);
+  const brandId = id;
 
 
   const ellipsisIcon = (size) => {

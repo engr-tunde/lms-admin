@@ -27,7 +27,7 @@ const OrderViewTimelineCard = () => {
     <div className="bg-yellow-100 p-6 rounded-md">
       <div className="flex items-center justify-between relative">
         {/* Progress line */}
-        <div className="absolute top-2 left-0 right-0 h-[2px] bg-merseBorder z-0" />
+        <div className="absolute top-2 left-0 right-0 h-[2px] bg-white z-0" />
         <div
           className="absolute top-2 left-0 h-[2px] bg-black z-10 transition-all duration-500"
           style={{
@@ -49,7 +49,7 @@ const OrderViewTimelineCard = () => {
                 className={`w-5 h-5 rounded-full border-2 ${
                   index <= currentStep
                     ? "border-black bg-black"
-                    : "border-black bg-merseBorder"
+                    : "border-black bg-white"
                 }`}
               />
               <div className="flex flex-col items-center mt-3 min-h-[80px]">
