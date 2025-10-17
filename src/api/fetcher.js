@@ -5,8 +5,6 @@ export const fetcher = (url) =>
   axiosInstance()
     .get(url, { withCredentials: true })
     .then((res) => {
-      console.log("url", url);
-      console.log("res.status", res.status);
       // console.log("res", res);
       if (res.status == 401) {
         Cookies.remove("authToken");

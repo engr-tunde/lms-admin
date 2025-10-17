@@ -22,6 +22,12 @@ const VerifyLoginBody = () => {
   let otpLength = 6;
 
   useEffect(() => {
+    if (!credentials) {
+      history("/login");
+    }
+  }, [credentials]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       if (seconds > 0) {
         setSeconds(seconds - 1);
@@ -44,7 +50,7 @@ const VerifyLoginBody = () => {
   const resendOTP = async () => {
     const response = await login(credentials);
     if (response.status.toString().includes("20")) {
-      successNotification(response.data.message);
+      successNotification("Sent!");
       setresendOTPcount(!resendOTPcount);
     } else {
       errorNotification(response?.data?.message);
@@ -61,7 +67,6 @@ const VerifyLoginBody = () => {
     });
     if (response.status.toString().includes("20")) {
       Cookies.set("authToken", response.data.token);
-      successNotification("Successfully verified! Now set a new password.");
       setTimeout(() => history("/"), 3000);
     } else {
       errorNotification(response?.data?.message);
@@ -82,7 +87,7 @@ const VerifyLoginBody = () => {
     <>
       <AuthHeader
         title="We emailed you a code"
-        subtitle={`We sent a six digit code to devteeking@gmail.com , it will be valid for 10 minutes. it may be in your spam folder`}
+        subtitle={`We sent a six digit code to ${credentials?.email} , it will be valid for 10 minutes. it may be in your spam folder`}
       />
 
       <div className="text-sm">Please enter verification code here</div>

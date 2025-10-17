@@ -15,9 +15,7 @@ const LoginBody = () => {
 
   const handleSubmit = async (values) => {
     const response = await login(values);
-    console.log("response", response);
     if (response.status.toString().includes("20")) {
-      successNotification(response.data.message);
       setTimeout(
         () =>
           history("/verify-login", {

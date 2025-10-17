@@ -48,8 +48,6 @@ import { fetcher, sessionFetcher } from "./fetcher";
 //   };
 // };
 
-
-
 // ##AUTH  (Remains the last)
 export const forgotPassword = async (values) => {
   const result = await mutationRequest(FORGOT_PASSWORD, "post", values, false);
@@ -76,7 +74,7 @@ export const verifyLogin = async (values) => {
   const result = await mutationRequest(VERIFY_LOGIN, "post", values, false);
   return result;
 };
-export const logout = () => {
+export const logAdminOut = () => {
   const { data, error, mutate } = useSWR(LOGOUT, fetcher);
   return {
     logout: data,
@@ -86,12 +84,14 @@ export const logout = () => {
   };
 };
 
-
-
-
 // ##SETTINGS(Done: New endpoints. Everything needs to be tested)
 export const addAdmin = async (values) => {
-  const result = await mutationRequest(CREATE_FETCH_ADMINS, "post", values, false);
+  const result = await mutationRequest(
+    CREATE_FETCH_ADMINS,
+    "post",
+    values,
+    false
+  );
   return result;
 };
 export const fetchAdmins = () => {
@@ -104,7 +104,12 @@ export const fetchAdmins = () => {
   };
 };
 export const updateAdminStatus = async (id, payload) => {
-  const result = await mutationRequest(`${UPDATE_ADMIN_STATUS}/${id}`, "patch", payload, false);
+  const result = await mutationRequest(
+    `${UPDATE_ADMIN_STATUS}/${id}`,
+    "patch",
+    payload,
+    false
+  );
   return result;
 };
 // export const deleteAdmin = async (id) => {
@@ -112,8 +117,6 @@ export const updateAdminStatus = async (id, payload) => {
 //   const result = await mutationRequest(`${ADMINS}/${id}`, "delete", false);
 //   return result;
 // };
-
-
 
 // ##BRANDS (Remains the last 2)
 export const fetchAllBrands = () => {
@@ -151,9 +154,12 @@ export const fetchBrand = (id) => {
     brandError: error,
     mutate,
   };
-}
+};
 export const fetchBrandProduct = (id) => {
-  const { data, error, mutate } = useSWR(`${FETCH_BRAND_PRODUCTS}/${id}`, fetcher);
+  const { data, error, mutate } = useSWR(
+    `${FETCH_BRAND_PRODUCTS}/${id}`,
+    fetcher
+  );
   return {
     brandProduct: data,
     brandProductLoading: !error && !data,
@@ -162,7 +168,10 @@ export const fetchBrandProduct = (id) => {
   };
 };
 export const fetchBrandOrder = (id) => {
-  const { data, error, mutate } = useSWR(`${FETCH_BRAND_ORDERS}/${id}`, fetcher);
+  const { data, error, mutate } = useSWR(
+    `${FETCH_BRAND_ORDERS}/${id}`,
+    fetcher
+  );
   return {
     brandOrder: data,
     brandOrderLoading: !error && !data,
@@ -170,8 +179,11 @@ export const fetchBrandOrder = (id) => {
     mutate,
   };
 };
-export const fetchBrandDispute = (id) => {
-  const { data, error, mutate } = useSWR(`${FETCH_BRAND_DISPUTES}/${id}`, fetcher);
+export const fetchBrandDispute = () => {
+  const { data, error, mutate } = useSWR(
+    `${FETCH_BRAND_DISPUTES}/${id}`,
+    fetcher
+  );
   return {
     brandDispute: data,
     brandDisputeLoading: !error && !data,
@@ -179,8 +191,11 @@ export const fetchBrandDispute = (id) => {
     mutate,
   };
 };
-export const fetchBrandFinance = (id) => {
-  const { data, error, mutate } = useSWR(`${FETCH_BRAND_FINANCES}/${id}`, fetcher);
+export const fetchBrandFinance = () => {
+  const { data, error, mutate } = useSWR(
+    `${FETCH_BRAND_FINANCES}/${id}`,
+    fetcher
+  );
   return {
     brandFinance: data,
     brandFinanceLoading: !error && !data,
@@ -189,8 +204,6 @@ export const fetchBrandFinance = (id) => {
   };
 };
 
-
-
 // ##PRODUCTS (DONE: Pending field availability for fetchProductByBrand)
 export const fetchProducts = () => {
   const { data, error, mutate } = useSWR(FETCH_PRODUCTS, fetcher);
@@ -198,6 +211,18 @@ export const fetchProducts = () => {
     products: data,
     productsLoading: !error && !data,
     productsError: error,
+    mutate,
+  };
+};
+export const fetchProductByBrand = (brandID) => {
+  const { data, error, mutate } = useSWR(
+    `${FETCH_PRODUCTS}/${brandID}`,
+    fetcher
+  );
+  return {
+    brandProduct: data,
+    brandProductLoading: !error && !data,
+    brandProductError: error,
     mutate,
   };
 };
@@ -211,29 +236,41 @@ export const approveRejectProduct = async (values, id) => {
   return result;
 };
 
-
-
 // ##SETTINGS (DONE: The deleteCollection endpoint is not working. Sending request but not showing on the data array. Backend issue)
 //Also, no BrandType endpoint is in the documentation. CATEGORIES endpoint only accept csvs. while addSubcategory only accept plains
 export const fetchBrandType = () => {
   const { data, error, mutate } = useSWR(FETCH_BRANDTYPES, fetcher);
   return {
-    brandtype: data, 
-    brandtypeLoading: !error && !data, 
-    brandtypeError: error, 
+    brandtype: data,
+    brandtypeLoading: !error && !data,
+    brandtypeError: error,
     mutate,
-  }
+  };
 };
 export const addBrandType = async (values) => {
-  const result = await mutationRequest(`${CREATE_UPDATE_DELETE_BRANDTYPES}`, "post", values, false);
+  const result = await mutationRequest(
+    `${CREATE_UPDATE_DELETE_BRANDTYPES}`,
+    "post",
+    values,
+    false
+  );
   return result;
 };
 export const updateBrandType = async (values, id) => {
-  const result = await mutationRequest(`${CREATE_UPDATE_DELETE_BRANDTYPES}/${id}`, "patch", values, false);
+  const result = await mutationRequest(
+    `${CREATE_UPDATE_DELETE_BRANDTYPES}/${id}`,
+    "patch",
+    values,
+    false
+  );
   return result;
 };
 export const deleteBrandType = async (id) => {
-  const result = await mutationRequest(`${CREATE_UPDATE_DELETE_BRANDTYPES}/${id}`, "delete", false);
+  const result = await mutationRequest(
+    `${CREATE_UPDATE_DELETE_BRANDTYPES}/${id}`,
+    "delete",
+    false
+  );
   return result;
 };
 
@@ -247,19 +284,40 @@ export const fetchCategory = () => {
   };
 };
 export const addCategory = async (values) => {
-  const result = await mutationRequest(CREATE_UPDATE_DELETE_CATEGORIES, "post", values, false, "text/csv");
+  const result = await mutationRequest(
+    CREATE_UPDATE_DELETE_CATEGORIES,
+    "post",
+    values,
+    false,
+    "text/csv"
+  );
   return result;
 };
 export const bulkUploadCategory = async (values) => {
-  const result = await mutationRequest(CREATE_UPDATE_DELETE_CATEGORIES, "post", values, false, "text/csv");
+  const result = await mutationRequest(
+    CREATE_UPDATE_DELETE_CATEGORIES,
+    "post",
+    values,
+    false,
+    "text/csv"
+  );
   return result;
 };
 export const updateCategory = async (values, id) => {
-  const result = await mutationRequest(`${CREATE_UPDATE_DELETE_CATEGORIES}/${id}`, "patch", values, false);
+  const result = await mutationRequest(
+    `${CREATE_UPDATE_DELETE_CATEGORIES}/${id}`,
+    "patch",
+    values,
+    false
+  );
   return result;
 };
 export const deleteCategory = async (id) => {
-  const result = await mutationRequest(`${CREATE_UPDATE_DELETE_CATEGORIES}/${id}`, "delete", false);
+  const result = await mutationRequest(
+    `${CREATE_UPDATE_DELETE_CATEGORIES}/${id}`,
+    "delete",
+    false
+  );
   return result;
 };
 
@@ -272,7 +330,7 @@ export const fetchSubcategory = () => {
     mutate,
   };
 };
-export const addSubcategory = async ({name, categoryId}) => {
+export const addSubcategory = async ({ name, categoryId }) => {
   const result = await mutationRequest(
     `admins/${categoryId}/subcategories`,
     "post",
@@ -282,7 +340,11 @@ export const addSubcategory = async ({name, categoryId}) => {
   return result;
 };
 export const deleteSubcategory = async (id) => {
-  const result = await mutationRequest(`${DELETE_SUBCATEGORIES}/${id}`, "delete", false);
+  const result = await mutationRequest(
+    `${DELETE_SUBCATEGORIES}/${id}`,
+    "delete",
+    false
+  );
   return result;
 };
 
@@ -296,22 +358,38 @@ export const fetchCollection = () => {
   };
 };
 export const addCollection = async (values) => {
-  const result = await mutationRequest(CREATE_UPDATE_DELETE_COLLECTIONS, "post", values, false);
+  const result = await mutationRequest(
+    CREATE_UPDATE_DELETE_COLLECTIONS,
+    "post",
+    values,
+    false
+  );
   return result;
 };
 export const updateCollection = async (values, id) => {
-  const result = await mutationRequest(`${CREATE_UPDATE_DELETE_COLLECTIONS}/${id}`, "patch", values, false);
+  const result = await mutationRequest(
+    `${CREATE_UPDATE_DELETE_COLLECTIONS}/${id}`,
+    "patch",
+    values,
+    false
+  );
   return result;
 };
 export const deleteCollection = async (id) => {
-  const result = await mutationRequest(`${CREATE_UPDATE_DELETE_COLLECTIONS}/${id}`, "delete", false);
+  const result = await mutationRequest(
+    `${CREATE_UPDATE_DELETE_COLLECTIONS}/${id}`,
+    "delete",
+    false
+  );
   return result;
 };
 
-
 // ##DISPUTES(DONE: Pending field availability for both payout and order disputes)
 export const fetchAllDisputes = (type) => {
-  const { data, error, mutate } = useSWR(`${FETCH_DISPUTES}?disputeRequestType=${type}`, fetcher);
+  const { data, error, mutate } = useSWR(
+    `${FETCH_DISPUTES}?disputeRequestType=${type}`,
+    fetcher
+  );
   return {
     disputes: data,
     disputesLoading: !error && !data,
@@ -329,10 +407,13 @@ export const fetchDisputeView = (id) => {
   };
 };
 
-
 // ##ORDERS
 export const updateOrderStatus = async (id) => {
-  const result = await mutationRequest(`${UPDATE_ORDER_STATUS}/${id}`, "patch", false);
+  const result = await mutationRequest(
+    `${UPDATE_ORDER_STATUS}/${id}`,
+    "patch",
+    false
+  );
   return result;
 };
 export const fetchOrders = () => {
@@ -344,6 +425,3 @@ export const fetchOrders = () => {
     mutate,
   };
 };
-
-
-

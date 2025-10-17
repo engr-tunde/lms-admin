@@ -1,12 +1,31 @@
 import { useLocation } from "react-router-dom";
 import { dashboardSidebarMenu } from "../../utils/data";
 import { Link } from "react-router-dom";
+import { logAdminOut } from "../../api";
+import { errorNotification } from "../../utils/helpers";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 function DashboardSidebar() {
   let location = useLocation();
   const pathname = location.pathname;
+
+  const handleLogout = async () => {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_URL_BASE}/admins/logout`
+    );
+    if (response.status.toString().includes("20")) {
+      setTimeout(() => {
+        Cookies.remove("authToken");
+        window.location.href = "/login";
+      }, 300);
+    } else {
+      errorNotification(response?.data?.message);
+    }
+  };
+
   return (
-    <div className="flex flex-col gap-10">
+    <div className="h-screen flex flex-col gap-10 overflow-y-hidden">
       <div className="flex flex-col gap-1">
         <div className="text-sm font-semibold">Admin</div>
         <div className="text-sm text-merseLightText font-light">
@@ -27,6 +46,9 @@ function DashboardSidebar() {
             {ele.title}
           </Link>
         ))}
+      </div>
+      <div className="mt-auto mb-20 cursor-pointer" onClick={handleLogout}>
+        Logout
       </div>
     </div>
   );
