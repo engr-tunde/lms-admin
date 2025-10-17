@@ -12,6 +12,10 @@ export const dashboardSidebarMenu = [
     url: "/orders",
   },
   {
+    title: "Users",
+    url: "/users",
+  },
+  {
     title: "Products",
     url: "/products",
   },
