@@ -87,7 +87,7 @@ const VerifyLoginBody = () => {
     <>
       <AuthHeader
         title="We emailed you a code"
-        subtitle={`We sent a six digit code to ${credentials?.email} , it will be valid for 10 minutes. it may be in your spam folder`}
+        subtitle={`We sent a six digit code to ${credentials?.email}, it will be valid for 10 minutes. it may be in your spam folder`}
       />
 
       <div className="text-sm">Please enter verification code here</div>

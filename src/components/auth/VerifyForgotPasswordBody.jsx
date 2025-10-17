@@ -43,7 +43,7 @@ const VerifyForgotPasswordBody = () => {
   const resendOTP = async () => {
     const response = await forgotPassword({ email });
     if (response.status.toString().includes("20")) {
-      successNotification(response.data.message);
+      successNotification("Sent!");
       setresendOTPcount(!resendOTPcount);
     } else {
       errorNotification(response?.data?.message);
@@ -58,9 +58,7 @@ const VerifyForgotPasswordBody = () => {
       otp: otp,
       email,
     });
-    console.log("response", response);
     if (response.status.toString().includes("20")) {
-      successNotification("Successfully verified! Now set a new password.");
       setTimeout(
         () =>
           history("/reset-password", {
@@ -87,7 +85,7 @@ const VerifyForgotPasswordBody = () => {
     <>
       <AuthHeader
         title="We emailed you a code"
-        subtitle={`We sent a six digit code to devteeking@gmail.com , it will be valid for 10 minutes. it may be in your spam folder`}
+        subtitle={`We sent a six digit code to ${email}, it will be valid for 10 minutes. it may be in your spam folder`}
       />
 
       <div className="text-sm">Please enter verification code here</div>
