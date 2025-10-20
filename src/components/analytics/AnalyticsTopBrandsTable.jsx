@@ -3,8 +3,19 @@ import { topBrandsColumnHeader, topBrandsTableData } from "../../data/analyticsD
 import { RiCalendarLine } from "react-icons/ri";
 import Table from "../globals/Table"
 import { formatter } from "../../utils/helpers";
+import { fetchAnalyticsBrands } from "../../api";
+import Loader from "../globals/Loader";
+import ErrorWidget from "../globals/ErrorWidget";
 
 const AnalyticsTopBrandsTable = () => {
+  const { analyticsBrands, analyticsBrandsLoading, analyticsBrandsError } = fetchAnalyticsBrands();
+
+  console.log("analyticsBrands", analyticsBrands);
+
+  if (analyticsBrandsLoading) return <Loader />;
+  if (analyticsBrandsError) return <ErrorWidget error={analyticsBrandsError} />;
+  if (!analyticsBrands) return <div>No brand analytics found</div>;
+
   return (
     <div className="w-full p-3 border-[1px] border-merseBorder h-[400px] overflow-auto">
       <div className="w-full flex justify-between gap-5 mb-4">

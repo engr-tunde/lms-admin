@@ -5,11 +5,21 @@ import { RiCalendarLine } from "react-icons/ri";
 import { useState }  from "react"
 import CustomLineChart from "../globals/CustomLineChart"
 import { totalSales, totalOrders, activeBrands, newCustomers, pendingPayouts, completedPayouts } from "../../data/analyticsData";
+import { fetchAnalytics } from "../../api";
+import Loader from "../globals/Loader";
+import ErrorWidget from "../globals/ErrorWidget";
 
 
 const AnalyticsOverviewPage = () => {
-  const [activeTab, setActiveTab] = useState("Total Sales")
+  const { analytics, analyticsLoading, analyticsError } = fetchAnalytics();
   
+  const [activeTab, setActiveTab] = useState("Total Sales")
+
+  if (analyticsLoading) return <Loader />;
+  if (analyticsError) return <ErrorWidget error={analyticsError} />;
+  if (!analytics) return <div>No order analytics found</div>;
+
+  console.log("analytics", analytics)
   return (
     <>
     <div className="w-full flex flex-col gap-5 mb-4">

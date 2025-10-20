@@ -4,6 +4,7 @@ import AnalyticsSummaryChart from "../../components/analytics/AnalyticsSummaryCh
 import AnalyticsTopBrandsTable from "../../components/analytics/AnalyticsTopBrandsTable";
 
 function DashboardAnalyticsPage() {
+
   return (
     <div className="flex flex-col gap-6 h-full">
       <DashboardNavBar
@@ -12,10 +13,10 @@ function DashboardAnalyticsPage() {
       />
       <div className="grid grid-cols-2 gap-6 h-[90%] overflow-y-scroll">
         <div className="col-span-2">
-          <AnalyticsOverviewPage />
+          <AnalyticsOverviewPage/>
         </div>
         <div className="col-span-2 lg:col-span-1">
-          <AnalyticsSummaryChart />
+          <AnalyticsSummaryChart/>
         </div>
         <div className="col-span-2 lg:col-span-1">
           <AnalyticsTopBrandsTable />

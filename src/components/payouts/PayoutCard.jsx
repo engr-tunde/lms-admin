@@ -1,4 +1,4 @@
-function PayoutCard({ title, figure, percent, icon, size = "normal" }) {
+function PayoutCard({ title, figure, percent, icon, size = "normal", lastUpdated }) {
   return (
     <div className="w-full col-span-1 border-[1px] border-merseBorder p-3 flex flex-col items-end gap-3">
       <div className="w-full flex justify-between items-start">
@@ -20,6 +20,7 @@ function PayoutCard({ title, figure, percent, icon, size = "normal" }) {
         {icon()}
       </div>
       <div className="text-merseLightText text-[14px] font-light">
+        {/* {lastUpdated} */}
         Updated a min ago
       </div>
     </div>

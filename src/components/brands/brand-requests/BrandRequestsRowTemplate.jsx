@@ -1,9 +1,32 @@
 import { Link } from "react-router-dom";
 import { RiArrowDownSFill } from "react-icons/ri";
-import { capitalize, compactDateFormatter } from "../../../utils/helpers.js";
+import { capitalize, compactDateFormatter, errorNotification, successNotification, useToggleOpen } from "../../../utils/helpers.js";
 import StatusCheck from "../../globals/StatusCheck.jsx";
+import { verifyBrand } from "../../../api/index.js";
+import { useState } from "react";
+function BrandRequestsRowTemplate({ request, i, openIndex, setOpenIndex, mutate }) {
+  const { isOpen, toggle, close } = useToggleOpen(openIndex, setOpenIndex, i);
 
-function BrandRequestsRowTemplate({request, i}) {
+  const handleVerifyBrand = async (id, status) => {
+    const response = await verifyBrand(
+      {
+        status,
+        rejectReason:
+          status === "reject"
+            ? "The brand does not meet all the criteria."
+            : "The brand meets all verification requirements.",
+      },
+      request?._id
+    );
+    console.log("response", response);
+    if (response?.status?.toString()?.includes("20")) {
+      successNotification(response?.data?.message);
+      close();
+      mutate();
+    } else {
+      errorNotification(response?.data?.message[0]);
+    }
+  };
 
   return (
     <tr key={request?._id} className="border-1 border-t border-merseBorder">
@@ -25,44 +48,45 @@ function BrandRequestsRowTemplate({request, i}) {
           <button
             className="flex text-sm items-center gap-1 px-3 py-1 border"
             onClick={(e) => {
-            //   e.stopPropagation();
-            //   toggle();
+              e.stopPropagation();
+              toggle();
             }}
           >
             Action
             <RiArrowDownSFill size={10} />
           </button>
-          {/* {isOpen && (
+          {isOpen && (
             <div className="absolute z-10 w-[150px] text-xs rounded-md flex flex-col right-0 bg-white shadow-xl border-[1px]">
-              <Link
-                to={`/brands/${brand?.id}`}
-                className="text-sm text-left px-5 py-2"
-                onClick={close}
-              >
-                View Details
-              </Link>
-              {brand?.status === "inActive" || brand?.status === "pending" ? (
+              {!request?.isVerified ? (
+                <>
                 <button
                   className="text-sm text-left px-5 py-2"
                   onClick={() =>
-                    handleActivateDeactivateBrand(brand?.id, "active")
+                    handleVerifyBrand(request?._id, "accept")
                   }
                 >
-                  Activate
+                  Approve
                 </button>
-              ) : null}
-              {brand?.status === "active" || brand?.status === "pending" ? (
                 <button
                   className="text-sm text-left px-5 py-2"
                   onClick={() =>
-                    handleActivateDeactivateBrand(brand?.id, "inActive")
+                    handleVerifyBrand(request?._id, "reject")
                   }
                 >
-                  Deactivate
+                  Reject
                 </button>
-              ) : null}
+                </>
+              ) : (
+                <Link
+                  to={`/brands/${request?._id}`}
+                  className="text-sm text-left px-5 py-2"
+                  onClick={close}
+                >
+                  View Details
+                </Link>
+              )}
             </div>
-          )} */}
+          )}
         </div>
       </td>
     </tr>

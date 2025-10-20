@@ -1,48 +1,53 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { formatter } from "../../utils/helpers";
+import { capitalize, compactDateFormatter, formatter, useToggleOpen } from "../../utils/helpers";
 import StatusCheck from "../globals/StatusCheck";
 import { RiArrowDownSFill } from "react-icons/ri";
 
-function PayoutRowTemplate(item, i) {
-  const [actionOpen, setActionOpen] = useState(null);
-  
-  const handleActionClick = (i) => {
-    setActionOpen(actionOpen === i ? null : i);
-  };
+function PayoutRowTemplate({ payout, i, openIndex, setOpenIndex, mutate, nextDueDate }) {
+  const { isOpen, toggle, close, ref } = useToggleOpen(
+    openIndex,
+    setOpenIndex,
+    i
+  );
 
   return (
-    <tr key={item.id} className="border-1 border-t border-merseBorder">
+    <tr key={payout?._id} className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm hidden lg:table-cell">
-          <Link to={`/payout/${item.id}`} className="px-3 py-1 underline">
+          <Link to={`/payout/${payout?._id}`} className="px-3 py-1 underline">
             View
           </Link>
       </td>
-      <td className="py-4 text-sm">{item.brand}</td>
-      <td className="py-4 text-sm hidden lg:table-cell">{item.completedOrders}</td>
+      <td className="py-4 text-sm">{capitalize(payout?.brand?.name)}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{200}</td>
       <td className="py-4 text-sm hidden lg:table-cell">
-        {formatter(item.totalSales)}
+        {formatter(payout.totalSales).slice(0, -3)}
       </td>
       <td className="py-4 text-sm hidden lg:table-cell">
-        {formatter(item.commission)}
+        {formatter(payout?.commission).slice(0, -3)}
       </td>
       <td className="py-4 text-sm hidden lg:table-cell">
-        {formatter(item.netPayoutAmount)}
+        {formatter(payout?.netPayment).slice(0, -3)}
       </td>
       <td className="py-4 text-sm">
-        <StatusCheck value={item.payoutStatus} className="px-2 py-1"/>
+        <StatusCheck value={capitalize(payout?.status)} className="px-2 py-1"/>
       </td>
-      <td className="py-4 text-sm hidden lg:table-cell text-merseLightText">{item.payoutDueDate}</td>
+      <td className="py-4 text-sm hidden lg:table-cell text-merseLightText">{compactDateFormatter(nextDueDate)}</td>
       <td className="py-4">
-        <div className="relative  mr-auto">
+        <div 
+          className="relative  mr-auto"
+          ref={ref}
+        >
           <button 
             className="flex text-sm items-center gap-1 px-3 py-1 border"
-            onClick={() => handleActionClick(i)}
+            onClick={(e) => {
+              toggle(); 
+              e.stopPropagation();
+            }}
           >
             <span>Actions</span>
             <RiArrowDownSFill />
           </button>
-          {actionOpen === i && (
+          {isOpen && (
               <div className="absolute z-10 w-[150px] text-xs rounded-md flex flex-col p-3 gap-3 top-9 left-0 bg-white shadow-xl">
                 <div className="flex items-center gap-1">
                   <span>View details</span>

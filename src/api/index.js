@@ -30,6 +30,10 @@ import {
   FETCH_BRAND_FINANCES,
   FETCH_PRODUCTS,
   CREATE_FETCH_ADMINS,
+  FETCH_PAYOUTS,
+  FETCH_ANALYTICS_STATS,
+  FETCH_ANALYTICS_DELIVERY,
+  FETCH_ANALYTICS_BRANDS,
 } from "../constants/routes";
 import { mutationRequest } from "./sendData";
 import { fetcher, sessionFetcher } from "./fetcher";
@@ -179,7 +183,7 @@ export const fetchBrandOrder = (id) => {
     mutate,
   };
 };
-export const fetchBrandDispute = () => {
+export const fetchBrandDispute = (id) => {
   const { data, error, mutate } = useSWR(
     `${FETCH_BRAND_DISPUTES}/${id}`,
     fetcher
@@ -191,7 +195,7 @@ export const fetchBrandDispute = () => {
     mutate,
   };
 };
-export const fetchBrandFinance = () => {
+export const fetchBrandFinance = (id) => {
   const { data, error, mutate } = useSWR(
     `${FETCH_BRAND_FINANCES}/${id}`,
     fetcher
@@ -425,3 +429,83 @@ export const fetchOrders = () => {
     mutate,
   };
 };
+
+
+
+// ##PAYOUTS 
+
+export const fetchAllPayouts = () => {
+  const { data, error, mutate } = useSWR(FETCH_PAYOUTS, fetcher);
+  return {
+    payouts: data,
+    payoutsLoading: !error && !data,
+    payoutsError: error,
+    mutate,
+  };
+};
+
+export const fetchPayout = (id) => {
+  const { data, error, mutate } = useSWR(`${FETCH_PAYOUTS}/${id}`, fetcher);
+  return {
+    payout: data,
+    payoutLoading: !error && !data,
+    payoutError: error,
+    mutate,
+  };
+};
+
+
+
+
+// ##ANALYTICS
+
+export const fetchAnalytics = () => {
+  const { data, error, mutate } = useSWR(FETCH_ANALYTICS_STATS, fetcher);
+  return {
+    analytics: data,
+    analyticsLoading: !error && !data,
+    analyticsError: error,
+    mutate,
+  };
+};
+export const fetchAnalyticsBrands = () => {
+  const { data, error, mutate } = useSWR(FETCH_ANALYTICS_BRANDS, fetcher);
+  return {
+    analyticsBrands: data,
+    analyticsBrandsLoading: !error && !data,
+    analyticsBrandsError: error,
+    mutate,
+  };
+};
+export const fetchAnalyticsDelivery = () => {
+  const { data, error, mutate } = useSWR(FETCH_ANALYTICS_DELIVERY, fetcher);
+  return {
+    analyticsDelivery: data,
+    analyticsDeliveryLoading: !error && !data,
+    analyticsDeliveryError: error,
+    mutate,
+  };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//#####TESTING
+
+export const addBrands = async (values) => {
+  const result = await mutationRequest("/brands", "post", values, false);
+  return result;
+};
+

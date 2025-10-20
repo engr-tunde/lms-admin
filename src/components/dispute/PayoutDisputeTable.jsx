@@ -2,8 +2,12 @@ import TableSearch from "../globals/TableSearch"
 import Table from "../globals/Table"
 import { payoutDisputeTableColumn, payoutDisputeData } from "../../data/disputeData.js";
 import PayoutDisputeRowTemplate from "./PayoutDisputeRowTemplate.jsx";
+import { fetchAllDisputes } from "../../api/index.js";
 
-function PayoutDisputeTable({ activeTab, setActiveTab, data }) {
+function PayoutDisputeTable({ activeTab, setActiveTab }) {
+
+  const { disputes: payoutDispute, disputesLoading, disputeError } = fetchAllDisputes("payout");
+  console.log("payoutDispute", payoutDispute);
   return (
     <div className="flex flex-col gap-2">
       <div className="w-full flex justify-between">

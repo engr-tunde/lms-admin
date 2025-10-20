@@ -1,9 +1,19 @@
+import { fetchAllPayouts } from "../../../api"
+import { capitalize, formatter } from "../../../utils/helpers"
 import StatusCheck from "../../globals/StatusCheck"
 import PayoutReviewModal from "./PayoutReviewModal"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-const PayoutDetailCard = ({ totalSales, netAmount, completedOrder, paymentMethod, paidTo, paymentStatus }) => {
+const PayoutDetailCard = ({ payout }) => {
   const [showModal, setShowModal] = useState(false)
+  const [nextDueDate, setNextDueDate] = useState(null)
+
+  const { payouts } = fetchAllPayouts();
+  useEffect(() => {
+    if (payouts) {
+      setNextDueDate(payouts?.summary?.nextDueDate)
+    } 
+  })
 
   return (
     <>
@@ -25,32 +35,32 @@ const PayoutDetailCard = ({ totalSales, netAmount, completedOrder, paymentMethod
         <div className="flex flex-col lg:flex-row gap-4 justify-between w-full">
           <div className="flex flex-col gap-2">
             <span className="font-semibold text-base">Total Sales</span>
-            <span className="text-base">{totalSales}</span>
+            <span className="text-base">{formatter(payout?.totalSales).slice(0, -3)}</span>
           </div>
           <div className="flex flex-col gap-2">
             <span className="font-semibold text-base">Net Amount</span>
-            <span className="text-base">{netAmount}</span>
+            <span className="text-base">{formatter(payout?.netPayment).slice(0, -3)}</span>
           </div>
           <div className="flex flex-col gap-2">
             <span className="font-semibold text-base">Completed Orders</span>
-            <span className="text-base">{completedOrder}</span>
+            <span className="text-base">{200}</span>
           </div>
           <div className="flex flex-col gap-2">
             <span className="font-semibold text-base">Payment method</span>
             <div className="text-base flex flex-col">
-              <span>{paymentMethod}</span>
-              <span className="text-merseLightText">{paidTo}</span>
+              <span>Flutterwave</span>
+              <span className="text-merseLightText">******5678</span>
             </div>
           </div>
           <div className="flex flex-col gap-2">
             <span className="font-semibold text-base">Payment Status</span>
             <span className="text-base">
-              <StatusCheck value={paymentStatus} className="px-2 py-1"/>
+              <StatusCheck value={capitalize(payout?.status)} className="px-2 py-1"/>
             </span>
           </div>
         </div>
       </div>
-      <PayoutReviewModal show={showModal} onClose={() => setShowModal(false)} />
+      <PayoutReviewModal show={showModal} onClose={() => setShowModal(false)} payout={payout} nextDueDate={nextDueDate} />
     </>
   )
 }

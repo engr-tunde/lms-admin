@@ -50,6 +50,7 @@ function OrderDisputeTable({ activeTab, setActiveTab}) {
               filteredData={filteredData}
               setfilteredData={setfilteredData}
               originalArr={originalArr}
+              searchable={["disputeType"]}
             />
         </div>
       </div>

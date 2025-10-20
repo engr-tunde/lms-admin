@@ -9,40 +9,90 @@ import BrandsCompliancePage from "../../components/brands/brand-compliance";
 import StatusCheck from "../../components/globals/StatusCheck"
 import { useParams } from "react-router-dom"
 import { useState } from "react";
+import { activateDeactivateBrand, fetchBrand } from "../../api";
+import { capitalize, errorNotification, successNotification } from "../../utils/helpers";
 
 function DashboardBrandDetailsPage() {
   const [activeTab, setActiveTab] = useState("Brand overview");
-
+  const [buttonOpen, setButtonOpen] = useState(false);
   const { id } = useParams();
-  console.log("brand id", id);
   const brandId = id;
 
+  const { brand, mutate } = fetchBrand(brandId);
+  console.log("brand overview", brand);
 
   const ellipsisIcon = (size) => {
     return <IoEllipsisHorizontalSharp size={size} />;
   };
 
+  const handleActivateDeactivateBrand = async (id, action) => {
+      try {
+        const response = await activateDeactivateBrand({ action }, id);
+        console.log("response", response);
+        if (response.status.toString().includes("20")) {
+          successNotification(response.data.message || "Action successful");
+          mutate();
+          close();
+        } else {
+          errorNotification(response?.data?.message || "Action failed");
+        }
+      } finally {
+        close();
+      }
+    };
+
   return (
-    <div className="flex flex-col gap-6">
+    <div 
+      className="flex flex-col gap-6"
+      onClick={() => setButtonOpen(false)}
+    >
       <div className="flex justify-between items-end">
         <DashboardNavBar
           path="Brand details"
-          title="StylistCo"
-          subtitle="See how your brand is performing today across sales, orders & top products."
+          title={brand ? capitalize(brand?.name) : ""}
+          subtitle={brand ? (brand?.description.length > 200 ? brand?.description.slice(0, 200) + "..." : brand?.description) : "See how your brand is performing today across sales, orders & top products."}
         />
-        <div className="flex gap-1">
-          {activeTab !== "Compliance & Verification" ? (
-            <button className="px-4 text-white bg-green-500 text-sm font-semibold">
-              Active
-            </button>
-          ) : (
-            <StatusCheck value={"Pending"} className="text-xs font-semibold px-2 py-1"/>
-          )}
-          <button className="border-2 px-2 text-black">
+        <div className="flex gap-1 relative">
+          <StatusCheck value={capitalize(brand?.status)} className="text-sm px-2 py-1"/>
+          <button 
+            className="border-2 px-2 text-black"
+            onClick={(e) => {e.stopPropagation(); setButtonOpen(!buttonOpen)}}
+          >
             {ellipsisIcon(10)}
           </button>
+          {buttonOpen && (
+            <div 
+              className="absolute z-10 w-[100px] text-xs rounded-md flex flex-col right-0 top-8 bg-white shadow-xl border-[1px]"
+            >
+              {
+                (brand?.status === "pending") || (brand?.status === "active") ? 
+                (
+                <button
+                  className="text-sm text-left px-5 py-2"
+                  onClick={() => handleActivateDeactivateBrand(brandId, "deactivate")}
+                >
+                  Deactivate
+                </button>
+
+                ) : null
+              }
+              {
+                (brand?.status === "pending") || (brand?.status === "inactive") ? 
+                (
+                <button
+                  className="text-sm text-left px-5 py-2"
+                  onClick={() => handleActivateDeactivateBrand(brandId, "activate")}
+                >
+                  Activate
+                </button>
+
+                ) : null
+              }
+            </div>
+          )}          
         </div>
       </div>
+
       <div className="w-full flex flex-col gap-8">
         <div className="flex gap-8">
           <button

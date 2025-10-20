@@ -4,7 +4,7 @@ import BrandRequestsRowTemplate from "./BrandRequestsRowTemplate";
 import Table from "../../globals/Table"
 
 function BrandRequestsTable({ filteredData, setfilteredData, originalArr, mutate }) {
-  // const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState(null);
 
   console.log(filteredData)
 
@@ -28,9 +28,9 @@ function BrandRequestsTable({ filteredData, setfilteredData, originalArr, mutate
             key={request?._id}
             request={request}
             i={i}
-            // openIndex={openIndex}
-            // setOpenIndex={setOpenIndex}
-            // mutate={mutate}
+            openIndex={openIndex}
+            setOpenIndex={setOpenIndex}
+            mutate={mutate}
           />
         )}
         data={filteredData}

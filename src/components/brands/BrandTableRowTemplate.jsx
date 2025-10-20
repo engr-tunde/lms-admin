@@ -10,7 +10,6 @@ import {
 import StatusCheck from "../globals/StatusCheck.jsx";
 import { RiArrowDownSFill } from "react-icons/ri";
 import { activateDeactivateBrand } from "../../api";
-import { useState } from "react";
 
 function BrandTableRowTemplate({ brand, openIndex, setOpenIndex, mutate }) {
   const { isOpen, toggle, close, ref } = useToggleOpen(
@@ -19,10 +18,9 @@ function BrandTableRowTemplate({ brand, openIndex, setOpenIndex, mutate }) {
     brand?.id
   );
 
-  const handleActivateDeactivateBrand = async (action, id) => {
+  const handleActivateDeactivateBrand = async (id, action) => {
     try {
-      const payload = { status: action };
-      const response = await activateDeactivateBrand(payload, id);
+      const response = await activateDeactivateBrand({ action }, id);
       console.log("response", response);
       if (response.status.toString().includes("20")) {
         successNotification(response.data.message);
@@ -43,21 +41,23 @@ function BrandTableRowTemplate({ brand, openIndex, setOpenIndex, mutate }) {
           View
         </Link>
       </td>
-      <td className="py-4 text-sm ">{brand?.name}</td>
-      {/* <td className="hidden lg:table-cell py-4 text-sm ">{brand?.products}</td>
+      <td className="py-4 text-sm ">{capitalize(brand?.name)}</td>
+      <td className="hidden lg:table-cell py-4 text-sm ">{brand?.totalProducts}</td>
       <td className="hidden lg:table-cell py-4 text-sm ">
-        { brand.totalSales ? formatter(brand.totalSales) : 0}
-      </td> */}
-      {/* <td className="hidden lg:table-cell py-4 text-sm ">{brand?.orders}</td> */}
+        { brand.totalSales ? formatter(brand?.totalSales).slice(0, -3) : "No Sales Yet"}
+      </td>
+      <td className="hidden lg:table-cell py-4 text-sm ">
+        { brand.totalOrders > 0 ? brand?.totalOrders : "No Orders Yet"}
+      </td>
       <td className="">
         <StatusCheck
           value={capitalize(brand?.status)}
           className="text-sm py-1 px-2 rounded-sm"
         />
       </td>
-      <td className="hidden lg:table-cell py-4 text-sm ">
-        {compactDateFormatter(brand.created_at)}
-      </td>
+      {/* <td className="hidden lg:table-cell py-4 text-sm ">
+        {brand?.created_at ? compactDateFormatter(brand?.created_at) : null}
+      </td> */}
       <td className="py-4">
         <div className="relative" ref={ref}>
           <button
@@ -79,11 +79,11 @@ function BrandTableRowTemplate({ brand, openIndex, setOpenIndex, mutate }) {
               >
                 View Details
               </Link>
-              {brand?.status === "inActive" || brand?.status === "pending" ? (
+              {brand?.status === "inactive" || brand?.status === "pending" ? (
                 <button
                   className="text-sm text-left px-5 py-2"
                   onClick={() =>
-                    handleActivateDeactivateBrand("activate", brand?.id)
+                    handleActivateDeactivateBrand(brand?.id, "activate")
                   }
                 >
                   Activate
@@ -93,7 +93,7 @@ function BrandTableRowTemplate({ brand, openIndex, setOpenIndex, mutate }) {
                 <button
                   className="text-sm text-left px-5 py-2"
                   onClick={() =>
-                    handleActivateDeactivateBrand("deactivate", brand?.id)
+                    handleActivateDeactivateBrand(brand?.id, "deactivate")
                   }
                 >
                   Deactivate

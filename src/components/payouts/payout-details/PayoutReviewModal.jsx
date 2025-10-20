@@ -1,17 +1,17 @@
 import { IoMdClose }from "react-icons/io";
 import AppFormButton from "../../forms/buttons/AppFormButton";
 import { AiOutlineInfoCircle } from "react-icons/ai"
-import {formatter} from "../../../utils/helpers"
+import {capitalize, dateFormatter, formatter} from "../../../utils/helpers"
+import { useEffect, useState } from "react";
+import { fetchAllPayouts } from "../../../api";
 
-const PayoutReviewModal = ({ show, onClose, }) => {
+const PayoutReviewModal = ({ show, onClose, payout, nextDueDate }) => {
   if (!show) return null;
- 
+
   const noticeIcon = () => {
     return <AiOutlineInfoCircle size={20}/>
   }
 
-
-  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25 bg-opacity-40 w-full">
       <div className="bg-white p-6 shadow-lg w-[70%] lg:w-1/2 flex flex-col gap-4">
@@ -22,17 +22,17 @@ const PayoutReviewModal = ({ show, onClose, }) => {
         </div>
         <div className="flex flex-col">
           <span className="text-lg font-semibold">Payout Review</span>
-          <span className="text-sm text-merseBorder">Please, review the payment details before confirming payout</span>
+          <span className="text-sm text-merseLightText">Please, review the payment details before confirming payout</span>
         </div>
         <div className="bg-gray-200/50 px-4 py-2">
           <div className="flex flex-col gap-2">
             <div className="flex justify-between text-sm">
               <span>Payout ID</span>
-              <span>PO-2025-08-22</span>
+              <span>PO-{payout?._id?.slice(-5)}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span>Brand</span>
-              <span>StylistCo</span>
+              <span>{capitalize(payout?.brand?.name)}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span>Payment Method</span>
@@ -40,26 +40,26 @@ const PayoutReviewModal = ({ show, onClose, }) => {
             </div>
             <div className="flex justify-between text-sm">
               <span>Due Date</span>
-              <span>September 5, 2024</span>
+              <span>{dateFormatter(nextDueDate)}</span>
             </div>
           </div>
           <hr className="border-b-2 border-merseBorder my-5"/>
           <div className="flex flex-col gap-2">
             <div className="flex justify-between text-sm">
               <span>Total Orders</span>
-              <span>6</span>
+              <span>{payout?.orders?.length}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span>Total Sales</span>
-              <span>{formatter(120000)}</span>
+              <span>{formatter(payout?.totalSales)}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span>Commission</span>
-              <span className="text-red-500">{formatter(-20000)}</span>
+              <span className="text-red-500">{formatter(`-${payout?.commission}`)}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span>Net Payout</span>
-              <span>{formatter(100000)}</span>
+              <span>{formatter(payout?.netPayment)}</span>
             </div>
           </div>
         </div>
