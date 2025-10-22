@@ -7,39 +7,50 @@ import BrandFinancePage from "../../components/brands/brand-finances";
 import BrandDisputePage from "../../components/brands/brand-dispute";
 import BrandsCompliancePage from "../../components/brands/brand-compliance";
 import StatusCheck from "../../components/globals/StatusCheck"
-import { useParams } from "react-router-dom"
-import { useState } from "react";
+import { useParams, useSearchParams } from "react-router-dom"
+import { useEffect, useState } from "react";
 import { activateDeactivateBrand, fetchBrand } from "../../api";
 import { capitalize, errorNotification, successNotification } from "../../utils/helpers";
 
 function DashboardBrandDetailsPage() {
-  const [activeTab, setActiveTab] = useState("Brand overview");
+  const [activeTab, setActiveTab] = useState("overview");
   const [buttonOpen, setButtonOpen] = useState(false);
+  const [searchParams] = useSearchParams();
   const { id } = useParams();
   const brandId = id;
 
   const { brand, mutate } = fetchBrand(brandId);
   console.log("brand overview", brand);
+  const verified = brand?.isVerified
+
+  useEffect(() => {
+    if (!verified) setButtonOpen(false);
+  }, [verified]);
 
   const ellipsisIcon = (size) => {
     return <IoEllipsisHorizontalSharp size={size} />;
   };
 
   const handleActivateDeactivateBrand = async (id, action) => {
-      try {
-        const response = await activateDeactivateBrand({ action }, id);
-        console.log("response", response);
-        if (response.status.toString().includes("20")) {
-          successNotification(response.data.message || "Action successful");
-          mutate();
-          close();
-        } else {
-          errorNotification(response?.data?.message || "Action failed");
-        }
-      } finally {
+    try {
+      const response = await activateDeactivateBrand({ action }, id);
+      console.log("response", response);
+      if (response.status.toString().includes("20")) {
+        successNotification(response.data.message || "Action successful");
+        mutate();
         close();
+      } else {
+        errorNotification(response?.data?.message || "Action failed");
       }
-    };
+    } finally {
+      close();
+    }
+  };
+
+    useEffect(() => {
+      const tabFromUrl = searchParams.get("tab");
+      if (tabFromUrl) setActiveTab(tabFromUrl);
+    }, [searchParams]);
 
   return (
     <div 
@@ -52,7 +63,7 @@ function DashboardBrandDetailsPage() {
           title={brand ? capitalize(brand?.name) : ""}
           subtitle={brand ? (brand?.description.length > 200 ? brand?.description.slice(0, 200) + "..." : brand?.description) : "See how your brand is performing today across sales, orders & top products."}
         />
-        <div className="flex gap-1 relative">
+        {brand?.status ? (<div className="flex gap-1 relative">
           <StatusCheck value={capitalize(brand?.status)} className="text-sm px-2 py-1"/>
           <button 
             className="border-2 px-2 text-black"
@@ -60,7 +71,7 @@ function DashboardBrandDetailsPage() {
           >
             {ellipsisIcon(10)}
           </button>
-          {buttonOpen && (
+          {verified && buttonOpen && (
             <div 
               className="absolute z-10 w-[100px] text-xs rounded-md flex flex-col right-0 top-8 bg-white shadow-xl border-[1px]"
             >
@@ -69,7 +80,7 @@ function DashboardBrandDetailsPage() {
                 (
                 <button
                   className="text-sm text-left px-5 py-2"
-                  onClick={() => handleActivateDeactivateBrand(brandId, "deactivate")}
+                  onClick={() => handleActivateDeactivateBrand(brandId, "suspend")}
                 >
                   Deactivate
                 </button>
@@ -77,7 +88,7 @@ function DashboardBrandDetailsPage() {
                 ) : null
               }
               {
-                (brand?.status === "pending") || (brand?.status === "inactive") ? 
+                (brand?.status === "pending") || (brand?.status === "inActive") ? 
                 (
                 <button
                   className="text-sm text-left px-5 py-2"
@@ -90,39 +101,39 @@ function DashboardBrandDetailsPage() {
               }
             </div>
           )}          
-        </div>
+        </div>) : null}
       </div>
 
       <div className="w-full flex flex-col gap-8">
         <div className="flex gap-8">
           <button
-            onClick={() => setActiveTab("Brand overview")}
+            onClick={() => setActiveTab("overview")}
             className={`pr-3 py-1 rounded ${
-              activeTab === "Brand overview" ? "text-black" : "text-merseBorder"
+              activeTab === "overview" ? "text-black" : "text-merseBorder"
             }`}
           >
             Brand overview
           </button>
           <button
-            onClick={() => setActiveTab("Products")}
+            onClick={() => setActiveTab("products")}
             className={`pr-3 py-1 rounded ${
-              activeTab === "Products" ? "text-black" : "text-merseBorder"
+              activeTab === "products" ? "text-black" : "text-merseBorder"
             }`}
           >
             Products
           </button>
           <button
-            onClick={() => setActiveTab("Orders")}
+            onClick={() => setActiveTab("orders")}
             className={`pr-3 py-1 rounded ${
-              activeTab === "Orders" ? "text-black" : "text-merseBorder"
+              activeTab === "orders" ? "text-black" : "text-merseBorder"
             }`}
           >
             Orders
           </button>
           <button
-            onClick={() => setActiveTab("Compliance & Verification")}
+            onClick={() => setActiveTab("compliance")}
             className={`pr-3 py-1 rounded ${
-              activeTab === "Compliance & Verification"
+              activeTab === "compliance"
                 ? "text-black"
                 : "text-merseBorder"
             }`}
@@ -130,23 +141,23 @@ function DashboardBrandDetailsPage() {
             Compliance & Verification
           </button>
           <button
-            onClick={() => setActiveTab("Finances")}
+            onClick={() => setActiveTab("finances")}
             className={`pr-3 py-1 rounded ${
-              activeTab === "Finances" ? "text-black" : "text-merseBorder"
+              activeTab === "finances" ? "text-black" : "text-merseBorder"
             }`}
           >
             Finances
           </button>
           <button
-            onClick={() => setActiveTab("Dispute")}
+            onClick={() => setActiveTab("dispute")}
             className={`pr-3 py-1 rounded ${
-              activeTab === "Dispute" ? "text-black" : "text-merseBorder"
+              activeTab === "dispute" ? "text-black" : "text-merseBorder"
             }`}
           >
             Dispute
           </button>
         </div>
-        {SetActivePage(activeTab, brandId)}
+        {SetActivePage(activeTab, brandId, verified)}
       </div>
     </div>
   );
@@ -154,11 +165,11 @@ function DashboardBrandDetailsPage() {
 
 export default DashboardBrandDetailsPage;
 
-const SetActivePage = (activeTab, brandId) => {
-  if (activeTab === "Brand overview") return <BrandsOverviewPage brandId={brandId} />;
-  if (activeTab === "Products") return <ProductBrandsPage brandId={brandId} />;
-  if (activeTab === "Orders") return <BrandsOrderPage brandId={brandId} />;
-  if (activeTab === "Finances") return <BrandFinancePage brandId={brandId} />;
-  if (activeTab === "Dispute") return <BrandDisputePage brandId={brandId} />;
-  if (activeTab === "Compliance & Verification") return <BrandsCompliancePage brandId={brandId} />;
+const SetActivePage = (activeTab, brandId, verified) => {
+  if (activeTab === "overview") return <BrandsOverviewPage brandId={brandId} />;
+  if (activeTab === "products") return <ProductBrandsPage brandId={brandId} />;
+  if (activeTab === "orders") return <BrandsOrderPage brandId={brandId} />;
+  if (activeTab === "finances") return <BrandFinancePage brandId={brandId} />;
+  if (activeTab === "dispute") return <BrandDisputePage brandId={brandId} />;
+  if (activeTab === "compliance") return <BrandsCompliancePage brandId={brandId} verified={verified} />;
 };

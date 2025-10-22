@@ -7,36 +7,36 @@ import Loader from "../../globals/Loader";
 import ErrorWidget from "../../globals/ErrorWidget";
 import CollectionsRowTemplate from "./CollectionsRowTemplate";
 import CreateUpdateCollectionsModal from "./CreateUpdateCollectionsModal";
+import NoDataPage from "../../globals/NoDataPage";
+import Pagination from "../../globals/Pagination";
 
 function CollectionsSettingsTable() {
-  const [showCreateCollectionsModal, setShowCreateCollectionsModal] =
-    useState(false);
-  const [collectionData, setcollectionData] = useState();
-  const { collection, collectionLoading, collectionError, mutate } =
-    fetchCollection();
-    console.log("collection", collection);
-
-  useEffect(() => {
-    if (collection) {
-      const colData = collection?.slice(0, 10);
-      setcollectionData(colData);
-    }
-  }, [collection]);
-
+  const [showCreateCollectionsModal, setShowCreateCollectionsModal] =useState(false);
+  const { collection, collectionLoading, collectionError, mutate } = fetchCollection();
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState();
   const [openIndex, setOpenIndex] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+
 
   useEffect(() => {
-    if (collectionData) {
-      setoriginalArr(collectionData);
-      setfilteredData(collectionData);
+    if (collection) {
+      setoriginalArr(collection);
+      setfilteredData(collection);
     }
-  }, [collectionData]);
+  }, [collection]);
+
+  const itemsPerPage = collection?.limit || 10;
+  const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   if (collectionLoading) return <Loader />;
   if (collectionError) return <ErrorWidget error={collectionError} />;
-  if (!collectionData?.length) return <div>No Collection found</div>;
+  if (!collection?.length) return <NoDataPage message="No collections available yet" />;
 
   return (
     <>
@@ -68,9 +68,14 @@ function CollectionsSettingsTable() {
               mutate={mutate}
             />
           )}
-          data={filteredData}
+          data={currentItems}
         />
       </div>
+      <Pagination 
+        currentPage={currentPage} 
+        totalPages={totalPages} 
+        onPageChange={setCurrentPage} 
+      />
       <CreateUpdateCollectionsModal
         show={showCreateCollectionsModal}
         onClose={() => setShowCreateCollectionsModal(false)}

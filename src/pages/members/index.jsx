@@ -5,42 +5,40 @@ import AddMemberModal from "../../components/members/AddMemberModal.jsx";
 import { fetchAdmins } from "../../api/index.js";
 import Loader from "../../components/globals/Loader.jsx";
 import ErrorWidget from "../../components/globals/ErrorWidget.jsx";
+import NoDataPage from "../../components/globals/NoDataPage.jsx";
+import Pagination from "../../components/globals/Pagination.jsx";
 
 function DashboardMembersPage() {
   const { admins, adminsLoading, adminsError, mutate } = fetchAdmins();
   const [showModal, setShowModal] = useState(false);
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState();
-  console.log("admins ss", admins?.data);
+  const [currentPage, setCurrentPage] = useState(1);
 
+  console.log("admins ss", admins?.data);
+  
   useEffect(() => {
-    if (admins) {
+    if (admins?.data?.length) {
       setoriginalArr(admins?.data);
       setfilteredData(admins?.data);
     }
   }, [admins]);
 
-  
+  const itemsPerPage = admins?.limit || 10;
+  const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
-  // useEffect(() => {
-  //   let newArr;
-  //   if (admins?.data) {
-  //     setnewData(admins?.data);
-  //   }
-  //   // if (admins?.data) {
-  //   // if (search) {
-  //   //   newArr = admins?.data?.filter(
-  //   //     (item) =>
-  //   //       item?.fullName?.toLowerCase().includes(search?.toLowerCase()) ||
-  //   //       item?.email?.toLowerCase().includes(search?.toLowerCase()) ||
-  //   //       item?.role?.toLowerCase().includes(search?.toLowerCase())
-  //   //   );
-  //   //   setnewData(newArr);
-  //   // } else {
-  //   //   setnewData(admins?.data);
-  //   // }
-  //   // }
-  // }, [admins, search]);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredData]);
+
+  if (adminsLoading) return <Loader />;
+  if (adminsError) return <ErrorWidget error={adminsError} />;
+  if (!admins) return <div>No admins members found</div>;
 
   return (
     <div className="flex flex-col gap-0">
@@ -75,17 +73,18 @@ function DashboardMembersPage() {
       <div className="h-full min-h-[400px] w-full flex flex-col gap-8">
         {filteredData ? (
           <MemberTable
-            filteredData={filteredData}
+            filteredData={currentItems}
             setfilteredData={setfilteredData}
             originalArr={originalArr}
             mutate={mutate}
           />
-        ) : adminsLoading ? (
-          <Loader />
-        ) : adminsError ? (
-          <ErrorWidget error={adminsError} />
-        ) : null}
+        ) : <NoDataPage message="No admin members available yet" />}
       </div>
+      <Pagination 
+        currentPage={currentPage} 
+        totalPages={totalPages} 
+        onPageChange={setCurrentPage} 
+      />
       <AddMemberModal show={showModal} onClose={() => setShowModal(false)} mutate={mutate} />
     </div>
   );

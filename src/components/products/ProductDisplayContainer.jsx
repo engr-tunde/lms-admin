@@ -26,7 +26,6 @@ function ProductDisplayContainer({
 
     if (searchBy) {
       const query = searchBy.toLowerCase();
-
       products = products.filter((item) =>
         ["title", "brandName", "keyFeatures", "description"].some((field) => {
           const value = item?.[field];

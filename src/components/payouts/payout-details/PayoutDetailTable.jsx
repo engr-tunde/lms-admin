@@ -7,7 +7,7 @@ import Table from "../../globals/Table";
 import TableSearch from "../../globals/TableSearch";
 import PayoutDetailRowTemplate from "./PayoutDetailRowTemplate";
 
-const PayoutDetailTable = ({ filteredData, setfilteredData, originalArr, mutate, status, commission }) => {
+const PayoutDetailTable = ({ filteredData, setfilteredData, originalArr, mutate, commission }) => {
   console.log("filteredData", filteredData)
 
   return (
@@ -29,7 +29,6 @@ const PayoutDetailTable = ({ filteredData, setfilteredData, originalArr, mutate,
             item={item}
             i={i}
             mutate={mutate}
-            status={status}
             commission={commission}
           />
         )}

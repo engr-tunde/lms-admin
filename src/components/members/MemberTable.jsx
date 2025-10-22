@@ -20,7 +20,7 @@ function MemberTable({
             filteredData={filteredData}
             setfilteredData={setfilteredData}
             originalArr={originalArr}
-            searchable={["fullName", "email", "role".split("_").join(" ")]}
+            searchable={["fullName", "email", "role"]}
           />
         </div>
       </div>

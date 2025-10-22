@@ -7,21 +7,45 @@ import { fetchAllPayouts } from "../../api";
 import Loader from "../../components/globals/Loader";
 import ErrorWidget from "../../components/globals/ErrorWidget";
 import { useEffect, useState } from "react";
+import NoDataPage from "../../components/globals/NoDataPage";
+import Pagination from "../../components/globals/Pagination";
 
 function DashboardPayoutPage() {
   const { payouts, payoutsLoading, payoutsError, mutate } = fetchAllPayouts();
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState(); 
+  const [summaryData, setsummaryData] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    if (payouts) {
+    if (payouts?.payouts?.length) {
       setoriginalArr(payouts?.payouts);
       setfilteredData(payouts?.payouts);
     }
   }, [payouts]);
-
-
+  
+  useEffect(() => {
+    if (payouts) {
+      setsummaryData(payouts?.summary);
+    }
+  }, [payouts]);
   console.log("Payouts Data:", payouts);
+
+  const itemsPerPage = payouts?.limit || 10;
+  const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredData]);
+
+  if (payoutsLoading) return <Loader />;
+  if (payoutsError) return <ErrorWidget error={payoutsError} />;
+  if (!payouts) return "No payouts found";
 
   return (
     <div className="flex flex-col gap-6">
@@ -37,25 +61,26 @@ function DashboardPayoutPage() {
             <FaChevronDown size={10} />
           </div>
         </div>
-        {filteredData ? (
-          <>
-            <PayoutCardContainer 
-              summary={payouts?.summary} 
-              total={payouts?.total}
-            />
-            <PayoutTable
-              filteredData={filteredData}
-              setfilteredData={setfilteredData}
-              originalArr={originalArr}
-              mutate={mutate}
-              nextDueDate={payouts?.summary?.nextDueDate}
+        {summaryData && (
+          <PayoutCardContainer
+            summary={summaryData} 
+            total={payouts?.total}
           />
-          </>
-        ) : payoutsLoading ? (
-          <Loader />
-        ) : payoutsError ? (
-          <ErrorWidget error={payoutsError} />
-        ) : null}
+        )}
+        {filteredData ? (
+          <PayoutTable
+            filteredData={currentItems}
+            setfilteredData={setfilteredData}
+            originalArr={originalArr}
+            mutate={mutate}
+            nextDueDate={payouts?.summary?.nextDueDate}
+          />
+        ) : <NoDataPage message="No payouts is available yet" />}
+        <Pagination 
+          currentPage={currentPage} 
+          totalPages={totalPages} 
+          onPageChange={setCurrentPage} 
+        />
       </div>
     </div>
   );

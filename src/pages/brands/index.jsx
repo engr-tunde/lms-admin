@@ -8,19 +8,45 @@ import Loader from "../../components/globals/Loader";
 import ErrorWidget from "../../components/globals/ErrorWidget";
 import AllBrandsCardContainer from "../../components/brands/AllBrandsCardContainer";
 import BrandRequestContainer from "../../components/brands/brand-requests/BrandRequestContainer";
+import NoDataPage from "../../components/globals/NoDataPage";
+import Pagination from "../../components/globals/Pagination";
 
 function DashboardBrandsPage() {
   const { brands, brandsLoading, brandsError, mutate } = fetchAllBrands();
   const [filteredData, setfilteredData] = useState();
   const [originalArr, setoriginalArr] = useState();
+  const [summary, setsummary] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
   console.log("brands ss", brands);
 
   useEffect(() => {
-    if (brands) {
+    if (brands?.brands?.length) {
       setoriginalArr(brands?.brands);
       setfilteredData(brands?.brands);
     }
   }, [brands]);
+
+  useEffect(() => {
+    if (brands?.summary) {
+      setsummary(brands?.summary);
+    }
+  }, [brands]);
+
+  const itemsPerPage = brands?.brands?.limit || 10;
+  const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredData]);
+
+  if (brandsLoading) return <Loader />;
+  if (brandsError) return <ErrorWidget error={brandsError} />;
+  if (!brands) return "No brands found";
 
 
   return (
@@ -40,28 +66,27 @@ function DashboardBrandsPage() {
           </div>
         </div>
       </div>
-      <AllBrandsCardContainer 
-       summary={brands?.summary}
-      />
-      {filteredData ? (
+      {summary && (
         <>
-          {
-            brands?.summary?.brandRequests ? 
-            (<BrandRequestContainer requests={brands?.summary?.brandRequests} />): 
-            null
-          }
-          <AllBrandsTable
-            filteredData={filteredData}
-            setfilteredData={setfilteredData}
-            originalArr={originalArr}
-            mutate={mutate}
-          />
+        <AllBrandsCardContainer summary={summary} />
+        <BrandRequestContainer requests={summary?.brandRequests} />
         </>
-        ) : brandsLoading ? (
-        <Loader />
-      ) : brandsError ? (
-        <ErrorWidget error={brandsError} />
-      ) : null}
+      )}
+      {filteredData ? (
+        <AllBrandsTable
+          filteredData={currentItems}
+          setfilteredData={setfilteredData}
+          originalArr={originalArr}
+          mutate={mutate}
+        />
+      ) : (
+        <NoDataPage message="No brands available yet" />
+      )}
+      <Pagination 
+        currentPage={currentPage} 
+        totalPages={totalPages} 
+        onPageChange={setCurrentPage} 
+      />
     </div>
   );
 }

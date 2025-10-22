@@ -18,20 +18,12 @@ function CategoryRowTemplate({ item, i, openIndex, setOpenIndex, mutate, subcate
     i
   );
 
-  const subcategoryNumber = () => {
-    // Filter subcategories that belong to the current category
-    const filteredSubcategories = subcategory?.filter(
-      (subcat) => subcat?.category?.id === item?.id
-    )
-    return filteredSubcategories ? filteredSubcategories.length : "";
-  }
-
 
   return (
     <>
       <tr key={i} className="border-1 border-t border-merseBorder">
         <td className="py-4 text-sm">{capitalize(item.name)}</td>
-        <td className="py-4 text-sm">{subcategoryNumber()}</td>
+        <td className="py-4 text-sm">{item?.subcategoryCount}</td>
         <td className="py-4 text-sm">
           {item.createdAt || item.created_at ? 
           compactDateFormatter(item.createdAt || item.created_at) : ""

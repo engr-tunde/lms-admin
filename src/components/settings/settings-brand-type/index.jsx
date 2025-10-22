@@ -7,10 +7,13 @@ import Loader from "../../globals/Loader";
 import ErrorWidget from "../../globals/ErrorWidget";
 import CreateUpdateBrandTypeModal from "./CreateUpdateBrandTypeModal";
 import BrandTypeRowTemplate from "./BrandTypeRowTemplate";
+import NoDataPage from "../../globals/NoDataPage";
+import Pagination from "../../globals/Pagination";
 
 function BrandTypeSettingsTable() {
   const [showCreateBrandModal, setShowCreateBrandModal] = useState(false);
   const [openIndex, setOpenIndex] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const { brandtype, brandtypeLoading, brandtypeError, mutate } = fetchBrandType();
   console.log("brandtype", brandtype);
 
@@ -18,22 +21,28 @@ function BrandTypeSettingsTable() {
   const [filteredData, setfilteredData] = useState();
 
   useEffect(() => {
-    if (brandtype) {
+    if (brandtype?.length) {
       setoriginalArr(brandtype);
       setfilteredData(brandtype);
     }
-      console.log("filteredData Name", filteredData);
-
-
   }, [brandtype]);
+
+  const itemsPerPage = brandtype?.limit || 10;
+  const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredData]);
 
   if (brandtypeLoading) return <Loader />;
   if (brandtypeError) return <ErrorWidget error={brandtypeError} />;
-  if (!brandtype?.length) return <div>No brand type found</div>;
+  if (!brandtype.length) return <NoDataPage message="No brand types available" />;
   
-  
-
-
   return (
     <div className="flex flex-col gap-2">
       <div className="w-full flex justify-end gap-4">
@@ -63,7 +72,12 @@ function BrandTypeSettingsTable() {
             mutate={mutate}
           />
         )}
-        data={filteredData}
+        data={currentItems}
+      />
+      <Pagination 
+        currentPage={currentPage} 
+        totalPages={totalPages} 
+        onPageChange={setCurrentPage} 
       />
       <CreateUpdateBrandTypeModal
         show={showCreateBrandModal}

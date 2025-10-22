@@ -11,10 +11,10 @@ export const orderDisputeTableColumn = [
         header: "Order ID", 
         className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
-    {
-        header: "Customer", 
-        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
-    }, 
+    // {
+    //     header: "Customer", 
+    //     className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
+    // }, 
     {
         header: "Brand", 
         className: "text-sm font-medium text-merseLightText hidden lg:table-cell"

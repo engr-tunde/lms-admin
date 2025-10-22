@@ -8,39 +8,42 @@ import Loader from "../../globals/Loader";
 import ErrorWidget from "../../globals/ErrorWidget";
 import CreateUpdateCategoryModal from "./CreateUpdateCategoryModal";
 import CategoryRowTemplate from "./CategoryRowTemplate";
+import NoDataPage from "../../globals/NoDataPage";
+import Pagination from "../../globals/Pagination";
 
 function CategorySettingsTable() {
   const [showBulkUploadModal, setShowBulkUploadModal] = useState(false);
   const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
-  const [categoryData, setcategoryData] = useState(false);
-
   const { category, categoryLoading, categoryError, mutate } = fetchCategory();
-  const { subcategory } = fetchSubcategory();
-
-  useEffect(() => {
-    if (category) {
-      const catData = category;
-      setcategoryData(catData);
-    }
-  }, [category]);
-  console.log("categoryData", categoryData);
-  console.log("subcategoryData", subcategory);
 
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState();
   const [openIndex, setOpenIndex] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    if (categoryData) {
-      setoriginalArr(categoryData);
-      setfilteredData(categoryData);
+    if (category) {
+      setoriginalArr(category);
+      setfilteredData(category);
     }
     
-  }, [categoryData]);
+  }, [category]);
+
+  const itemsPerPage = category?.limit || 10;
+  const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredData]);
 
   if (categoryLoading) return <Loader />;
   if (categoryError) return <ErrorWidget error={categoryError} />;
-  if (!categoryData?.length) return <div>No category found</div>;
+  if (!category?.length) return <NoDataPage message="No categories available" />;
 
   return (
     <>
@@ -76,16 +79,20 @@ function CategorySettingsTable() {
               openIndex={openIndex}
               setOpenIndex={setOpenIndex}
               mutate={mutate}
-              subcategory={subcategory}
             />
           )}
-          data={filteredData} // Display only the first 20 items
+          data={currentItems} 
         />
       </div>
       <BulkUploadCategoryModal
         show={showBulkUploadModal}
         onClose={() => setShowBulkUploadModal(false)}
         mutate={mutate}
+      />
+      <Pagination 
+        currentPage={currentPage} 
+        totalPages={totalPages} 
+        onPageChange={setCurrentPage} 
       />
       <CreateUpdateCategoryModal
         show={showCreateCategoryModal}

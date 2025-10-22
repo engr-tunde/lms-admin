@@ -43,7 +43,6 @@ function PayoutDetailPage() {
             setfilteredData={setfilteredData}
             originalArr={originalArr}
             mutate={mutate}
-            status={payout?.status}
             commission={payout?.commission}
           />
         </>

@@ -8,48 +8,48 @@ import SubcategoryRowTemplate from "./SubcategoryRowTemplate";
 import { fetchSubcategory, fetchCategory } from "../../../api";
 import Loader from "../../globals/Loader";
 import ErrorWidget from "../../globals/ErrorWidget";
+import NoDataPage from "../../globals/NoDataPage";
+import Pagination from "../../globals/Pagination";
 
 function SubcategorySettingsTable() {
-  const [showCreateSubcategoryModal, setShowCreateSubcategoryModal] =
-    useState(false);
-  const [showBulkUploadSubcategoryModal, setShowBulkUploadSubcategoryModal] =
-    useState(false);
-  const [categoryData, setcategoryData] = useState();
-  const [subcategoryData, setsubcategoryData] = useState(false);
-
+  const [showCreateSubcategoryModal, setShowCreateSubcategoryModal] =useState(false);
+  const [showBulkUploadSubcategoryModal, setShowBulkUploadSubcategoryModal] = useState(false);
+  const { subcategory, subcategoryLoading, subcategoryError, mutate } = fetchSubcategory();
+  const [originalArr, setoriginalArr] = useState();
+  const [filteredData, setfilteredData] = useState();
+  const [openIndex, setOpenIndex] = useState(null);
   const { category } = fetchCategory();
-  const { subcategory, subcategoryLoading, subcategoryError, mutate } =
-    fetchSubcategory();
+  const [categoryData, setcategoryData] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    if (category) {
-      const catData = category?.slice(0, 10);
-      setcategoryData(catData);
-    }
-  }, [category]);
-
-  useEffect(() => {
-    if (subcategory) {
-      const subcatData = subcategory?.slice(0, 10);
-      setsubcategoryData(subcatData);
+    if (subcategory?.length) {
+      setoriginalArr(subcategory);
+      setfilteredData(subcategory);
     }
   }, [subcategory]);
 
-  const [originalArr, setoriginalArr] = useState();
-  const [filteredData, setfilteredData] = useState();
+  useEffect(() => {
+    if (category?.length) {
+      setcategoryData(category);
+    }
+  }, [category]);
 
-  const [openIndex, setOpenIndex] = useState(null);
+  const itemsPerPage = subcategory?.limit || 10;
+  const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   useEffect(() => {
-    if (subcategoryData) {
-      setoriginalArr(subcategoryData);
-      setfilteredData(subcategoryData);
-    }
-  }, [subcategoryData]);
+    setCurrentPage(1);
+  }, [filteredData]);
 
   if (subcategoryLoading) return <Loader />;
   if (subcategoryError) return <ErrorWidget error={subcategoryError} />;
-  if (!subcategoryData?.length) return <div>No subcategory found</div>;
+  if (!subcategory?.length) return <NoDataPage message="No subcategories available yet" />;
 
   return (
     <>
@@ -63,12 +63,6 @@ function SubcategorySettingsTable() {
               searchable={["name", "category.name"]}
             />
           </div>
-          {/* <button 
-          className="text-black px-3 py-2 cursor-pointer border-2"
-          onClick={() => setShowBulkUploadSubcategoryModal(true)}
-        >
-          Bulk upload
-        </button> */}
           <button
             className="text-white bg-black px-3 py-2 cursor-pointer"
             onClick={() => setShowCreateSubcategoryModal(true)}
@@ -88,9 +82,14 @@ function SubcategorySettingsTable() {
               mutate={mutate}
             />
           )}
-          data={filteredData}
+          data={currentItems}
         />
       </div>
+      <Pagination 
+        currentPage={currentPage} 
+        totalPages={totalPages} 
+        onPageChange={setCurrentPage} 
+      />
       <CreateSubcategoryModal
         show={showCreateSubcategoryModal}
         onClose={() => setShowCreateSubcategoryModal(false)}

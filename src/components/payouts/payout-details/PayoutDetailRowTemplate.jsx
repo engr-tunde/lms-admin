@@ -2,7 +2,7 @@ import { capitalize, compactDateFormatter, formatter, useToggleOpen } from "../.
 import StatusCheck from "../../globals/StatusCheck";
 import ExtraOrderItemsBadge from "../../orders/ExtraOrderItemsBadge";
 
-function PayoutDetailRowTemplate({ item, i, mutate, status, commission }) {
+function PayoutDetailRowTemplate({ item, i, mutate, commission }) {
   
   return (
     <tr key={item?._id} className="border-1 border-t border-merseBorder">
@@ -19,14 +19,10 @@ function PayoutDetailRowTemplate({ item, i, mutate, status, commission }) {
       </td>
       <td className="py-4 text-sm hidden lg:table-cell">{compactDateFormatter(item?.createdAt)}</td>
       <td className="py-4 text-sm">
-        <StatusCheck value={capitalize(status)} className="px-2 py-1" />
+        <StatusCheck value={capitalize(item?.status)} className="px-2 py-1" />
       </td>
       <td className="py-4 text-sm">
-        {
-        formatter(
-          item?.items.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)
-          ).slice(0, -3)
-        }
+        {formatter(item?.totalAmount).slice(0, -3)}
       </td>
       <td className="py-4 text-sm hidden lg:table-cell">
         {formatter(commission).slice(0, -3)}

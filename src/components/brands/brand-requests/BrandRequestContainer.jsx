@@ -16,7 +16,7 @@ function BrandRequestContainer({ requests }) {
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-5">
         {requests?.length > 0 && 
           requests?.slice(0, 3)?.map((request, index) => (
-            <BrandRequestsCard data={request} key={index} />
+            <BrandRequestsCard request={request} key={index} />
           ))}
       </div>
     </div>

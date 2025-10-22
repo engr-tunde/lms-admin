@@ -6,22 +6,37 @@ import { fetchAllDisputes } from "../../api/index.js";
 import { useEffect, useState } from "react";
 import Loader from "../globals/Loader.jsx";
 import ErrorWidget from "../globals/ErrorWidget.jsx";
+import NoDataPage from "../globals/NoDataPage.jsx";
+import Pagination from "../globals/Pagination.jsx";
 
 function OrderDisputeTable({ activeTab, setActiveTab}) {
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState();
-  const { disputes: orderDispute, disputesLoading, disputeError } = fetchAllDisputes("order");
+  const [currentPage, setCurrentPage] = useState(1);
+  const { disputes: orderDispute, disputesLoading, disputesError } = fetchAllDisputes("order");
   console.log("orderDispute", orderDispute);
 
   useEffect(() => {
-    if (orderDispute) {
+    if (orderDispute?.disputes?.length) {
       setoriginalArr(orderDispute?.disputes);
       setfilteredData(orderDispute?.disputes);
     }
   }, [orderDispute]);
 
+  const itemsPerPage = orderDispute?.limit || 10;
+  const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredData]);
+
   if (disputesLoading) return <Loader />;
-  if (disputeError) return <ErrorWidget error={disputeError} />;
+  if (disputesError) return <ErrorWidget error={disputesError} />;
   if (!orderDispute) return <div>No order disputes found</div>;
 
   return (
@@ -46,24 +61,32 @@ function OrderDisputeTable({ activeTab, setActiveTab}) {
             </button>
         </div>
         <div className="flex items-center cursor-pointer">
+          {filteredData && (
             <TableSearch 
               filteredData={filteredData}
               setfilteredData={setfilteredData}
               originalArr={originalArr}
-              searchable={["disputeType"]}
+              searchable={["disputeType", "brand.name"]}
             />
+          )}
         </div>
       </div>
+      {filteredData ? (
       <Table 
-      columns={orderDisputeTableColumn}
-      renderRow={(item, i) => (
+        columns={orderDisputeTableColumn}
+        renderRow={(item, i) => (
           <OrderDisputeRowTemplate
             key={item?._id}
             item={item}
             i={i}
           />
-        )}
-      data={filteredData}
+          )}
+        data={currentItems}
+      />) : (<NoDataPage message="No order disputes is available yet" />)}
+      <Pagination 
+        currentPage={currentPage} 
+        totalPages={totalPages} 
+        onPageChange={setCurrentPage} 
       />
     </div>
   );

@@ -104,3 +104,13 @@ export const addCollectionValues = () => {
 };
 
 
+
+// Brands 
+
+export const rejectBrandValues = () => {
+  const initialValues = {
+    rejectReason: "",
+  };
+  return initialValues;
+};
+

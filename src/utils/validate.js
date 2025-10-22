@@ -150,3 +150,17 @@ export const validateAddCollectionValues = () => {
   });
   return validationSchema;
 }
+
+
+
+//# BRANDS PAGE VALIDATIONS #
+
+export const validateRejectBrand = () => {
+  const validationSchema = yup.object().shape({
+    rejectReason: yup
+      .string()
+      .trim()
+      .required("Kindly state the reason for the rejection"),
+  });
+  return validationSchema;
+};

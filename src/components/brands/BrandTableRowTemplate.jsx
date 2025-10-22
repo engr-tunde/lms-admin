@@ -23,16 +23,18 @@ function BrandTableRowTemplate({ brand, openIndex, setOpenIndex, mutate }) {
       const response = await activateDeactivateBrand({ action }, id);
       console.log("response", response);
       if (response.status.toString().includes("20")) {
-        successNotification(response.data.message);
+        successNotification(response.data.message || "Action successful");
         mutate();
         close();
       } else {
-        errorNotification(response?.data?.message);
+        errorNotification(response?.data?.message || "Action failed");
       }
     } finally {
       close();
     }
   };
+
+  
 
   return (
     <tr key={brand?.id} className="border-1 border-t border-merseBorder">
@@ -79,7 +81,7 @@ function BrandTableRowTemplate({ brand, openIndex, setOpenIndex, mutate }) {
               >
                 View Details
               </Link>
-              {brand?.status === "inactive" || brand?.status === "pending" ? (
+              {brand?.status === "inActive" || brand?.status === "pending" ? (
                 <button
                   className="text-sm text-left px-5 py-2"
                   onClick={() =>
@@ -93,7 +95,7 @@ function BrandTableRowTemplate({ brand, openIndex, setOpenIndex, mutate }) {
                 <button
                   className="text-sm text-left px-5 py-2"
                   onClick={() =>
-                    handleActivateDeactivateBrand(brand?.id, "deactivate")
+                    handleActivateDeactivateBrand(brand?.id, "suspend")
                   }
                 >
                   Deactivate
