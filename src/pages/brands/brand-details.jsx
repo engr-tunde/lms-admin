@@ -22,7 +22,7 @@ function DashboardBrandDetailsPage() {
   const { brand, mutate } = fetchBrand(brandId);
   console.log("brand overview", brand);
   const verified = brand?.isVerified
-
+  
   useEffect(() => {
     if (!verified) setButtonOpen(false);
   }, [verified]);

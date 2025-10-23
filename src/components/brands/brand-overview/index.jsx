@@ -3,11 +3,20 @@ import { FaChevronDown } from "react-icons/fa";
 import BrandOverviewCardContainer from "./BrandOverviewCardContainer"
 import NewOrderBrandsCardContainer from "./NewOrderCardBrandsContainer"
 import AddedProductBrandsCardContainer from "./AddedProductBrandsCardContainer";
-import { fetchBrand } from "../../../api/index.js";
+import { fetchBrand, fetchBrandOrder, fetchBrandProduct } from "../../../api/index.js";
+import Loader from "../../globals/Loader.jsx";
+import ErrorWidget from "../../globals/ErrorWidget.jsx";
 
 function BrandsOverviewPage({brandId}) {
   const { brand, brandLoading, brandError } = fetchBrand(brandId);
+  const { order } = fetchBrandOrder(brandId);
+  const { product } = fetchBrandProduct(brandId);
   console.log("brand overview", brand);
+
+  if (brandLoading) return <Loader/>
+  if (brandError) return <ErrorWidget/> 
+  if (!brand) return "Brand unavailable";
+  
   return (
     <>
       <div className="w-full flex flex-col gap-5">
@@ -20,8 +29,8 @@ function BrandsOverviewPage({brandId}) {
         </div>
       </div> 
       <BrandOverviewCardContainer />
-      <NewOrderBrandsCardContainer />
-      <AddedProductBrandsCardContainer/>
+      <NewOrderBrandsCardContainer orders={order?.orders}/> 
+      <AddedProductBrandsCardContainer products={product?.products} />
     </>
   );
 }
