@@ -28,15 +28,21 @@ function OrderViewPage() {
     <div className="flex flex-col gap-9">
       <DashboardNavBar
         path="< Back Orders > Order details"
-        title={`Order ${id?.slice(-5)}`} // Making the order ID short and
+        title={`Order ${id?.slice(-5)}`} 
         copyable
         subtitle="See how your brand is performing today across sales orders & top products."
       />
       <div className="w-full flex flex-col gap-8 h-[90%] overflow-y-scroll">
         {orders ? (
           <>
-            <OrderViewTimelineCard />
-            <OrderViewStatusCard order={order}/>
+            <OrderViewTimelineCard 
+             order={order}
+             mutate={mutate}
+            />
+            <OrderViewStatusCard 
+            order={order}
+            mutate={mutate}
+            />
             <OrderViewBuyDetailsCard
               brandName="Stylish Co"
               brandEmail="stylish.co@example.com"

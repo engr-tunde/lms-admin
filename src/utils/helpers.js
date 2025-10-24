@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 
 export const successNotification = (message) => toast.success(message);
@@ -145,4 +145,14 @@ export function getPercentOfTotal(value, total) {
   if (!total || total === 0) return 0;
   const percent = (value / total) * 100;
   return Math.round(percent); // or toFixed(2) if you want decimals
+}
+
+
+export function toSentence(str) {
+  if (!str) return "";
+  return str
+    .replace(/_/g, " ")              // replace underscores with spaces
+    .replace(/\s+/g, " ")            // remove extra spaces
+    .trim()                          // trim leading/trailing spaces
+    .replace(/^./, c => c.toUpperCase()); // capitalize first letter
 }

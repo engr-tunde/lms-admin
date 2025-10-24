@@ -13,6 +13,15 @@ import { totalSales } from "../../data/analyticsData"
 
 
 const CustomLineChart = ({ data, month }) => {
+
+  const firstItem = data[0] || {};
+  const possibleKeys = ["value", "total"];
+  const valueKey = possibleKeys.find((k) => k in firstItem);
+
+  const dateItem = data[0] || {};
+  const possibleDateKeys = ["day", "date"];
+  const dateKey = possibleDateKeys.find((k) => k in dateItem);
+
   return (
     <div className="border-gray-500 rounded-xl w-full h-full py-4">
       <div className="text-sm text-green-500 mb-6">{"+3.3% from last month"}</div>
@@ -20,7 +29,7 @@ const CustomLineChart = ({ data, month }) => {
         <LineChart
           width={500}
           height={300}
-          data={data || totalSales}
+          data={data}
           margin={{
             top: 2,
             // right: 30,
@@ -30,7 +39,7 @@ const CustomLineChart = ({ data, month }) => {
         >
           <CartesianGrid stroke="#D1D5DB" vertical={false} />
           <XAxis
-            dataKey="day"
+            dataKey={dateKey}
             axisLine={false}
             tick={{ fill: "#999" }}
             tickLine={false}
@@ -50,7 +59,7 @@ const CustomLineChart = ({ data, month }) => {
           /> */}
           <Line
             type="monotone"
-            dataKey="value"
+            dataKey={valueKey}
             name={"July" || month || "Month"}
             stroke="#777"
             legendType="circle"

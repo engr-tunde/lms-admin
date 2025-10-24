@@ -6,6 +6,7 @@ import { formatter } from "../../utils/helpers";
 import { fetchAnalyticsBrands } from "../../api";
 import Loader from "../globals/Loader";
 import ErrorWidget from "../globals/ErrorWidget";
+import NoDataPage from "../globals/NoDataPage";
 
 const AnalyticsTopBrandsTable = () => {
   const { analyticsBrands, analyticsBrandsLoading, analyticsBrandsError } = fetchAnalyticsBrands();
@@ -14,7 +15,7 @@ const AnalyticsTopBrandsTable = () => {
 
   if (analyticsBrandsLoading) return <Loader />;
   if (analyticsBrandsError) return <ErrorWidget error={analyticsBrandsError} />;
-  if (!analyticsBrands) return <div>No brand analytics found</div>;
+  if (!analyticsBrands.length) return <NoDataPage message={"Top brands data unavailable yet"} />;
 
   return (
     <div className="w-full p-3 border-[1px] border-merseBorder h-[400px] overflow-auto">
@@ -30,8 +31,13 @@ const AnalyticsTopBrandsTable = () => {
       </div>
     <Table 
       columns={topBrandsColumnHeader}
-      renderRow={TopBrandsRowTemplate}
-      data={topBrandsTableData}
+      renderRow={(item, i) => (
+        <TopBrandsRowTemplate 
+          key={i}
+          item={item} 
+          />
+        )}
+      data={analyticsBrands}
     />
     </div>
   )
@@ -42,16 +48,14 @@ export default AnalyticsTopBrandsTable;
 
 
 
-
-
-const TopBrandsRowTemplate = (item, i) => {
+const TopBrandsRowTemplate = ({ item, i }) => {
   return (
-    <tr key={item.id} className="border-1 border-t border-merseBorder">
+    <tr className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm pl-2">{i + 1}</td>
-      <td className="py-4 text-sm">{item.brand}</td>
-      <td className="py-4 text-sm">{formatter(item.sales)}</td>
-      <td className="py-4 text-sm">{item.orders}</td>
-      <td className="py-4 text-sm">{item.aov}</td>
+      <td className="py-4 text-sm">{item?.brandName}</td>
+      <td className="py-4 text-sm">{formatter(item?.totalSales)}</td>
+      <td className="py-4 text-sm">{item?.orderFrequency}</td>
+      <td className="py-4 text-sm">{item?.AOV}</td>
     </tr>
   )
 }

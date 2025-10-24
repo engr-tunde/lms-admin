@@ -412,10 +412,11 @@ export const fetchDisputeView = (id) => {
 };
 
 // ##ORDERS
-export const updateOrderStatus = async (id) => {
+export const updateOrderStatus = async (values, id) => {
   const result = await mutationRequest(
     `${UPDATE_ORDER_STATUS}/${id}`,
     "patch",
+    values,
     false
   );
   return result;

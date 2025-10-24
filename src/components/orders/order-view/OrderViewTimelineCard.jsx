@@ -1,25 +1,67 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { updateOrderStatus } from "../../../api";
+import { errorNotification, successNotification } from "../../../utils/helpers";
 
-const OrderViewTimelineCard = () => {
-  const [currentStep, setCurrentStep] = useState(2);
+const OrderViewTimelineCard = ({ order, mutate }) => {
+  const statusToStep = {
+    in_transit: 1,
+    ware_housed: 2,
+    out_for_delivery: 3,
+    delivered: 4,
+  };
+
+  const stepToStatus = {
+    2: "ware_housed",
+    3: "out_for_delivery",
+    4: "delivered",
+  };
+
+  const [currentStep, setCurrentStep] = useState(statusToStep[order?.status] || 0);
+
+  useEffect(() => {
+    if (order?.status) {
+      setCurrentStep(statusToStep[order.status]);
+    }
+  }, [order?.status]);
 
   const steps = [
     { title: "Order received", date: "July 15, 2025" },
     { title: "In transit to warehouse", date: "July 15, 2025" },
     { title: "Received at warehouse", date: "July 16, 2025" },
-    { title: "Out for Delivery" },
+    { title: "Out for Delivery", date: "July 16, 2025" },
     { title: "Delivered to Customer", date: "July 25, 2025" },
   ];
 
-  const handleAction = (index) => {
+  const handleUpdateOrderStatus = async (values, orderId) => {
+    try {
+      const response = await updateOrderStatus(values, orderId);
+      if (response?.status?.toString()?.includes("20")) {
+        successNotification(response?.data?.message);
+        mutate?.();
+      } else {
+        errorNotification(response?.data?.message[0]);
+      }
+    } catch (err) {
+      errorNotification("Failed to update order status");
+    }
+  };
+
+  const handleAction = async (index) => {
     if (index < steps.length - 1) {
-      setCurrentStep(index + 1);
+      const nextStep = index + 1;
+      setCurrentStep(nextStep);
+      const newStatus = stepToStatus[nextStep];
+      if (newStatus) {
+        await handleUpdateOrderStatus({ status: newStatus }, order?._id);
+      }
     }
   };
 
   const getActionTitle = (index) => {
-    if (index === 2) return "Confirm receipt";
-    if (index === 3) return "Mark as out for delivery";
+    if (index === 1) return "Confirm receipt";
+    if (index === 2) return "Mark as out for delivery";
+    if (index === 3) return "Confirm delivery";
+    if (index === 4) return "Delivered!";
     return null;
   };
 
@@ -57,9 +99,7 @@ const OrderViewTimelineCard = () => {
                   {step.title}
                 </div>
                 {step.date && (
-                  <div className="text-xs text-gray-600 mt-1">
-                    {step.date}
-                  </div>
+                  <div className="text-xs text-gray-600 mt-1">{step.date}</div>
                 )}
                 <CurrentAction
                   action={showAction}
@@ -77,7 +117,6 @@ const OrderViewTimelineCard = () => {
 
 const CurrentAction = ({ action, onAction, title }) => {
   if (!action) return null;
-
   return (
     <button
       onClick={onAction}

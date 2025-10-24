@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import StatusCheck from '../globals/StatusCheck';
-import { capitalize, compactDateFormatter, dateFormatter } from "../../utils/helpers";
+import { capitalize, compactDateFormatter, dateFormatter, toSentence } from "../../utils/helpers";
 
 function OrderDisputeRowTemplate({ item, i }) {
 
@@ -32,12 +32,3 @@ function OrderDisputeRowTemplate({ item, i }) {
 
 export default OrderDisputeRowTemplate;
 
-
-function toSentence(str) {
-  if (!str) return "";
-  return str
-    .replace(/_/g, " ")              // replace underscores with spaces
-    .replace(/\s+/g, " ")            // remove extra spaces
-    .trim()                          // trim leading/trailing spaces
-    .replace(/^./, c => c.toUpperCase()); // capitalize first letter
-}

@@ -1,4 +1,4 @@
-import { capitalize, dateFormatter, dateTimeFormatter, formatter } from "../../../utils/helpers"
+import { capitalize, dateFormatter, dateTimeFormatter, formatter, toSentence } from "../../../utils/helpers"
 
 const OrderViewStatusCard = ({ order }) => {
   const deliveryDate = new Date(new Date(order?.createdAt).getTime() + ((order?.deliveryTimeDays) * 24 * 60 * 60 * 1000));
@@ -8,7 +8,7 @@ const OrderViewStatusCard = ({ order }) => {
       <div className="flex flex-col lg:flex-row gap-4 justify-between w-full">
         <div className="flex flex-col gap-2">
           <span className="font-semibold text-base">Order Status</span>
-          <span className="text-sm">{capitalize(order?.status)}</span>
+          <span className="text-sm">{toSentence(order?.status)}</span>
         </div>
         <div className="flex flex-col gap-2">
           <span className="font-semibold text-base">Order time</span>

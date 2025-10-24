@@ -2,18 +2,36 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 import { compactFormatter, formatter } from "../../utils/helpers"
 import { FaChevronDown } from "react-icons/fa";
 import { RiCalendarLine } from "react-icons/ri";
-import { useState }  from "react"
+import { useEffect, useState }  from "react"
 import CustomLineChart from "../globals/CustomLineChart"
 import { totalSales, totalOrders, activeBrands, newCustomers, pendingPayouts, completedPayouts } from "../../data/analyticsData";
 import { fetchAnalytics } from "../../api";
 import Loader from "../globals/Loader";
 import ErrorWidget from "../globals/ErrorWidget";
+import { set } from "zod/v4";
 
 
 const AnalyticsOverviewPage = () => {
   const { analytics, analyticsLoading, analyticsError } = fetchAnalytics();
-  
   const [activeTab, setActiveTab] = useState("Total Sales")
+  const [salesGraph, setsalesGraph] = useState(null);
+  const [customerGraph, setcustomerGraph] = useState(null);
+  const [orderGraph, setorderGraph] = useState(null)
+  const [brandGraph, setbrandGraph] = useState(null)
+  const [pendingPayoutGraph, setpendingPayoutGraph] = useState(null);
+  const [completedPayoutGraph, setcompletedPayoutGraph] = useState(null);
+
+
+  useEffect(() => {
+    if (analytics?.graphs) {
+      setsalesGraph(analytics?.graphs?.salesGraph)
+      setcustomerGraph(analytics?.graphs?.customersGraph)
+      setorderGraph(analytics?.graphs?.ordersGraph)
+      setbrandGraph(analytics?.graphs?.brandsGraph)
+      setpendingPayoutGraph(analytics?.graphs?.pendingPayoutGraph)
+      setcompletedPayoutGraph(analytics?.graphs?.completedPayoutGraph)
+    }
+  }, [analytics])
 
   if (analyticsLoading) return <Loader />;
   if (analyticsError) return <ErrorWidget error={analyticsError} />;
@@ -35,50 +53,52 @@ const AnalyticsOverviewPage = () => {
       <div className="flex gap-14 text-merseLightText overflow-x-auto">
         <StatusToggle
           title="Total Sales"
-          figure={compactFormatter(1200000)}
+          figure={compactFormatter(analytics?.totalSales)}
           percentage={"+3.3%"}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
         <StatusToggle
           title="Total Orders"
-          figure={22000}
+          figure={analytics?.totalOrders}
           percentage={"+3.3%"}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
         <StatusToggle
           title="Active Brands"
-          figure={1000}
+          figure={analytics?.activeBrands}
           percentage={"+3.3%"}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
         <StatusToggle
           title="New Customers"
-          figure={90}
+          figure={analytics?.newCustomers}
           percentage={"+3.3%"}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
         <StatusToggle
           title="Pending Payout"
-          figure={formatter(13000).slice(0, -3)}
+          figure={formatter(analytics?.pendingPayout).slice(0, -3)}
           percentage={"+3.3%"}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
         <StatusToggle
           title="Completed Payout"
-          figure={formatter(45000).slice(0, -3)}
+          figure={formatter(analytics?.completedPayout).slice(0, -3)}
           percentage={"+3.3%"}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
       </div>
       <div className="w-full h-[400px] mt-4">
-        {/* <CustomLineChart data={totalSales} month={"July"} /> */}
-        {SetActiveLineChart(activeTab)}
+        { analytics?.graphs.length === 0 &&
+          <NoDataPage message={"No graph data available yet"}/>
+        }
+        {SetActiveLineChart(activeTab, salesGraph, customerGraph, orderGraph, brandGraph, pendingPayoutGraph, completedPayoutGraph)}
       </div>
     </div>
     </>
@@ -111,12 +131,40 @@ const StatusToggle = ({title, figure, percentage, activeTab, setActiveTab}) => {
   )
 }
 
+function SetActiveLineChart(
+  activeTab, 
+  salesGraph,
+  customerGraph, 
+  orderGraph, 
+  brandGraph, 
+  pendingPayoutGraph, 
+  completedPayoutGraph
+) {
+  let data;
 
-const SetActiveLineChart = (activeTab) => {
-  if (activeTab === "Total Sales") return <CustomLineChart data={totalSales} month={"July"} />
-  if (activeTab === "Total Orders") return <CustomLineChart data={totalOrders} month={"July"} />
-  if (activeTab === "Active Brands") return <CustomLineChart data={activeBrands} month={"July"} />
-  if (activeTab === "New Customers") return <CustomLineChart data={newCustomers} month={"July"} />
-  if (activeTab === "Pending Payout") return <CustomLineChart data={pendingPayouts} month={"July"} />
-  if (activeTab === "Completed Payout") return <CustomLineChart data={completedPayouts} month={"July"} />
-}
+  switch (activeTab) {
+    case "Total Sales":
+      data = salesGraph?.length > 1 ? salesGraph : totalSales;
+      break;
+    case "Total Orders":
+      data = orderGraph?.length > 1 ? orderGraph : totalOrders;
+      break;
+    case "Active Brands":
+      data = brandGraph?.length > 1 ? brandGraph : activeBrands;
+      break;
+    case "New Customers":
+      data = customerGraph?.length > 1 ? customerGraph : newCustomers;
+      break;
+    case "Pending Payout":
+      data = pendingPayoutGraph?.length > 1 ? pendingPayoutGraph : pendingPayouts;
+      break;
+    case "Completed Payout":
+      data = completedPayoutGraph?.length > 1 ? completedPayoutGraph : completedPayouts;
+      break;
+    default:
+      data = [];
+      break;
+  }
+
+  return <CustomLineChart data={data} month="July" />;
+};

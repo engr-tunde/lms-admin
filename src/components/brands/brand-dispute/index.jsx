@@ -23,10 +23,12 @@ function BrandDisputePage({ brandId }) {
           </div>
         </div>
       </div> 
-      <BrandDisputeCardContainer />
+      { brandDispute?.summary &&
+        <BrandDisputeCardContainer summary={brandDispute?.summary} />
+      }
       <div className="w-full flex flex-col gap-8">
         {activeTab === "Order Dispute" ? (
-            <BrandDisputeOrderTable activeTab={activeTab} setActiveTab={setActiveTab}/>
+            <BrandDisputeOrderTable activeTab={activeTab} setActiveTab={setActiveTab} />
         ) : (
             <BrandDisputePayoutTable activeTab={activeTab} setActiveTab={setActiveTab} />
         )}

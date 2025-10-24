@@ -1,6 +1,6 @@
 import StatusCheck from '../globals/StatusCheck'
 import { Link } from "react-router-dom";
-import { capitalize, errorNotification, formatter, successNotification, useToggleOpen } from "../../utils/helpers";
+import { capitalize, errorNotification, formatter, successNotification, toSentence, useToggleOpen } from "../../utils/helpers";
 import { useState } from 'react';
 import { RiArrowDownSFill } from 'react-icons/ri';
 import { updateOrderStatus } from '../../api';
@@ -9,26 +9,49 @@ import ExtraOrderItemsBadge from './ExtraOrderItemsBadge';
 
 function OrderRowTemplate({order, i, openIndex, setOpenIndex, mutate }) {
   const { isOpen, toggle, close, ref } = useToggleOpen(openIndex, setOpenIndex, i);
-  const [isTogglingStatus, setisTogglingStatus] = useState(false);
-  
-  
-    const updateStatusofOrder = async (id) => {
-      try {
-        setisTogglingStatus(true);
-        const newStatus = order?.status ? "cancelled" : "confirmed";
-        const response = await updateOrderStatus(id, { status: newStatus });
-        console.log("response", response);
-        if (response.status.toString().includes("20")) {
-          successNotification(response.data.message);
-          mutate()
-        } else {
-          errorNotification(response?.data?.message);
-        }
-      } finally {
-        setisTogglingStatus(false);
-        close()
-      }
+
+  const nextStatusMap = {
+    in_transit: "ware_housed",
+    ware_housed: "out_for_delivery",
+    out_for_delivery: "delivered",
+  };
+
+  const orderStage = (status) => {
+    switch (status) {
+      case "in_transit":
+        return "Confirm Receipt";
+      case "ware_housed":
+        return "Mark for Delivery";
+      case "out_for_delivery":
+        return "Mark as Delivered";
+      case "delivered":
+        return "No further action";
+      default:
+        return null;
     }
+  };
+  
+  const handleUpdateOrderStatus = async (currentStatus, orderId) => {
+    const nextStatus = nextStatusMap[currentStatus];
+    if (!nextStatus) {
+      errorNotification("No further action available for this order");
+      close()
+      return;
+    }
+
+    try {
+      const response = await updateOrderStatus(values, orderId);
+      if (response?.status?.toString()?.includes("20")) {
+        successNotification(response?.data?.message);
+        mutate?.();
+        close();
+      } else {
+        errorNotification(response?.data?.message[0]);
+      }
+    } catch (err) {
+      errorNotification("Failed to update order status");
+    }
+  };
   
 
   return (
@@ -51,7 +74,7 @@ function OrderRowTemplate({order, i, openIndex, setOpenIndex, mutate }) {
         {order.items.reduce((sum, item) => sum + item.quantity, 0)}
       </td>
       <td className="">
-        <StatusCheck value={capitalize(order?.status)} className="text-sm px-2 py-1"/>
+        <StatusCheck value={toSentence(order?.status)} className="text-sm px-2 py-1"/>
       </td>
       <td className="py-4 text-sm hidden lg:table-cell">
         {formatter(order?.totalAmount).slice(0, -3)}
@@ -73,20 +96,12 @@ function OrderRowTemplate({order, i, openIndex, setOpenIndex, mutate }) {
                className="absolute z-10 w-[150px] text-xs rounded-md flex flex-col p-3 gap-3 top-6 right-0 bg-white shadow-xl"
                onClick={(e) => e.stopPropagation()}
               > 
-                <button
-                  className={`btnn1-disabled flex items-center gap-1`}
-                  disabled={isTogglingStatus}
-                  onClick={() => updateStatusofOrder(order?._id)}
+                <button 
+                  className={`flex items-center gap-1`}
+                  onClick={() => handleUpdateOrderStatus(order?.status, order?._id)}
                 >
-                  {
-                    isTogglingStatus ?
-                    order?.status ? "cancelling..." : "confirming..." :
-                    order?.status ? "Cancel" : "Confirm Receipt"
-                  }
+                 {orderStage(order?.status)}
                 </button>
-                {/* <button className={`flex items-center gap-1`}>
-                 Confirm Receipt
-                </button> */}
                 <Link to={`/orders/${order._id}`}className="flex items-center gap-1">
                   View details
                 </Link>

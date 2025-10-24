@@ -3,7 +3,7 @@ import { BiWallet } from "react-icons/bi";
 import { formatter } from "../../../utils/helpers";
 import BrandDisputeCard from "./BrandDisputeCard"
 
-function BrandDisputeCardContainer() {
+function BrandDisputeCardContainer({ summary }) {
   const earningsIcon = () => (
     <RiHandCoinLine size={25} className="text-merseBorder" />
   );
@@ -17,26 +17,26 @@ function BrandDisputeCardContainer() {
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-5">
         <BrandDisputeCard
           title="Total dispute"
-          figure={10}
-          percent={+20}
+          figure={summary?.totalDisputes || 0}
+          percent={0}
           icon={earningsIcon}
         />
         <BrandDisputeCard
           title="Open dispute"
-          figure={5}
-          percent={+2}
+          figure={summary?.openDisputes || 0}
+          percent={0}
           icon={brandsIcon}
         />
         <BrandDisputeCard
           title="Resolved dispute"
-          figure={4}
+          figure={summary?.resolvedDisputes || 0}
           percent={0}
           icon={walletIcon}
         />
         <BrandDisputeCard
           title="Rejected dispute"
-          figure={1}
-          percent={+1}
+          figure={summary?.rejectedDisputes || 0}
+          percent={0}
           icon={walletIcon}
         />
         

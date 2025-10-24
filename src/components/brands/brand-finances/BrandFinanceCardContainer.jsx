@@ -1,9 +1,9 @@
 import { RiCoinLine, RiHandCoinLine } from "react-icons/ri";
 import { BiWallet } from "react-icons/bi";
-import { formatter } from "../../../utils/helpers";
+import { dateFormatter, formatter } from "../../../utils/helpers";
 import { BrandFinanceCard, PayoutCardDetails} from "./BrandFinanceCard"
 
-function BrandFinanceCardContainer() {
+function BrandFinanceCardContainer({ summary }) {
   const earningsIcon = () => (
     <RiHandCoinLine size={25} className="text-merseBorder" />
   );
@@ -17,7 +17,7 @@ function BrandFinanceCardContainer() {
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-5">
         <BrandFinanceCard
           title="Total Earnings"
-          figure={formatter(560000)?.slice(0, -3)}
+          figure={formatter(summary?.totalEarnings)?.slice(0, -3)}
           percent={+3.3}
           summary={`+3.3 from last month`}
           icon={earningsIcon}
@@ -25,7 +25,7 @@ function BrandFinanceCardContainer() {
         />
         <BrandFinanceCard
           title="Pending Payouts"
-          figure={formatter(120000)?.slice(0, -3)}
+          figure={formatter(summary?.pendingPayouts)?.slice(0, -3)}
           percent={0}
           summary={null}
           icon={brandsIcon}
@@ -33,14 +33,14 @@ function BrandFinanceCardContainer() {
         />
         <BrandFinanceCard
           title="Last Payout"
-          figure={formatter(440000)?.slice(0, -3)}
+          figure={formatter(summary?.lastPayout)?.slice(0, -3)}
           percent={+3.3}
           summary={`+3.3 compared to the last month`}
           icon={walletIcon}
           date={"Jun 21, 2025"}
         />
         <PayoutCardDetails
-          date={"Jun 21, 2025"}
+          date={dateFormatter(summary?.nextDueDate)}
           cardNumber={"******123478"}
           cardProvider={"Stripe"}
         />
