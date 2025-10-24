@@ -23,7 +23,7 @@ function OrderCardsContainer({summary, total}) {
       <OrderCard
         title="Total orders"
         figure={summary?.totalOrders}
-        percent={getPercentOfTotal(summary?.totalOrders, total)}
+        percent={0}
         icon={salesIcon}
         size="sm"
         lastUpdated={getLastUpdatedText(summary?.lastUpdated)}
@@ -31,21 +31,21 @@ function OrderCardsContainer({summary, total}) {
       <OrderCard
         title="Delivered orders"
         figure={summary?.deliveredOrders}
-        percent={getPercentOfTotal(summary?.deliveredOrders, total)}
+        percent={0}
         icon={brandsIcon}
         lastUpdated={getLastUpdatedText(summary?.lastUpdated)}
       />
       <OrderCard
         title="Pending orders"
         figure={summary?.pendingOrders}
-        percent={getPercentOfTotal(summary?.pendingOrders, total)}
+        percent={0}
         icon={dollarIcon}
         lastUpdated={getLastUpdatedText(summary?.lastUpdated)}
       />
       <OrderCard
         title="Cancelled orders"
         figure={summary?.cancelledOrders}
-        percent={getPercentOfTotal(summary?.cancelledOrders, total)}
+        percent={0}
         icon={ordersIcon}
         lastUpdated={getLastUpdatedText(summary?.lastUpdated)}
       />

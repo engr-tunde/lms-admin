@@ -7,7 +7,6 @@ import { useState } from "react";
 function OrderTable({ filteredData, setfilteredData, originalArr, mutate }) {
   const [openIndex, setOpenIndex] = useState(null);
   const searchable = [
-    "_id", 
     "status", 
     "shippingAddress.fullName", 
     "shippingAddress.email", 

@@ -1,14 +1,41 @@
 import ProductsBrandsCardContainer from "./ProductsBrandsCardContainer";
 import { fetchBrandProduct } from "../../../api/index.js";
+import Loader from "../../globals/Loader.jsx";
+import ErrorWidget from "../../globals/ErrorWidget.jsx";
+import { useEffect, useState } from "react";
+import NoDataPage from "../../globals/NoDataPage.jsx";
+import Pagination from "../../globals/Pagination.jsx"
 
 function ProductBrandsPage({ brandId }) {
-    const { brandProduct, brandProductLoading, brandProductError } = fetchBrandProduct(brandId);
-    console.log("brandId ss", brandId);
-    
-    console.log("brandProduct ss", brandProduct);
+  const { brandProduct, brandProductLoading, brandProductError, mutate } = fetchBrandProduct(brandId);
+  const [filteredData, setfilteredData] = useState();
+  const [ originalArr, setOriginalArr ] = useState();
+
+  useEffect(() => {
+      if (brandProduct?.products?.length) {
+          setfilteredData(brandProduct?.products);
+          setOriginalArr(brandProduct?.products);
+      }
+  }, [brandProduct]);
+
+  console.log("brand products in page", brandProduct);
+
+  if (brandProductLoading) return <Loader />;
+  if (brandProductError) return <ErrorWidget />;
+  if (!brandProduct) return "No products available";
 
   return (
-    <ProductsBrandsCardContainer products={brandProduct} />
+    <>
+      {filteredData ? 
+        <ProductsBrandsCardContainer 
+          filteredData={filteredData} 
+          setFilteredData={setfilteredData} 
+          originalArr={originalArr} 
+          mutate={mutate}
+        /> : 
+        <NoDataPage message="No products available for this brand" />
+      }
+    </>
   );
 }
 

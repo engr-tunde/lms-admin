@@ -1,128 +1,72 @@
 import Search from "../../globals/Search"
 import ProductsBrandsCard from "./ProductsBrandsCard"
-import { formatter } from "../../../utils/helpers"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import Pagination from "../../globals/Pagination";
+import ProductStatusFilter from "../../globals/ProductStatusFilter.jsx"
 
+function ProductsBrandsCardContainer({ filteredData, setfilteredData, originalArr, mutate }) {
+  const [filter, setFilter] = useState("");
+  const [searchBy, setSearchBy] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
-function ProductsBrandsCardContainer() {
-  const [filter, setFilter] = useState("All Products")
-  const filters = ["All Products", "Awaiting approval", "Approved", "Rejected"];
+  useEffect(() => {
+    if (!originalArr) return;
+    let products = [...originalArr];
 
-  const filterChildren = (children) => {
-    return children.filter((child) => {
-      if (!child.props?.productStatus) return true; // keep safe
-      return filter === "All Products" || child.props.productStatus === filter;
-    });    
-  }
+    if (filter.length) {
+      products = products.filter(
+        (item) => item.approvalStatus === filter.toLowerCase()
+      );
+    }
 
-  const cards = [
-    <ProductsBrandsCard
-    productImage="/assets/images/brand-image1.png"
-    productStatus = "Awaiting approval"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(1, -3)}
-    productQuantity={200}
-    />,
-    <ProductsBrandsCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Rejected"
-    productBrand="Banke kuku"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
-    />,
-    <ProductsBrandsCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Awaiting approval"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
-    />,
-    <ProductsBrandsCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Rejected"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
-    />,
-    <ProductsBrandsCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Awaiting approval"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
-    />,
-    <ProductsBrandsCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Approved"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
-    />,
-    <ProductsBrandsCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Approved"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
-    />,
-    <ProductsBrandsCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Approved"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
-    />,
-    <ProductsBrandsCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Approved"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
-    />,
-    <ProductsBrandsCard
-    productImage = "/assets/images/brand-image1.png"
-    productStatus = "Awaiting approval"
-    productBrand="StylishCo"
-    productName="Off-White Grateful SS T-Shirt"
-    productPrice={formatter(140000)?.slice(0, -3)}
-    productQuantity={200}
-    />,
-  ]
+    if (searchBy) {
+      const query = searchBy.toLowerCase();
+      products = products.filter((item) =>
+        ["title", "brandName", "keyFeatures", "description"].some((field) => {
+          const value = item?.[field];
+          if (typeof value === "string")
+            return value.toLowerCase().includes(query);
+          if (Array.isArray(value))
+            return value.some(
+              (v) => typeof v === "string" && v.toLowerCase().includes(query)
+            );
+          return false;
+        })
+      );
+    }
+    setfilteredData(products);
+    setCurrentPage(1);
+  }, [filter, searchBy, originalArr]);
 
-  const filteredCards = filterChildren(cards);
+  const itemsPerPage = 8;
+  const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   return (
     <div className="flex flex-col gap-3">
       <div className="w-full flex justify-between items-end mb-2">
-        <div className="flex gap-6">
-          {filters.map((status) => (
-            <button 
-            key={status}
-            onClick={() => setFilter(status)}
-            className={`px-3 py-1 rounded ${
-                filter === status ? "text-black" : "text-merseBorder"
-            }`}
-            >
-              {status}
-            </button>
-          ))}
-        </div>
+          <ProductStatusFilter setFilter={setFilter} filter={filter} />
         <div>
-          <Search />
+          <Search 
+            onSearch={setSearchBy}
+          />
         </div>
       </div>
       <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
-        {filteredCards}
+        {currentItems?.length > 0 &&
+          currentItems.map((ele, i) => (
+            <ProductsBrandsCard key={i} data={ele} mutate={mutate} />
+          ))}
       </div>
+      <Pagination 
+        currentPage={currentPage} 
+        totalPages={totalPages} 
+        onPageChange={setCurrentPage} 
+      />
     </div>
   );
 }

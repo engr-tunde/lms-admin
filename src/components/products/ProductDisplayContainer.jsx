@@ -1,8 +1,8 @@
 import Search from "../globals/Search";
 import ProductDisplayCard from "./ProductDisplayCard";
 import { useEffect, useState } from "react";
-import ProductStatusFilter from "./ProductStatusFilter";
 import Pagination from "../globals/Pagination";
+import ProductStatusFilter from "../globals/ProductStatusFilter";
 
 function ProductDisplayContainer({
   filteredData,

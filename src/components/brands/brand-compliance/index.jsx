@@ -7,13 +7,23 @@ import BrandShippingDetails from "./BrandShippingDetails"
 import BrandContactPerson from "./BrandContactPerson";
 import BrandBusinessDocument from "./BrandBusinessDocument";
 import RejectFormModal from "./RejectFormModal";
-import { verifyBrand } from "../../../api";
+import { fetchBrand, verifyBrand } from "../../../api";
 import { errorNotification, successNotification } from "../../../utils/helpers";
+import Loader from "../../globals/Loader";
+import ErrorWidget from "../../globals/ErrorWidget";
+import NoDataPage from "../../globals/NoDataPage";
 
 
 const BrandsCompliancePage = ({ brandId, verified }) => {
   const [activeTab, setActiveTab] = useState("complianceDocuments")
   const [showRejectForm, setShowRejectForm] = useState(false);
+
+  const {brand, brandLoading, brandError, mutate} = fetchBrand(brandId);
+  console.log("brand in compliance", brand)
+
+  if (brandLoading) return <Loader />;
+  if (brandError) return <ErrorWidget error={brandError} />;
+  if (!brand) return <NoDataPage message="No information available for this brand" />;
 
   const handleVerifyBrand = async () => {
     const response = await verifyBrand(
@@ -35,7 +45,7 @@ const BrandsCompliancePage = ({ brandId, verified }) => {
     <div className="w-full h-full lg:h-[450px] flex flex-col lg:flex-row gap-5">
       <BrandsComplianceOverview activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="w-full lg:w-2/3 border-2 h-full">
-        {SetActivePage(activeTab)}
+        {SetActivePage(activeTab, brand)}
       </div>
     </div>  
     <div className="flex justify-end gap-5">
@@ -63,12 +73,12 @@ const BrandsCompliancePage = ({ brandId, verified }) => {
   )
 }
 
-const SetActivePage = (activeTab) => {
-   if (activeTab === "complianceDocuments") return <BrandComplianceDocuments />
-   if (activeTab === "brandDetails") return <BrandComplianceDetails />
-   if (activeTab === "shippingDetails") return <BrandShippingDetails />
-   if (activeTab === "contactPerson") return <BrandContactPerson />
-   if (activeTab === "businessDocument") return <BrandBusinessDocument />
+const SetActivePage = (activeTab, brand) => {
+   if (activeTab === "complianceDocuments") return <BrandComplianceDocuments brand={brand} />
+   if (activeTab === "brandDetails") return <BrandComplianceDetails brand={brand} />
+   if (activeTab === "shippingDetails") return <BrandShippingDetails brand={brand} />
+   if (activeTab === "contactPerson") return <BrandContactPerson brand={brand} />
+   if (activeTab === "businessDocument") return <BrandBusinessDocument brand={brand} />
 };
 
 

@@ -8,37 +8,54 @@ import { fetchOrders } from "../../api/index.js";
 import { useEffect, useState } from "react";
 import ErrorWidget from "../../components/globals/ErrorWidget.jsx";
 import Loader from "../../components/globals/Loader.jsx";
+import NoDataPage from "../../components/globals/NoDataPage.jsx"
+import Pagination from "../../components/globals/Pagination.jsx";
 
 
 function DashboardOrdersPage() {
   const { orders, ordersLoading, ordersError, mutate } = fetchOrders();
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState(); 
+  const [currentPage, setCurrentPage] = useState(1);
   
-
-
   useEffect(() => {
-    if (orders) {
+    if (orders?.orders?.length) {
       setoriginalArr(orders?.orders);
       setfilteredData(orders?.orders);
     }
-  }, [orders]);
+  }, [orders?.orders]);
 
   const newlyAddedOrders = () => {
-      let allOrders = orders?.orders
+    let allOrders = orders?.orders
 
-      if (!allOrders) return [];
-      const pendingOrders = allOrders.filter(order => order.status === "pending");
-      if (pendingOrders.length > 0) {
-         allOrders = pendingOrders
-      };
-      const sorted = [...allOrders].sort(
-        (a, b) => new Date(b.created_at || b.createdAt) - new Date(a.created_at || a.createdAt)
-      );
-      return sorted.slice(0, 3);
+    if (!allOrders) return [];
+    const pendingOrders = allOrders.filter(order => order.status === "pending");
+    if (pendingOrders.length > 3) {
+        allOrders = pendingOrders
     };
+    const sorted = [...allOrders].sort(
+      (a, b) => new Date(b.created_at || b.createdAt) - new Date(a.created_at || a.createdAt)
+    );
+    return sorted.slice(0, 3);
+  };
 
   console.log("orders ss", orders);
+
+  const itemsPerPage = orders?.limit || 10;
+  const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredData]);
+
+  if (ordersLoading) return <Loader />;
+  if (ordersError) return <ErrorWidget error={ordersError} />;  
+  if (!orders) return "No Order available";
 
   return (
     <div className="flex flex-col gap-6">
@@ -54,25 +71,24 @@ function DashboardOrdersPage() {
             <FaChevronDown size={10} />
           </div>
         </div>
-        {filteredData ? (
-          <>
-          <OrderCardsContainer 
-            summary={orders?.summary}
-            total={orders?.total}
-          />
+        {orders?.summary && <OrderCardsContainer summary={orders?.summary} />}
+        {newlyAddedOrders().length > 0 && (
           <NewOrderCardContainer newOrders={newlyAddedOrders()} />
+        )}
+        {filteredData ? (
           <OrderTable
-            filteredData={filteredData}
+            filteredData={currentItems}
             setfilteredData={setfilteredData}
             originalArr={originalArr}
             mutate={mutate}
           />
-          </>
-        ) : ordersLoading ? (
-          <Loader />
-        ) : ordersError ? (
-          <ErrorWidget error={ordersError} />
-        ) : null}
+        ) : <NoDataPage message="It seems orders have not been uploaded yet" />
+        }
+        <Pagination 
+          currentPage={currentPage} 
+          totalPages={totalPages} 
+          onPageChange={setCurrentPage} 
+        />
       </div>
     </div>
   );

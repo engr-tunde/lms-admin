@@ -3,15 +3,18 @@ import { FaChevronDown } from "react-icons/fa";
 import BrandOverviewCardContainer from "./BrandOverviewCardContainer"
 import NewOrderBrandsCardContainer from "./NewOrderCardBrandsContainer"
 import AddedProductBrandsCardContainer from "./AddedProductBrandsCardContainer";
-import { fetchBrand, fetchBrandOrder, fetchBrandProduct } from "../../../api/index.js";
+import { fetchBrand, fetchBrandFinance, fetchBrandOrder, fetchBrandProduct } from "../../../api/index.js";
 import Loader from "../../globals/Loader.jsx";
 import ErrorWidget from "../../globals/ErrorWidget.jsx";
 
 function BrandsOverviewPage({brandId}) {
   const { brand, brandLoading, brandError } = fetchBrand(brandId);
-  const { order } = fetchBrandOrder(brandId);
-  const { product } = fetchBrandProduct(brandId);
-  console.log("brand overview", brand);
+  const { brandOrder } = fetchBrandOrder(brandId);
+  const { brandProduct } = fetchBrandProduct(brandId);
+  const { brandFinance } = fetchBrandFinance(brandId);
+  console.log("brand products", brandProduct);
+  console.log("brand orders", brandOrder);
+  console.log("brand finance", brandFinance);
 
   if (brandLoading) return <Loader/>
   if (brandError) return <ErrorWidget/> 
@@ -28,9 +31,9 @@ function BrandsOverviewPage({brandId}) {
           </div>
         </div>
       </div> 
-      <BrandOverviewCardContainer />
-      <NewOrderBrandsCardContainer orders={order?.orders}/> 
-      <AddedProductBrandsCardContainer products={product?.products} />
+      <BrandOverviewCardContainer totalProducts={brandProduct?.totalCount} orderSummary={brandOrder?.summary} totalEarnings={brandFinance?.summary?.totalEarnings} />
+      <NewOrderBrandsCardContainer orders={brandOrder?.orders}/> 
+      <AddedProductBrandsCardContainer products={brandProduct?.products} />
     </>
   );
 }
