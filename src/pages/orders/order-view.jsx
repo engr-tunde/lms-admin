@@ -5,24 +5,21 @@ import OrderViewSummaryCard from "../../components/orders/order-view/OrderViewSu
 import OrderTrackingInfoCard from "../../components/orders/order-view/OrderViewTrackingInfoCard.jsx";
 import OrderViewItemsTable from "../../components/orders/order-view/OrderViewItemsTable.jsx"
 import OrderViewTimelineCard from "../../components/orders/order-view/OrderViewTimelineCard.jsx"
-import { fetchOrders } from "../../api/index.js"
+import { fetchAllOrders, fetchOrder } from "../../api/index.js"
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Loader from "../../components/globals/Loader.jsx";
 import ErrorWidget from "../../components/globals/ErrorWidget.jsx";
 
 function OrderViewPage() {
-  const { orders, ordersLoading, ordersError, mutate } = fetchOrders();
-  const [order, setOrder] = useState(null);
-
   const { id } = useParams();
 
-  useEffect(() => {
-    const foundOrder = orders?.orders?.find((item) => item._id === id)
-    setOrder(foundOrder)
-  }, [orders, id])
+  const { order, orderLoading, orderError, mutate } = fetchOrder(id)
+  console.log("fetched order", order)
 
-  console.log("picked order", order);
+  if (orderLoading) return <Loader />;
+  if (orderError) return <ErrorWidget error={orderError} />;
+  if (!order) return <div>No order data found.</div>;
 
   return (
     <div className="flex flex-col gap-9">
@@ -33,7 +30,7 @@ function OrderViewPage() {
         subtitle="See how your brand is performing today across sales orders & top products."
       />
       <div className="w-full flex flex-col gap-8 h-[90%] overflow-y-scroll">
-        {orders ? (
+        {order ? (
           <>
             <OrderViewTimelineCard 
              order={order}
@@ -44,30 +41,21 @@ function OrderViewPage() {
             mutate={mutate}
             />
             <OrderViewBuyDetailsCard
+              order={order}
               brandName="Stylish Co"
               brandEmail="stylish.co@example.com"
               brandPhone="08077899211"
               brandAddress="12B, Funke Ayoade Street, Victoria Island, Lagos"
               shippingMethod="Standard Delivery"
-              order={order}
             />
             <OrderViewItemsTable order={order} />
             <div className="w-full flex flex-col lg:flex-row justify-between gap-10">
               <OrderViewSummaryCard 
-               orderSummary="9,0000.00" 
-               totalOrderValue="90,0000.00" 
-               discountSum="10,000.00" 
-               shippingPaidByBuyer="0.00" 
-               platformCommission="9,0000.00" 
-               totalPayout="90,0000.00"
+               order={order}
               />
-              <OrderTrackingInfoCard />
+              <OrderTrackingInfoCard status={order?.status} />
             </div>
           </>
-        ) : ordersLoading ? (
-          <Loader />
-        ) : ordersError ? (
-          <ErrorWidget error={ordersError} />
         ) : null}
       </div>
     </div>

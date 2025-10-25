@@ -4,9 +4,9 @@ import { FaExpandArrowsAlt } from "react-icons/fa";
 const ImageSlider = ({ variants }) => {
   const [isImageModalOpen, setisImageModalOpen] = useState(false)
   let images = [];
-  variants.forEach((element) => {
-    element.images.forEach((imgData) => {
-      images.push(imgData?.url);
+  variants?.forEach((element) => {
+    element?.images?.forEach((imgData) => {
+      images?.push(imgData?.url);
     });
   });
   const [currentImg, setcurrentImg] = useState(images[0]);

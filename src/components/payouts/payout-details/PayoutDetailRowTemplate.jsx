@@ -8,8 +8,7 @@ function PayoutDetailRowTemplate({ item, i, mutate, commission }) {
     <tr key={item?._id} className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm hidden lg:table-cell">{item?._id.slice(-5)}</td>
       <td className="py-4 text-sm hidden lg:table-cell">
-        {/* {item.customerName} */}
-        My Name
+        {item?.brand?.name}
       </td>
       <td className="py-4 text-sm">
         <div className="flex items-center gap-3 w-full">

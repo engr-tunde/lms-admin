@@ -34,6 +34,7 @@ import {
   FETCH_ANALYTICS_STATS,
   FETCH_ANALYTICS_DELIVERY,
   FETCH_ANALYTICS_BRANDS,
+  FETCH_USERS, 
 } from "../constants/routes";
 import { mutationRequest } from "./sendData";
 import { fetcher, sessionFetcher } from "./fetcher";
@@ -421,12 +422,21 @@ export const updateOrderStatus = async (values, id) => {
   );
   return result;
 };
-export const fetchOrders = () => {
+export const fetchAllOrders = () => {
   const { data, error, mutate } = useSWR(FETCH_ORDERS, fetcher);
   return {
     orders: data,
     ordersLoading: !error && !data,
     ordersError: error,
+    mutate,
+  };
+};
+export const fetchOrder = (id) => {
+  const { data, error, mutate } = useSWR(`${FETCH_ORDERS}/${id}`, fetcher);
+  return {
+    order: data,
+    orderLoading: !error && !data,
+    orderError: error,
     mutate,
   };
 };
@@ -488,6 +498,27 @@ export const fetchAnalyticsDelivery = () => {
   };
 };
 
+
+// ##USERS
+export const fetchAllUsers = () => {
+  const { data, error, mutate } = useSWR(FETCH_USERS, fetcher);
+  return {
+    users: data,
+    usersLoading: !error && !data,
+    usersError: error,
+    mutate,
+  };
+};
+
+export const fetchUser = (id) => {
+  const { data, error, mutate } = useSWR(`${FETCH_USERS}/${id}`, fetcher);
+  return {
+    user: data,
+    userLoading: !error && !data,
+    userError: error,
+    mutate,
+  };
+};
 
 
 

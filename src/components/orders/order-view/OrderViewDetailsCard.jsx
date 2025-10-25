@@ -1,7 +1,7 @@
 import { capitalize } from "../../../utils/helpers";
 // import { }
 
-const OrderViewBuyDetailsCard = ({ brandName, brandEmail, brandPhone, brandAddress, shippingMethod, order}) => {
+const OrderViewBuyDetailsCard = ({ order, brandName, brandEmail, brandPhone, brandAddress, shippingMethod }) => {
 
   const customerAddress = `${order?.shippingAddress?.addressLabel}, ${order?.shippingAddress?.state}, ${order?.shippingAddress?.country}`;
   return (
@@ -10,23 +10,36 @@ const OrderViewBuyDetailsCard = ({ brandName, brandEmail, brandPhone, brandAddre
       <div className="px-4 py-4 border-merseBorder border-2 flex flex-col lg:flex-row gap-7 justify-between">
         <div className="flex flex-col gap-1 ">
           <span className="font-semibold mb-1">Customer Details </span>
+          {order?.shippingAddress?.fullName && 
           <span className="-mb-3">{order?.shippingAddress?.fullName}</span>
+          }
           <div className="flex items-center gap-0 text-sm text-merseLightText">
-            <span>{order?.shippingAddress?.email}</span>
+            {order?.shippingAddress?.email &&
+              <span>{order?.shippingAddress?.email}</span>
+            }
+            {order?.shippingAddress?.phoneNumber &&
+            <>
             <span className="text-3xl leading-none ml-3 mr-[1px]">•</span>
             <span>{order?.shippingAddress?.phoneNumber}</span>
+            </>
+            }
           </div>
-          <span className="text-sm">{customerAddress}</span>
+          <span className="text-sm">{customerAddress && customerAddress}</span>
         </div>
         <div className="flex flex-col gap-1">
             <span className="font-semibold mb-1">Brand Details </span>
-            <a href="#" className="-mb-3">{capitalize(order?.items[0]?.brandName)}</a>
-            <div className="flex items-center gap-0 text-sm text-merseLightText">
+            <a href="#" className="-mb-3">
+              {order?.items[0]?.brandName && 
+              (
+                capitalize(order?.items[0]?.brandName)
+              )}
+            </a>
+            {/* <div className="flex items-center gap-0 text-sm text-merseLightText">
               <span>{brandEmail}</span>
               <span className="text-3xl leading-none ml-3 mr-[1px]">•</span>
               <span>{brandPhone}</span>
             </div>
-            <span className="text-sm">{brandAddress}</span>
+            <span className="text-sm">{brandAddress}</span> */}
         </div>
         <div className="flex flex-col gap-1">
             <span className="font-semibold mb-1">Shipping Method</span>

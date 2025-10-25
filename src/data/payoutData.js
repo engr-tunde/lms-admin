@@ -108,7 +108,7 @@ export const payoutDetailColumnHeader = [
         className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
-        header: "Customer Name", 
+        header: "Brand Name", 
         className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {

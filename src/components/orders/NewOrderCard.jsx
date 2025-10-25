@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { capitalize } from "../../utils/helpers";
 import ExtraOrderItemsBadge from "./ExtraOrderItemsBadge";
 
@@ -20,7 +21,12 @@ function NewOrderCard({ order }) {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-sm">Qty: {totalQty}</span>
-          <span className="border-2 px-1 text-[13px] cursor-pointer">Confirm receipt</span>
+          <Link 
+            className="border-2 px-1 text-[13px] cursor-pointer"
+            to={`/orders/${order?._id}`}
+          >
+            View Details
+          </Link>
         </div>
       </div>
     </div>

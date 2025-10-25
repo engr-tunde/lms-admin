@@ -5,21 +5,24 @@ import ProductCardContainer from "../../components/products/ProductCardContainer
 import NewlyAddedProductCardContainer from "../../components/products/AddedProductCardContainer";
 import ProductDisplayContainer from "../../components/products/ProductDisplayContainer";
 import { useEffect, useState } from "react";
-import { fetchAllBrands, fetchProducts } from "../../api";
+import { fetchProducts } from "../../api";
 import Loader from "../../components/globals/Loader";
 import ErrorWidget from "../../components/globals/ErrorWidget";
+import NoDataPage from "../../components/globals/NoDataPage";
 
 function DashboardProductPage() {
   const [filteredData, setfilteredData] = useState();
   const [originalArr, setoriginalArr] = useState();
-  const [productCount, setproductCount] = useState(0);
-  const [brandCount, setbrandCount] = useState(0);
-  const [pendingProductsCount, setpendingProductsCount] = useState(0);
-  const [rejectedProductsCount, setrejectedProductsCount] = useState(0);
 
   const { products, productsLoading, productsError, mutate } = fetchProducts();
-  const { brands } = fetchAllBrands();
   console.log("products", products);
+
+  useEffect(() => {
+    if (products?.products?.length) {
+      setoriginalArr(products.products);
+      setfilteredData(products.products);
+    }
+  }, [products?.products])
 
   const newlyAdded = () => {
     if (!products?.products) return [];
@@ -29,28 +32,9 @@ function DashboardProductPage() {
     return sorted.slice(0, 3);
   };
 
-  useEffect(() => {
-    if (products) {
-      let pendingProds = products?.products?.filter(
-        (ele) => ele.approvalStatus?.toLowerCase() === "pending"
-      )?.length;
-      let rejectedProds = products?.products?.filter(
-        (ele) => ele.approvalStatus?.toLowerCase() === "rejected"
-      )?.length;
-
-      setoriginalArr(products?.products);
-      setfilteredData(products?.products);
-      setproductCount(products?.products?.length);
-      setpendingProductsCount(pendingProds);
-      setrejectedProductsCount(rejectedProds);
-    }
-  }, [products]);
-
-  useEffect(() => {
-    if (brands) {
-      setbrandCount(brands?.brands?.length);
-    }
-  }, [brands]);
+  if (productsLoading) return <Loader />
+  if (productsError) return <ErrorWidget error={productsError} />
+  if (!products) return "No Products data available"
 
   return (
     <div className="flex flex-col gap-6 h-full">
@@ -66,27 +50,24 @@ function DashboardProductPage() {
             <FaChevronDown size={10} />
           </div>
         </div>
-        <ProductCardContainer
-          productCount={productCount}
-          brandCount={brandCount}
-          pendingProductsCount={pendingProductsCount}
-          rejectedProductsCount={rejectedProductsCount}
-        />
+        { products?.summary &&
+          <ProductCardContainer summary={products?.summary}/>
+        }
+        {/* { products?.summary?.recentProducts &&
+          <NewlyAddedProductCardContainer recentProducts={products?.summary?.recentProducts} />
+        } */}
+        { newlyAdded &&
+          <NewlyAddedProductCardContainer recentProducts={newlyAdded()} />
+        }
+
         {filteredData ? (
-          <>
-            <NewlyAddedProductCardContainer products={newlyAdded()} />
-            <ProductDisplayContainer
-              filteredData={filteredData}
-              setfilteredData={setfilteredData}
-              originalArr={originalArr}
-              mutate={mutate}
-            />
-          </>
-        ) : productsLoading ? (
-          <Loader />
-        ) : productsError ? (
-          <ErrorWidget error={productsError} />
-        ) : null}
+          <ProductDisplayContainer
+            filteredData={filteredData}
+            setfilteredData={setfilteredData}
+            originalArr={originalArr}
+            mutate={mutate}
+          />
+        ) : <NoDataPage message="No products has been uploaded yet" />}
       </div>
     </div>
   );

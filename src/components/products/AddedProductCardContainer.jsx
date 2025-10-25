@@ -1,7 +1,7 @@
 import { capitalize } from "../../utils/helpers";
 import NewlyAddedProductCard from "./AddedProductCard";
 
-function NewlyAddedProductCardContainer({ products }) {
+function NewlyAddedProductCardContainer({ recentProducts }) {
   
   return (
     <div className="flex flex-col gap-2">
@@ -10,7 +10,7 @@ function NewlyAddedProductCardContainer({ products }) {
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-5">
         {
-          products?.map((product, i) => (
+          recentProducts?.map((product, i) => (
             <NewlyAddedProductCard data={product} key={i}/>
           ))
         }

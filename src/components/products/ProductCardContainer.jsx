@@ -1,14 +1,10 @@
 import { RiCoinLine, RiShoppingBag2Line } from "react-icons/ri";
-import { formatter, getPercentOfTotal } from "../../utils/helpers";
 import { TbTruckDelivery } from "react-icons/tb";
 import ProductCard from "./ProductCard";
 import { AiOutlineDollar } from "react-icons/ai";
 
 function ProductCardContainer({
-  productCount,
-  brandCount,
-  pendingProductsCount,
-  rejectedProductsCount,
+  summary
 }) {
   const salesIcon = () => (
     <RiShoppingBag2Line size={50} className="text-merseBorder" />
@@ -28,26 +24,26 @@ function ProductCardContainer({
     <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-5">
       <ProductCard
         title="Total products"
-        figure={formatter(productCount)?.slice(1, -3)}
-        percent={getPercentOfTotal(productCount, productCount)}
+        figure={summary?.totalProducts}
+        percent={0}
         icon={dollarIcon}
       />
       <ProductCard
         title="Total registered brands"
-        figure={formatter(brandCount)?.slice(1, -3)}
-        percent={getPercentOfTotal(brandCount, productCount)}
+        figure={summary?.totalRegisteredBrands}
+        percent={0}
         icon={salesIcon}
       />
       <ProductCard
         title="Pending approval"
-        figure={formatter(pendingProductsCount)?.slice(1, -3)}
-        percent={getPercentOfTotal(pendingProductsCount, productCount)}
+        figure={summary?.totalPendingApproval}
+        percent={0}
         icon={brandsIcon}
       />
       <ProductCard
         title="Rejected products"
-        figure={formatter(rejectedProductsCount)?.slice(1, -3)}
-        percent={getPercentOfTotal(rejectedProductsCount, productCount)}
+        figure={summary?.totalRejectedProducts}
+        percent={0}
         icon={ordersIcon}
       />
     </div>

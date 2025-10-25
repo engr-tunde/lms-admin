@@ -24,6 +24,7 @@ import PayoutDetailPage from "./pages/payouts/payout-detail.jsx";
 import VerifyForgotPasswordPage from "./pages/auth/verify-forgot-password/index.jsx";
 import VerifyLoginPage from "./pages/auth/verify-login/index.jsx";
 import DashboardBrandRequests from "./pages/brands/brand-requests.jsx";
+import DashboardUsersPage from "./pages/users/index.jsx";
 
 function App() {
   return (
@@ -59,7 +60,8 @@ function App() {
                 path="/dispute-payout/:id"
                 element={<PayoutDisputeViewPage />}
               />
-
+              <Route path="/users" element={<DashboardUsersPage />} />
+              
               <Route path="/members" element={<DashboardMembersPage />} />
               <Route path="/analytics" element={<DashboardAnalyticsPage />} />
               <Route path="/settings" element={<DashboardSettingsPage />} />

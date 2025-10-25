@@ -25,7 +25,7 @@ const PayoutDetailTable = ({ filteredData, setfilteredData, originalArr, mutate,
         columns={payoutDetailColumnHeader}
         renderRow={(item, i) => (
           <PayoutDetailRowTemplate
-            key={item._id}
+            key={item?._id}
             item={item}
             i={i}
             mutate={mutate}

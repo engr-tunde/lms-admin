@@ -54,7 +54,7 @@ export const DISPUTE_VIEW = "/disputes/view"
 
 
 // Users 
-export const USERS = "/admin/users"
+export const FETCH_USERS = "/admin/users"
 export const MANAGE_USER = "/admin/manage-user"
 
 // Payouts 

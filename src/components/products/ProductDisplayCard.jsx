@@ -43,7 +43,10 @@ function ProductDisplayCard({ data, mutate }) {
           <span className="font-semibold">{capitalize(data?.title)}</span>
         </div>
         <div className="flex justify-between w-full text-xs font-semibold">
-          <span>{formatter(data?.pricing?.sellingPrice)}</span>
+          <span>
+            {data?.pricing?.sellingPrice ? 
+            formatter(data?.pricing?.sellingPrice).slice(0, -3) : "N/A"}
+          </span>
           <span>{quantity}</span>
         </div>
       </div>

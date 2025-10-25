@@ -4,7 +4,7 @@ import { RiCalendarLine } from "react-icons/ri";
 import OrderCardsContainer from "../../components/orders/OrderCardContainer";
 import NewOrderCardContainer from "../../components/orders/NewOrderCardContainer";
 import OrderTable from "../../components/orders/OrderTable.jsx";
-import { fetchOrders } from "../../api/index.js";
+import { fetchAllOrders } from "../../api/index.js";
 import { useEffect, useState } from "react";
 import ErrorWidget from "../../components/globals/ErrorWidget.jsx";
 import Loader from "../../components/globals/Loader.jsx";
@@ -13,7 +13,7 @@ import Pagination from "../../components/globals/Pagination.jsx";
 
 
 function DashboardOrdersPage() {
-  const { orders, ordersLoading, ordersError, mutate } = fetchOrders();
+  const { orders, ordersLoading, ordersError, mutate } = fetchAllOrders();
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState(); 
   const [currentPage, setCurrentPage] = useState(1);

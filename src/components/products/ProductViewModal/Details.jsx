@@ -44,10 +44,11 @@ const ProductViewDetails = ({ data, mutate }) => {
           />
         </div>
         <div className="flex justify-between text-sm">
-          <span>Category: {data?.category?.name}</span>
-          <span>Subcategory: {data?.subcategory?.name}</span>
+          {data?.category?.name && <span>Category: {data?.category?.name}</span>}
+          {data?.subcategory?.name && <span>Subcategory: {data?.subcategory?.name}</span>}
         </div>
         <div className="flex justify-between text-sm">
+          { data?.hasVariants &&
           <div className="flex items-center gap-2">
             <div className="">Colors:</div>
             <div className="flex gap-1">
@@ -61,7 +62,7 @@ const ProductViewDetails = ({ data, mutate }) => {
                 ></span>
               ))}
             </div>
-          </div>
+          </div>}
           <span>Total Qty: {quantity}</span>
         </div>
       </div>

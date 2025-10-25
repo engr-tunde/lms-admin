@@ -3,7 +3,7 @@ import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { RiCalendarLine } from "react-icons/ri";
 import OverviewCards from "../../components/overview/OverviewCardsContainer";
 import OverviewTable from "../../components/overview/OverviewTable";
-import { fetchAllBrands, fetchOrders } from "../../api";
+import { fetchAllBrands, fetchAllOrders } from "../../api";
 import { useEffect, useState } from "react";
 import BrandRequestContainer from "../../components/brands/brand-requests/BrandRequestContainer";
 
@@ -11,7 +11,7 @@ function DashboardOverviewPage() {
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState();
   const { brands } = fetchAllBrands();
-  const { orders, ordersLoading, ordersError, mutate } = fetchOrders();
+  const { orders, ordersLoading, ordersError, mutate } = fetchAllOrders();
   console.log("brands ss", brands);
   console.log("orders ss", orders);
 
