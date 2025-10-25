@@ -25,7 +25,7 @@ function DashboardUsersPage() {
       setoriginalArr(users?.users);
       setfilteredData(users?.users);
     }
-  }, [users]);
+  }, [users?.users]);
 
   console.log("Users ss", users);
 
