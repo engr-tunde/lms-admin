@@ -1,11 +1,30 @@
 import StatusCheck from '../globals/StatusCheck'
 import { Link } from "react-router-dom";
-import { capitalize, formatter, useToggleOpen } from "../../utils/helpers";
+import { capitalize, errorNotification, formatter, successNotification, useToggleOpen } from "../../utils/helpers";
 import { RiArrowDownSFill } from 'react-icons/ri';
+import { manageUser } from '../../api';
+import { useEffect } from 'react';
 
 
 function UsersRowTemplate({user, i, openIndex, setOpenIndex, mutate }) {
   const { isOpen, toggle, close, ref } = useToggleOpen(openIndex, setOpenIndex, i);
+
+  const manageUserAction = async (action) => {
+      const response = await manageUser({ action }, user?._id);
+      if (response?.status?.toString()?.includes("20")) {
+        successNotification(response?.data?.message);
+        mutate()
+      } else {
+        errorNotification(response?.data?.message[0]);
+      }
+    };
+  
+    useEffect(() => {
+      if (user?.user) {
+        setuserStatus(user?.user?.status);
+      }
+    }, [user?.user]);
+  
   
   return (
     <tr key={user?._id} className="border-1 border-t border-merseBorder">
@@ -36,6 +55,18 @@ function UsersRowTemplate({user, i, openIndex, setOpenIndex, mutate }) {
                 <Link to={`/users/${user?._id}`} className="flex items-center gap-1" onClick={close}>
                   View Profile
                 </Link>
+                <button 
+                  className="flex items-center gap-1" 
+                  onClick={() => {close(); manageUserAction('ACTIVATE_USER')}}
+                >
+                  Activate User
+                </button>
+                <button 
+                  className="flex items-center gap-1" 
+                  onClick={() => {close(); manageUserAction('SUSPEND_USER')}}
+                >
+                  Suspend User
+                </button>
               </div>
             )}
         </div>

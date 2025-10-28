@@ -4,7 +4,7 @@ import StatusCheck from "../../globals/StatusCheck"
 import PayoutReviewModal from "./PayoutReviewModal"
 import { useEffect, useState } from 'react'
 
-const PayoutDetailCard = ({ payout }) => {
+const PayoutDetailCard = ({ payout, mutate }) => {
   const [showModal, setShowModal] = useState(false)
   const [nextDueDate, setNextDueDate] = useState(null)
 
@@ -22,13 +22,20 @@ const PayoutDetailCard = ({ payout }) => {
         <div className="flex gap-4">
           <button 
             className="px-3 py-1 bg-black text-white text-sm gap-1"
-            onClick={() => setShowModal(true)}
+            onClick={() => {
+              setShowModal(true);
+              mutate();
+            }}
           >
-            Approve payout
+            {
+              (payout?.status === "pending" || payout?.status === "hold") ? 
+              "Approve Payout" : 
+              payout?.status === "approved" ? "Hold Payout" : null 
+            }
           </button>
-          <button className="px-3 py-1 border-merseBorder border-2 text-black text-sm gap-1">
+          {/* <button className="px-3 py-1 border-merseBorder border-2 text-black text-sm gap-1">
             Export statement
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="bg-gray-200/50 w-full p-4 ">
@@ -45,13 +52,13 @@ const PayoutDetailCard = ({ payout }) => {
             <span className="font-semibold text-base">Completed Orders</span>
             <span className="text-base">{200}</span>
           </div>
-          <div className="flex flex-col gap-2">
+          {/* <div className="flex flex-col gap-2">
             <span className="font-semibold text-base">Payment method</span>
             <div className="text-base flex flex-col">
               <span>Flutterwave</span>
               <span className="text-merseLightText">******5678</span>
             </div>
-          </div>
+          </div> */}
           <div className="flex flex-col gap-2">
             <span className="font-semibold text-base">Payment Status</span>
             <span className="text-base">
@@ -60,7 +67,7 @@ const PayoutDetailCard = ({ payout }) => {
           </div>
         </div>
       </div>
-      <PayoutReviewModal show={showModal} onClose={() => setShowModal(false)} payout={payout} nextDueDate={nextDueDate} />
+      <PayoutReviewModal show={showModal} onClose={() => setShowModal(false)} payout={payout} nextDueDate={nextDueDate} mutate={mutate}/>
     </>
   )
 }

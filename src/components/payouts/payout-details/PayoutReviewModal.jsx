@@ -1,12 +1,28 @@
 import { IoMdClose }from "react-icons/io";
 import AppFormButton from "../../forms/buttons/AppFormButton";
 import { AiOutlineInfoCircle } from "react-icons/ai"
-import {capitalize, dateFormatter, formatter} from "../../../utils/helpers"
-import { useEffect, useState } from "react";
-import { fetchAllPayouts } from "../../../api";
+import {capitalize, dateFormatter, errorNotification, formatter, successNotification} from "../../../utils/helpers"
+import { updatePayout } from "../../../api";
+
 
 const PayoutReviewModal = ({ show, onClose, payout, nextDueDate }) => {
   if (!show) return null;
+
+  const handleUpdatePayout = async (id, status) => {
+    try {
+      const response = await updatePayout(id, { status });
+      console.log("response", response);
+      if (response.status.toString().includes("20")) {
+        successNotification(response.data.message);
+        mutate()
+      } else {
+        errorNotification(response?.data?.message);
+      }
+    } finally {
+      close()
+    }
+  }
+  
 
   const noticeIcon = () => {
     return <AiOutlineInfoCircle size={20}/>
@@ -81,13 +97,44 @@ const PayoutReviewModal = ({ show, onClose, payout, nextDueDate }) => {
           >
             Cancel
           </button>
-          <AppFormButton
-            title="Confirm Payout"
-            className="px-3 text-white bg-black text-sm"
-            // type="submit"
-            isSubmitting={false}
-            disabled={true}
-          />
+          {
+            payout?.status === "pending" && (
+              <>
+              <button
+                className="px-3 py-1 text-white bg-black text-sm"
+                onClick={() => handleUpdatePayout(payout?._id, "approved")}
+              >
+                Confirm Payout
+              </button>
+              <button
+                className="px-3 py-1 text-white bg-black text-sm"
+                onClick={() => handleUpdatePayout(payout?._id, "hold")}
+              >
+                Hold Payout
+              </button>
+              </>
+            )
+          }
+          {
+            payout?.status === "approved" && (
+              <button
+                className="px-3 py-1 text-white bg-black text-sm"
+                onClick={() => handleUpdatePayout(payout?._id, "hold")}
+              >
+                Hold Payout
+              </button>
+            )
+          }
+          {
+            payout?.status === "hold" && (
+              <button
+                className="px-3 py-1 text-white bg-black text-sm"
+                onClick={() => handleUpdatePayout(payout?._id, "approved")}
+              >
+                Approve Payout
+              </button>
+            )
+          }
         </div>
       </div>
     </div>

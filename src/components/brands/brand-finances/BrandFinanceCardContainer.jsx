@@ -19,7 +19,7 @@ function BrandFinanceCardContainer({ summary }) {
           title="Total Earnings"
           figure={formatter(summary?.totalEarnings)?.slice(0, -3)}
           percent={+3.3}
-          summary={`+3.3 from last month`}
+          summary={null}
           icon={earningsIcon}
           date={null}
         />
@@ -35,14 +35,14 @@ function BrandFinanceCardContainer({ summary }) {
           title="Last Payout"
           figure={formatter(summary?.lastPayout)?.slice(0, -3)}
           percent={+3.3}
-          summary={`+3.3 compared to the last month`}
+          summary={null}
           icon={walletIcon}
           date={"Jun 21, 2025"}
         />
         <PayoutCardDetails
           date={dateFormatter(summary?.nextDueDate)}
-          cardNumber={"******123478"}
-          cardProvider={"Stripe"}
+          cardNumber={null}
+          cardProvider={null}
         />
       </div>
   );

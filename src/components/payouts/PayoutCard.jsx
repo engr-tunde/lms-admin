@@ -20,8 +20,7 @@ function PayoutCard({ title, figure, percent, icon, size = "normal", lastUpdated
         {icon()}
       </div>
       <div className="text-merseLightText text-[14px] font-light">
-        {/* {lastUpdated} */}
-        Updated a min ago
+        {lastUpdated}
       </div>
     </div>
   );

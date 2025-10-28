@@ -79,6 +79,18 @@ const DashboardNavBar = ({ title, subtitle, status, copyable }) => {
     }
   };
 
+  const statusColors = {
+    pending: "bg-amber-500 text-white",
+    "in review": "bg-amber-500 text-white",
+    completed: "bg-green-500 text-white",
+    approved: "bg-green-500 text-white",
+    done: "bg-green-500 text-white",
+    open: "bg-blue-500 text-white",
+    rejected: "bg-red-500 text-white",
+    failed: "bg-red-500 text-white",
+    hold: "bg-red-500 text-white",
+  };
+
 
   const getStatusClass = (status) => {
     if (!status) return "";

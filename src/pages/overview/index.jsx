@@ -3,7 +3,7 @@ import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { RiCalendarLine } from "react-icons/ri";
 import OverviewCards from "../../components/overview/OverviewCardsContainer";
 import OverviewTable from "../../components/overview/OverviewTable";
-import { fetchAllBrands, fetchAllOrders } from "../../api";
+import { fetchAllBrands, fetchAllOrders, fetchAllPayouts, fetchAllUsers } from "../../api";
 import { useEffect, useState } from "react";
 import BrandRequestContainer from "../../components/brands/brand-requests/BrandRequestContainer";
 
@@ -11,9 +11,36 @@ function DashboardOverviewPage() {
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState();
   const { brands } = fetchAllBrands();
-  const { orders, ordersLoading, ordersError, mutate } = fetchAllOrders();
+  const { orders, mutate } = fetchAllOrders();
+  const { users } = fetchAllUsers();
+  const { payouts } = fetchAllPayouts()
   console.log("brands ss", brands);
   console.log("orders ss", orders);
+  console.log("users ss", users);
+
+  const [totalSales, settotalSales] = useState(0);
+  const [totalBrands, settotalBrands] = useState(0);
+  const [totalUsers, settotalUsers] = useState(0);
+  const [totalOrders, settotalOrders] = useState(0);
+
+  useEffect(() => {
+    if (brands) {
+      settotalBrands(brands.total || brands?.brands?.length);
+    }
+    if (orders) {
+      settotalOrders(orders.total || orders?.orders?.length);
+    }
+    if (users) {
+      settotalUsers(users.totalCount || users.users?.length);
+    }
+    if (payouts?.summary?.totalSales) {
+      settotalSales(payouts?.summary?.totalSales);
+    }
+  }, [brands, orders, users]);
+  
+ 
+
+
 
   useEffect(() => {
     if (orders) {
@@ -21,20 +48,6 @@ function DashboardOverviewPage() {
       setfilteredData(orders?.orders);
     }
   }, [orders]); 
-
-  const newlyAddedBrands = () => {
-    let allBrands = brands?.brands
-
-    if (!allBrands) return [];
-    const pendingBrands = allBrands.filter(brand => brand.status === "pending");
-    if (pendingBrands.length > 0) {
-        allBrands = pendingBrands
-    };
-    const sorted = [...allBrands].sort(
-      (a, b) => new Date(b.created_at) - new Date(a.created_at)
-    );
-    return sorted.slice(0, 3);
-  };
 
   return (
     <div className="flex flex-col gap-6 h-full">
@@ -50,7 +63,12 @@ function DashboardOverviewPage() {
             <FaChevronDown size={10} />
           </div>
         </div>
-        <OverviewCards />
+        <OverviewCards 
+          totalSales={totalSales}
+          totalBrands={totalBrands}
+          totalUsers={totalUsers}
+          totalOrders={totalOrders}
+        />
         {
           brands?.summary?.brandRequests ? 
           (<BrandRequestContainer requests={brands?.summary?.brandRequests} />): 

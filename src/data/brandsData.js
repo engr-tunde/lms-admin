@@ -290,11 +290,11 @@ export const brandDisputeOrderTableColumn = [
     className:
       "text-sm font-medium text-merseLightText",
   },
-  {
-    header: "Customer",
-    className:
-      "text-sm font-medium text-merseLightText hidden lg:table-cell",
-  },
+  // {
+  //   header: "Customer",
+  //   className:
+  //     "text-sm font-medium text-merseLightText hidden lg:table-cell",
+  // },
   {
     header: "Brand",
     className:

@@ -24,7 +24,7 @@ const CustomLineChart = ({ data, month }) => {
 
   return (
     <div className="border-gray-500 rounded-xl w-full h-full py-4">
-      <div className="text-sm text-green-500 mb-6">{"+3.3% from last month"}</div>
+      {/* <div className="text-sm text-green-500 mb-6">{"+3.3% from last month"}</div> */}
       <ResponsiveContainer width="100%" height="90%">
         <LineChart
           width={500}

@@ -14,7 +14,6 @@ import {
   LOGOUT,
   FETCH_DISPUTES,
   CREATE_DISPUTES,
-  DISPUTE_VIEW,
   FETCH_CATEGORIES,
   FETCH_COLLECTIONS,
   FETCH_SUBCATEGORIES,
@@ -185,9 +184,9 @@ export const fetchBrandOrder = (id) => {
     mutate,
   };
 };
-export const fetchBrandDispute = (id) => {
+export const fetchBrandDispute = (id, type) => {
   const { data, error, mutate } = useSWR(
-    `${FETCH_BRAND_DISPUTES}/${id}`,
+    `${FETCH_BRAND_DISPUTES}/${id}?disputeType=${type}`,
     fetcher
   );
   return {
@@ -403,15 +402,20 @@ export const fetchAllDisputes = (type) => {
     mutate,
   };
 };
-export const fetchDisputeView = (id) => {
-  const { data, error, mutate } = useSWR(`${DISPUTE_VIEW}/${id}`, fetcher);
+export const fetchDispute = (id) => {
+  const { data, error, mutate } = useSWR(`${FETCH_DISPUTES}/${id}`, fetcher);
   return {
-    disputeView: data,
-    disputeViewLoading: !error && !data,
-    disputeViewError: error,
+    dispute: data,
+    disputeLoading: !error && !data,
+    disputeError: error,
     mutate,
   };
 };
+
+
+
+
+
 
 // ##ORDERS
 export const updateOrderStatus = async (values, id) => {
@@ -465,6 +469,17 @@ export const fetchPayout = (id) => {
     mutate,
   };
 };
+export const updatePayout = async (id, values) => {
+  const result = await mutationRequest(
+    `${FETCH_PAYOUTS}/${id}`,
+    "patch",
+    values,
+    false
+  );
+  return result;
+};
+
+
 
 
 
@@ -489,8 +504,10 @@ export const fetchAnalyticsBrands = () => {
     mutate,
   };
 };
-export const fetchAnalyticsDelivery = () => {
-  const { data, error, mutate } = useSWR(FETCH_ANALYTICS_DELIVERY, fetcher);
+export const fetchAnalyticsDelivery = (startDate, endDate) => {
+  const { data, error, mutate } = useSWR(
+    `${FETCH_ANALYTICS_DELIVERY}?startDate=${startDate}&endDate=${endDate}`, fetcher);
+
   return {
     analyticsDelivery: data,
     analyticsDeliveryLoading: !error && !data,

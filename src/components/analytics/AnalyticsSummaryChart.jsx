@@ -5,9 +5,12 @@ import { RiCalendarLine } from "react-icons/ri";
 import { fetchAnalyticsDelivery } from "../../api";
 import Loader from "../globals/Loader";
 import ErrorWidget from "../globals/ErrorWidget";
+import { useState } from "react";
 
 const AnalyticsSummaryChart = () => {
-  const { analyticsDelivery, analyticsDeliveryLoading, analyticsDeliveryError } = fetchAnalyticsDelivery();
+  const [startDate, setStartDate] = useState("2025-10-01");
+  const [endDate, setEndDate] = useState("2025-10-31");
+  const { analyticsDelivery, analyticsDeliveryLoading, analyticsDeliveryError } = fetchAnalyticsDelivery(startDate, endDate);
 
   console.log("analyticsDelivery", analyticsDelivery);
 

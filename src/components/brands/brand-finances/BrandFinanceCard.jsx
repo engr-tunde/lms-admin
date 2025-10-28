@@ -31,7 +31,7 @@ export const PayoutCardDetails = ({ date, cardNumber, cardProvider }) => {
         </div>
         <div className="px-3 w-full h-full pb-3 flex justify-between items-end">
           <div className="flex items-end gap-1">
-            <img src="/assets/images/stripe-logo.png" alt="stripe logo" className="w-7" />
+            {/* <img src="/assets/images/stripe-logo.png" alt="stripe logo" className="w-7" /> */}
             <span className="text-sm font-medium">{cardProvider}</span>
           </div>
           <div className="text-right">

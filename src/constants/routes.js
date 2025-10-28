@@ -18,7 +18,6 @@ export const FETCH_BRAND_FINANCES = "/admins/brand-finances"
 
 
 
-
 // Admin Members
 export const CREATE_FETCH_ADMINS = "/admins";
 export const UPDATE_ADMIN_STATUS = "/admins/status"
@@ -50,7 +49,6 @@ export const FETCH_COLLECTIONS = "/categories/collections";
 // Admin Disputes 
 export const FETCH_DISPUTES = "/admins/disputes"
 export const CREATE_DISPUTES = "/disputes";
-export const DISPUTE_VIEW = "/disputes/view"
 
 
 // Users 

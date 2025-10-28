@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { capitalize, compactDateFormatter, formatter, useToggleOpen } from "../../utils/helpers";
+import { capitalize, compactDateFormatter, errorNotification, formatter, successNotification, useToggleOpen } from "../../utils/helpers";
 import StatusCheck from "../globals/StatusCheck";
 import { RiArrowDownSFill } from "react-icons/ri";
+import { updatePayout } from "../../api";
 
 function PayoutRowTemplate({ payout, i, openIndex, setOpenIndex, mutate, nextDueDate }) {
   const { isOpen, toggle, close, ref } = useToggleOpen(
@@ -9,6 +10,22 @@ function PayoutRowTemplate({ payout, i, openIndex, setOpenIndex, mutate, nextDue
     setOpenIndex,
     i
   );
+
+  const handleUpdatePayout = async (id, status) => {
+    try {
+      const response = await updatePayout(id, { status });
+      console.log("response", response);
+      if (response.status.toString().includes("20")) {
+        successNotification(response.data.message);
+        mutate()
+      } else {
+        errorNotification(response?.data?.message);
+      }
+    } finally {
+      close()
+    }
+  }
+    
 
   return (
     <tr key={payout?._id} className="border-1 border-t border-merseBorder">
@@ -49,15 +66,29 @@ function PayoutRowTemplate({ payout, i, openIndex, setOpenIndex, mutate, nextDue
           </button>
           {isOpen && (
               <div className="absolute z-10 w-[150px] text-xs rounded-md flex flex-col p-3 gap-3 top-9 left-0 bg-white shadow-xl">
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 cursor-pointer">
                   <span>View details</span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <span>Approve payout</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <span>Hold payout</span>
-                </div>
+                {
+                  (payout?.status === "pending" || payout?.status === "hold") && (
+                  <div 
+                    className="flex items-center gap-1 cursor-pointer"
+                    onClick={() => handleUpdatePayout(payout?._id, "approved")}
+                  >
+                    <span>Approve payout</span>
+                  </div>
+                  )
+                }
+                {
+                  (payout?.status === "pending" || payout?.status === "approved") && (
+                  <div 
+                    className="flex items-center gap-1 cursor-pointer"
+                    onClick={() => handleUpdatePayout(payout?._id, "hold")}
+                  >
+                    <span>Hold Payout</span>
+                  </div>
+                  )
+                }
               </div>
             )}
         </div>

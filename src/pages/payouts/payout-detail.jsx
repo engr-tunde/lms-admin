@@ -53,7 +53,7 @@ function PayoutDetailPage() {
         status={payout?.status}
       />
       {
-        payout && <PayoutDetailCard payout={payout} />
+        payout && <PayoutDetailCard payout={payout} mutate={mutate} />
       }
       {filteredData ? (
           <PayoutDetailTable

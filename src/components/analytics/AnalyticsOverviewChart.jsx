@@ -4,7 +4,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { RiCalendarLine } from "react-icons/ri";
 import { useEffect, useState }  from "react"
 import CustomLineChart from "../globals/CustomLineChart"
-import { totalSales, totalOrders, activeBrands, newCustomers, pendingPayouts, completedPayouts } from "../../data/analyticsData";
+// import { totalSales, totalOrders, activeBrands, newCustomers, pendingPayouts, completedPayouts } from "../../data/analyticsData";
 import { fetchAnalytics } from "../../api";
 import Loader from "../globals/Loader";
 import ErrorWidget from "../globals/ErrorWidget";
@@ -153,30 +153,34 @@ function SetActiveLineChart(
   pendingPayoutGraph, 
   completedPayoutGraph
 ) {
-  let data;
+  let data = [];
 
-  switch (activeTab, threshold) {
+  switch (activeTab) {
     case "Total Sales":
-      data = salesGraph?.length > threshold ? salesGraph : <NoDataPage message={"No enough data available to show sales graph"}/>;
+      data = salesGraph 
       break;
     case "Total Orders":
-      data = orderGraph?.length > threshold ? orderGraph : <NoDataPage message={"No enough data available to show orders graph"}/>;
+      data = orderGraph 
       break;
     case "Active Brands":
-      data = brandGraph?.length > threshold ? brandGraph : <NoDataPage message={"No enough data available to show active brands graph"}/>;
+      data = brandGraph 
       break;
     case "New Customers":
-      data = customerGraph?.length > threshold ? customerGraph : <NoDataPage message={"No enough data available to show new customers graph"}/>;
+      data = customerGraph 
       break;
     case "Pending Payout":
-      data = pendingPayoutGraph?.length > threshold ? pendingPayoutGraph : <NoDataPage message={"No enough data available to show pending payout graph"}/>;
+      data = pendingPayoutGraph 
       break;
     case "Completed Payout":
-      data = completedPayoutGraph?.length > threshold ? completedPayoutGraph : <NoDataPage message={"No enough data available to show completed payout graph"}/>;
+      data = completedPayoutGraph 
       break;
     default:
       data = [];
       break;
+  }
+
+  if (!data || data.length <= threshold) {
+    return <NoDataPage message={`Not enough data to show ${activeTab} graph`} />;
   }
 
   return <CustomLineChart data={data} month="July" />;

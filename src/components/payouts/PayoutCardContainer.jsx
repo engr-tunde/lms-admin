@@ -26,7 +26,7 @@ function PayoutCardContainer({ summary, total }) {
         percent={0}
         icon={salesIcon}
         size="sm"
-        // lastUpdated={getLastUpdatedText(summary?.nextDueDate)}
+        lastUpdated={null}
       />
       <PayoutCard
         title="Commission"
@@ -34,7 +34,7 @@ function PayoutCardContainer({ summary, total }) {
         percent={0}
         icon={brandsIcon}
         size="sm"
-        // lastUpdated={getLastUpdatedText(summary?.nextDueDate)}
+        lastUpdated={null}
       />
       <PayoutCard
         title="Pending payout"
@@ -42,7 +42,7 @@ function PayoutCardContainer({ summary, total }) {
         percent={0}
         icon={dollarIcon}
         size="sm"
-        // lastUpdated={getLastUpdatedText(summary?.nextDueDate)}
+        lastUpdated={null}
       />
       <PayoutCard
         title="Completed payout"
@@ -50,7 +50,7 @@ function PayoutCardContainer({ summary, total }) {
         percent={0}
         icon={ordersIcon}
         size="sm"
-        // lastUpdated={getLastUpdatedText(summary?.nextDueDate)}
+        lastUpdated={null}
       />
     </div>
   );

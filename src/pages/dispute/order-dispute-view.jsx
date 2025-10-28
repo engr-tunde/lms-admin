@@ -5,8 +5,11 @@ import OrderDisputeViewSummaryCard from "../../components/dispute/order-dispute-
 import OrderDisputeViewDeliveryInfo from "../../components/dispute/order-dispute-view/OrderDisputeViewDeliveryInfo.jsx";
 import { FaChevronDown, FaCopy } from "react-icons/fa";
 import { useState } from 'react'
-import { fetchDisputeView } from "../../api/index.js";
+import { fetchDispute } from "../../api/index.js";
 import { useParams } from "react-router-dom";
+import Loader from "../../components/globals/Loader.jsx";
+import ErrorWidget from "../../components/globals/ErrorWidget.jsx";
+import NoDataPage from "../../components/globals/NoDataPage.jsx";
 
 function OrderDisputeViewPage() {
   const [updateStatusButtonOpen, setUpdateStatusButtonOpen] = useState(null);
@@ -14,24 +17,18 @@ function OrderDisputeViewPage() {
     setUpdateStatusButtonOpen(!updateStatusButtonOpen);
   };
 
-   const { id } = useParams();
-  const { disputeView, disputeViewLoading, disputeViewError, mutate } = fetchDisputeView(id);
-  console.log("disputeView", disputeView);
-    // const [dispute, setDispute] = useState(null);
-  
-  
-  
-    // useEffect(() => {
-    //   const currentDispute = orders?.orders?.find((item) => item._id === id)
-    //   setOrder(foundOrder)
-    // }, [orders, id])
-  
-    // console.log("picked order", order);
+  const { id } = useParams();
+  const { dispute, disputeLoading, disputeError, mutate } = fetchDispute(id);
+  console.log("dispute", dispute);
+
+
+  if (disputeLoading) return <Loader />;
+  if (disputeError) return <ErrorWidget error={disputeError} />;
+  if (!dispute) return <NoDataPage message="No dispute data found." />;
 
   return (
     <div className="flex flex-col gap-9">
       <DashboardNavBar
-        path="< Back Dispute > Order details"
         title="DSP 2023 003"
         copyable
         status="Completed"
