@@ -1,7 +1,6 @@
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import { AiOutlineUserAdd, AiOutlineUserDelete } from "react-icons/ai";
 import { TbUserCheck } from "react-icons/tb";
-import { AiOutlineUserDelete } from "react-icons/ai";
 import UsersCard from "./UsersCard";
 
 
@@ -29,7 +28,6 @@ function UsersCardContainer({ summary }) {
         figure={summary?.totalRegistered}
         percent={0}
         icon={userGroupIcon}
-        size="sm"
         lastUpdated={""}
       />
       <UsersCard
@@ -41,7 +39,7 @@ function UsersCardContainer({ summary }) {
       />
       <UsersCard
         title="New Signups"
-        figure={200}
+        figure={summary?.newSignUps}
         percent={0}
         icon={userAddIcon}
         lastUpdated={""}

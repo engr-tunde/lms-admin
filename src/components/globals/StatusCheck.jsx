@@ -29,6 +29,9 @@ const StatusCheck = ({ value, className = "" }) => {
     case "low":
       bg = "bg-green-500 text-white";
       break;
+    case "resolved":
+      bg = "bg-green-500 text-white";
+      break;
     case "open":
       bg = "bg-blue-600 text-white";
       break;

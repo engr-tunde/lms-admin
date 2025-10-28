@@ -1,15 +1,14 @@
 import { FaChevronDown } from "react-icons/fa";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { RiCalendarLine } from "react-icons/ri";
-import OrderCardsContainer from "../../components/orders/OrderCardContainer";
-import OrderTable from "../../components/orders/OrderTable.jsx";
+import UsersCardContainer from "../../components/users/UsersCardContainer.jsx"
+import UsersTable from "../../components/users/UsersTable.jsx"
 import { fetchAllUsers, fetchUser } from "../../api/index.js";
 import { useEffect, useState } from "react";
 import ErrorWidget from "../../components/globals/ErrorWidget.jsx";
 import Loader from "../../components/globals/Loader.jsx";
 import NoDataPage from "../../components/globals/NoDataPage.jsx"
 import Pagination from "../../components/globals/Pagination.jsx";
-import UsersTable from "../../components/users/UsersTable.jsx";
 
 
 function DashboardUsersPage() {
@@ -31,7 +30,7 @@ function DashboardUsersPage() {
 
   console.log("Single User ss", user);
 
-  const itemsPerPage = users?.limit || 10;
+  const itemsPerPage = 4;
   const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = filteredData?.slice(
@@ -61,7 +60,8 @@ function DashboardUsersPage() {
             <FaChevronDown size={10} />
           </div>
         </div>
-        {users?.summary && <OrderCardsContainer summary={users?.summary} />}
+        {users?.summary && 
+          <UsersCardContainer summary={users?.summary} />}
         {filteredData ? (
           <UsersTable
             filteredData={currentItems}

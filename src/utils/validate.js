@@ -164,3 +164,16 @@ export const validateRejectBrand = () => {
   });
   return validationSchema;
 };
+
+
+// # USERS PAGE VALIDATIONS
+
+export const validateStatusDetails = () => {
+  const validationSchema = yup.object().shape({
+    additionalDetails: yup
+      .string()
+      .trim()
+      .required("Kindly provide additional details for decision"),
+  });
+  return validationSchema;
+};

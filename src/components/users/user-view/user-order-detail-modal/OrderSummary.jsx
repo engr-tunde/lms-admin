@@ -1,37 +1,40 @@
 import { useEffect, useState } from "react";
 import { FaChevronUp } from "react-icons/fa"
-import { formatter } from "../../../utils/helpers";
+import { formatter } from "../../../../utils/helpers";
 
-const OrderViewSummaryCard = ({order}) => {
+const OrderSummary = ({ order }) => {
   const [showModal, setShowModal] = useState(true);
   const [discountPercent, setdiscountPercent] = useState()
-  const [totalPayout, settotalPayout] = useState()
+  const [subTotal, setsubtotal] = useState()
+  const [total, settotal] = useState()
 
   useEffect(() => {
-    if (order?.discountApplied) {
+    if (order) {
       setdiscountPercent((order?.discountApplied / order?.totalAmount) * 100);
+      setsubtotal(order?.totalAmount - order?.shippingPaidByUser - order?.platformCommission);
     }
   }, [order?.discountApplied])
 
   useEffect(() => {
     if (!order) return;
-    settotalPayout(
+    settotal(
       (order.totalAmount || 0) -
       (order?.discountApplied || 0) -
-      (order.shippingPaidByUser || 0) -
-      (order.platformCommission || 0)
+      (order?.shippingPaidByUser || 0) -
+      (order?.platformCommission || 0) - 
+      (order?.tax || 0)
     );
   }, [order])
 
   return (
-    <div className="border-2 p-5 w-full lg:w-1/2 relative">
+    <div className="border-2 p-5 w-full relative">
       <div className="flex justify-between mb-3 font-semibold">
         Order Summary
       </div>
-      <div className={`flex flex-col gap-1 flex-1 text-md py-4 ${!showModal ? "hidden" : "flex"}`}>
+      <div className={`flex flex-col gap-1 flex-1 text-md ${!showModal ? "hidden" : "flex"}`}>
         <div className="flex justify-between">
-          <span>Total Order value</span>
-          <span>{formatter(order?.totalAmount)}</span>
+          <span>Sub Total</span>
+          <span>{formatter(subTotal)}</span>
         </div>
         { order?.discountApplied > 0 && (
           <div className="flex justify-between">
@@ -44,16 +47,16 @@ const OrderViewSummaryCard = ({order}) => {
             ${order?.shippingPaidByUser === 0 ? "text-merseBorder" : "text-black"
           }`}
         >
-          <span>Shipping paid by buyer</span>
+          <span>Shipping Fee</span>
           <span>{order?.shippingPaidByUser}</span>
         </div>
         <div className="flex justify-between">
-          <span>Platform commission(10%)</span>
-          <span>{formatter(order?.platformCommission)}</span>
+          <span>Tax</span>
+          <span>{formatter(order?.tax || 0)}</span>
         </div>
         <div className="flex justify-between mt-2 border-t border-merseBorder pt-2">
-          <span>Your total payout</span>
-          <span>{formatter(totalPayout)}</span>
+          <span>Total</span>
+          <span>{formatter(total)}</span>
         </div>
       </div>
       <div className="absolute top-5 right-5">
@@ -68,4 +71,4 @@ const OrderViewSummaryCard = ({order}) => {
 }
 
 
-export default OrderViewSummaryCard
+export default OrderSummary

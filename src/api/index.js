@@ -35,6 +35,7 @@ import {
   FETCH_ANALYTICS_DELIVERY,
   FETCH_ANALYTICS_BRANDS,
   FETCH_USERS, 
+  MANAGE_USER,
 } from "../constants/routes";
 import { mutationRequest } from "./sendData";
 import { fetcher, sessionFetcher } from "./fetcher";
@@ -518,6 +519,15 @@ export const fetchUser = (id) => {
     userError: error,
     mutate,
   };
+};
+export const manageUser = async (values, id) => {
+  const result = await mutationRequest(
+    `${MANAGE_USER}/${id}`,
+    "patch",
+    values,
+    false
+  );
+  return result;
 };
 
 

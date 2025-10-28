@@ -114,3 +114,12 @@ export const rejectBrandValues = () => {
   return initialValues;
 };
 
+
+// User 
+
+export const statusDetailsValues = () => {
+  const initialValues = {
+    additionalDetails: "",
+  };
+  return initialValues;
+};

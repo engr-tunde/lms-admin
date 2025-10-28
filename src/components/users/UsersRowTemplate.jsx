@@ -9,16 +9,13 @@ function UsersRowTemplate({user, i, openIndex, setOpenIndex, mutate }) {
   
   return (
     <tr key={user?._id} className="border-1 border-t border-merseBorder">
-      <td className="py-4 text-sm hidden lg:table-cell">{capitalize(user?.fullName)}</td>
-      <td className="py-4 text-sm hidden lg:table-cell">{user?.email}</td>
-      <td className="py-4 text-sm hidden lg:table-cell">{9}</td>
-      <td className="py-4 text-sm hidden lg:table-cell">{formatter(2300)}</td>
-      <td className="py-4 text-sm hidden lg:table-cell">
-        {"23-10-2025"}
-      </td>
-      <td className="">
-        <StatusCheck value={"Active"} className="text-sm px-2 py-1"/>
-      </td>
+      <td className="py-4 text-sm">{capitalize(user?.fullName)}</td>
+      <td className="py-4 text-sm">{user?.email}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{user?.totalOrders}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{formatter(user?.totalSpent).slice(0, -3)}</td>
+      {user?.lastActive ? <td className="py-4 text-sm hidden lg:table-cell">
+        {user?.lastActive}
+      </td> : <td className="py-4 text-sm hidden lg:table-cell">N/A</td>}
       <td className="py-4">
         <div className="relative" ref={ref}>
           <button 
@@ -36,13 +33,7 @@ function UsersRowTemplate({user, i, openIndex, setOpenIndex, mutate }) {
                className="absolute z-10 w-[150px] text-xs rounded-md flex flex-col p-3 gap-3 top-6 right-0 bg-white shadow-xl"
                onClick={(e) => e.stopPropagation()}
               > 
-                <button 
-                  className={`flex items-center gap-1`}
-                //   onClick={}
-                >
-                 {"Suspend User"}
-                </button>
-                <Link to={`/orders/${order._id}`}className="flex items-center gap-1">
+                <Link to={`/users/${user?._id}`} className="flex items-center gap-1" onClick={close}>
                   View Profile
                 </Link>
               </div>

@@ -9,6 +9,7 @@ import { fetchAnalytics } from "../../api";
 import Loader from "../globals/Loader";
 import ErrorWidget from "../globals/ErrorWidget";
 import { set } from "zod/v4";
+import NoDataPage from "../globals/NoDataPage";
 
 
 const AnalyticsOverviewPage = () => {
@@ -20,6 +21,7 @@ const AnalyticsOverviewPage = () => {
   const [brandGraph, setbrandGraph] = useState(null)
   const [pendingPayoutGraph, setpendingPayoutGraph] = useState(null);
   const [completedPayoutGraph, setcompletedPayoutGraph] = useState(null);
+  const threshold = 1;
 
 
   useEffect(() => {
@@ -98,7 +100,16 @@ const AnalyticsOverviewPage = () => {
         { analytics?.graphs.length === 0 &&
           <NoDataPage message={"No graph data available yet"}/>
         }
-        {SetActiveLineChart(activeTab, salesGraph, customerGraph, orderGraph, brandGraph, pendingPayoutGraph, completedPayoutGraph)}
+        {SetActiveLineChart(
+          activeTab, 
+          threshold,
+          salesGraph, 
+          customerGraph, 
+          orderGraph, 
+          brandGraph, 
+          pendingPayoutGraph, 
+          completedPayoutGraph
+        )}  
       </div>
     </div>
     </>
@@ -106,6 +117,7 @@ const AnalyticsOverviewPage = () => {
 }
 
 export default AnalyticsOverviewPage;
+
 
 
 
@@ -133,6 +145,7 @@ const StatusToggle = ({title, figure, percentage, activeTab, setActiveTab}) => {
 
 function SetActiveLineChart(
   activeTab, 
+  threshold,
   salesGraph,
   customerGraph, 
   orderGraph, 
@@ -142,24 +155,24 @@ function SetActiveLineChart(
 ) {
   let data;
 
-  switch (activeTab) {
+  switch (activeTab, threshold) {
     case "Total Sales":
-      data = salesGraph?.length > 1 ? salesGraph : totalSales;
+      data = salesGraph?.length > threshold ? salesGraph : <NoDataPage message={"No enough data available to show sales graph"}/>;
       break;
     case "Total Orders":
-      data = orderGraph?.length > 1 ? orderGraph : totalOrders;
+      data = orderGraph?.length > threshold ? orderGraph : <NoDataPage message={"No enough data available to show orders graph"}/>;
       break;
     case "Active Brands":
-      data = brandGraph?.length > 1 ? brandGraph : activeBrands;
+      data = brandGraph?.length > threshold ? brandGraph : <NoDataPage message={"No enough data available to show active brands graph"}/>;
       break;
     case "New Customers":
-      data = customerGraph?.length > 1 ? customerGraph : newCustomers;
+      data = customerGraph?.length > threshold ? customerGraph : <NoDataPage message={"No enough data available to show new customers graph"}/>;
       break;
     case "Pending Payout":
-      data = pendingPayoutGraph?.length > 1 ? pendingPayoutGraph : pendingPayouts;
+      data = pendingPayoutGraph?.length > threshold ? pendingPayoutGraph : <NoDataPage message={"No enough data available to show pending payout graph"}/>;
       break;
     case "Completed Payout":
-      data = completedPayoutGraph?.length > 1 ? completedPayoutGraph : completedPayouts;
+      data = completedPayoutGraph?.length > threshold ? completedPayoutGraph : <NoDataPage message={"No enough data available to show completed payout graph"}/>;
       break;
     default:
       data = [];

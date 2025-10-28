@@ -2,7 +2,6 @@ import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import OrderViewBuyDetailsCard from "../../components/orders/order-view/OrderViewDetailsCard.jsx";
 import OrderViewStatusCard from "../../components/orders/order-view/OrderViewStatusCard.jsx"
 import OrderViewSummaryCard from "../../components/orders/order-view/OrderViewSummaryCard.jsx";
-import OrderTrackingInfoCard from "../../components/orders/order-view/OrderViewTrackingInfoCard.jsx";
 import OrderViewItemsTable from "../../components/orders/order-view/OrderViewItemsTable.jsx"
 import OrderViewTimelineCard from "../../components/orders/order-view/OrderViewTimelineCard.jsx"
 import { fetchAllOrders, fetchOrder } from "../../api/index.js"
@@ -10,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Loader from "../../components/globals/Loader.jsx";
 import ErrorWidget from "../../components/globals/ErrorWidget.jsx";
+import OrderViewTracking from "../../components/orders/order-view/OrderViewTrackingCard.jsx";
 
 function OrderViewPage() {
   const { id } = useParams();
@@ -53,7 +53,7 @@ function OrderViewPage() {
               <OrderViewSummaryCard 
                order={order}
               />
-              <OrderTrackingInfoCard status={order?.status} />
+              <OrderViewTracking order={order} />
             </div>
           </>
         ) : null}

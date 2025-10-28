@@ -8,7 +8,6 @@ function UsersTable({ filteredData, setfilteredData, originalArr, mutate }) {
   
   const searchable = [
     "fullName", 
-    "role", 
     "email", 
   ];
 
@@ -52,7 +51,7 @@ export default UsersTable;
 export const userTableColumnHeader = [
     {
         header: "Buyer Name", 
-        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
+        className: "text-sm font-medium text-merseLightText"
     }, 
     {
         header: "Email Address", 
@@ -69,10 +68,6 @@ export const userTableColumnHeader = [
     {
         header: "Last active", 
         className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
-    }, 
-    {
-        header: "Status", 
-        className: "text-sm font-medium text-merseLightText"
     }, 
     {
         header: "Actions", 

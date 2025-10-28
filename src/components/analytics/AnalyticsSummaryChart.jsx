@@ -11,9 +11,9 @@ const AnalyticsSummaryChart = () => {
 
   console.log("analyticsDelivery", analyticsDelivery);
 
-  // if (analyticsDeliveryLoading) return <Loader />;
-  // if (analyticsDeliveryError) return <ErrorWidget error={analyticsDeliveryError} />;
-  // if (!analyticsDelivery) return <div>No delivery analytics found</div>;
+  if (analyticsDeliveryLoading) return <Loader />;
+  if (analyticsDeliveryError) return <ErrorWidget error={analyticsDeliveryError} />;
+  if (!analyticsDelivery) return <div>No delivery analytics found</div>;
 
   return (
     <div className="w-full p-3 border-[1px] border-merseBorder h-[400px] flex flex-col justify-between">

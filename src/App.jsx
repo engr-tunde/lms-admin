@@ -62,8 +62,7 @@ function App() {
                 element={<PayoutDisputeViewPage />}
               />
               <Route path="/users" element={<DashboardUsersPage />} />
-              {/* <Route path="/users/:id" element={<DashboardUsersViewPage />} /> */}
-              <Route path="/users/1" element={<DashboardUsersViewPage />} />
+              <Route path="/users/:id" element={<DashboardUsersViewPage />} />
               
               <Route path="/members" element={<DashboardMembersPage />} />
               <Route path="/analytics" element={<DashboardAnalyticsPage />} />
