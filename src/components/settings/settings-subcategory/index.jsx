@@ -34,7 +34,7 @@ function SubcategorySettingsTable() {
       setcategoryData(category);
     }
   }, [category]);
-
+  
   const itemsPerPage = subcategory?.limit || 10;
   const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;

@@ -568,3 +568,14 @@ export const addBrands = async (values) => {
   return result;
 };
 
+
+
+export const addDisputes = async (values) => {
+  const result = await mutationRequest(
+    CREATE_DISPUTES,
+    "post",
+    values,
+    false
+  );
+  return result;
+};

@@ -13,7 +13,7 @@ const CreateSubcategoryModal = ({ show, onClose, categoryData, mutate }) => {
   const validationSchema = validateAddSubcategoryValues();
 
   const categoryOptions = categoryData?.map(cat => (
-    { value: cat.name.split(" ").join("").toLowerCase(), title: cat.name, id: cat.id })) || [];
+    { value: cat.name.split(" ").join("").toLowerCase(), title: cat.name, id: cat._id })) || [];
   const addSubcategoryFields = [
     {
       type: "select",
@@ -33,7 +33,7 @@ const CreateSubcategoryModal = ({ show, onClose, categoryData, mutate }) => {
   const handleSubmit = async (values) => {
     const selectedCategory = categoryOptions.find(cat => cat.value === values.category)
     const payload = {
-      name: values.subcategory,    
+      name: values?.subcategory,    
       categoryId: selectedCategory?.id,                  
     };
 
