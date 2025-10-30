@@ -74,8 +74,8 @@ function CategoryRowTemplate({ item, i, openIndex, setOpenIndex, mutate, subcate
       <DeleteCategoryModal
         show={showDeleteCategoryModal}
         onClose={() => setShowDeleteCategoryModal(false)}
-        categoryToDelete={item.name}
-        categoryToDeleteId={item.id}
+        categoryToDelete={item?.name}
+        categoryToDeleteId={item?._id}
         mutate={mutate}
       />
     </>
