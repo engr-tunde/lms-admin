@@ -1,6 +1,10 @@
 import { IoEllipsisVertical } from "react-icons/io5";
 import { useState } from "react";
-import { capitalize, compactDateFormatter, useToggleOpen } from "../../../utils/helpers";
+import {
+  capitalize,
+  compactDateFormatter,
+  useToggleOpen,
+} from "../../../utils/helpers";
 import DeleteBrandTypeModal from "./DeleteBrandTypeModal";
 import CreateUpdateBrandTypeModal from "./CreateUpdateBrandTypeModal";
 
@@ -15,27 +19,29 @@ function BrandTypeRowTemplate({ item, i, openIndex, setOpenIndex, mutate }) {
   );
 
   const updateBrandType = async () => {
-      const response = await updateBrandType(
-        {
-          name: "approved",
-        },
-        data?._id
-      );
-      console.log("response", response);
-      if (response?.status?.toString()?.includes("20")) {
-        successNotification(response?.data?.message);
-        close();
-        mutate();
-      } else {
-        errorNotification(response?.data?.message[0]);
-      }
-    };
+    const response = await updateBrandType(
+      {
+        name: "approved",
+      },
+      data?._id
+    );
+    console.log("response", response);
+    if (response?.status?.toString()?.includes("20")) {
+      successNotification(response?.data?.message);
+      close();
+      mutate();
+    } else {
+      errorNotification(response?.data?.message[0]);
+    }
+  };
 
   return (
     <>
-      <tr key={i} className="border-1 border-t border-merseBorder">
+      <tr className="border-1 border-t border-merseBorder">
         <td className="py-4 text-sm">{capitalize(item?.name)}</td>
-        <td className="py-4 text-sm">{compactDateFormatter(item?.createdAt || item?.created_at)}</td>
+        <td className="py-4 text-sm">
+          {compactDateFormatter(item?.createdAt || item?.created_at)}
+        </td>
         <td className="py-4 text-sm">
           <div className="relative cursor-pointer" ref={ref}>
             <button
@@ -48,10 +54,10 @@ function BrandTypeRowTemplate({ item, i, openIndex, setOpenIndex, mutate }) {
             </button>
             {isOpen && (
               <div className="absolute z-10 w-[100px] text-xs rounded-md flex flex-col right-0 bg-white shadow-xl border-[1px]">
-                <button 
-                  className="text-sm text-left px-5 py-2" 
+                <button
+                  className="text-sm text-left px-5 py-2"
                   onClick={() => {
-                    setShowUpdateBrandModal(true); 
+                    setShowUpdateBrandModal(true);
                     close();
                   }}
                 >
