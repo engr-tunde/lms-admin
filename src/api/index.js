@@ -11,7 +11,6 @@ import {
   UPDATE_ADMIN_STATUS,
   UPDATE_ORDER_STATUS,
   DELETE_SUBCATEGORIES,
-  LOGOUT,
   FETCH_DISPUTES,
   CREATE_DISPUTES,
   FETCH_CATEGORIES,
@@ -33,7 +32,7 @@ import {
   FETCH_ANALYTICS_STATS,
   FETCH_ANALYTICS_DELIVERY,
   FETCH_ANALYTICS_BRANDS,
-  FETCH_USERS, 
+  FETCH_USERS,
   MANAGE_USER,
 } from "../constants/routes";
 import { mutationRequest } from "./sendData";
@@ -78,15 +77,6 @@ export const login = async (values) => {
 export const verifyLogin = async (values) => {
   const result = await mutationRequest(VERIFY_LOGIN, "post", values, false);
   return result;
-};
-export const logAdminOut = () => {
-  const { data, error, mutate } = useSWR(LOGOUT, fetcher);
-  return {
-    logout: data,
-    logoutLoading: !error && !data,
-    logoutError: error,
-    mutate,
-  };
 };
 
 // ##SETTINGS(Done: New endpoints. Everything needs to be tested)
@@ -412,11 +402,6 @@ export const fetchDispute = (id) => {
   };
 };
 
-
-
-
-
-
 // ##ORDERS
 export const updateOrderStatus = async (values, id) => {
   const result = await mutationRequest(
@@ -446,9 +431,7 @@ export const fetchOrder = (id) => {
   };
 };
 
-
-
-// ##PAYOUTS 
+// ##PAYOUTS
 
 export const fetchAllPayouts = () => {
   const { data, error, mutate } = useSWR(FETCH_PAYOUTS, fetcher);
@@ -479,11 +462,6 @@ export const updatePayout = async (id, values) => {
   return result;
 };
 
-
-
-
-
-
 // ##ANALYTICS
 
 export const fetchAnalytics = () => {
@@ -506,7 +484,9 @@ export const fetchAnalyticsBrands = () => {
 };
 export const fetchAnalyticsDelivery = (startDate, endDate) => {
   const { data, error, mutate } = useSWR(
-    `${FETCH_ANALYTICS_DELIVERY}?startDate=${startDate}&endDate=${endDate}`, fetcher);
+    `${FETCH_ANALYTICS_DELIVERY}?startDate=${startDate}&endDate=${endDate}`,
+    fetcher
+  );
 
   return {
     analyticsDelivery: data,
@@ -515,7 +495,6 @@ export const fetchAnalyticsDelivery = (startDate, endDate) => {
     mutate,
   };
 };
-
 
 // ##USERS
 export const fetchAllUsers = () => {
@@ -547,20 +526,6 @@ export const manageUser = async (values, id) => {
   return result;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //#####TESTING
 
 export const addBrands = async (values) => {
@@ -568,14 +533,7 @@ export const addBrands = async (values) => {
   return result;
 };
 
-
-
 export const addDisputes = async (values) => {
-  const result = await mutationRequest(
-    CREATE_DISPUTES,
-    "post",
-    values,
-    false
-  );
+  const result = await mutationRequest(CREATE_DISPUTES, "post", values, false);
   return result;
 };

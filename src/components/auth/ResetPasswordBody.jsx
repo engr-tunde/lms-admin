@@ -42,8 +42,16 @@ const ResetPasswordBody = () => {
           onSubmit={handleSubmit}
         >
           <div className="font-bold text-[14.5px] md:text-[18px] grid grid-cols-1 gap-5 md:grid-cols-1 w-[100%] mb-2">
-            <InputField name="password" placeholder="Set password" />
-            <InputField name="confirmPassword" placeholder="Confirm password" />
+            <InputField
+              type="password"
+              name="password"
+              placeholder="Set password"
+            />
+            <InputField
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm password"
+            />
           </div>
           <SubmitButton title="Reset Password" className="mt-6 w-[100%] py-3" />
         </CustomFormik>

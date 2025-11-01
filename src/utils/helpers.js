@@ -5,9 +5,8 @@ export const successNotification = (message) => toast.success(message);
 export const errorNotification = (message) => toast.error(message);
 export const infoNotification = (message) => toast.info(message);
 
-
-export const capitalize = str => str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
-
+export const capitalize = (str) =>
+  str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
 
 export const formatter = (amount) => {
   const fm = new Intl.NumberFormat("en-US", {
@@ -97,10 +96,6 @@ export const useOutsideClick = (ref, onClickOut) => {
   }, []);
 };
 
-
-
-
-
 export const useToggleOpen = (openIndex, setOpenIndex, index) => {
   const ref = useRef();
   const isOpen = openIndex === index;
@@ -137,9 +132,7 @@ export const getLastUpdatedText = (dateString) => {
   if (diffHr < 24) return `Updated ${diffHr} hrs ago`;
   if (diffDay === 1) return "Updated yesterday";
   return `Updated ${diffDay} days ago`;
-}
-
-
+};
 
 export function getPercentOfTotal(value, total) {
   if (!total || total === 0) return 0;
@@ -147,12 +140,22 @@ export function getPercentOfTotal(value, total) {
   return Math.round(percent); // or toFixed(2) if you want decimals
 }
 
-
 export function toSentence(str) {
   if (!str) return "";
   return str
-    .replace(/_/g, " ")              // replace underscores with spaces
-    .replace(/\s+/g, " ")            // remove extra spaces
-    .trim()                          // trim leading/trailing spaces
-    .replace(/^./, c => c.toUpperCase()); // capitalize first letter
+    .replace(/_/g, " ") // replace underscores with spaces
+    .replace(/\s+/g, " ") // remove extra spaces
+    .trim() // trim leading/trailing spaces
+    .replace(/^./, (c) => c.toUpperCase()); // capitalize first letter
+}
+
+export function generateRandomString(length) {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }

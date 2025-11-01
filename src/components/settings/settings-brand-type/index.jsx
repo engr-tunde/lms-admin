@@ -14,7 +14,8 @@ function BrandTypeSettingsTable() {
   const [showCreateBrandModal, setShowCreateBrandModal] = useState(false);
   const [openIndex, setOpenIndex] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const { brandtype, brandtypeLoading, brandtypeError, mutate } = fetchBrandType();
+  const { brandtype, brandtypeLoading, brandtypeError, mutate } =
+    fetchBrandType();
   console.log("brandtype", brandtype);
 
   const [originalArr, setoriginalArr] = useState();
@@ -41,13 +42,14 @@ function BrandTypeSettingsTable() {
 
   if (brandtypeLoading) return <Loader />;
   if (brandtypeError) return <ErrorWidget error={brandtypeError} />;
-  if (!brandtype.length) return <NoDataPage message="No brand types available" />;
-  
+  if (!brandtype.length)
+    return <NoDataPage message="No brand types available" />;
+
   return (
     <div className="flex flex-col gap-2">
       <div className="w-full flex justify-end gap-4">
         <div className="flex items-center cursor-pointer">
-          <TableSearch 
+          <TableSearch
             filteredData={filteredData}
             setfilteredData={setfilteredData}
             originalArr={originalArr}
@@ -65,6 +67,7 @@ function BrandTypeSettingsTable() {
         columns={brandHeader}
         renderRow={(item, i) => (
           <BrandTypeRowTemplate
+            key={i}
             i={i}
             item={item}
             openIndex={openIndex}
@@ -74,10 +77,10 @@ function BrandTypeSettingsTable() {
         )}
         data={currentItems}
       />
-      <Pagination 
-        currentPage={currentPage} 
-        totalPages={totalPages} 
-        onPageChange={setCurrentPage} 
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
       />
       <CreateUpdateBrandTypeModal
         show={showCreateBrandModal}
