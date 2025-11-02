@@ -15,7 +15,6 @@ function DashboardBrandRequests() {
   const [filteredData, setfilteredData] = useState();
   const [originalArr, setoriginalArr] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  console.log("brands requests", brands?.summary?.brandRequests);
 
   useEffect(() => {
     if (brands?.summary?.brandRequests?.length) {

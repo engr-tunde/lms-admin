@@ -17,7 +17,6 @@ function DashboardBrandsPage() {
   const [originalArr, setoriginalArr] = useState();
   const [summary, setsummary] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  console.log("brands ss", brands);
 
   useEffect(() => {
     if (brands?.brands?.length) {

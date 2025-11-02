@@ -31,7 +31,7 @@ function BrandsOrderTable({ filteredData, setfilteredData, originalArr, mutate }
       columns={brandsOrderTableColumnHeader}
       renderRow={(order, i) => (
           <BrandsOrderRowTemplate
-            key={order._id}
+            key={order?._id}
             order={order}
             i={i}
             openIndex={openIndex}

@@ -25,7 +25,6 @@ function BrandTypeRowTemplate({ item, i, openIndex, setOpenIndex, mutate }) {
       },
       data?._id
     );
-    console.log("response", response);
     if (response?.status?.toString()?.includes("20")) {
       successNotification(response?.data?.message);
       close();

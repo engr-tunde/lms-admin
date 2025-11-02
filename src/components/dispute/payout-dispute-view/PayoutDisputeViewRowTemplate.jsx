@@ -1,15 +1,15 @@
 import { formatter } from "../../../utils/helpers";
 
 
-function payoutDisputeViewRowTemplate(item) {
+function PayoutDisputeViewRowTemplate({ item }) {
 
   return (
-    <tr key={item.id} className="border-1 border-t border-merseBorder">
-      <td className="py-6 text-sm">{item.orderId}</td>
-      <td className="py-6 text-sm">{item.product}</td>
-      <td className="py-6 text-sm">{formatter(item.pricePerItem)}</td>
+    <tr className="border-1 border-t border-merseBorder">
+      <td className="py-6 text-sm">{item?._id}</td>
+      <td className="py-6 text-sm">{item?.productName}</td>
+      <td className="py-6 text-sm">{formatter(item?.price)}</td>
     </tr>
   );
 }
 
-export default payoutDisputeViewRowTemplate;
+export default PayoutDisputeViewRowTemplate;

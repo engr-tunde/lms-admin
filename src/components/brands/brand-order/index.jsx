@@ -21,7 +21,6 @@ function BrandsOrderPage({ brandId }) {
         setOriginalArr(brandOrder?.orders);
     }
   }, [brandOrder?.orders]);
-  console.log("brand orders", brandOrder);
   
   const itemsPerPage = brandOrder?.limit || 10;
   const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);

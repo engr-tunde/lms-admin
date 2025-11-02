@@ -3,40 +3,57 @@ import OrderDisputeViewStatusCard from "../../components/dispute/order-dispute-v
 import OrderDisputeViewItemsTable from "../../components/dispute/order-dispute-view/OrderDisputeViewItemsTable.jsx";
 import OrderDisputeViewSummaryCard from "../../components/dispute/order-dispute-view/OrderDisputeViewSummary.jsx";
 import OrderDisputeViewDeliveryInfo from "../../components/dispute/order-dispute-view/OrderDisputeViewDeliveryInfo.jsx";
-import { FaChevronDown, FaCopy } from "react-icons/fa";
-import { useState } from 'react'
-import { fetchDispute } from "../../api/index.js";
-import { useParams } from "react-router-dom";
+import { FaChevronDown } from "react-icons/fa";
+import { useEffect, useState } from 'react'
+import { fetchDispute, fetchOrder } from "../../api/index.js";
+import { useLocation, useParams } from "react-router-dom";
 import Loader from "../../components/globals/Loader.jsx";
 import ErrorWidget from "../../components/globals/ErrorWidget.jsx";
 import NoDataPage from "../../components/globals/NoDataPage.jsx";
+import { toSentence } from "../../utils/helpers.js";
 
 function OrderDisputeViewPage() {
-  const [updateStatusButtonOpen, setUpdateStatusButtonOpen] = useState(null);
-  const handleActionClick = (i) => {
-    setUpdateStatusButtonOpen(!updateStatusButtonOpen);
-  };
+  // const [updateStatusButtonOpen, setUpdateStatusButtonOpen] = useState(null);
+  const [disputeData, setdisputeData] = useState();
 
   const { id } = useParams();
-  const { dispute, disputeLoading, disputeError, mutate } = fetchDispute(id);
-  console.log("dispute", dispute);
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search); 
+  const orderId = queryParams.get("orderId");
+  const { dispute, disputeLoading, disputeError, mutate } = fetchDispute(id, { orderId });
 
+  useEffect(() => {
+    if (dispute?.data) {
+      setdisputeData(dispute?.data);
+    }
+  }, [dispute?.data]);
 
+  const { order } = fetchOrder(disputeData?.order?._id);
+
+  
   if (disputeLoading) return <Loader />;
   if (disputeError) return <ErrorWidget error={disputeError} />;
   if (!dispute) return <NoDataPage message="No dispute data found." />;
 
   return (
-    <div className="flex flex-col gap-9">
+    <div 
+     className="flex flex-col gap-9"
+     onClick={(e) => {
+      setUpdateStatusButtonOpen(false)
+     }}
+    >
       <DashboardNavBar
-        title="DSP 2023 003"
+        title={`DSP-${disputeData?._id.slice(-5)}`}
         copyable
-        status="Completed"
+        status={toSentence(disputeData?.status)}
       />
-      <div className="flex w-full justify-end relative">
+      {/* <div className="flex w-full justify-end relative">
         <button 
           className="px-3 py-1 bg-black text-white flex items-center text-sm gap-1"
-          onClick={handleActionClick}
+          onClick={(e) => {
+            e.stopPropagation();
+            setUpdateStatusButtonOpen(!updateStatusButtonOpen);
+          }}
         >
           Update Status
           <FaChevronDown size={12}/>
@@ -54,25 +71,17 @@ function OrderDisputeViewPage() {
               </div>
             </div>
           )}
-      </div>
+      </div> */}
       <div className="w-full flex flex-col gap-8 h-[90%] overflow-y-scroll">
-        <OrderDisputeViewStatusCard
-         issueType="Shipping delay"
-         customerName="Brenda Alli"
-         customerEmail="Brenda.alli@gmail.com"
-         brandName="Stylish Co"
-         brandEmail="Stylishco@gmail.com"
-         urgencyLevel="High"
-         preferredAction="Cancel order"
-         />
-        <OrderDisputeViewItemsTable />
+        <OrderDisputeViewStatusCard disputeData={disputeData} />
+        <OrderDisputeViewItemsTable disputeItems={disputeData?.order?.items} />
         <div className="w-full flex flex-col lg:flex-row justify-between gap-10">
-          <OrderDisputeViewSummaryCard 
-           orderId="ORD-9876" 
-           orderDate="2024-06-10" 
-           totalAmount="90,000.00" 
+          <OrderDisputeViewSummaryCard
+           order={order}
           />
-          <OrderDisputeViewDeliveryInfo />
+          <OrderDisputeViewDeliveryInfo 
+            order={order}
+          />
         </div>
         
       </div>

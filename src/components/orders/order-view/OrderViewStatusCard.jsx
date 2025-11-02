@@ -2,7 +2,6 @@ import { capitalize, dateFormatter, dateTimeFormatter, formatter, toSentence } f
 
 const OrderViewStatusCard = ({ order }) => {
   const deliveryDate = new Date(new Date(order?.createdAt).getTime() + ((order?.deliveryTimeDays) * 24 * 60 * 60 * 1000));
-  console.log("deliveryDate", deliveryDate);
   return (
     <div className="bg-gray-200/50 w-full p-4 ">
       <div className="flex flex-col lg:flex-row gap-4 justify-between w-full">

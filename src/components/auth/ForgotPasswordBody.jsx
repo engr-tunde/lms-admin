@@ -15,7 +15,7 @@ const ForgotPasswordBody = () => {
 
   const handleSubmit = async (values) => {
     const response = await forgotPassword(values);
-    console.log("response", response);
+    // console.log("response", response);
     if (response.status.toString().includes("20")) {
       successNotification(response.data.message);
       setTimeout(() => {

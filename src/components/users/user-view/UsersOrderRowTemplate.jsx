@@ -10,7 +10,7 @@ function UsersOrderRowTemplate({ userOrder, i}) {
 
   return (
     <>
-    <tr key={userOrder?._id} className="border-1 border-t border-merseBorder">
+    <tr className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm">#ORD{userOrder?._id.slice(-5)}</td>
       <td className="py-4 text-sm">{compactDateFormatter(userOrder?.createdAt)}</td>
       <td className="py-4 text-sm hidden lg:table-cell">

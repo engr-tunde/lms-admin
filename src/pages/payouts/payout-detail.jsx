@@ -18,9 +18,6 @@ function PayoutDetailPage() {
   const [ originalArr, setoriginalArr ] = useState();
   const [ currentPage, setCurrentPage ] = useState(1);
 
-  console.log("id", id);
-  console.log("Payout Detail Data:", payout);
-
   useEffect(() => {
     if (payout?.orders?.length) {
       setoriginalArr(payout?.orders);

@@ -21,7 +21,7 @@ function OverviewTable({ filteredData, setfilteredData, originalArr }) {
         columns={overviewColumnHeader}
         renderRow={(order, i) => (
           <OverviewRowTemplate
-            key={order._id}
+            key={order?._id}
             order={order}
             i={i}
           />

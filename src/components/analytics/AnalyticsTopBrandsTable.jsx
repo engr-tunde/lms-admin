@@ -10,9 +10,7 @@ import NoDataPage from "../globals/NoDataPage";
 
 const AnalyticsTopBrandsTable = () => {
   const { analyticsBrands, analyticsBrandsLoading, analyticsBrandsError } = fetchAnalyticsBrands();
-
-  console.log("analyticsBrands", analyticsBrands);
-
+  
   if (analyticsBrandsLoading) return <Loader />;
   if (analyticsBrandsError) return <ErrorWidget error={analyticsBrandsError} />;
   if (!analyticsBrands.length) return <NoDataPage message={"Top brands data unavailable yet"} />;

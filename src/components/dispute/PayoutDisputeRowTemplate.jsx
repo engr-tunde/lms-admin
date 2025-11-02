@@ -3,13 +3,16 @@ import StatusCheck from '../globals/StatusCheck';
 
 function PayoutDisputeRowTemplate({ item, i }) {
   return (
-    <tr key={item.id} className="border-1 border-t border-merseBorder">
+    <tr className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm hidden lg:table-cell">
-          <Link to={`/dispute-payout/${item?._id}`} className="px-3 py-1 underline">
+          <Link 
+            to={`/dispute-order/${item?._id}?payout=${item?.payout?._id}`}
+            className="px-3 py-1 underline"
+          >
             View
           </Link>
       </td>
-      <td className="py-4 text-sm">{item?._id || "id"}</td>
+      <td className="py-4 text-sm">{item?._id}</td>
       <td className="py-4 text-sm hidden lg:table-cell">{item.order?._id}</td>
       <td className="py-4 text-sm hidden lg:table-cell">{item?.brand?.name}</td>
       <td className="py-4 text-sm">{item.disputeType}</td>

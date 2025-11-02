@@ -74,7 +74,7 @@ function SubcategorySettingsTable() {
           columns={subcategoryHeader}
           renderRow={(item, i) => (
             <SubcategoryRowTemplate
-              key={item.id}
+              key={i}
               item={item}
               i={i}
               openIndex={openIndex}

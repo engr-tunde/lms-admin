@@ -1,13 +1,8 @@
-import { FaChevronRight } from "react-icons/fa";
 import StatusCheck from "../../globals/StatusCheck";
-import { fetchAllDisputes } from "../../../api";
 import { compactDateFormatter, toSentence } from "../../../utils/helpers";
 import NoDataPage from "../../globals/NoDataPage";
 
 const DisputeHistoryCard = ({ userDisputes }) => {
-  // const { disputes } = fetchAllDisputes("order");
-  console.log("dispute data", userDisputes);
-
   if (!userDisputes?.length) return <NoDataPage message="No dispute history available." />;
 
   return (

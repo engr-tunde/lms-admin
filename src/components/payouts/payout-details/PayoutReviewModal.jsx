@@ -1,17 +1,15 @@
 import { IoMdClose }from "react-icons/io";
-import AppFormButton from "../../forms/buttons/AppFormButton";
 import { AiOutlineInfoCircle } from "react-icons/ai"
 import {capitalize, dateFormatter, errorNotification, formatter, successNotification} from "../../../utils/helpers"
 import { updatePayout } from "../../../api";
 
 
-const PayoutReviewModal = ({ show, onClose, payout, nextDueDate }) => {
+const PayoutReviewModal = ({ show, onClose, payout, nextDueDate, mutate }) => {
   if (!show) return null;
 
   const handleUpdatePayout = async (id, status) => {
     try {
       const response = await updatePayout(id, { status });
-      console.log("response", response);
       if (response.status.toString().includes("20")) {
         successNotification(response.data.message);
         mutate()
@@ -50,10 +48,10 @@ const PayoutReviewModal = ({ show, onClose, payout, nextDueDate }) => {
               <span>Brand</span>
               <span>{capitalize(payout?.brand?.name)}</span>
             </div>
-            <div className="flex justify-between text-sm">
+            {/* <div className="flex justify-between text-sm">
               <span>Payment Method</span>
               <span>Flutterwave(*****12345)</span>
-            </div>
+            </div> */}
             <div className="flex justify-between text-sm">
               <span>Due Date</span>
               <span>{dateFormatter(nextDueDate)}</span>

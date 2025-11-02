@@ -36,7 +36,6 @@ function MemberTableRowTemplate({ member, i, openIndex, setOpenIndex, mutate }) 
       setisTogglingStatus(true);
       const newStatus = member?.isActive ? "DEACTIVATE" : "ACTIVATE";
       const response = await updateAdminStatus(id, { status: newStatus });
-      console.log("response", response);
       if (response.status.toString().includes("20")) {
         successNotification(response.data.message);
         mutate()
@@ -50,7 +49,7 @@ function MemberTableRowTemplate({ member, i, openIndex, setOpenIndex, mutate }) 
   }
 
   return (
-    <tr key={member._id} className="border-1 border-t border-merseBorder">
+    <tr className="border-1 border-t border-merseBorder">
       <td className="py-6 text-sm flex flex-col items-start">
         <span className="text-lg">{member?.fullName}</span>
         <span className="text-merseLightText">{member?.email}</span>

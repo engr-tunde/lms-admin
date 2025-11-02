@@ -24,7 +24,6 @@ const BulkUploadCategoryModal = ({ show, onClose, mutate }) => {
 
     const response = await bulkUploadCategory(formData);
     if (response.status.toString().includes("20")) {
-      console.log("Bulk upload response:", response);
       successNotification(  response.data?.message || "Categories uploaded successfully");
       onClose();
       mutate()

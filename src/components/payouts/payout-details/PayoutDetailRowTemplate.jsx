@@ -2,10 +2,10 @@ import { capitalize, compactDateFormatter, formatter, useToggleOpen } from "../.
 import StatusCheck from "../../globals/StatusCheck";
 import ExtraOrderItemsBadge from "../../orders/ExtraOrderItemsBadge";
 
-function PayoutDetailRowTemplate({ item, i, mutate, commission }) {
+function PayoutDetailRowTemplate({ item, commission }) {
   
   return (
-    <tr key={item?._id} className="border-1 border-t border-merseBorder">
+    <tr className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm hidden lg:table-cell">{item?._id.slice(-5)}</td>
       <td className="py-4 text-sm hidden lg:table-cell">
         {item?.brand?.name}

@@ -13,7 +13,6 @@ const RejectionFormModal = ({ show, onClose, data }) => {
   }
   const initialValues = rejectProductValues();
   const validationSchema = validaterejectProduct();
-  console.log("data rejectionmodal", data);
 
   const handleSubmit = async (values) => {
     const response = await approveRejectProduct(

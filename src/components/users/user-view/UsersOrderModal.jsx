@@ -1,7 +1,7 @@
 import UsersOrderTable from "./UsersOrderTable";
 import { IoMdClose } from "react-icons/io";
 
-function UsersOrderModal({ show, onClose, recentOrders, userLoading, userError, orders }) {
+function UsersOrderModal({ show, onClose, recentOrders, userLoading, userError }) {
   if (!show) return null;
 
   return (
@@ -14,7 +14,7 @@ function UsersOrderModal({ show, onClose, recentOrders, userLoading, userError, 
           <UsersOrderTable
             onClose={onClose}
             show={show}
-            recentOrders={orders}
+            recentOrders={recentOrders}
             userLoading={userLoading}
             userError={userError}
           />

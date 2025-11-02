@@ -14,10 +14,6 @@ function UsersOrderTable({ recentOrders, userLoading, userError }) {
   const [filteredData, setfilteredData] = useState();
   const [originalArr, setoriginalArr] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  // const {orders, mutate } = fetchAllOrders();
-
-  // console.log("orders", orders)
-  console.log("recentOrders", recentOrders)
 
   if (userLoading) return <Loader />;
   if (userError) return <ErrorWidget error={userError} />;

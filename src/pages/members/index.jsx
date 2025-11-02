@@ -14,8 +14,6 @@ function DashboardMembersPage() {
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-
-  console.log("admins ss", admins?.data);
   
   useEffect(() => {
     if (admins?.data?.length) {

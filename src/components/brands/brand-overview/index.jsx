@@ -12,9 +12,6 @@ function BrandsOverviewPage({brandId}) {
   const { brandOrder } = fetchBrandOrder(brandId);
   const { brandProduct } = fetchBrandProduct(brandId);
   const { brandFinance } = fetchBrandFinance(brandId);
-  console.log("brand products", brandProduct);
-  console.log("brand orders", brandOrder);
-  console.log("brand finance", brandFinance);
 
   if (brandLoading) return <Loader/>
   if (brandError) return <ErrorWidget/> 

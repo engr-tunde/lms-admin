@@ -1,14 +1,19 @@
-import payoutDisputeViewRowTemplate from "./PayoutDisputeViewRowTemplate"
+import PayoutDisputeViewRowTemplate from "./PayoutDisputeViewRowTemplate"
 import Table from "../../globals/Table"
 
-const PayoutDisputeViewTable = () => {
+const PayoutDisputeViewTable = ({ orderItems}) => {
   return (
     <div className="w-1/2">
       <div>Order Item(s)</div>
       <Table
         columns={payoutDisputeViewColumnHeader}
-        renderRow={payoutDisputeViewRowTemplate}
-        data={payoutDisputeViewTableData}
+        renderRow={(item, i) => (
+          <PayoutDisputeViewRowTemplate 
+            key={i} 
+            item={item} 
+          />
+        )}
+        data={orderItems}
       />
     </div>
   )
@@ -37,15 +42,15 @@ const payoutDisputeViewColumnHeader = [
     },
 ]
 
-const payoutDisputeViewTableData = [
-    {
-        orderId: "#ORD-9876", 
-        product: "Linen Shirt (White)",
-        pricePerItem: "120000"
-    }, 
-    {
-        orderId: "#ORD-9876", 
-        product: "Linen Shirt (White)",
-        pricePerItem: "120000"
-    }, 
-]
+// const payoutDisputeViewTableData = [
+//     {
+//         orderId: "#ORD-9876", 
+//         product: "Linen Shirt (White)",
+//         pricePerItem: "120000"
+//     }, 
+//     {
+//         orderId: "#ORD-9876", 
+//         product: "Linen Shirt (White)",
+//         pricePerItem: "120000"
+//     }, 
+// ]

@@ -14,9 +14,6 @@ function DashboardOverviewPage() {
   const { orders, mutate } = fetchAllOrders();
   const { users } = fetchAllUsers();
   const { payouts } = fetchAllPayouts()
-  console.log("brands ss", brands);
-  console.log("orders ss", orders);
-  console.log("users ss", users);
 
   const [totalSales, settotalSales] = useState(0);
   const [totalBrands, settotalBrands] = useState(0);

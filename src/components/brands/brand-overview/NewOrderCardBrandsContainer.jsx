@@ -3,9 +3,7 @@ import NewOrderBrandsCard from './NewOrderBrandsCard';
 
 
 function NewOrderBrandsCardContainer({ orders }) {
-
-  console.log("orders", orders)
-
+  
   const newlyAddedOrders = () => {
     let allOrders = orders;
     if (!allOrders) return [];
@@ -14,7 +12,6 @@ function NewOrderBrandsCardContainer({ orders }) {
     );
     return sorted.slice(0, 3);
   };
-  console.log("newly added orders", newlyAddedOrders());
   
   return (
     <div className="flex flex-col gap-2">

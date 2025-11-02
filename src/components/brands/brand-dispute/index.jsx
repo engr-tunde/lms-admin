@@ -12,8 +12,6 @@ function BrandDisputePage({ brandId }) {
   const tabs = ["Order Dispute", "Payout Dispute"]
   const {brandDispute} = fetchBrandDispute(brandId, "order");
 
-  console.log("Brand Dispute ss", brandDispute);
-
   return (
     <>
       <div className="w-full flex flex-col gap-5">

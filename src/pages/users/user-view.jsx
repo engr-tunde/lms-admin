@@ -16,16 +16,15 @@ import { errorNotification, successNotification, capitalize } from "../../utils/
 
 function DashboardUsersViewPage() {
   const { id } = useParams();
-  const { user, userLoading, userError } = fetchUser(id)
+  const { user, userLoading, userError, mutate } = fetchUser(id)
   const [userStatus, setuserStatus] = useState();
   const [openActions, setopenActions] = useState(false);
   const [viewAddDetailsModal, setviewAddDetailsModal] = useState(false);
-  console.log("fetched user", user)
 
   const manageUserAction = async (action) => {
     const response = await manageUser({ action }, id);
     if (response?.status?.toString()?.includes("20")) {
-      successNotification(response?.data?.message);
+      successNotification("Action completed successfully");
       mutate()
     } else {
       errorNotification(response?.data?.message[0]);
@@ -37,7 +36,6 @@ function DashboardUsersViewPage() {
       setuserStatus(user?.user?.status);
     }
   }, [user?.user]);
-
 
   if (userLoading) return <Loader />;
   if (userError) return <ErrorWidget error={userError} />;
@@ -51,51 +49,55 @@ function DashboardUsersViewPage() {
         copyable
         subtitle="View and manage user account details."
       />
-      <div className="-mb-3 relative">
-        <button 
-          className="px-3 py-1 bg-black text-white flex gap-1 items-center ml-auto"
-          onClick={() => setopenActions(!openActions)}
-        >
-          Actions 
-          <FaChevronDown size={10} />
-        </button>
-        {
-          openActions && (
-            <div 
-              className="absolute z-10 w-[160px] text-xs rounded-md flex flex-col right-0 top-9 bg-white shadow-xl border-[1px]"
+      {
+        userStatus && (
+          <div className="-mb-3 relative">
+            <button 
+              className="px-3 py-1 bg-black text-white flex gap-1 items-center ml-auto"
+              onClick={() => setopenActions(!openActions)}
             >
-              <>
-              {
-                // !userStatus === "active" && (
-                  <button
-                    className="text-xs text-left px-5 py-2"
-                    onClick={() => manageUserAction("SUSPEND_USER")}
-                  >
-                    Suspend Account
-                  </button>
-                // )
-              }
-              {
-                // !userStatus === "suspended" && (
-                  <button
-                    className="text-xs text-left px-5 py-2"
-                    onClick={() => manageUserAction("ACTIVATE_USER")}
-                  >
-                    Activate Account
-                  </button>
-                // )
-              }
-              <button
-                className="text-xs text-left px-5 py-2 text-red-600"
-                onClick={() => manageUserAction("RESET_USER_PASSWORD")}
-              >
-                Reset Password
-              </button>
-              </>
-            </div>
-          )
-        }
-      </div>
+              Actions 
+              <FaChevronDown size={10} />
+            </button>
+            {
+              openActions && (
+                <div 
+                  className="absolute z-10 w-[160px] text-xs rounded-md flex flex-col right-0 top-9 bg-white shadow-xl border-[1px]"
+                >
+                  <>
+                  {
+                    userStatus === "active" && (
+                      <button
+                        className="text-xs text-left px-5 py-2"
+                        onClick={() => {
+                          manageUserAction("SUSPEND_USER"); 
+                          setopenActions(false);
+                          }}
+                      >
+                        Suspend Account
+                      </button>
+                    )
+                  }
+                  {
+                    userStatus === "suspended" && (
+                      <button
+                        className="text-xs text-left px-5 py-2"
+                        onClick={() => {
+                          manageUserAction("ACTIVATE_USER"); 
+                          setopenActions(false);
+                          }}
+                      >
+                        Activate Account
+                      </button>
+                    )
+                  }
+                  </>
+                </div>
+              )
+            }
+          </div>
+        )
+      }
       <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-6 h-[90%] overflow-y-scroll">
         <BasicInfoCard 
           info={user?.savedAddress}

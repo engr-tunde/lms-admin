@@ -2,7 +2,7 @@ import TableSearch from "../globals/TableSearch";
 import Table from "../globals/Table";
 import { memberColumnHeader, memberData } from "../../data/memberData.js";
 import MemberTableRowTemplate from "./MemberTableRowTemplate.jsx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function MemberTable({
   filteredData,
@@ -28,7 +28,7 @@ function MemberTable({
         columns={memberColumnHeader}
         renderRow={(item, i) => (
           <MemberTableRowTemplate
-            key={item._id}
+            key={item?._id}
             member={item}
             i={i}
             openIndex={openIndex}

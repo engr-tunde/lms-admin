@@ -24,7 +24,6 @@ const PayoutDetailCard = ({ payout, mutate }) => {
             className="px-3 py-1 bg-black text-white text-sm gap-1"
             onClick={() => {
               setShowModal(true);
-              mutate();
             }}
           >
             {
@@ -49,8 +48,8 @@ const PayoutDetailCard = ({ payout, mutate }) => {
             <span className="text-base">{formatter(payout?.netPayment).slice(0, -3)}</span>
           </div>
           <div className="flex flex-col gap-2">
-            <span className="font-semibold text-base">Completed Orders</span>
-            <span className="text-base">{200}</span>
+            <span className="font-semibold text-base">Orders</span>
+            <span className="text-base">{payout?.orders?.length}</span>
           </div>
           {/* <div className="flex flex-col gap-2">
             <span className="font-semibold text-base">Payment method</span>

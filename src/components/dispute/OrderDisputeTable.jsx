@@ -14,7 +14,6 @@ function OrderDisputeTable({ activeTab, setActiveTab}) {
   const [filteredData, setfilteredData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const { disputes: orderDispute, disputesLoading, disputesError } = fetchAllDisputes("order");
-  console.log("orderDispute", orderDispute);
 
   useEffect(() => {
     if (orderDispute?.disputes?.length) {

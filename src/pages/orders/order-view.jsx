@@ -15,7 +15,6 @@ function OrderViewPage() {
   const { id } = useParams();
 
   const { order, orderLoading, orderError, mutate } = fetchOrder(id)
-  console.log("fetched order", order)
 
   if (orderLoading) return <Loader />;
   if (orderError) return <ErrorWidget error={orderError} />;

@@ -7,7 +7,7 @@ import ExtraOrderItemsBadge from "../orders/ExtraOrderItemsBadge";
 
 function OverviewRowTemplate({ order, i }) {
   return (
-    <tr key={order._id} className="border-1 border-t border-merseBorder">
+    <tr className="border-1 border-t border-merseBorder">
       <td className="py-4 text-[15px] hidden lg:table-cell ">
           <Link to={`/orders/${order._id}`} className="px-3 py-1 underline">
             View

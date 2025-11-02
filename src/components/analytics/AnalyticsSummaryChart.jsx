@@ -12,7 +12,6 @@ const AnalyticsSummaryChart = () => {
   const [endDate, setEndDate] = useState("2025-10-31");
   const { analyticsDelivery, analyticsDeliveryLoading, analyticsDeliveryError } = fetchAnalyticsDelivery(startDate, endDate);
 
-  console.log("analyticsDelivery", analyticsDelivery);
 
   if (analyticsDeliveryLoading) return <Loader />;
   if (analyticsDeliveryError) return <ErrorWidget error={analyticsDeliveryError} />;

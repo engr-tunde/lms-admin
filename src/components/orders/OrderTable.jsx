@@ -33,7 +33,7 @@ function OrderTable({ filteredData, setfilteredData, originalArr, mutate }) {
       columns={orderTableColumnHeader}
       renderRow={(order, i) => (
           <OrderRowTemplate
-            key={order._id}
+            key={order?._id}
             order={order}
             i={i}
             openIndex={openIndex}

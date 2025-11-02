@@ -74,6 +74,7 @@ function CategorySettingsTable() {
           columns={categoryHeader}
           renderRow={(item, i) => (
             <CategoryRowTemplate
+              key={i}
               item={item}
               i={i}
               openIndex={openIndex}

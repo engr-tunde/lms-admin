@@ -14,9 +14,7 @@ function BrandTypeSettingsTable() {
   const [showCreateBrandModal, setShowCreateBrandModal] = useState(false);
   const [openIndex, setOpenIndex] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const { brandtype, brandtypeLoading, brandtypeError, mutate } =
-    fetchBrandType();
-  console.log("brandtype", brandtype);
+  const { brandtype, brandtypeLoading, brandtypeError, mutate } = fetchBrandType();
 
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState();
@@ -43,7 +41,7 @@ function BrandTypeSettingsTable() {
   if (brandtypeLoading) return <Loader />;
   if (brandtypeError) return <ErrorWidget error={brandtypeError} />;
   if (!brandtype.length)
-    return <NoDataPage message="No brand types available" />;
+  return <NoDataPage message="No brand types available" />;
 
   return (
     <div className="flex flex-col gap-2">

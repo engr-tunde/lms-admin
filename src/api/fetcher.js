@@ -5,7 +5,6 @@ export const fetcher = (url) =>
   axiosInstance()
     .get(url, { withCredentials: true })
     .then((res) => {
-      // console.log("res", res);
       if (res.status == 401) {
         Cookies.remove("authToken");
         window.location.href = "/login";
@@ -13,8 +12,9 @@ export const fetcher = (url) =>
       return res.data;
     })
     .catch((err) => {
-      console.log("fetch error", err);
-      console.log(err.response.data);
+      if (!window.navigator.onLine || err.message === "Network Error") {
+      throw new Error("No Internet connection. Please check your network.");
+      }
       if (err?.response?.status == 401) {
         Cookies.remove("authToken");
         window.location.href = "/login";
@@ -35,7 +35,7 @@ export const sessionFetcher = (url) =>
       }
     })
     .catch((err) => {
-      console.log("err err", err);
+      // console.log("err err", err);
       // if (err.response.status == 401) {
       //   Cookies.remove("authToken");
       //   // return false;

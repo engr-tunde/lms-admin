@@ -12,7 +12,7 @@ function UsersRowTemplate({user, i, openIndex, setOpenIndex, mutate }) {
   const manageUserAction = async (action) => {
       const response = await manageUser({ action }, user?._id);
       if (response?.status?.toString()?.includes("20")) {
-        successNotification(response?.data?.message);
+        successNotification("Action completed successfully");
         mutate()
       } else {
         errorNotification(response?.data?.message[0]);
@@ -27,7 +27,7 @@ function UsersRowTemplate({user, i, openIndex, setOpenIndex, mutate }) {
   
   
   return (
-    <tr key={user?._id} className="border-1 border-t border-merseBorder">
+    <tr className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm">{capitalize(user?.fullName)}</td>
       <td className="py-4 text-sm">{user?.email}</td>
       <td className="py-4 text-sm hidden lg:table-cell">{user?.totalOrders}</td>
@@ -35,6 +35,9 @@ function UsersRowTemplate({user, i, openIndex, setOpenIndex, mutate }) {
       {user?.lastActive ? <td className="py-4 text-sm hidden lg:table-cell">
         {user?.lastActive}
       </td> : <td className="py-4 text-sm hidden lg:table-cell">N/A</td>}
+      <td className="py-4 text-sm hidden lg:table-cell">
+        {user?.status ? <StatusCheck value={capitalize(user?.status)} className='px-3 py-1' /> : "N/A"}
+      </td>
       <td className="py-4">
         <div className="relative" ref={ref}>
           <button 
@@ -55,18 +58,26 @@ function UsersRowTemplate({user, i, openIndex, setOpenIndex, mutate }) {
                 <Link to={`/users/${user?._id}`} className="flex items-center gap-1" onClick={close}>
                   View Profile
                 </Link>
-                <button 
-                  className="flex items-center gap-1" 
-                  onClick={() => {close(); manageUserAction('ACTIVATE_USER')}}
-                >
-                  Activate User
-                </button>
-                <button 
-                  className="flex items-center gap-1" 
-                  onClick={() => {close(); manageUserAction('SUSPEND_USER')}}
-                >
-                  Suspend User
-                </button>
+                {
+                  user?.status === 'active' && (
+                    <button 
+                      className="flex items-center gap-1" 
+                      onClick={() => {close(); manageUserAction('SUSPEND_USER')}}
+                    >
+                      Suspend User
+                    </button>
+                  )
+                }
+                {
+                  user?.status === 'suspended' && (
+                    <button 
+                      className="flex items-center gap-1" 
+                      onClick={() => {close(); manageUserAction('ACTIVATE_USER')}}
+                    >
+                      Activate User
+                    </button>
+                  )
+                }
               </div>
             )}
         </div>

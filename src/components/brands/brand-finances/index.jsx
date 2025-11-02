@@ -14,8 +14,7 @@ function BrandFinancePage({ brandId }) {
   const [filteredData, setfilteredData] = useState();
   const [originalArr, setOriginalArr] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  console.log("brand finances", brandFinance);
-
+  
   useEffect(() => {
     if (brandFinance?.payouts.length) {
       setfilteredData(brandFinance.payouts);

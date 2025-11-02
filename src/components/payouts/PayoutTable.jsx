@@ -1,6 +1,6 @@
 import TableSearch from "../globals/TableSearch"
 import Table from "../globals/Table"
-import { payoutColumnHeader, payoutData } from "../../data/payoutData.js";
+import { payoutColumnHeader } from "../../data/payoutData.js";
 import PayoutRowTemplate from "./PayoutTableRowTemplate.jsx";
 import { useState } from "react";
 
@@ -25,7 +25,7 @@ function PayoutTable({ filteredData, setfilteredData, originalArr, mutate, nextD
       columns={payoutColumnHeader}
       renderRow={(payout, i) => (
           <PayoutRowTemplate
-            key={payout._id}
+            key={payout?._id}
             payout={payout}
             i={i}
             openIndex={openIndex}

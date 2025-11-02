@@ -13,9 +13,9 @@ import NoDataPage from "../../components/globals/NoDataPage";
 function DashboardProductPage() {
   const [filteredData, setfilteredData] = useState();
   const [originalArr, setoriginalArr] = useState();
+  const [recentProducts, setrecentProducts] = useState();
 
   const { products, productsLoading, productsError, mutate } = fetchProducts();
-  console.log("products", products);
 
   useEffect(() => {
     if (products?.products?.length) {
@@ -24,13 +24,11 @@ function DashboardProductPage() {
     }
   }, [products?.products])
 
-  const newlyAdded = () => {
-    if (!products?.products) return [];
-    const sorted = [...products.products].sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-    );
-    return sorted.slice(0, 3);
-  };
+  useEffect(() => {
+    if (products?.summary?.recentProducts?.length) {
+      setrecentProducts(products?.summary?.recentProducts);
+    } 
+  }, [products?.summary?.recentProducts]);
 
   if (productsLoading) return <Loader />
   if (productsError) return <ErrorWidget error={productsError} />
@@ -53,11 +51,8 @@ function DashboardProductPage() {
         { products?.summary &&
           <ProductCardContainer summary={products?.summary}/>
         }
-        {/* { products?.summary?.recentProducts &&
-          <NewlyAddedProductCardContainer recentProducts={products?.summary?.recentProducts} />
-        } */}
-        { newlyAdded &&
-          <NewlyAddedProductCardContainer recentProducts={newlyAdded()} />
+        { recentProducts &&
+          <NewlyAddedProductCardContainer recentProducts={recentProducts} />
         }
 
         {filteredData ? (

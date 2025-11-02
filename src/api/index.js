@@ -107,11 +107,7 @@ export const updateAdminStatus = async (id, payload) => {
   );
   return result;
 };
-// export const deleteAdmin = async (id) => {
-//   console.log("Deleting admin:", `${ADMINS}/${id}`);
-//   const result = await mutationRequest(`${ADMINS}/${id}`, "delete", false);
-//   return result;
-// };
+
 
 // ##BRANDS (Remains the last 2)
 export const fetchAllBrands = () => {
@@ -392,8 +388,14 @@ export const fetchAllDisputes = (type) => {
     mutate,
   };
 };
-export const fetchDispute = (id) => {
-  const { data, error, mutate } = useSWR(`${FETCH_DISPUTES}/${id}`, fetcher);
+export const fetchDispute = (id, { orderId, payoutId } = {}) => {
+  const query = orderId
+    ? `?orderId=${orderId}`
+    : payoutId
+    ? `?payoutId=${payoutId}`
+    : "";
+
+  const { data, error, mutate } = useSWR(`${FETCH_DISPUTES}/${id}${query}`, fetcher);
   return {
     dispute: data,
     disputeLoading: !error && !data,
@@ -537,3 +539,22 @@ export const addDisputes = async (values) => {
   const result = await mutationRequest(CREATE_DISPUTES, "post", values, false);
   return result;
 };
+
+
+
+
+
+// export const fetchAllBrands = (page = 1, limit = 10) => {
+//   const { data, error, mutate } = useSWR(
+//     `${FETCH_BRANDS}?page=${page}&limit=${limit}`, fetcher);
+//   return {
+//     brands: data,
+//     brandsLoading: !error && !data,
+//     brandsError: error,
+//     total: data?.total || 0,
+//     page: data?.page || page,
+//     limit: data?.limit || limit,
+//     totalPages: data ? Math.ceil(data.total / data.limit) : 1,
+//     mutate,
+//   };
+// };

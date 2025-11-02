@@ -5,9 +5,12 @@ import { capitalize, compactDateFormatter, dateFormatter, toSentence } from "../
 function OrderDisputeRowTemplate({ item, i }) {
 
   return (
-    <tr key={item._id} className="border-1 border-t border-merseBorder">
+    <tr className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm hidden lg:table-cell">
-          <Link to={`/dispute-order/${item._id}`} className="px-3 py-1 underline">
+          <Link 
+            to={`/dispute-order/${item?._id}?orderId=${item?.order?.id}`}
+            className="px-3 py-1 underline"
+          >
             View
           </Link>
       </td>
@@ -21,8 +24,8 @@ function OrderDisputeRowTemplate({ item, i }) {
       <td className="">
         <StatusCheck value={toSentence(item?.status)} className="text-sm px-2 py-1"/>
       </td>
-      <td className="py-4 text-sm hidden lg:table-cell">{compactDateFormatter(item.createdAt)}</td>
-      <td className="py-4 text-sm hidden lg:table-cell">{compactDateFormatter(item.updatedAt)}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{compactDateFormatter(item?.createdAt)}</td>
+      <td className="py-4 text-sm hidden lg:table-cell">{compactDateFormatter(item?.updatedAt)}</td>
       <td className="py-4 text-sm hidden lg:table-cell">
         <StatusCheck value={capitalize(item.urgency)} className="text-sm px-2 py-1"/>
       </td>

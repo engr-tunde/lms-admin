@@ -20,7 +20,6 @@ function DashboardBrandDetailsPage() {
   const brandId = id;
 
   const { brand, mutate } = fetchBrand(brandId);
-  console.log("brand overview", brand);
   const verified = brand?.isVerified
   
   useEffect(() => {
@@ -34,7 +33,6 @@ function DashboardBrandDetailsPage() {
   const handleActivateDeactivateBrand = async (id, action) => {
     try {
       const response = await activateDeactivateBrand({ action }, id);
-      console.log("response", response);
       if (response.status.toString().includes("20")) {
         successNotification(response.data.message || "Action successful");
         mutate();

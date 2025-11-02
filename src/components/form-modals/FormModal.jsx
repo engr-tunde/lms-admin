@@ -14,7 +14,6 @@ const FormModal = ({ table, type, id, data, modalElement }) => {
 
   const handleDelete = async () => {
     const res = table === "product" ? await deleteProduct(id) : null;
-    console.log("res", res);
     if (res.status === 200) {
       successMessage(res?.data?.message);
       setopen(false);

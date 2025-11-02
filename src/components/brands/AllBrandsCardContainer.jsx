@@ -5,7 +5,6 @@ import AllBrandsCard from "./AllBrandsCard"
 import { getLastUpdatedText, getPercentOfTotal } from "../../utils/helpers";
 
 function AllBrandsCardContainer({ summary }) {
-  console.log("summary", summary);
   const salesIcon = () => (
     <RiShoppingBag2Line size={50} className="text-merseBorder" />
   );

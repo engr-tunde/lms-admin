@@ -18,8 +18,6 @@ function ProductBrandsPage({ brandId }) {
       }
   }, [brandProduct]);
 
-  console.log("brand products in page", brandProduct);
-
   if (brandProductLoading) return <Loader />;
   if (brandProductError) return <ErrorWidget />;
   if (!brandProduct) return "No products available";

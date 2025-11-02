@@ -21,7 +21,7 @@ function CategoryRowTemplate({ item, i, openIndex, setOpenIndex, mutate, subcate
 
   return (
     <>
-      <tr key={i} className="border-1 border-t border-merseBorder">
+      <tr className="border-1 border-t border-merseBorder">
         <td className="py-4 text-sm">{capitalize(item.name)}</td>
         <td className="py-4 text-sm">{item?.subcategoryCount}</td>
         <td className="py-4 text-sm">

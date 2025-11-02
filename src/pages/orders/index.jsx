@@ -39,8 +39,6 @@ function DashboardOrdersPage() {
     return sorted.slice(0, 3);
   };
 
-  console.log("orders ss", orders);
-
   const itemsPerPage = orders?.limit || 10;
   const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;

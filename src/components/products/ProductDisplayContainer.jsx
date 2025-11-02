@@ -43,7 +43,7 @@ function ProductDisplayContainer({
     setCurrentPage(1);
   }, [filter, searchBy, originalArr]);
 
-  const itemsPerPage = 8;
+  const itemsPerPage = 10;
   const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = filteredData?.slice(

@@ -10,7 +10,6 @@ const postData = async (url, data, withCredentials, contentType = "application/j
       }
     })
     .then((res) => {
-      console.log("res status", res.status);
       if (res.status == 401) {
         Cookies.remove("authToken");
         window.location.href = "/login";
@@ -18,7 +17,10 @@ const postData = async (url, data, withCredentials, contentType = "application/j
       return res;
     })
 
-    .catch((err) => { console.log(err.response.data); return err.response; });
+    .catch((err) => { 
+      // console.log(err.response.data); 
+      return err.response; 
+    });
 
   return result;
 };
@@ -27,7 +29,7 @@ const putData = async (url, data, withCredentials) => {
   const result = await axiosInstance()
     .put(url, data, { withCredentials })
     .then((res) => {
-      console.log("res status", res.status);
+      // console.log("res status", res.status);
       if (res.status == 401) {
         Cookies.remove("authToken");
         window.location.href = "/login";
@@ -43,7 +45,6 @@ const patchData = async (url, data, withCredentials) => {
   const result = await axiosInstance()
     .patch(url, data, { withCredentials })
     .then((res) => {
-      console.log("res status", res.status);
       if (res.status == 401) {
         Cookies.remove("authToken");
         window.location.href = "/login";
@@ -59,7 +60,7 @@ const deleteData = async (url, withCredentials) => {
   const result = await axiosInstance()
     .delete(url, { withCredentials })
     .then((res) => {
-      console.log("res status", res.status);
+      // console.log("res status", res.status);
       if (res.status == 401) {
         Cookies.remove("authToken");
         window.location.href = "/login";

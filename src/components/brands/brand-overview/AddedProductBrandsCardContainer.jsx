@@ -3,7 +3,6 @@ import AddedProductBrandsCard from "./AddedProductBrandsCard";
 
 function AddedProductBrandsCardContainer({ products }) {
 
-  console.log("products", products)
   const newlyAddedProducts = () => {
     let allProducts = products;
     if (!allProducts) return [];

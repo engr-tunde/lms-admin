@@ -4,7 +4,7 @@ import { capitalize, formatter } from "../../../utils/helpers";
 function OrderViewItemsRowTemplate({  item, i, orderStatus }) {
 
   return (
-    <tr key={item?.productId} className="border-1 border-t border-merseBorder">
+    <tr className="border-1 border-t border-merseBorder">
       <td className="py-6 text-sm text-center block lg:table-cell">
         <div className="w-full flex gap-4 items-center">
           <div className="w-20">

@@ -4,22 +4,37 @@ import { useState } from 'react'
 import PayoutDisputeViewStatusCard from "../../components/dispute/payout-dispute-view/PayoutDisputeViewStatusCard.jsx";
 import PayoutDisputeViewInfoCard from "../../components/dispute/payout-dispute-view/PayoutDisputeViewInfoCard.jsx";
 import PayoutDisputeViewTable from "../../components/dispute/payout-dispute-view/PayoutDisputeViewTable.jsx";
+import { useLocation, useParams } from "react-router-dom";
 
 function PayoutDisputeViewPage() {
-  const [updateStatusButtonOpen, setUpdateStatusButtonOpen] = useState(null);
-  const handleActionClick = (i) => {
-    setUpdateStatusButtonOpen(!updateStatusButtonOpen);
-  };
+  const [disputeData, setdisputeData] = useState();
+
+  const { id } = useParams();
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search); 
+  const payoutId = queryParams.get("payoutId");
+  const { dispute, disputeLoading, disputeError, mutate } = fetchDispute(id, { payoutId });
+  
+  useEffect(() => {
+    if (dispute?.data) {
+      setdisputeData(dispute?.data);
+    }
+  }, [dispute?.data]);
+  
+  const { order } = fetchOrder(disputeData?.order?._id);
+
+  if (disputeLoading) return <Loader />;
+  if (disputeError) return <ErrorWidget error={disputeError} />;
+  if (!dispute) return <NoDataPage message="No dispute data found." />;
 
   return (
     <div className="flex flex-col gap-9">
       <DashboardNavBar
-        path="< Back Dispute > Order details"
-        title="POUT-1242-112"
+        title={`POUT-${disputeData?._id.slice(-5)}`}
         copyable
-        status="In review"
+        status={disputeData?.status}
       />
-      <div className="flex w-full justify-end relative">
+      {/* <div className="flex w-full justify-end relative">
         <button 
           className="px-3 py-1 bg-black text-white flex items-center text-sm gap-1"
           onClick={handleActionClick}
@@ -40,20 +55,18 @@ function PayoutDisputeViewPage() {
               </div>
             </div>
           )}
-      </div>
+      </div> */}
       <div className="w-full flex flex-col gap-8 h-[90%] overflow-y-scroll">
         <PayoutDisputeViewStatusCard
-         issueType="Missing item"
-         brandName="Stylish Co"
-         brandEmail="Stylishco@gmail.com"
-         payoutMethod="Flutterwave"
-         paidTo="*********6789"
-         salesMonth="May, 2023"
-         payoutDate="2023-06-01"
-         disputedOn="2023-06-01"
-         />
-        <PayoutDisputeViewInfoCard />
-        <PayoutDisputeViewTable />
+          disputeData={disputeData}
+        />
+        <PayoutDisputeViewInfoCard 
+          message={dispute?.message}
+          disputeData={disputeData}
+        />
+        <PayoutDisputeViewTable 
+          orderItems={disputeData?.payout?.orders?.items}
+        />
         
       </div>
     </div>

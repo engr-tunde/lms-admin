@@ -14,12 +14,11 @@ import ErrorWidget from "../../globals/ErrorWidget";
 import NoDataPage from "../../globals/NoDataPage";
 
 
-const BrandsCompliancePage = ({ brandId, verified }) => {
+const BrandsCompliancePage = ({ brandId }) => {
   const [activeTab, setActiveTab] = useState("complianceDocuments")
   const [showRejectForm, setShowRejectForm] = useState(false);
 
   const {brand, brandLoading, brandError, mutate} = fetchBrand(brandId);
-  console.log("brand in compliance", brand)
 
   if (brandLoading) return <Loader />;
   if (brandError) return <ErrorWidget error={brandError} />;
@@ -33,10 +32,10 @@ const BrandsCompliancePage = ({ brandId, verified }) => {
       brandId
     );
     if (response?.status?.toString()?.includes("20")) {
-      successNotification(response?.data?.message);
+      // successNotification("Action successful");
       mutate()
     } else {
-      errorNotification(response?.data?.message[0]);
+      // errorNotification(response?.data?.message[0]);
     }
   };
 
@@ -49,7 +48,7 @@ const BrandsCompliancePage = ({ brandId, verified }) => {
       </div>
     </div>  
     <div className="flex justify-end gap-5">
-      {!verified && ( 
+      {!brand?.isVerified && ( 
       <>
       <button 
         className="px-3 py-1 text-sm bg-black text-white"

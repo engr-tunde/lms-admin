@@ -27,8 +27,8 @@ export const compactFormatter = (amount) => {
 };
 
 export const dateFormatter = (date) => {
+  if (!date) return ""
   var dateString = new Date(date).toString();
-  // console.log({ dateString });
   var splittedDateString = dateString.split(" ");
   var day = splittedDateString[0];
   var day2 = splittedDateString[1];

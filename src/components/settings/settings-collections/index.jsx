@@ -62,6 +62,7 @@ function CollectionsSettingsTable() {
           renderRow={(item, i) => (
             <CollectionsRowTemplate
               item={item}
+              key={i}
               i={i}
               openIndex={openIndex}
               setOpenIndex={setOpenIndex}

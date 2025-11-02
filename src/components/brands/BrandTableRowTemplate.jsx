@@ -21,7 +21,6 @@ function BrandTableRowTemplate({ brand, openIndex, setOpenIndex, mutate }) {
   const handleActivateDeactivateBrand = async (id, action) => {
     try {
       const response = await activateDeactivateBrand({ action }, id);
-      console.log("response", response);
       if (response.status.toString().includes("20")) {
         successNotification(response.data.message || "Action successful");
         mutate();
@@ -37,7 +36,7 @@ function BrandTableRowTemplate({ brand, openIndex, setOpenIndex, mutate }) {
   
 
   return (
-    <tr key={brand?.id} className="border-1 border-t border-merseBorder">
+    <tr className="border-1 border-t border-merseBorder">
       <td className="hidden lg:table-cell py-4 text-sm px-2 text-center">
         <Link to={`/brands/${brand?.id}`} className="px-3 py-1 underline">
           View

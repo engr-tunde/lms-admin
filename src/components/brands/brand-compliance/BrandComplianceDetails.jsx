@@ -5,9 +5,6 @@ import { useEffect, useState } from "react";
 const BrandComplianceDetails = ({ brand }) => {
   const [type, settype] = useState("");
   const { brandtype } = fetchBrandType();
-  console.log("brandtype", brandtype);
-
-  let pickedBrandType
 
   useEffect(() => {
     if (brandtype) {

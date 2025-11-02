@@ -13,7 +13,6 @@ import Pagination from "../../components/globals/Pagination.jsx";
 
 function DashboardUsersPage() {
   const { users, usersLoading, usersError, mutate } = fetchAllUsers();
-  const { user } = fetchUser("68e6rrfa58544af182d181");
 
   const [originalArr, setoriginalArr] = useState();
   const [filteredData, setfilteredData] = useState(); 
@@ -26,11 +25,7 @@ function DashboardUsersPage() {
     }
   }, [users?.users]);
 
-  console.log("Users ss", users);
-
-  console.log("Single User ss", user);
-
-  const itemsPerPage = 4;
+  const itemsPerPage = users?.limit || 10;
   const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = filteredData?.slice(

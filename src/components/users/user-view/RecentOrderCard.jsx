@@ -9,8 +9,7 @@ import NoDataPage from "../../globals/NoDataPage";
 
 const RecentOrderCard = ({ recentOrders, userLoading, userError }) => {
   const [showModal, setshowModal] = useState(false);
-  const {orders, mutate } = fetchAllOrders();
-  // if (!recentOrders?.length) return <NoDataPage message="No recent orders available."/>;
+  if (!recentOrders?.length) return <NoDataPage message="No recent orders available."/>;
 
   return (
     <>
@@ -26,7 +25,7 @@ const RecentOrderCard = ({ recentOrders, userLoading, userError }) => {
         </button>
       </div>
       <div className="flex flex-col bg-gray-100/50 p-4 gap-4">
-        {orders?.orders?.slice(0, 4)?.map((order) => (
+        {recentOrders?.slice(0, 4)?.map((order) => (
         <RecentOrder key={order?._id} order={order}/>
         ))}
       </div>
@@ -37,7 +36,6 @@ const RecentOrderCard = ({ recentOrders, userLoading, userError }) => {
       recentOrders={recentOrders}
       userLoading={userLoading}
       userError={userError}
-      orders={orders?.orders}
     />
     </>
   )

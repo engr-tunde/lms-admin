@@ -16,7 +16,6 @@ function BrandsOrderRowTemplate({ order, i, openIndex, setOpenIndex, mutate }) {
       setisTogglingStatus(true);
       const newStatus = order?.status ? "cancelled" : "confirmed";
       const response = await updateOrderStatus(id, { status: newStatus });
-      console.log("response", response);
       if (response.status.toString().includes("20")) {
         successNotification(response.data.message);
         mutate()
@@ -30,7 +29,7 @@ function BrandsOrderRowTemplate({ order, i, openIndex, setOpenIndex, mutate }) {
   }
   
   return (
-    <tr key={order?._id} className="border-1 border-t border-merseBorder">
+    <tr className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm hidden lg:table-cell ">
           <Link to={`/orders/${order?._id}`} className="px-3 py-1 underline">
             View

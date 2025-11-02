@@ -59,6 +59,9 @@ const StatusCheck = ({ value, className = "" }) => {
     case "rejected":
       bg = "bg-red-600 text-white";
       break;
+    case "suspended":
+      bg = "bg-red-600 text-white";
+      break;
     case "unavailable":
       bg = "bg-red-600 text-white";
       break;

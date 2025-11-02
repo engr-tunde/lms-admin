@@ -15,7 +15,6 @@ function PayoutDisputeTable({ activeTab, setActiveTab }) {
   const [filteredData, setfilteredData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const { disputes: payoutDispute, disputesLoading, disputesError } = fetchAllDisputes("payout");
-  console.log("payoutDispute", payoutDispute);
 
   useEffect(() => {
     if (payoutDispute?.disputes?.length) {

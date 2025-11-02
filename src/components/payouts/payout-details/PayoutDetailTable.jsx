@@ -8,7 +8,6 @@ import TableSearch from "../../globals/TableSearch";
 import PayoutDetailRowTemplate from "./PayoutDetailRowTemplate";
 
 const PayoutDetailTable = ({ filteredData, setfilteredData, originalArr, mutate, commission }) => {
-  console.log("filteredData", filteredData)
 
   return (
     <div className="flex flex-col gap-2">

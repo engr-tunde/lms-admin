@@ -5,7 +5,6 @@ import NoDataPage from "../../globals/NoDataPage";
 
 
 const OrderViewItemsTable = ({ order }) => {
-
   if (!order?.items?.length) return <NoDataPage message="No items found in this order." />;
 
   const data = order?.items || []
@@ -16,7 +15,7 @@ const OrderViewItemsTable = ({ order }) => {
         columns={orderViewTableColumnHeader}
         renderRow={(item, i) => (
           <OrderViewItemsRowTemplate
-            key={item?.productId}
+            key={item?.id}
             item={item}
             i={i}
             orderStatus={order?.status}

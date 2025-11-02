@@ -14,7 +14,6 @@ function PayoutRowTemplate({ payout, i, openIndex, setOpenIndex, mutate, nextDue
   const handleUpdatePayout = async (id, status) => {
     try {
       const response = await updatePayout(id, { status });
-      console.log("response", response);
       if (response.status.toString().includes("20")) {
         successNotification(response.data.message);
         mutate()
@@ -28,11 +27,11 @@ function PayoutRowTemplate({ payout, i, openIndex, setOpenIndex, mutate, nextDue
     
 
   return (
-    <tr key={payout?._id} className="border-1 border-t border-merseBorder">
+    <tr className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm hidden lg:table-cell">
-          <Link to={`/payout/${payout?._id}`} className="px-3 py-1 underline">
-            View
-          </Link>
+        <Link to={`/payout/${payout?._id}`} className="px-3 py-1 underline">
+          View
+        </Link>
       </td>
       <td className="py-4 text-sm">{capitalize(payout?.brand?.name)}</td>
       <td className="py-4 text-sm hidden lg:table-cell">{200}</td>
@@ -67,7 +66,9 @@ function PayoutRowTemplate({ payout, i, openIndex, setOpenIndex, mutate, nextDue
           {isOpen && (
               <div className="absolute z-10 w-[150px] text-xs rounded-md flex flex-col p-3 gap-3 top-9 left-0 bg-white shadow-xl">
                 <div className="flex items-center gap-1 cursor-pointer">
-                  <span>View details</span>
+                  <Link to={`/payout/${payout?._id}`} className="">
+                    View Details
+                  </Link>
                 </div>
                 {
                   (payout?.status === "pending" || payout?.status === "hold") && (

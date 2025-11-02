@@ -4,11 +4,9 @@ import { FaChevronDown } from "react-icons/fa";
 import { RiCalendarLine } from "react-icons/ri";
 import { useEffect, useState }  from "react"
 import CustomLineChart from "../globals/CustomLineChart"
-// import { totalSales, totalOrders, activeBrands, newCustomers, pendingPayouts, completedPayouts } from "../../data/analyticsData";
 import { fetchAnalytics } from "../../api";
 import Loader from "../globals/Loader";
 import ErrorWidget from "../globals/ErrorWidget";
-import { set } from "zod/v4";
 import NoDataPage from "../globals/NoDataPage";
 
 
@@ -39,7 +37,6 @@ const AnalyticsOverviewPage = () => {
   if (analyticsError) return <ErrorWidget error={analyticsError} />;
   if (!analytics) return <div>No order analytics found</div>;
 
-  console.log("analytics", analytics)
   return (
     <>
     <div className="w-full flex flex-col gap-5 mb-4">

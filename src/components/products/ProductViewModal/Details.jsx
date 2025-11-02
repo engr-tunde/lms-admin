@@ -14,14 +14,7 @@ const ProductViewDetails = ({ data, mutate }) => {
   });
 
   const handleApproveProduct = async () => {
-    const response = await approveRejectProduct(
-      {
-        // rejectReason: values?.rejectReason,
-        approvalStatus: "approved",
-      },
-      data?._id
-    );
-    console.log("response", response);
+    const response = await approveRejectProduct({approvalStatus: "approved"}, data?._id);
     if (response?.status?.toString()?.includes("20")) {
       successNotification(response?.data?.message);
       onClose();

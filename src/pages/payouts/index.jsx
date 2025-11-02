@@ -29,7 +29,6 @@ function DashboardPayoutPage() {
       setsummaryData(payouts?.summary);
     }
   }, [payouts]);
-  console.log("Payouts Data:", payouts);
 
   const itemsPerPage = payouts?.limit || 10;
   const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);

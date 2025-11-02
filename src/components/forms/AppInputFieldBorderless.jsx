@@ -16,8 +16,6 @@ const AppInputFieldBorderless = ({
     setShowPassword(!showPassword);
   };
 
-  console.log("error", error);
-
   return (
     <div className="flex flex-col gap-2">
       {type === "password" ? (

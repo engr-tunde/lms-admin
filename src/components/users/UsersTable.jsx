@@ -70,6 +70,10 @@ export const userTableColumnHeader = [
         className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
     }, 
     {
+        header: "Status", 
+        className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
+    }, 
+    {
         header: "Actions", 
         className: "text-sm font-medium text-merseLightText"
     }, 

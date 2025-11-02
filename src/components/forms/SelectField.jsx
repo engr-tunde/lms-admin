@@ -8,8 +8,6 @@ const SelectField = ({ name, placeholder, array, title, ...rest }) => {
   const error = errors[name];
   const isInputTouched = touched[name];
 
-  console.log("typeof array[0]", typeof array[0]);
-
   return (
     <div className="col-span-1">
       <Field

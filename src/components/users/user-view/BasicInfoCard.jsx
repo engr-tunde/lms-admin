@@ -3,7 +3,7 @@ import NoDataPage from "../../globals/NoDataPage";
 import StatusCheck from "../../globals/StatusCheck";
 
 const BasicInfoCard = ({ info, userDetail }) => {
-  // if (!info ?? !userDetail) return <NoDataPage message="No basic information available." />;
+  if (!info && !userDetail) return <NoDataPage message="No basic information available." />;
   
   return (
     <div className="flex flex-col gap-2">
@@ -15,7 +15,7 @@ const BasicInfoCard = ({ info, userDetail }) => {
           <span className="text-sm font-semibold text-merseLightText">{info?.phoneNumber}</span>
         </div>
         <div className="flex flex-col items-end h-full justify-between">
-          <StatusCheck value={capitalize("active")} className="text-sm px-3 py-1" />
+          <StatusCheck value={capitalize(userDetail?.status)} className="text-sm px-3 py-1" />
           <div className="flex flex-col -gap-1 text-right text-sm text-merseLightText">
             <span className="font-semibold">Date Joined</span>
             <span>{compactDateFormatter(userDetail?.createdAt)}</span>

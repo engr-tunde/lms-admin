@@ -11,7 +11,7 @@ function CollectionsRowTemplate({ item, i, openIndex, setOpenIndex, mutate }) {
 
   return (
     <>
-    <tr key={item.id} className="border-1 border-t border-merseBorder">
+    <tr className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm">{capitalize(item.name)}</td>
       <td className="py-4 text-sm">{compactDateFormatter(item.created_at || item.createdAt) || null}</td>
       <td className="py-4 text-sm">

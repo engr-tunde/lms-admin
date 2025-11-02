@@ -1,15 +1,20 @@
 import Table from "../../globals/Table"
 import OrderDisputeViewItemsRowTemplate from "./OrderDisputeViewItemsRowTemplate"
-import { orderDisputeViewTableColumnHeader, orderDisputeViewTableData } from "../../../data/disputeData"
+import { orderDisputeViewTableColumnHeader } from "../../../data/disputeData"
 
-const OrderDisputeViewItemsTable = () => {
+const OrderDisputeViewItemsTable = ({ disputeItems }) => {
   return (
     <div>
       <div>Order Item(s)</div>
       <Table
         columns={orderDisputeViewTableColumnHeader}
-        renderRow={OrderDisputeViewItemsRowTemplate}
-        data={orderDisputeViewTableData}
+        renderRow={(item) => (
+          <OrderDisputeViewItemsRowTemplate
+            key={item?._id}
+            item={item}
+          />
+        )}
+        data={disputeItems}
       />
     </div>
   )

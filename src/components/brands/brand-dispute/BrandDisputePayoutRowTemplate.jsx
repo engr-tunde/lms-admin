@@ -4,7 +4,7 @@ import { toSentence } from "../../../utils/helpers";
 
 function BrandDisputePayoutRowTemplate(item) {
   return (
-    <tr key={item.id} className="border-1 border-t border-merseBorder">
+    <tr className="border-1 border-t border-merseBorder">
       <td className="py-4 text-sm hidden lg:table-cell">
           <Link to={`/dispute-payout/${item?._id}`} className="px-3 py-1 underline">
             View
