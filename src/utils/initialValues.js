@@ -123,3 +123,27 @@ export const statusDetailsValues = () => {
   };
   return initialValues;
 };
+
+
+
+
+
+
+/// LMS APP VALUES 
+
+export const basicCourseDetailValues = () => {
+  const initialValues = {
+    courseTitle: "",
+    courseDescription: "",
+    courseCategory: "",
+  };
+  return initialValues;
+};
+
+export const courseCurriculumValues = () => {
+  const initialValues = {
+    title: "",
+    objective: "",
+  };
+  return initialValues;
+};

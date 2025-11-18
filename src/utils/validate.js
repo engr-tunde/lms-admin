@@ -177,3 +177,23 @@ export const validateStatusDetails = () => {
   });
   return validationSchema;
 };
+
+
+/// # COURSES PAGE VALIDATIONS ###
+
+export const validateBasicCourseDetails = () => {
+  const validationSchema = yup.object({
+    courseTitle: yup.string().required("Please, provide course title"),
+    courseDescription: yup.string().required("Please, provide course description"),
+    courseCategory: yup.string().required("Please, select course category"),
+  });
+  return validationSchema;
+}
+
+export const validateCourseCurriculum = () => {
+  const validateSchema = yup.object({
+    title: yup.string().required("Please, provide section title"),
+    objective: yup.string().required("Please, provide learning objective"),
+  });
+  return validateSchema;
+}

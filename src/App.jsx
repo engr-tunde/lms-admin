@@ -10,8 +10,6 @@ import DashboardOverviewPage from "./pages/overview/index.jsx";
 import AuthLayout from "./layouts/AuthLayout.jsx";
 import DashboardOrdersPage from "./pages/orders/index.jsx";
 import DashboardPayoutPage from "./pages/payouts/index.jsx";
-import DashboardDisputePage from "./pages/dispute/index.jsx";
-import OrderDisputeViewPage from "./pages/dispute/order-dispute-view.jsx";
 import DashboardMembersPage from "./pages/members/index.jsx";
 import DashboardSettingsPage from "./pages/settings/index.jsx";
 import DashboardProductPage from "./pages/products/index.jsx";
@@ -19,13 +17,17 @@ import DashboardBrandsPage from "./pages/brands/index.jsx";
 import DashboardAnalyticsPage from "./pages/analytics/index.jsx";
 import OrderViewPage from "./pages/orders/order-view.jsx";
 import DashboardBrandDetailsPage from "./pages/brands/brand-details.jsx";
-import PayoutDisputeViewPage from "./pages/dispute/payout-dispute-view.jsx";
 import PayoutDetailPage from "./pages/payouts/payout-detail.jsx";
 import VerifyForgotPasswordPage from "./pages/auth/verify-forgot-password/index.jsx";
 import VerifyLoginPage from "./pages/auth/verify-login/index.jsx";
 import DashboardBrandRequests from "./pages/brands/brand-requests.jsx";
 import DashboardUsersPage from "./pages/users/index.jsx";
 import DashboardUsersViewPage from "./pages/users/user-view.jsx";
+
+import DashboardCoursesPage from "./pages/courses/index.jsx"
+import DashboardCreatePage from "./pages/create/index.jsx";
+import DashboardHomePage from "./pages/home/index.jsx";
+
 
 function App() {
   return (
@@ -46,21 +48,22 @@ function App() {
           />
           <Routes>
             <Route element={<DashboardLayout />}>
-              <Route path="/" element={<DashboardOverviewPage />} />
+              <Route path="/course" element={<DashboardCoursesPage />} />
+              <Route path="/" element={<DashboardHomePage />} />
+
+              <Route path="/create" element={<DashboardCreatePage />} />
               <Route path="/orders" element={<DashboardOrdersPage />} />
               <Route path="/orders/:id" element={<OrderViewPage />} />
               <Route path="/payout" element={<DashboardPayoutPage />} />
               <Route path="/payout/:id" element={<PayoutDetailPage />} />
-
-              <Route path="/dispute" element={<DashboardDisputePage />} />
-              <Route
+              {/* <Route
                 path="/dispute-order/:id"
                 element={<OrderDisputeViewPage />}
               />
               <Route
                 path="/dispute-payout/:id"
                 element={<PayoutDisputeViewPage />}
-              />
+              /> */}
               <Route path="/users" element={<DashboardUsersPage />} />
               <Route path="/users/:id" element={<DashboardUsersViewPage />} />
               

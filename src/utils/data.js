@@ -1,42 +1,42 @@
 export const dashboardSidebarMenu = [
   {
-    title: "Overview",
+    title: "Home",
     url: "/",
   },
   {
-    title: "Brands",
+    title: "Courses",
+    url: "/course",
+  },
+  {
+    title: "Create Materials",
     url: "/brands",
   },
   {
-    title: "Orders",
+    title: "Create Assessment",
     url: "/orders",
   },
   {
-    title: "Users",
-    url: "/users",
-  },
-  {
-    title: "Products",
+    title: "Generate Certificates",
     url: "/products",
   },
   {
-    title: "Payout",
+    title: "Receive Payments",
     url: "/payout",
   },
   {
-    title: "Analytics",
+    title: "Payouts",
     url: "/analytics",
   },
   {
-    title: "Members",
+    title: "Manage Admins",
     url: "/members",
   },
   {
-    title: "Dispute",
-    url: "/dispute",
+    title: "Manage Users",
+    url: "/users",
   },
   {
-    title: "Settings",
+    title: "Manage Payments",
     url: "/settings",
   },
 ];
