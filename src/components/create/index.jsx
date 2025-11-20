@@ -1,19 +1,18 @@
-import CategorySettingsTable from "../settings/settings-category";
-import CollectionsSettingsTable from "../settings/settings-collections";
-import SubcategorySettingsTable from "../settings/settings-subcategory";
-import CourseCurriculumCard from "./CourseCurriculumCard";
+import CourseCurriculumCard from "./course-curriculum-card";
+import CoursePublishCard from "./course-publish-card";
 import CourseOverviewCard from "./CourseOverviewCard";
+import CoursePriceCard from "./CoursePriceCard";
 
 const CourseCreatePage = ({ activeTab}) => {
   switch (activeTab) {
     case "courseOverview":
       return <CourseOverviewCard />;
-    case "courseCurriculum":
-      return <CourseCurriculumCard />;
     case "courseMaterials":
-      return <SubcategorySettingsTable />;
+      return <CourseCurriculumCard />;
+    case "price":
+      return <CoursePriceCard />;
     case "publish":
-      return <CollectionsSettingsTable />;
+      return <CoursePublishCard />;
     default:
       return null;
   }

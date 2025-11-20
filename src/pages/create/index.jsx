@@ -1,10 +1,6 @@
 import ProgressBar from "../../components/globals/ProgressBar";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
-import CollectionsSettingsTable from "../../components/settings/settings-collections";
-import SubcategorySettingsTable from "../../components/settings/settings-subcategory"
-import CategorySettingsTable from "../../components/settings/settings-category";
 import { useState } from "react";
-import CourseOverviewCard from "../../components/create/CourseOverviewCard";
 import CourseCreatePage from "../../components/create";
 
 const DashboardCreatePage = () => {
@@ -25,14 +21,14 @@ const DashboardCreatePage = () => {
           >
               Course Overview
         </button>
-        <button 
+        {/* <button 
           onClick={() => setActiveTab("courseCurriculum")}
           className={`pr-3 py-1 ${
               activeTab === "courseCurriculum" ? "text-black border-b-2 border-black" : "text-merseBorder"
           }`}
           >
               Course Curriculum
-        </button>
+        </button> */}
         <button 
           onClick={() => setActiveTab("courseMaterials")}
           className={`pr-3 py-1 ${
@@ -40,6 +36,14 @@ const DashboardCreatePage = () => {
           }`}
           >
               Course Materials
+        </button>
+        <button 
+          onClick={() => setActiveTab("price")}
+          className={`pr-3 py-1 ${
+              activeTab === "price" ? "text-black border-b-2 border-black" : "text-merseBorder"
+          }`}
+          >
+              Price
         </button>
         <button 
           onClick={() => setActiveTab("publish")}

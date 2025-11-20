@@ -36,7 +36,7 @@ function MemberTable({
             mutate={mutate}
           />
         )}
-        data={filteredData}
+        data={memberData}
       />
     </div>
   );

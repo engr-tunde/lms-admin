@@ -43,10 +43,10 @@ export default AddMemberModal;
 // data/formConfigs.js
 export const addAdminFields = [
   {
-    type: "text",               // input type (can also be "email", "password", etc.)
-    name: "fullName",           // field key
-    placeholder: "Full name",   // input placeholder
-    colSpan: 2,                 // spans full row in 2-column grid
+    type: "text",               
+    name: "fullName",     
+    placeholder: "Full name",
+    colSpan: 2,
   },
   {
     type: "email",
@@ -55,9 +55,9 @@ export const addAdminFields = [
     colSpan: 1,
   },
   {
-    type: "select",             // dropdown field
+    type: "select",             
     name: "role",
-    title: "Select admin",      // label above select
+    title: "Select admin",      
     options: adminRoles,
     colSpan: 1,
   },

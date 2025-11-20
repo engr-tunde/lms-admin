@@ -10,26 +10,8 @@ import {
 import { updateAdminStatus } from "../../api";
 
 function MemberTableRowTemplate({ member, i, openIndex, setOpenIndex, mutate }) {
-  // const [isSubmitting, setisSubmitting] = useState(false);
   const [isTogglingStatus, setisTogglingStatus] = useState(false);
   const { isOpen, toggle, close, ref } = useToggleOpen(openIndex, setOpenIndex, i);
-
-  // const handleRemoveMember = async (id) => {
-  //   try {
-  //     setisSubmitting(true);
-  //     const response = await deleteAdmin(id);
-  //     console.log("response", response);
-  //     if (response.status.toString().includes("20")) {
-  //       successNotification(response.data.message);
-  //       mutate()
-  //     } else {
-  //       errorNotification(response?.data?.message);
-  //     }
-  //   } finally {
-  //     setisSubmitting(false);
-  //     close();
-  //   }
-  // };
 
   const updateMemberStatus = async (id) => {
     try {
@@ -51,7 +33,7 @@ function MemberTableRowTemplate({ member, i, openIndex, setOpenIndex, mutate }) 
   return (
     <tr className="border-1 border-t border-merseBorder">
       <td className="py-6 text-sm flex flex-col items-start">
-        <span className="text-lg">{member?.fullName}</span>
+        <span className="text-lg">{member?.name}</span>
         <span className="text-merseLightText">{member?.email}</span>
       </td>
       <td className="py-6 text-sm">

@@ -40,6 +40,17 @@ const CourseOverviewCard = () => {
             array={languageOptions}
             colSpan={1}
           />
+          <SelectField
+            name="level"
+            title="-- Select Level --"
+            array={levelOptions}
+            colSpan={1}
+          />
+          <InputField
+            name="subject"
+            placeholder="What will be primarily taught in this course?"
+            colSpan={1}
+          />
           <div className="mt-10 w-full col-span-2">
             <TextAreaField
               name="courseDescription"
@@ -70,6 +81,14 @@ const languageOptions = [
   { value: "fr", title: "French" },
   { value: "de", title: "German" },
   { value: "zh", title: "Chinese" },
+]
+
+const levelOptions = [
+  { value: "beginner", title: "Beginner Level" },
+  { value: "intermediate", title: "Intermediate Level" },
+  { value: "advanced", title: "Advanced Level" },
+  { value: "all", title: "All Levels" },
+
 ]
 
 export default CourseOverviewCard;

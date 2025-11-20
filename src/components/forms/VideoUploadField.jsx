@@ -3,8 +3,18 @@ import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 
 const VideoUploadField = ({ name, label }) => {
-  const { setFieldValue, values } = useFormikContext();
+  const {
+    setFieldValue,
+    values,
+    errors,
+    touched,
+    handleBlur,
+    setFieldTouched,
+  } = useFormikContext();
+
   const file = values[name];
+  const error = errors[name];
+  const isTouched = touched[name];
 
   const [progress, setProgress] = useState(0);
 
@@ -12,10 +22,10 @@ const VideoUploadField = ({ name, label }) => {
     const selected = e.target.files[0];
     if (!selected) return;
 
-    // Set file in formik
     setFieldValue(name, selected);
+    setFieldTouched(name, true);
 
-    // Fake progress preview (your real upload will handle this)
+    // Fake progress
     setProgress(0);
     let i = 0;
     const interval = setInterval(() => {
@@ -36,14 +46,17 @@ const VideoUploadField = ({ name, label }) => {
   return (
     <div className="col-span-1 md:col-span-2">
       {label && (
-        <label className="block mb-1 text-[14px] font-medium capitalize">
+        <label className="text-[14px] font-medium capitalize">
           {label}
         </label>
       )}
 
       {!file ? (
-        // BEFORE SELECTION UI
-        <label className="border border-black/40 w-full p-4 flex items-center justify-between cursor-pointer">
+        <label
+          className={`w-full p-4 flex items-center justify-between cursor-pointer border ${
+            error && isTouched ? "border-red-500" : "border-merseBorder"
+          }`}
+        >
           <span className="text-gray-500 text-sm">No file selected</span>
           <span className="bg-purple-600 text-white px-4 py-2 text-sm">
             Select Video
@@ -53,11 +66,15 @@ const VideoUploadField = ({ name, label }) => {
             accept="video/*"
             className="hidden"
             onChange={handleSelect}
+            onBlur={() => handleBlur({ target: { name } })} // mark touched
           />
         </label>
       ) : (
-        // AFTER SELECTION UI
-        <div className="border border-black/40 p-4 relative">
+        <div
+          className={`border p-4 relative ${
+            error && isTouched ? "border-red-500" : "border-black/40"
+          }`}
+        >
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium">{file.name}</p>
@@ -70,7 +87,7 @@ const VideoUploadField = ({ name, label }) => {
             />
           </div>
 
-          {/* PROGRESS BAR */}
+          {/* Progress bar */}
           <div className="w-full h-2 bg-gray-200 mt-4 rounded">
             <div
               style={{ width: `${progress}%` }}
@@ -79,6 +96,12 @@ const VideoUploadField = ({ name, label }) => {
           </div>
 
           <span className="text-xs text-gray-500">{progress}%</span>
+        </div>
+      )}
+
+      {error && isTouched && (
+        <div className="text-red-500 text-[12px] font-400 lowercase mt-1">
+          {error}
         </div>
       )}
     </div>

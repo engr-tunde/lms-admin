@@ -2,9 +2,9 @@
 export const FORGOT_PASSWORD = "/admins/forgot-password";
 export const VERIFY_FORGOT_PASSWORD = "/admins/verify-forgot-password";
 export const RESET_PASSWORD = "/admins/reset-password";
-export const SIGNIN = "/admins/login";
+export const SIGNIN = "/admin-auth/login";
 export const VERIFY_LOGIN = "/admins/verify-login";
-export const CHECK_SESSION = "/admins/check-session";
+export const CHECK_SESSION = "/admin-auth/check-session";
 export const LOGOUT = "/admins/logout"
 
 // Admin Brands

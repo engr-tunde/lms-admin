@@ -3,8 +3,6 @@ import { FaChevronRight } from "react-icons/fa";
 import StatusCheck from "../../globals/StatusCheck";
 import { useState } from "react";
 import UsersOrderModal from "./UsersOrderModal";
-import { fetchAllOrders } from "../../../api";
-import ExtraOrderItemsBadge from "../../orders/ExtraOrderItemsBadge";
 import NoDataPage from "../../globals/NoDataPage";
 
 const RecentOrderCard = ({ recentOrders, userLoading, userError }) => {
@@ -52,7 +50,6 @@ const RecentOrder = ({ order }) => {
         <div className="font-semibold">Order #{order?._id.slice(-5)}</div>
         <div className="flex items-center gap-3 w-full">
           <span className="text-sm truncate lg:max-w-[200px]">{capitalize(order?.items[0]?.productName)}</span>
-          <ExtraOrderItemsBadge items={order?.items} />
         </div>
       </div>
       <div className="flex flex-col gap-2 text-sm">

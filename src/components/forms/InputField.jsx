@@ -24,7 +24,6 @@ const InputField = ({
   };
 
   return (
-    // <div className="col-span-1">
     <div className={full ? "col-span-1 md:col-span-2" : "col-span-1"}>
       {type === "password" ? (
         <div className="border-[1px] border-black/90 w-[100%] bg-transparent flex items-center justify-between gap-1 pe-1">

@@ -1,3 +1,4 @@
+import { article } from "framer-motion/client";
 import * as yup from "yup";
 import { z } from "zod";
 
@@ -186,6 +187,7 @@ export const validateBasicCourseDetails = () => {
     courseTitle: yup.string().required("Please, provide course title"),
     courseDescription: yup.string().required("Please, provide course description"),
     courseCategory: yup.string().required("Please, select course category"),
+    level: yup.string().required("Please, select course level"),
   });
   return validationSchema;
 }
@@ -196,4 +198,20 @@ export const validateCourseCurriculum = () => {
     objective: yup.string().required("Please, provide learning objective"),
   });
   return validateSchema;
+}
+
+export const validateVideoMaterialValues = () => {
+  const validationSchema = yup.object({
+    video: yup.string().required("Please, upload a video file"),
+    article: yup.string().required("Please, provide article content"),
+  });
+  return validationSchema;
+}
+
+export const validateCoursePrice = () => {
+  const validationSchema = yup.object({
+    currency: yup.string().required("Please, select currency"),
+    price: yup.number().required("Please, provide course price"),
+  });
+  return validationSchema;
 }

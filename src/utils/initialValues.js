@@ -136,6 +136,7 @@ export const basicCourseDetailValues = () => {
     courseTitle: "",
     courseDescription: "",
     courseCategory: "",
+    level: "",
   };
   return initialValues;
 };
@@ -147,3 +148,19 @@ export const courseCurriculumValues = () => {
   };
   return initialValues;
 };
+
+export const videoMaterialValues = () => {
+  const initialValues = {
+    video: "",
+    article: ""
+  }; 
+  return initialValues
+}
+
+export const coursePriceValues = () => {
+  const initialValues = {
+    currency: "USD", 
+    price: "",
+  };
+  return initialValues;
+}
