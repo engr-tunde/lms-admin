@@ -1,27 +1,23 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { dashboardSidebarMenu } from "../../utils/data";
 import { Link, useLocation } from "react-router-dom";
-import { errorNotification } from "../../utils/helpers";
-import { fetcher } from "../../api/fetcher";
-import { LOGOUT } from "../../constants/routes";
-import Cookies from "js-cookie";
 import { FaX } from "react-icons/fa6";
 
 function DashboardSidebarModal({ onClose }) {
   const location = useLocation();
   const pathname = location.pathname;
 
-  const handleLogout = async () => {
-    const response = await fetcher(LOGOUT);
-    if (response.success) {
-      setTimeout(() => {
-        Cookies.remove("authToken");
-        window.location.href = "/login";
-      }, 300);
-    } else {
-      errorNotification(response?.message);
-    }
-  };
+  // const handleLogout = async () => {
+  //   const response = await fetcher(LOGOUT);
+  //   if (response.success) {
+  //     setTimeout(() => {
+  //       Cookies.remove("authToken");
+  //       window.location.href = "/login";
+  //     }, 300);
+  //   } else {
+  //     errorNotification(response?.message);
+  //   }
+  // };
 
   return (
     <AnimatePresence>
@@ -71,9 +67,9 @@ function DashboardSidebarModal({ onClose }) {
           ))}
         </div>
 
-        <div className="mt-auto mb-10 cursor-pointer" onClick={handleLogout}>
+        {/* <div className="mt-auto mb-10 cursor-pointer" onClick={handleLogout}>
           Logout
-        </div>
+        </div> */}
       </motion.div>
     </AnimatePresence>
   );

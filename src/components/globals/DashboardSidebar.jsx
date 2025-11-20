@@ -1,26 +1,22 @@
 import { useLocation } from "react-router-dom";
 import { dashboardSidebarMenu } from "../../utils/data";
 import { Link } from "react-router-dom";
-import { errorNotification } from "../../utils/helpers";
-import Cookies from "js-cookie";
-import { fetcher } from "../../api/fetcher";
-import { LOGOUT } from "../../constants/routes";
 
 function DashboardSidebar() {
   let location = useLocation();
   const pathname = location.pathname;
 
-  const handleLogout = async () => {
-    const response = await fetcher(LOGOUT);
-    if (response.success) {
-      setTimeout(() => {
-        Cookies.remove("authToken");
-        window.location.href = "/login";
-      }, 300);
-    } else {
-      errorNotification(response?.message);
-    }
-  };
+  // const handleLogout = async () => {
+  //   const response = await fetcher(LOGOUT);
+  //   if (response.success) {
+  //     setTimeout(() => {
+  //       Cookies.remove("authToken");
+  //       window.location.href = "/login";
+  //     }, 300);
+  //   } else {
+  //     errorNotification(response?.message);
+  //   }
+  // };
 
   return (
     <div className="h-screen flex flex-col gap-10 overflow-y-hidden">
@@ -45,9 +41,9 @@ function DashboardSidebar() {
           </Link>
         ))}
       </div>
-      <div className="mt-auto mb-20 cursor-pointer" onClick={handleLogout}>
+      {/* <div className="mt-auto mb-20 cursor-pointer" onClick={handleLogout}>
         Logout
-      </div>
+      </div> */}
     </div>
   );
 }

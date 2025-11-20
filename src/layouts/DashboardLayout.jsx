@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import DashboardSidebar from "../components/globals/DashboardSidebar";
 import DashboardSidebarModal from "../components/globals/DashboardSidebarModal";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import { HiOutlineBars3CenterLeft } from "react-icons/hi2";
 
 const DashboardLayout = () => {
   const [nav, setNav] = useState(false);
 
-  useEffect(() => {
-    let session = Cookies.get("authToken");
-    if (!session) {
-      window.location.href = "/login";
-    }
-  }, []);
+  // useEffect(() => {
+  //   let session = Cookies.get("authToken");
+  //   if (!session) {
+  //     window.location.href = "/login";
+  //   }
+  // }, []);
 
   return (
     <>

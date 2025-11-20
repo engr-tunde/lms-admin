@@ -6,39 +6,38 @@ import SubmitButton from "../forms/SubmitButton";
 import { Link, useNavigate } from "react-router-dom";
 import { errorNotification, successNotification } from "../../utils/helpers";
 import AuthHeader from "./AuthHeader";
-import { login } from "../../api";
+// import { login } from "../../api";
 
 const LoginBody = () => {
   const initialValues = loginValues();
   const validationSchema = validateLogin();
-  const history = useNavigate();
 
-  const handleSubmit = async (values) => {
-    const response = await login(values);
-    if (response.status.toString().includes("20")) {
-      setTimeout(
-        () =>
-          history("/verify-login", {
-            state: { credentials: values },
-          }),
-        1500
-      );
-    } else {
-      errorNotification(response?.data?.message);
-    }
-  };
+  // const history = useNavigate();
+
+  // const handleSubmit = async (values) => {
+  //   const response = await login(values);
+  //   if (response.status.toString().includes("20")) {
+  //     successNotification("Login successful");
+
+  //     setTimeout(() => {
+  //       history("/");
+  //     }, 800);
+  //   } else {
+  //     errorNotification(response?.data?.message);
+  //   }
+  // };
 
   return (
     <>
       <AuthHeader
         title="Welcome Back"
-        subtitle="Sign in to manage brands, products, users and many more"
+        subtitle="Sign in to manage and create courses, tests, assignments, students and many more"
       />
       <div className="py-2 w-[85%] mx-auto">
         <CustomFormik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}
+          onSubmit={() => console.log("logged in")}
         >
           <div className="font-bold text-[14.5px] md:text-[18px] grid grid-cols-1 gap-5 md:grid-cols-1 w-[100%] mb-2">
             <InputField name="email" placeholder="Your email address" />
