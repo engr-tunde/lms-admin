@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { checkSession } from "../api/index"; // you already have this
+import Cookies from "js-cookie";
 
 const AuthLayout = () => {
   useEffect(() => {
