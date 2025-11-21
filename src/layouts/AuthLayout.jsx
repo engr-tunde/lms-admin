@@ -3,13 +3,12 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { checkSession } from "../api/index"; // you already have this
 
 const AuthLayout = () => {
-  const { session, sessionError } = checkSession();
-  const history = useNavigate();
   useEffect(() => {
+    let session = Cookies.get("user-token-key");
     if (session) {
-      history("/");
+      window.location.href = "/";
     }
-  }, [session]);
+  }, []);
 
   return (
     <>
