@@ -1,19 +1,20 @@
 import { createContext, useContext, useState } from "react";
-import { buySellTradeAssets } from "../data/generalData";
 
 const SwapContext = createContext();
 
 const SwapProvider = ({ children }) => {
   const [page, setpage] = useState(1);
-  const [recipient_address, setrecipient_address] = useState("");
-  const [recipient_network, setrecipient_network] = useState("");
-  const [from_token, setfrom_token] = useState(null);
+  const [title, settitle] = useState();
+  const [category, setcategory] = useState();
+  const [language, setlanguage] = useState();
+  const [level, setlevel] = useState();
+  const [what_to_teach, setwhat_to_teach] = useState();
+  const [description, setdescription] = useState();
   const [to_token, setto_token] = useState(null);
   const [from_token_amount, setfrom_token_amount] = useState(0);
   const [to_token_amount, setto_token_amount] = useState(0);
   const [show_recipient, setshow_recipient] = useState(false);
   const [status, setstatus] = useState(4);
-
   const [errors, seterrors] = useState({});
 
   return (
@@ -21,25 +22,6 @@ const SwapProvider = ({ children }) => {
       value={{
         page,
         setpage,
-        recipient_address,
-        setrecipient_address,
-        recipient_network,
-        setrecipient_network,
-        from_token,
-        setfrom_token,
-        to_token,
-        setto_token,
-        from_token_amount,
-        setfrom_token_amount,
-        to_token_amount,
-        setto_token_amount,
-        show_recipient,
-        setshow_recipient,
-
-        errors,
-        seterrors,
-        status,
-        setstatus,
       }}
     >
       {children}

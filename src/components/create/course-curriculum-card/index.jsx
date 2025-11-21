@@ -7,11 +7,20 @@ import ExistingSectionList from "./ExistingSectionList";
 
 const CourseCurriculumCard = () => {
   const [sections, setSections] = useState([
-    { id: 1, title: "Introduction to AI", objective: "Understand basic AI concepts" },
-    { id: 2, title: "Neural Networks", objective: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem dolorum expedita eos unde ab, amet molestias voluptatum vero accusantium officiis ducimus nobis quia. Quia dignissimos illum impedit commodi iusto placeat eaque, dolorum blanditiis libero nulla, dicta harum sit quas amet corporis perspiciatis necessitatibus. Facilis voluptatibus cum illo veniam a accusantium." },
+    {
+      id: 1,
+      title: "Introduction to AI",
+      objective: "Understand basic AI concepts",
+    },
+    {
+      id: 2,
+      title: "Neural Networks",
+      objective:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem dolorum expedita eos unde ab, amet molestias voluptatum vero accusantium officiis ducimus nobis quia. Quia dignissimos illum impedit commodi iusto placeat eaque, dolorum blanditiis libero nulla, dicta harum sit quas amet corporis perspiciatis necessitatibus. Facilis voluptatibus cum illo veniam a accusantium.",
+    },
   ]);
   const [toggleAdd, setToggleAdd] = useState(false);
-  const initialValues = courseCurriculumValues();
+  let initialValues = courseCurriculumValues();
   const validationSchema = validateCourseCurriculum();
 
   const addSection = (values) => {
@@ -33,14 +42,14 @@ const CourseCurriculumCard = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <ExistingSectionList 
-        sections={sections} 
-        onDelete={deleteSection} 
+      <ExistingSectionList
+        sections={sections}
+        onDelete={deleteSection}
         onUpdate={updateSection}
         onAddMaterials={() => {}}
       />
       <div>
-        <button 
+        <button
           className="bg-black text-white py-1 px-3 flex items-center hover:bg-gray-800 transition"
           onClick={() => setToggleAdd(!toggleAdd)}
         >
@@ -49,18 +58,14 @@ const CourseCurriculumCard = () => {
             className={`transition-transform duration-300 ${
               toggleAdd ? "rotate-45" : "rotate-0"
             }`}
-          /> 
-          <span 
-            className={`${toggleAdd ? "hidden" : ""}`}
-          >
-            Add Section
-          </span>
+          />
+          <span className={`${toggleAdd ? "hidden" : ""}`}>Add Section</span>
         </button>
       </div>
-      { toggleAdd && (
-        <NewSectionCard 
-          onAdd={addSection} 
-          initialValues={initialValues} 
+      {toggleAdd && (
+        <NewSectionCard
+          onAdd={addSection}
+          initialValues={initialValues}
           validationSchema={validationSchema}
         />
       )}
@@ -70,8 +75,7 @@ const CourseCurriculumCard = () => {
             Continue
           </button>
         </div>
-      )
-      }
+      )}
     </div>
   );
 };

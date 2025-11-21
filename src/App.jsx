@@ -4,12 +4,11 @@ import LoginPage from "./pages/auth/login/index.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DashboardLayout from "./layouts/DashboardLayout.jsx";
-// import AuthLayout from "./layouts/AuthLayout.jsx";
+import AuthLayout from "./layouts/AuthLayout.jsx";
 
-import DashboardCoursesPage from "./pages/courses/index.jsx"
+import DashboardCoursesPage from "./pages/courses/index.jsx";
 import DashboardCreatePage from "./pages/create/index.jsx";
 import DashboardHomePage from "./pages/home/index.jsx";
-
 
 function App() {
   return (
@@ -36,9 +35,9 @@ function App() {
               <Route path="/create" element={<DashboardCreatePage />} />
             </Route>
 
-            {/* <Route element={<AuthLayout />}>
+            <Route element={<AuthLayout />}>
               <Route path="/login" element={<LoginPage />} />
-            </Route> */}
+            </Route>
 
             <Route path="/*" element={<NotFound />} />
           </Routes>

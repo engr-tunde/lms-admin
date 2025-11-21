@@ -6,26 +6,27 @@ import SubmitButton from "../forms/SubmitButton";
 import { Link, useNavigate } from "react-router-dom";
 import { errorNotification, successNotification } from "../../utils/helpers";
 import AuthHeader from "./AuthHeader";
-// import { login } from "../../api";
+import { login } from "../../api";
+import Cookies from "js-cookie";
 
 const LoginBody = () => {
   const initialValues = loginValues();
   const validationSchema = validateLogin();
 
-  // const history = useNavigate();
+  const history = useNavigate();
 
-  // const handleSubmit = async (values) => {
-  //   const response = await login(values);
-  //   if (response.status.toString().includes("20")) {
-  //     successNotification("Login successful");
-
-  //     setTimeout(() => {
-  //       history("/");
-  //     }, 800);
-  //   } else {
-  //     errorNotification(response?.data?.message);
-  //   }
-  // };
+  const handleSubmit = async (values) => {
+    const res = await login(values);
+    if (res.status === 200) {
+      Cookies.set("user-token-key", res.headers["u-x-key"]);
+      successNotification(res?.data?.message);
+      setTimeout(() => {
+        history("/");
+      }, 300);
+    } else {
+      errorNotification(res?.data?.error);
+    }
+  };
 
   return (
     <>
@@ -37,7 +38,7 @@ const LoginBody = () => {
         <CustomFormik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={() => console.log("logged in")}
+          onSubmit={handleSubmit}
         >
           <div className="font-bold text-[14.5px] md:text-[18px] grid grid-cols-1 gap-5 md:grid-cols-1 w-[100%] mb-2">
             <InputField name="email" placeholder="Your email address" />
