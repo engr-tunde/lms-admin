@@ -25,7 +25,6 @@ const VideoUploadField = ({ name, label }) => {
     setFieldValue(name, selected);
     setFieldTouched(name, true);
 
-    // Fake progress
     setProgress(0);
     let i = 0;
     const interval = setInterval(() => {
@@ -53,12 +52,12 @@ const VideoUploadField = ({ name, label }) => {
 
       {!file ? (
         <label
-          className={`w-full p-4 flex items-center justify-between cursor-pointer border ${
-            error && isTouched ? "border-red-500" : "border-merseBorder"
+          className={`w-full p-8 flex items-center justify-between cursor-pointer border-[3px] border-dashed bg-white border-merseBorder ${
+            error && isTouched ? "" : "border-merseBorder"
           }`}
         >
-          <span className="text-gray-500 text-sm">No file selected</span>
-          <span className="bg-purple-600 text-white px-4 py-2 text-sm">
+          <span className="text-gray-500">No file selected</span>
+          <span className="bg-black text-white px-4 py-2 rounded-sm">
             Select Video
           </span>
           <input
@@ -66,7 +65,7 @@ const VideoUploadField = ({ name, label }) => {
             accept="video/*"
             className="hidden"
             onChange={handleSelect}
-            onBlur={() => handleBlur({ target: { name } })} // mark touched
+            onBlur={() => handleBlur({ target: { name } })}
           />
         </label>
       ) : (

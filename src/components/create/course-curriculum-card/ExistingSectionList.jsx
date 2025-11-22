@@ -2,15 +2,14 @@ import { FiPlus, FiTrash } from "react-icons/fi";
 import { FiEdit } from "react-icons/fi";
 import UploadMaterialsModal from "./UploadMaterialsModal";
 import { useState } from "react";
+import { LuGripVertical } from "react-icons/lu";
+import { LuTrash2 } from "react-icons/lu";
+import { RiEdit2Fill } from "react-icons/ri";
+
 
 
 const ExistingSectionList = ({ sections, onDelete, onUpdate, onAddMaterials }) => {
   const [addMaterialButton, setAddMaterialButton] = useState(false)
-
-
-  const deleteIcon = () => (<FiTrash size={15} />);  
-  const editIcon = () => (<FiEdit size={15} />);
-  const addIcon = () => (<FiPlus size={15} />);
 
   if (sections.length === 0) {
     return (
@@ -25,56 +24,63 @@ const ExistingSectionList = ({ sections, onDelete, onUpdate, onAddMaterials }) =
       {sections.map((item, index) => (
         <div
           key={item.id}
-          className="border border-gray-300 rounded-md p-4 bg-white shadow-sm"
+          className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
         >
-          <div className="flex flex-col justify-between">
-            <div>
-              <h3 className="font-semibold text-lg">
-                {index + 1}. {item.title}
-              </h3>
-              <p className="text-sm text-gray-600 mt-1">{item.objective}</p>
-              
-            </div>
-            <div className="flex w-full justify-between items-end mt-4">
-              <div className="">
-                {onAddMaterials && (
-                  <button 
-                    className="border-merseBorder border-2 px-3 py-1 flex items-center gap-1 text-sm"
-                    onClick={() => setAddMaterialButton(!addMaterialButton)}
-                  >
-                    {addIcon()}
-                    Add Materials
-                  </button>
+          <div className="px-6 py-10">
+            <div className="flex items-start gap-4">
+              <button className="mt-1 text-gray-400 hover:text-gray-600 cursor-move">
+                <LuGripVertical className="w-5 h-5" />
+              </button>
+              <div className="flex-1">
+                <div className="flex items-start justify-between mb-2">
+                  <div className="w-full">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                      {index + 1}. {item.title}
+                    </h3>
+                    <p className="text-merseLightText text-sm w-[90%]">{item.objective}</p>
+                  </div>
+                  <div className="flex gap-2">
+                    {onUpdate && (
+                      <button 
+                        className="px-4 py-2 bg-blue-600 text-white rounded-sm text-sm font-medium hover:bg-blue-700 transition-colors flex items-center gap-2"
+                        onClick={() => onUpdate(item.id)}
+                      >
+                        <RiEdit2Fill className="w-4 h-4" />
+                        Edit
+                      </button>
+                    )}
+                    {onDelete && (
+                      <button 
+                        className="px-4 py-2 bg-red-600 text-white rounded-sm text-sm font-medium hover:bg-red-700 transition-colors flex items-center gap-2"
+                        onClick={() => onDelete(item.id)}
+                      >
+                        <LuTrash2 className="w-4 h-4" />
+                        Delete
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div className="mt-4 pt-4 border-t border-gray-100">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-sm text-gray-500">{item.materials} materials</span>
+                    {onAddMaterials && (
+                      <button 
+                        className="px-4 py-2 border border-gray-300 rounded-sm text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
+                        onClick={() => setAddMaterialButton(!addMaterialButton)}
+                      >
+                        <FiPlus className="w-4 h-4" />
+                        Add Materials
+                      </button>)}
+                  </div>
+                </div>
+                { addMaterialButton && (
+                  <UploadMaterialsModal
+                    show={addMaterialButton}
+                    onClose={() => setAddMaterialButton(false)}
+                  />
                 )}
               </div>
-              <div className="flex gap-2">
-                {onUpdate && (
-                  <button
-                    className="text-xs px-3 py-1 bg-blue-600 text-white flex items-center gap-1"
-                    onClick={() => onUpdate(item.id)}
-                  >
-                    {editIcon()}
-                    Edit
-                  </button>
-                )}
-
-                {onDelete && (
-                  <button
-                    className="text-xs px-3 py-1 bg-red-600 text-white flex items-center gap-1"
-                    onClick={() => onDelete(item.id)}
-                  >
-                    {deleteIcon()}
-                    Delete
-                  </button>
-                )}
-              </div>
             </div>
-            { addMaterialButton && (
-              <UploadMaterialsModal
-                show={addMaterialButton}
-                onClose={() => setAddMaterialButton(false)}
-              />
-            )}
           </div>
         </div>
       ))}

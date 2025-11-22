@@ -42,8 +42,8 @@ const ArticleEditorField = ({ name, label }) => {
       )}
 
       <div
-        className={`border transition-all ${
-          error && isTouched ? "border-red-500" : "border-merseBorder"
+        className={`border-[3px] bg-white transition-all border-merseBorder ${
+          error && isTouched ? "" : ""
         }`}
       >
         <ReactQuill

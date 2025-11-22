@@ -4,7 +4,7 @@ import CustomModal from "../../globals/Modals";
 
 const NewSectionCard = ({ onAdd, initialValues, validationSchema }) => {
   return (
-    <div className="bg-gray-200/60 p-4 rounded-md border border-gray-300">
+    <div className="bg-white px-6 py-10 rounded-md border border-gray-300">
       <CustomModal
         title="New Section"
         submitButtonTitle="Add"

@@ -184,10 +184,12 @@ export const validateStatusDetails = () => {
 
 export const validateBasicCourseDetails = () => {
   const validationSchema = yup.object({
-    courseTitle: yup.string().required("Please, provide course title"),
-    courseDescription: yup.string().required("Please, provide course description"),
-    courseCategory: yup.string().required("Please, select course category"),
+    title: yup.string().required("Please, provide course title"),
+    category: yup.string().required("Please, select course category"),
     level: yup.string().required("Please, select course level"),
+    language: yup.string().required("Please, select course language"),
+    what_to_taught: yup.string().required("Please, provide what will be taught in this course"),
+    description: yup.string().required("Please, provide course description"),
   });
   return validationSchema;
 }

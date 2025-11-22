@@ -4,6 +4,7 @@ import { validateCourseCurriculum } from "../../../utils/validate";
 import { BsPlusLg } from "react-icons/bs";
 import NewSectionCard from "./NewSectionCard";
 import ExistingSectionList from "./ExistingSectionList";
+import { FiPlus } from "react-icons/fi";
 
 const CourseCurriculumCard = () => {
   const [sections, setSections] = useState([
@@ -11,12 +12,14 @@ const CourseCurriculumCard = () => {
       id: 1,
       title: "Introduction to AI",
       objective: "Understand basic AI concepts",
+      materials: 3, 
     },
     {
       id: 2,
       title: "Neural Networks",
       objective:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem dolorum expedita eos unde ab, amet molestias voluptatum vero accusantium officiis ducimus nobis quia. Quia dignissimos illum impedit commodi iusto placeat eaque, dolorum blanditiis libero nulla, dicta harum sit quas amet corporis perspiciatis necessitatibus. Facilis voluptatibus cum illo veniam a accusantium.",
+      materials: 5,
     },
   ]);
   const [toggleAdd, setToggleAdd] = useState(false);
@@ -53,9 +56,8 @@ const CourseCurriculumCard = () => {
           className="bg-black text-white py-1 px-3 flex items-center hover:bg-gray-800 transition"
           onClick={() => setToggleAdd(!toggleAdd)}
         >
-          <BsPlusLg
-            size={20}
-            className={`transition-transform duration-300 ${
+          <FiPlus
+            className={`w-4 h-4 transition-transform duration-300 ${
               toggleAdd ? "rotate-45" : "rotate-0"
             }`}
           />
@@ -71,8 +73,8 @@ const CourseCurriculumCard = () => {
       )}
       {sections && (
         <div className="flex justify-end">
-          <button className="text-sm px-3 py-1 bg-black text-white">
-            Continue
+          <button className="border-merseBorder px-4 py-2 bg-black text-white">
+            Continue to Requirements
           </button>
         </div>
       )}

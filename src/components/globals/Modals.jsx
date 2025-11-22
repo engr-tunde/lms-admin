@@ -39,7 +39,7 @@ const CustomModal = ({
                   Save to Draft
                 </button>
               )}
-              <SubmitButton title={submitButtonTitle} className="px-3 py-1" />
+              <SubmitButton title={submitButtonTitle} className="px-6 py-2 border-2 font-semibold" />
             </div>
           )}
         </CustomFormik>

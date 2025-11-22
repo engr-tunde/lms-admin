@@ -1,4 +1,4 @@
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 
 const CustomFormik = ({ children, initialValues, validationSchema, onSubmit }) => {
     return (
@@ -7,9 +7,11 @@ const CustomFormik = ({ children, initialValues, validationSchema, onSubmit }) =
             validationSchema={validationSchema}
             onSubmit={onSubmit}
         >
-            {() => {
-                return children;
-            }}
+            {() => (
+              <Form>
+                {children}
+              </Form>
+            )}
         </Formik>
     );
 };

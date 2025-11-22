@@ -123,7 +123,7 @@ const DashboardNavBar = ({ title, subtitle, status, copyable }) => {
       )}
 
       <div className="flex items-center gap-2">
-        <div className="text-xl font-semibold">{title}</div>
+        <div className="text-2xl font-semibold">{title}</div>
         {copyable && (
           <button
             onClick={handleCopy}
@@ -156,7 +156,7 @@ const DashboardNavBar = ({ title, subtitle, status, copyable }) => {
         )}
       </div>
       {subtitle && 
-        <div className="text-sm text-gray-600">
+        <div className="text-gray-500">
           {subtitle}
         </div>
         }

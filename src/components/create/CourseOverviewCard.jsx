@@ -4,34 +4,57 @@ import CustomModal from "../globals/Modals";
 import InputField from "../forms/InputField";
 import SelectField from "../forms/SelectField";
 import TextAreaField from "../forms/TextAreaField"
+import { addOverview } from "../../api"
+import { errorNotification, successNotification } from "../../utils/helpers";
 
 
-const CourseOverviewCard = () => {
+const CourseOverviewCard = ({ categories, stepCompleted, setStepCompleted, setActiveTab }) => {
   const initialValues = basicCourseDetailValues()
   const validationSchema = validateBasicCourseDetails()
 
+  const handleSubmit = async (values) => {
+    const response = await addOverview(values);
+    if (response.status.toString().includes("20")) {
+      successNotification(response.data?.message);
+      setStepCompleted(prev => ({
+        ...prev,
+        overview: true
+      }))
+    } else {
+      errorNotification(response?.data?.message);
+    }
+  }
+
+  const submitAndContinue = (values) => {
+    handleSubmit(values);
+    setActiveTab("materials");
+  }
+  
   return (
-  <div className="">
+  <div className="bg-white w-full px-6 py-10 shadow-sm rounded-lg border border-gray-200">
       <CustomModal
-        onSubmit={() => console.log("submit")}
-        onDraft={() => console.log("draft")}
+        onSubmit={submitAndContinue}
+        onDraft={handleSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}
         title="Add Course Details"
-        submitButtonTitle="Continue"
+        submitButtonTitle="Continue to Materials"
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="col-span-2">
             <InputField
-              name="courseTitle"
+              name="title"
               placeholder="Enter a title for this section"
               colSpan={2}
             />
           </div>
           <SelectField
-            name="courseCategory"
+            name="category"
             title="Pick category from the options below"
-            array={categoryOptions}
+            array={(categories || [])?.map((c) => ({
+              value: c?.category, 
+              title: c?.category,   
+            }))}
             colSpan={1}
           />
           <SelectField
@@ -47,13 +70,13 @@ const CourseOverviewCard = () => {
             colSpan={1}
           />
           <InputField
-            name="subject"
+            name="what_to_taught"
             placeholder="What will be primarily taught in this course?"
             colSpan={1}
           />
           <div className="mt-10 w-full col-span-2">
             <TextAreaField
-              name="courseDescription"
+              name="description"
               label="Course Description"
               placeholder="Write full details..."
               full={true}

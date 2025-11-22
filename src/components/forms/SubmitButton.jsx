@@ -6,9 +6,9 @@ const SubmitButton = ({ title, className, disabled = false }) => {
 
   return (
     <button
-      type="button"
+      type="submit"
       onClick={handleSubmit}
-      className={`text-white bg-black text-sm ${className} ${
+      className={`text-white bg-purple-600 ${className} ${
         isSubmitting && "bg-opacity-60"
       }`}
       disabled={disabled ? true : isSubmitting ? true : false}

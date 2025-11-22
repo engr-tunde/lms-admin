@@ -133,10 +133,12 @@ export const statusDetailsValues = () => {
 
 export const basicCourseDetailValues = () => {
   const initialValues = {
-    courseTitle: "",
-    courseDescription: "",
-    courseCategory: "",
+    title: "",
+    category: "",
     level: "",
+    language: "",
+    what_to_taught: "",
+    description: "",
   };
   return initialValues;
 };

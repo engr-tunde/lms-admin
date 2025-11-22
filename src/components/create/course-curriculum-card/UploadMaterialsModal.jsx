@@ -5,6 +5,8 @@ import { validateVideoMaterialValues } from "../../../utils/validate";
 import { useState } from "react";
 import ArticleEditorField from "../../forms/ArticleEditorField"
 import CustomModal from "../../globals/Modals";
+import { IoDocumentTextOutline, IoVideocamOutline } from "react-icons/io5";
+
 
 
 const UploadMaterialsModal = ({ show }) => {
@@ -18,7 +20,7 @@ const UploadMaterialsModal = ({ show }) => {
   if (!show) return null;
 
   return (
-      <div className="flex flex-col mt-3 border border-merseBorder p-4 bg-white">
+      <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
         <CustomModal
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -26,17 +28,25 @@ const UploadMaterialsModal = ({ show }) => {
           submitButtonTitle="Add material"
           title="Add Material"
         >
-          <div className="text-sm flex items-center gap-3">
+          <div className="flex gap-2 mb-4 border-b border-gray-200">
             <button 
-              className={`px-2 py-1 ${activeItem === "addVideo" ? "font-semibold  border-b-2 border-black" : ""}`}
+            type="button"
+              className={`px-4 py-2 text-sm font-medium flex items-center gap-2 
+                ${activeItem === "addVideo" ? 
+                  "text-purple-600 border-b-2 border-purple-600" : "text-gray-500 hover:text-gray-700"}`}
               onClick={() => setActiveItem("addVideo")}
             >
+              <IoVideocamOutline className="w-4 h-4" />
               Video
             </button>
             <button 
-              className={`px-2 py-1 ${activeItem === "addArticle" ? "font-semibold  border-b-2 border-black" : ""}`}
-              onClick={() => setActiveItem("addArticle")}
+              type="button"
+              className={`px-4 py-2 text-sm font-medium flex items-center gap-2 
+                ${activeItem === "addArticle" ? 
+                  "text-purple-600 border-b-2 border-purple-600" : "text-gray-500 hover:text-gray-700"}`}
+                  onClick={() => setActiveItem("addArticle")}
             >
+              <IoDocumentTextOutline className="w-4 h-4" />
               Article
             </button>
           </div>
