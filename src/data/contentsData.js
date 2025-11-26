@@ -114,3 +114,22 @@ export const coursesData = [
         lastUpdated: "2023-08-01",
     }
 ];
+
+export const coursesColumnHeader = [
+    {
+        header: "Course", 
+        className: ""
+    }, 
+    {
+        header: "Progress", 
+        className: ""
+    }, 
+    {
+        header: "Actions", 
+        className: ""
+    }, 
+    {
+        header: "Details", 
+        className: ""
+    }, 
+]

@@ -5,7 +5,8 @@ import TargetAudienceCard from "./TargetAudienceCard";
 
 
 
-const CourseSettings = () => {
+const CreateRequirements
+ = () => {
   const [courseData, setCourseData] = useState({
     price: '',
     currency: 'USD',
@@ -41,5 +42,6 @@ const CourseSettings = () => {
   )
 }
 
-export default CourseSettings;
+export default CreateRequirements
+;
 

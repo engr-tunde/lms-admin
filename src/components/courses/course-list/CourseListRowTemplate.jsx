@@ -2,36 +2,54 @@ import StatusCheck from "../../globals/StatusCheck"
 import { capitalize } from "../../../utils/helpers"
 import ProgressBar from "../../globals/ProgressBar";
 import { Link } from "react-router-dom"
+import { ChevronRight, Clock } from "lucide-react";
 
 function CourseListRowTemplate({ item }) {
   return (
     <tr className="border-1 border-t border-merseBorder">
-      <td className="py-6">
-        <div className="flex flex-col gap-10">
-          <span className="font-semibold">{item?.courseTitle}</span>
+      <td className="py-6 px-6">
+        <div className="flex flex-col gap-3">
+          <button 
+            onClick={() => onNavigate(`/courses/${item?.id}`)}
+            className="font-semibold text-gray-900 hover:text-blue-700 transition-colors text-left"
+          >
+            {item?.courseTitle}
+          </button>
           <div>
             <StatusCheck 
               value={capitalize(item?.status)}
-              className={`px-3 py-1`}
             />
           </div>
         </div>
       </td>
-      <td className="py-6 text-sm px-4">
+      <td className="py-6 px-6">
         <Link
-          to={"/"}
-          className="hover:opacity-50 px-4 py-1 w-full"
+          to={`/courses/create/${item?.id}`}
+          className="block w-full hover:opacity-80 transition-opacity text-left"
         >
           <ProgressBar
-            label="Finish up your course setup"
-            value={45}
+            label="Course completion"
+            value={item?.progress || 45}
+            fillColor="blue"
           />
         </Link>
       </td>
-      <td className="py-6 text-sm">
-        <div className="flex flex-col gap-10">
-          <span>{item.instructor}</span>
-          <span>{item.lastUpdated}</span>
+      <td className="py-6 px-6 text-center">
+        <Link 
+          to={`/courses/assessment/${item?.id}`}
+          className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+        >
+          Add Assessment
+          <ChevronRight className="w-4 h-4" />
+        </Link>
+      </td>
+      <td className="py-6 px-6">
+        <div className="flex flex-col gap-2">
+          <span className="text-sm font-medium text-gray-900">{item?.instructor}</span>
+          <div className="flex items-center gap-1.5 text-sm text-gray-500">
+            <Clock className="w-3.5 h-3.5" />
+            <span>{item?.lastUpdated}</span>
+          </div>
         </div>
       </td>
     </tr>

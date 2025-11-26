@@ -2,11 +2,11 @@ import React from "react";
 
 const Table = ({ columns = [], renderRow, data = [] }) => {
   return (
-    <table className="w-full mt-4 h-[200px] overflow-y-scroll overflow-x-scroll border-merseBorder">
-      <thead className="py-10 border-3">
+    <table className="w-full mt-4 h-[200px] overflow-y-scroll overflow-x-scroll border-merseBorder border rounded">
+      <thead className="bg-gray-50 border-b border-gray-200">
         <tr className="text-left">
           {columns.map((col, i) => (
-            <th key={i} className={`${col.className} py-3 pr-3 bg-merseBorder/10`}>
+            <th key={i} className={`${col.className} py-4 px-6 text-left text-sm font-semibold `}>
               {col.header}
             </th>
           ))}

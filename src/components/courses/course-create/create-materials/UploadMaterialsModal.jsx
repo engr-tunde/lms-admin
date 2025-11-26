@@ -1,11 +1,10 @@
-import CustomFormik from "../../forms/CustomFormik"
-import VideoUploadField from "../../forms/VideoUploadField";
-import { videoMaterialValues } from "../../../utils/initialValues";
-import { validateVideoMaterialValues } from "../../../utils/validate";
+import VideoUploadField from "../../../forms/VideoUploadField";
+import { videoMaterialValues } from "../../../../utils/initialValues";
+import { validateVideoMaterialValues } from "../../../../utils/validate";
 import { useState } from "react";
-import ArticleEditorField from "../../forms/ArticleEditorField"
-import CustomModal from "../../globals/Modals";
-import { IoDocumentTextOutline, IoVideocamOutline } from "react-icons/io5";
+import ArticleEditorField from "../../../forms/ArticleEditorField"
+import CustomModal from "../../../globals/Modals";
+import { VideoCamIcon, DocumentTextIcon } from "../../../globals/Icons";
 
 
 
@@ -36,7 +35,7 @@ const UploadMaterialsModal = ({ show }) => {
                   "text-purple-600 border-b-2 border-purple-600" : "text-gray-500 hover:text-gray-700"}`}
               onClick={() => setActiveItem("addVideo")}
             >
-              <IoVideocamOutline className="w-4 h-4" />
+              <VideoCamIcon className="w-4 h-4" />
               Video
             </button>
             <button 
@@ -46,7 +45,7 @@ const UploadMaterialsModal = ({ show }) => {
                   "text-purple-600 border-b-2 border-purple-600" : "text-gray-500 hover:text-gray-700"}`}
                   onClick={() => setActiveItem("addArticle")}
             >
-              <IoDocumentTextOutline className="w-4 h-4" />
+              <DocumentTextIcon className="w-4 h-4" />
               Article
             </button>
           </div>

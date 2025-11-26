@@ -1,21 +1,20 @@
-import { BsPlayBtn } from "react-icons/bs";
-import { BsListColumns } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { PlayButtonIcon, ListColumnsIcon } from "../globals/Icons"
 
-const HomeCreateOptions = () => {
+const OverviewOptions = () => {
 
   const courseIcon = () => {
-    return (< BsPlayBtn className="text-4xl text-gray-600" />)
+    return (< PlayButtonIcon className="text-4xl text-gray-600" />)
   }
   const practiceTestIcon = () => {
-    return (< BsListColumns className="text-4xl text-gray-600" />)
+    return (< ListColumnsIcon className="text-4xl text-gray-600" />)
   }
 
   return (
     <div className="flex justify-center gap-10 w-full h-full py-20">
       <Link 
         to={"/create"}
-        className="flex flex-col items-center justify-center w-[30%] border-2 p-5 gap-4 cursor-pointer hover:shadow-lg hover:border-black transition-all duration-200"
+        className="flex flex-col items-center justify-center w-[30%] border-2 p-5 gap-4 cursor-pointer hViewOptions:shadow-lg hViewOptions:border-black transition-all duration-200"
       >
         {courseIcon()}
         <span className="text-lg font-semibold">Course</span>
@@ -36,4 +35,4 @@ const HomeCreateOptions = () => {
   )
 }
 
-export default HomeCreateOptions;
+export default OverviewOptions;

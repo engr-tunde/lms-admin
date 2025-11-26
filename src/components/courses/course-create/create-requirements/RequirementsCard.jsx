@@ -1,4 +1,4 @@
-import { LuBookOpen, LuPlus, LuTrash2 } from "react-icons/lu";
+import { BookIcon, PlusIcon, TrashIcon } from "../../../globals/Icons";
 
 
 
@@ -27,7 +27,7 @@ const RequirementsCard = ({ courseData, setCourseData }) => {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
       <div className="flex items-start gap-3 mb-6">
-        <LuBookOpen className="w-5 h-5 mt-1" />
+        <BookIcon className="w-5 h-5 mt-1" />
         <div>
           <div className="font-semibold text-gray-900 text-lg">Course Requirements</div>
           <div className="text-gray-500 text-sm mt-1">What do students need to know before taking this course?</div>
@@ -49,7 +49,7 @@ const RequirementsCard = ({ courseData, setCourseData }) => {
                 onClick={() => removeRequirement(index)}
                 className="px-4 py-3 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
               >
-                <LuTrash2 className="w-4 h-4" />
+                <TrashIcon className="w-4 h-4" />
               </button>
             )}
           </div>
@@ -58,7 +58,7 @@ const RequirementsCard = ({ courseData, setCourseData }) => {
           onClick={addRequirement}
           className="px-4 py-2 text-purple-600 hover:text-purple-700 font-medium flex items-center gap-2"
         >
-          <LuPlus className="w-4 h-4" />
+          <PlusIcon className="w-4 h-4" />
           Add Requirement
         </button>
       </div>

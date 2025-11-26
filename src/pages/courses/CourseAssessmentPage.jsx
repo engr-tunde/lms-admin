@@ -1,29 +1,21 @@
 import ProgressBar from "../../components/globals/ProgressBar";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { useState } from "react";
-import CourseCreatePage from "../../components/create";
-import { addOverview, fetchCategories } from "../../api"
 import { FaCheck } from "react-icons/fa";
-import { errorNotification, successNotification } from "../../utils/helpers";
+import CourseAssessment from "../../components/courses/course-assessment";
 
-
-const DashboardCreatePage = () => {
-  const [activeTab, setActiveTab] = useState("overview")
+const DashboardCourseAssessmentPage = () => {
+  const [activeTab, setActiveTab] = useState("settings")
   const [stepCompleted, setStepCompleted] = useState({
-    overview: true,
-    materials: true,
     settings: true,
-    price: true,
-    publish: true
+    questions: true,
+    publish: true,
   })
 
-  const { categories } = fetchCategories();
-
   const tabs = [
-    { id: 'overview', label: 'Course Overview', step: 1, completed: stepCompleted.overview },
-    { id: 'materials', label: 'Course Materials', step: 2, completed: stepCompleted.materials },
-    { id: 'settings', label: 'Requirements & Audience', step: 3, completed: stepCompleted.settings },
-    { id: 'publish', label: 'Publish', step: 5, completed: stepCompleted.publish }
+    { id: 'settings', label: 'Assessment Settings', step: 1, completed: stepCompleted.settings },
+    { id: 'questions', label: 'Assessment Questions', step: 2, completed: stepCompleted.questions },
+    { id: 'publish', label: 'Preview & Publish', step: 3, completed: stepCompleted.publish }
   ];
 
   const progressValue = (tabs.findIndex(tab => tab.id === activeTab) / (tabs.length - 1)) * 100;
@@ -65,24 +57,17 @@ const DashboardCreatePage = () => {
           </button>
         ))}
       </div>
-      <ProgressBar value={progressValue}/>
-      <div className="w-full flex flex-col gap-8 bg-gray-50 mx-auto p-10">
-        <CourseCreatePage 
-          activeTab={activeTab} 
-          categories={categories?.data} 
-          setActiveTab={setActiveTab}
-          stepCompleted={stepCompleted}
-          setStepCompleted={setStepCompleted}
+      
+      <div className="relative w-full flex flex-col gap-8 bg-gray-50 mx-auto p-10">
+        <ProgressBar 
+          value={progressValue}
+          rounded={0}
+          className="absolute top-0 left-0 right-0"
         />
+        <CourseAssessment activeTab={activeTab} />
       </div>
     </div>
   )
 }
 
-export default DashboardCreatePage;
-
-
-
-
-
-
+export default DashboardCourseAssessmentPage;

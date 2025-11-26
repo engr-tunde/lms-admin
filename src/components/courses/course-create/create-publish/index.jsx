@@ -1,10 +1,10 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 import { useState } from "react";
-import { FiDollarSign } from "react-icons/fi";
+import { DollarIcon } from "../../../globals/Icons";
 
 
 
-const CoursePublishCard = () => {
+const CreatePublish = () => {
 
   const [courseData, setCourseData] = useState({
     price: '',
@@ -22,7 +22,7 @@ const CoursePublishCard = () => {
     <div className="space-y-6">
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
         <div className="flex items-start gap-3 mb-6">
-          <FiDollarSign className="w-5 h-5 mt-1" />
+          <DollarIcon className="w-5 h-5 mt-1" />
           <div>
             <div className="text-lg font-semibold text-gray-900">Pricing</div>
             <div className="text-gray-500 text-sm mt-1">Set the price for your course</div>
@@ -74,7 +74,7 @@ const CoursePublishCard = () => {
                     <option>GBP</option>
                     <option>NGN</option>
                   </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                  <ChevronDownIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
                 </div>
               </div>
             </div>
@@ -116,4 +116,4 @@ const CoursePublishCard = () => {
   )
 }
 
-export default CoursePublishCard;
+export default CreatePublish;

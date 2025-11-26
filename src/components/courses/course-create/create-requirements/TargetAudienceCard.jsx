@@ -1,4 +1,4 @@
-import { LuUsers, LuPlus, LuTrash2 } from "react-icons/lu";
+import { UsersIcon, PlusIcon, TrashIcon } from "../../../globals/Icons";
 
 
 
@@ -29,7 +29,7 @@ const TargetAudienceCard = ({ courseData, setCourseData }) => {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
       <div className="flex items-start gap-3 mb-6">
-        <LuUsers className="w-5 h-5 mt-1" />
+        <UsersIcon className="w-5 h-5 mt-1" />
         <div>
           <div className="font-semibold text-gray-900 text-lg">Target Audience</div>
           <div className="text-gray-500 text-sm mt-1">Who is this course for?</div>
@@ -51,7 +51,7 @@ const TargetAudienceCard = ({ courseData, setCourseData }) => {
                 onClick={() => removeTargetAudience(index)}
                 className="px-4 py-3 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
               >
-                <LuTrash2 className="w-4 h-4" />
+                <TrashIcon className="w-4 h-4" />
               </button>
             )}
           </div>
@@ -60,7 +60,7 @@ const TargetAudienceCard = ({ courseData, setCourseData }) => {
           onClick={addTargetAudience}
           className="px-4 py-2 text-purple-600 hover:text-purple-700 font-medium flex items-center gap-2"
         >
-          <LuPlus className="w-4 h-4" />
+          <PlusIcon className="w-4 h-4" />
           Add Audience
         </button>
       </div>

@@ -1,5 +1,4 @@
-import { CiClock2 } from "react-icons/ci";
-import { FiAward } from "react-icons/fi";
+import { ClockIcon, AwardIcon } from "../../../globals/Icons";
 
 
 
@@ -11,7 +10,7 @@ const OtherDetailsCard = ({ courseData, setCourseData }) => {
       <div className="grid grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            <CiClock2 className="w-4 h-4 inline mr-2" />
+            <ClockIcon className="w-4 h-4 inline mr-2" />
             Estimated Duration
           </label>
           <input
@@ -25,7 +24,7 @@ const OtherDetailsCard = ({ courseData, setCourseData }) => {
   
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            <FiAward className="w-4 h-4 inline mr-2" />
+            <AwardIcon className="w-4 h-4 inline mr-2" />
             Certificate
           </label>
           <div className="flex items-center gap-4 h-[52px]">

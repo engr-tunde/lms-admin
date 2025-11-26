@@ -1,14 +1,14 @@
-import { basicCourseDetailValues } from "../../utils/initialValues";
-import { validateBasicCourseDetails } from "../../utils/validate";
-import CustomModal from "../globals/Modals";
-import InputField from "../forms/InputField";
-import SelectField from "../forms/SelectField";
-import TextAreaField from "../forms/TextAreaField"
-import { addOverview } from "../../api"
-import { errorNotification, successNotification } from "../../utils/helpers";
+import { basicCourseDetailValues } from "../../../utils/initialValues";
+import { validateBasicCourseDetails } from "../../../utils/validate";
+import CustomModal from "../../globals/Modals";
+import InputField from "../../forms/InputField";
+import SelectField from "../../forms/SelectField";
+import TextAreaField from "../../forms/TextAreaField"
+import { addOverview } from "../../../api"
+import { errorNotification, successNotification } from "../../../utils/helpers";
 
 
-const CourseOverviewCard = ({ categories, stepCompleted, setStepCompleted, setActiveTab }) => {
+const CreateCourseOverview = ({ categories, stepCompleted, setStepCompleted, setActiveTab }) => {
   const initialValues = basicCourseDetailValues()
   const validationSchema = validateBasicCourseDetails()
 
@@ -114,4 +114,4 @@ const levelOptions = [
 
 ]
 
-export default CourseOverviewCard;
+export default CreateCourseOverview;

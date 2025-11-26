@@ -1,6 +1,6 @@
-import InputField from "../../forms/InputField";
-import TextAreaField from "../../forms/TextAreaField";
-import CustomModal from "../../globals/Modals";
+import InputField from "../../../forms/InputField";
+import TextAreaField from "../../../forms/TextAreaField";
+import CustomModal from "../../../globals/Modals";
 
 const NewSectionCard = ({ onAdd, initialValues, validationSchema }) => {
   return (

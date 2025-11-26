@@ -1,5 +1,3 @@
-import React from "react";
-
 const ProgressBar = ({
   label = "",
   value = 0,          // number between 0–100
@@ -8,12 +6,18 @@ const ProgressBar = ({
   fillColor = "#10B981", // green
   rounded = "100px",  // fully rounded
   showLabel = true,
+  className = "",
 }) => {
   return (
-    <div className="w-full">
-      {showLabel && (
-        <p className="mb-1 font-medium text-gray-800">{label}</p>
-      )}
+    <div className={`w-full h-auto ${className}`}>
+      <div className="flex justify-between items-center">
+        {showLabel && (
+          <>
+            <span className="mb-1 font-medium text-gray-800">{label}</span>
+            {/* <span className="text-sm">{value}%</span> */}
+          </>
+        )}
+      </div>
 
       <div
         style={{

@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { courseCurriculumValues } from "../../../utils/initialValues";
-import { validateCourseCurriculum } from "../../../utils/validate";
-import { BsPlusLg } from "react-icons/bs";
+import { courseCurriculumValues } from "../../../../utils/initialValues";
+import { validateCourseCurriculum } from "../../../../utils/validate";
 import NewSectionCard from "./NewSectionCard";
 import ExistingSectionList from "./ExistingSectionList";
-import { FiPlus } from "react-icons/fi";
+import { PlusIcon } from "../../../globals/Icons";
 
-const CourseCurriculumCard = () => {
+const CreateMaterials = () => {
   const [sections, setSections] = useState([
     {
       id: 1,
@@ -56,7 +55,7 @@ const CourseCurriculumCard = () => {
           className="bg-black text-white py-1 px-3 flex items-center hover:bg-gray-800 transition"
           onClick={() => setToggleAdd(!toggleAdd)}
         >
-          <FiPlus
+          <PlusIcon
             className={`w-4 h-4 transition-transform duration-300 ${
               toggleAdd ? "rotate-45" : "rotate-0"
             }`}
@@ -82,4 +81,4 @@ const CourseCurriculumCard = () => {
   );
 };
 
-export default CourseCurriculumCard;
+export default CreateMaterials;

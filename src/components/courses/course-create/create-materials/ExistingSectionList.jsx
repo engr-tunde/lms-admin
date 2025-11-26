@@ -1,11 +1,6 @@
-import { FiPlus, FiTrash } from "react-icons/fi";
-import { FiEdit } from "react-icons/fi";
+import { EditIcon, TrashIcon, GripIcon, PlusIcon } from "../../../globals/Icons"
 import UploadMaterialsModal from "./UploadMaterialsModal";
 import { useState } from "react";
-import { LuGripVertical } from "react-icons/lu";
-import { LuTrash2 } from "react-icons/lu";
-import { RiEdit2Fill } from "react-icons/ri";
-
 
 
 const ExistingSectionList = ({ sections, onDelete, onUpdate, onAddMaterials }) => {
@@ -29,7 +24,7 @@ const ExistingSectionList = ({ sections, onDelete, onUpdate, onAddMaterials }) =
           <div className="px-6 py-10">
             <div className="flex items-start gap-4">
               <button className="mt-1 text-gray-400 hover:text-gray-600 cursor-move">
-                <LuGripVertical className="w-5 h-5" />
+                <GripIcon className="w-5 h-5" />
               </button>
               <div className="flex-1">
                 <div className="flex items-start justify-between mb-2">
@@ -45,7 +40,8 @@ const ExistingSectionList = ({ sections, onDelete, onUpdate, onAddMaterials }) =
                         className="px-4 py-2 bg-blue-600 text-white rounded-sm text-sm font-medium hover:bg-blue-700 transition-colors flex items-center gap-2"
                         onClick={() => onUpdate(item.id)}
                       >
-                        <RiEdit2Fill className="w-4 h-4" />
+                        <EditIcon className="w-4 h-4" />
+
                         Edit
                       </button>
                     )}
@@ -54,7 +50,7 @@ const ExistingSectionList = ({ sections, onDelete, onUpdate, onAddMaterials }) =
                         className="px-4 py-2 bg-red-600 text-white rounded-sm text-sm font-medium hover:bg-red-700 transition-colors flex items-center gap-2"
                         onClick={() => onDelete(item.id)}
                       >
-                        <LuTrash2 className="w-4 h-4" />
+                        <TrashIcon className="w-4 h-4" />
                         Delete
                       </button>
                     )}
@@ -68,7 +64,7 @@ const ExistingSectionList = ({ sections, onDelete, onUpdate, onAddMaterials }) =
                         className="px-4 py-2 border border-gray-300 rounded-sm text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
                         onClick={() => setAddMaterialButton(!addMaterialButton)}
                       >
-                        <FiPlus className="w-4 h-4" />
+                        <PlusIcon className="w-4 h-4" />
                         Add Materials
                       </button>)}
                   </div>
