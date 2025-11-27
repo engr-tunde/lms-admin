@@ -1,17 +1,19 @@
-import { Formik } from "formik";
+import { Formik, Form } from 'formik';
 
-function CustomFormik({ children, initialValues, validationSchema, onSubmit }) {
-  return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={onSubmit}
-    >
-      {() => {
-        return children;
-      }}
-    </Formik>
-  );
-}
+const CustomFormik = ({ children, initialValues, validationSchema, onSubmit }) => {
+    return (
+        <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+        >
+            {() => (
+              <Form>
+                {children}
+              </Form>
+            )}
+        </Formik>
+    );
+};
 
 export default CustomFormik;

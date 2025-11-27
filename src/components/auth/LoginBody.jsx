@@ -1,5 +1,5 @@
 import InputField from "../forms/InputField";
-import CustomFormik from "../../utils/CustomFormik";
+import CustomFormik from "../forms/CustomFormik";
 import { validateLogin } from "../../utils/validate";
 import { loginValues } from "../../utils/initialValues";
 import SubmitButton from "../forms/SubmitButton";

@@ -5,7 +5,7 @@ import NewSectionCard from "./NewSectionCard";
 import ExistingSectionList from "./ExistingSectionList";
 import { PlusIcon } from "../../../globals/Icons";
 
-const CreateMaterials = () => {
+const CreateMaterials = ({ activeTab, setActiveTab }) => {
   const [sections, setSections] = useState([
     {
       id: 1,
@@ -52,7 +52,7 @@ const CreateMaterials = () => {
       />
       <div>
         <button
-          className="bg-black text-white py-1 px-3 flex items-center hover:bg-gray-800 transition"
+          className="border-2 rounded-lg py-1 px-3 flex items-center hover:bg-gray-200/50 transition"
           onClick={() => setToggleAdd(!toggleAdd)}
         >
           <PlusIcon
@@ -70,13 +70,22 @@ const CreateMaterials = () => {
           validationSchema={validationSchema}
         />
       )}
-      {sections && (
-        <div className="flex justify-end">
-          <button className="border-merseBorder px-4 py-2 bg-black text-white">
-            Continue to Requirements
+      <div className="flex justify-between">
+        <button 
+          onClick={() => setActiveTab('materials')}
+          className="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+        >
+          ← Back to Overview
+        </button>
+        {sections && (
+          <button 
+            onClick={() => setActiveTab('publish')}
+            className="px-6 py-2.5 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors"
+          >
+            Continue to Materials →
           </button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

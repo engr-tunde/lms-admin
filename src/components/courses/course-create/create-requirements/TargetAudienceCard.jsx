@@ -1,3 +1,4 @@
+import InputField from "../../../forms/InputField";
 import { UsersIcon, PlusIcon, TrashIcon } from "../../../globals/Icons";
 
 
@@ -39,12 +40,10 @@ const TargetAudienceCard = ({ courseData, setCourseData }) => {
       <div className="space-y-3">
         {courseData.targetAudience.map((audience, index) => (
           <div key={index} className="flex gap-3">
-            <input
-              type="text"
-              value={audience}
-              onChange={(e) => updateTargetAudience(index, e.target.value)}
-              placeholder="e.g., Aspiring data scientists"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+            <InputField
+              name={`targetAudience[${index}]`}
+              placeholder={`e.g., Aspiring data scientists`}
+              className="w-full"
             />
             {courseData.targetAudience.length > 1 && (
               <button

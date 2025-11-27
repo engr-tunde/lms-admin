@@ -13,7 +13,7 @@ const SelectField = ({ name, placeholder, array, title, ...rest }) => {
       <Field
         name={name}
         as="select"
-        className={`w-full h-full text-sm border-2 focus:border-black outline-none px-3 py-2`}
+        className={`w-full h-full text-sm border border-merseBorder focus:outline-purple-600 p-3 rounded-lg bg-transparent`}
       >
         {title && <option value="roles">{title}</option>}
         {array.map((item, i) => (

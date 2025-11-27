@@ -206,3 +206,37 @@ html {
 /* .inputfile + label * {
   pointer-events: none;
 } */
+
+
+
+
+/* New Styles */
+
+.continue-button {
+  @apply px-6 py-2 text-white bg-purple-600 font-semibold;
+}
+
+.draft-button {
+  @apply px-6 py-2 border-2 rounded-lg font-semibold;
+}
+
+.back-button {
+  @apply px-6 py-2 border-2 rounded-lg font-semibold;
+}
+
+.edit-button {
+  @apply px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors flex items-center gap-2;
+}
+
+.delete-button {
+  @apply px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors flex items-center gap-2;
+}
+
+.ql-container {
+  width: 100% !important;
+}
+
+.ql-editor {
+  white-space: normal !important;
+  word-break: break-word;
+}

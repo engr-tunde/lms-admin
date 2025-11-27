@@ -37,7 +37,7 @@ const ExistingSectionList = ({ sections, onDelete, onUpdate, onAddMaterials }) =
                   <div className="flex gap-2">
                     {onUpdate && (
                       <button 
-                        className="px-4 py-2 bg-blue-600 text-white rounded-sm text-sm font-medium hover:bg-blue-700 transition-colors flex items-center gap-2"
+                        className="edit-button"
                         onClick={() => onUpdate(item.id)}
                       >
                         <EditIcon className="w-4 h-4" />
@@ -47,7 +47,7 @@ const ExistingSectionList = ({ sections, onDelete, onUpdate, onAddMaterials }) =
                     )}
                     {onDelete && (
                       <button 
-                        className="px-4 py-2 bg-red-600 text-white rounded-sm text-sm font-medium hover:bg-red-700 transition-colors flex items-center gap-2"
+                        className="delete-button"
                         onClick={() => onDelete(item.id)}
                       >
                         <TrashIcon className="w-4 h-4" />
@@ -61,7 +61,7 @@ const ExistingSectionList = ({ sections, onDelete, onUpdate, onAddMaterials }) =
                     <span className="text-sm text-gray-500">{item.materials} materials</span>
                     {onAddMaterials && (
                       <button 
-                        className="px-4 py-2 border border-gray-300 rounded-sm text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
+                        className="px-4 py-2 font-medium text-purple-600 hover:text-purple-800 transition-colors flex items-center "
                         onClick={() => setAddMaterialButton(!addMaterialButton)}
                       >
                         <PlusIcon className="w-4 h-4" />

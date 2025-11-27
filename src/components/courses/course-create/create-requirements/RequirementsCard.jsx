@@ -1,3 +1,4 @@
+import InputField from "../../../forms/InputField";
 import { BookIcon, PlusIcon, TrashIcon } from "../../../globals/Icons";
 
 
@@ -33,16 +34,13 @@ const RequirementsCard = ({ courseData, setCourseData }) => {
           <div className="text-gray-500 text-sm mt-1">What do students need to know before taking this course?</div>
         </div>
       </div>
-  
       <div className="space-y-3">
         {courseData.requirements.map((req, index) => (
-          <div key={index} className="flex gap-3">
-            <input
-              type="text"
-              value={req}
-              onChange={(e) => updateRequirement(index, e.target.value)}
-              placeholder="e.g., Basic understanding of programming"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+          <div key={index} className="flex gap-3 w-full">
+            <InputField
+              name={`requirements[${index}]`}
+              placeholder={`e.g., Basic understanding of programming`}
+              className="w-full"
             />
             {courseData.requirements.length > 1 && (
               <button

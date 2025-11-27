@@ -36,7 +36,7 @@ const TextAreaField = ({
         onBlur={handleBlur(name)}
         disabled={disabled}
         rows={rows}
-        className="border-[1px] border-black/90 w-full bg-transparent p-3 text-[14px] resize-none"
+        className="border-[1px] border-merseBorder w-full bg-transparent p-3 text-[14px] resize-none rounded-lg focus:outline-purple-600"
         {...rest}
       />
 

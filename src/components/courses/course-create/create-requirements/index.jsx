@@ -2,6 +2,10 @@ import { useState } from "react";
 import OtherDetailsCard from "./OtherDetailsCard";
 import RequirementsCard from "./RequirementsCard";
 import TargetAudienceCard from "./TargetAudienceCard";
+import CustomModal from "../../../globals/Modals";
+import { validateCourseRequirementValues } from "../../../../utils/validate";
+import { courseRequirementsValues } from "../../../../utils/initialValues";
+import SubmitButton from "../../../forms/SubmitButton";
 
 
 
@@ -19,26 +23,37 @@ const CreateRequirements
     certificateEnabled: true
   });
 
+  const initialValues = courseRequirementsValues();
+  const validationSchema = validateCourseRequirementValues();
+
   return (
-    <div className="flex flex-col gap-6">
-      <RequirementsCard courseData={courseData} setCourseData={setCourseData} />
-      <TargetAudienceCard courseData={courseData} setCourseData={setCourseData} />
-      <OtherDetailsCard courseData={courseData} setCourseData={setCourseData} />
-      <div className="flex justify-between">
+    <CustomModal
+      title=""
+      onSubmit={() => console.log("Submitted")}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      description={""}
+    > 
+      <div className="flex flex-col gap-10">
+        <RequirementsCard courseData={courseData} setCourseData={setCourseData} />
+        <TargetAudienceCard courseData={courseData} setCourseData={setCourseData} />
+        <OtherDetailsCard courseData={courseData} setCourseData={setCourseData} />
+      </div>
+
+      <div className="flex justify-between mt-8">
         <button 
           onClick={() => setActiveTab('materials')}
-          className="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+          className="back-button"
         >
           ← Back to Materials
         </button>
-        <button 
+        <SubmitButton 
+          title="Continue to Publish →"
           onClick={() => setActiveTab('publish')}
-          className="px-6 py-2.5 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors"
-        >
-          Continue to Publish →
-        </button>
+          className="continue-button"
+        />
       </div>
-    </div>
+    </CustomModal>
   )
 }
 

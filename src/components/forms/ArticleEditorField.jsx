@@ -42,19 +42,19 @@ const ArticleEditorField = ({ name, label }) => {
       )}
 
       <div
-        className={`border-[3px] bg-white transition-all border-merseBorder ${
-          error && isTouched ? "" : ""
-        }`}
+        className={`border-2 bg-white transition-all border-merseBorder rounded-lg`}
       >
-        <ReactQuill
-          theme="snow"
-          value={value}
-          onChange={(val) => setFieldValue(name, val)}
-          onBlur={handleBlur}
-          modules={modules}
-          formats={formats}
-          className="min-h-[100px]"
-        />
+        <div className="w-full ql-container">
+          <ReactQuill
+            theme="snow"
+            value={value}
+            onChange={(val) => setFieldValue(name, val)}
+            onBlur={handleBlur}
+            modules={modules}
+            formats={formats}
+            className="min-h-[200px] max-h-[600px] overflow-y-scroll w-full rounded-lg ql-editor"
+          />
+        </div>
       </div>
 
       {error && isTouched && (

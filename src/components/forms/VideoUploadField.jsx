@@ -52,14 +52,14 @@ const VideoUploadField = ({ name, label }) => {
 
       {!file ? (
         <label
-          className={`w-full p-8 flex items-center justify-between cursor-pointer border-[3px] border-dashed bg-white border-merseBorder ${
+          className={`w-full p-8 flex items-center justify-between cursor-pointer border-2 border-dashed rounded-lg bg-white border-merseBorder flex flex-col gap-2 ${
             error && isTouched ? "" : "border-merseBorder"
           }`}
         >
-          <span className="text-gray-500">No file selected</span>
-          <span className="bg-black text-white px-4 py-2 rounded-sm">
-            Select Video
-          </span>
+          <span className="text-merseLightText hover:text-black">▶︎ Select Video</span>
+          {/* <span className="text-gray-500 text-xs">
+            No File Selected
+          </span> */}
           <input
             type="file"
             accept="video/*"
@@ -70,9 +70,7 @@ const VideoUploadField = ({ name, label }) => {
         </label>
       ) : (
         <div
-          className={`border p-4 relative ${
-            error && isTouched ? "border-red-500" : "border-black/40"
-          }`}
+          className={`border-2 rounded-lg p-4 relative`}
         >
           <div className="flex items-center justify-between">
             <div>
@@ -91,7 +89,7 @@ const VideoUploadField = ({ name, label }) => {
             <div
               style={{ width: `${progress}%` }}
               className="h-full bg-purple-500 rounded"
-            ></div>
+            />
           </div>
 
           <span className="text-xs text-gray-500">{progress}%</span>

@@ -210,10 +210,23 @@ export const validateVideoMaterialValues = () => {
   return validationSchema;
 }
 
-export const validateCoursePrice = () => {
+export const validateCourseRequirementValues = () => {
+  const validationSchema = yup.object({
+    requirements: yup.array().of(
+      yup.string().required("Please, provide a requirement")
+    )
+  });
+  return validationSchema;
+}
+
+export const validateCoursePublishValues = () => {
   const validationSchema = yup.object({
     currency: yup.string().required("Please, select currency"),
     price: yup.number().required("Please, provide course price"),
+    discountPrice: yup.number().when('hasDiscount', {
+      is: true,
+      then: yup.number().required("Please, provide discount price")
+    })
   });
   return validationSchema;
 }

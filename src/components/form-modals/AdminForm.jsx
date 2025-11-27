@@ -1,4 +1,4 @@
-import CustomFormik from "../../utils/CustomFormik";
+import CustomFormik from "../forms/CustomFormik";
 
 function AdminForm() {
   return (

@@ -159,10 +159,21 @@ export const videoMaterialValues = () => {
   return initialValues
 }
 
-export const coursePriceValues = () => {
+
+export const courseRequirementsValues = () => {
   const initialValues = {
-    currency: "USD", 
+    requirements: [""],
+  };
+  return initialValues;
+}; 
+
+export const coursePublishValues = () => {
+  const initialValues = {
+    currency: "USD",
     price: "",
+    hasDiscount: false,
+    isFree: false,
+    discountPrice: "",
   };
   return initialValues;
 }

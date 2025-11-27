@@ -1,3 +1,4 @@
+import InputField from "../../../forms/InputField";
 import { ClockIcon, AwardIcon } from "../../../globals/Icons";
 
 
@@ -13,15 +14,12 @@ const OtherDetailsCard = ({ courseData, setCourseData }) => {
             <ClockIcon className="w-4 h-4 inline mr-2" />
             Estimated Duration
           </label>
-          <input
-            type="text"
-            value={courseData.duration}
-            onChange={(e) => setCourseData({...courseData, duration: e.target.value})}
-            placeholder="e.g., 8 weeks, 20 hours"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+          <InputField
+            name={`duration`}
+            placeholder={`e.g., 8 weeks, 20 hours`}
+            className="w-full"
           />
         </div>
-  
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             <AwardIcon className="w-4 h-4 inline mr-2" />

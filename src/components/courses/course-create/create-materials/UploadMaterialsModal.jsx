@@ -4,7 +4,8 @@ import { validateVideoMaterialValues } from "../../../../utils/validate";
 import { useState } from "react";
 import ArticleEditorField from "../../../forms/ArticleEditorField"
 import CustomModal from "../../../globals/Modals";
-import { VideoCamIcon, DocumentTextIcon } from "../../../globals/Icons";
+import { VideoCamIcon, DocumentTextIcon, UploadIcon } from "../../../globals/Icons";
+import SubmitButton from "../../../forms/SubmitButton";
 
 
 
@@ -19,48 +20,54 @@ const UploadMaterialsModal = ({ show }) => {
   if (!show) return null;
 
   return (
-      <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
         <CustomModal
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleVideoUpload}
-          submitButtonTitle="Add material"
           title="Add Material"
+          className="flex flex-col gap-3"
         >
-          <div className="flex gap-2 mb-4 border-b border-gray-200">
-            <button 
-            type="button"
-              className={`px-4 py-2 text-sm font-medium flex items-center gap-2 
-                ${activeItem === "addVideo" ? 
-                  "text-purple-600 border-b-2 border-purple-600" : "text-gray-500 hover:text-gray-700"}`}
-              onClick={() => setActiveItem("addVideo")}
-            >
-              <VideoCamIcon className="w-4 h-4" />
-              Video
-            </button>
-            <button 
+          <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+            <div className="flex gap-2 mb-4 border-b border-gray-200">
+              <button 
               type="button"
-              className={`px-4 py-2 text-sm font-medium flex items-center gap-2 
-                ${activeItem === "addArticle" ? 
-                  "text-purple-600 border-b-2 border-purple-600" : "text-gray-500 hover:text-gray-700"}`}
-                  onClick={() => setActiveItem("addArticle")}
-            >
-              <DocumentTextIcon className="w-4 h-4" />
-              Article
-            </button>
+                className={`px-4 py-2 text-sm font-medium flex items-center gap-2 
+                  ${activeItem === "addVideo" ? 
+                    "text-purple-600 border-b-2 border-purple-600" : "text-gray-500 hover:text-gray-700"}`}
+                onClick={() => setActiveItem("addVideo")}
+              >
+                <VideoCamIcon className="w-4 h-4" />
+                Video
+              </button>
+              <button 
+                type="button"
+                className={`px-4 py-2 text-sm font-medium flex items-center gap-2 
+                  ${activeItem === "addArticle" ? 
+                    "text-purple-600 border-b-2 border-purple-600" : "text-gray-500 hover:text-gray-700"}`}
+                    onClick={() => setActiveItem("addArticle")}
+              >
+                <DocumentTextIcon className="w-4 h-4" />
+                Article
+              </button>
+            </div>
+            {activeItem === "addVideo" &&
+              <VideoUploadField 
+                name="video" 
+              />
+            }
+            {activeItem === "addArticle" &&
+              <ArticleEditorField 
+                name="article" 
+              />
+            }
           </div>
-          {activeItem === "addVideo" &&
-            <VideoUploadField 
-              name="video" 
+          <div className="mt-4 flex flex-end justify-end">
+            <SubmitButton
+              title="⤊ Upload Material"
+              className="px-6 py-2 text-purple-500 hover:text-purple-700 font-semibold rounded-lg"
             />
-          }
-          {activeItem === "addArticle" &&
-            <ArticleEditorField 
-              name="article" 
-            />
-          }
+          </div>
         </CustomModal>
-      </div>
   )
 }
 
