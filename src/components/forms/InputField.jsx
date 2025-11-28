@@ -1,6 +1,7 @@
 import { useFormikContext } from "formik";
 import { useState } from "react";
 import { FaEye } from "react-icons/fa";
+import { Eye, EyeOff } from "lucide-react";
 
 const InputField = ({
   name,
@@ -26,7 +27,7 @@ const InputField = ({
   return (
     <div className={`${className}`}>
       {type === "password" ? (
-        <div className="border-[1px] border-black/90 w-[100%] bg-transparent flex items-center justify-between gap-1 pe-1">
+        <div className="border-[1px] border-merseBorder w-[100%] bg-transparent flex items-center justify-between gap-1 pe-1 rounded-lg focus-within:border-purple-600 focus-within:border-2">
           <input
             value={value}
             placeholder={placeholder}
@@ -34,11 +35,15 @@ const InputField = ({
             onBlur={handleBlur(name)}
             type={showPassword ? "text" : "password"}
             disabled={disabled}
-            className="border-0 w-[90%] bg-transparent p-3 text-[14px] font-[400]"
+            className="border-0 w-[90%] bg-transparent p-3 text-[14px] font-[400] focus:outline-none"
             autoComplete="off"
             {...rest}
           />
-          <FaEye className="text-black" size={17} onClick={togglePassword} />
+          {showPassword ? (
+            <EyeOff className="text-black" size={17} onClick={togglePassword} />
+          ) : (
+            <Eye className="text-black" size={17} onClick={togglePassword} />
+          )}
         </div>
       ) : (
         <input

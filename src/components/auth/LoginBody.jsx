@@ -48,7 +48,7 @@ const LoginBody = () => {
               type="password"
             />
           </div>
-          <SubmitButton title="Signin" className="mt-6 w-[100%] py-3" />
+          <SubmitButton title="Signin" className="mt-6 w-[100%] py-3 bg-purple-600 hover:bg-purple-700 text-white" />
           <div className="text-[13px] md:text-[14px] text-center mt-[20px] flex justify-end gap-2">
             <Link to="/forgot-password" className="font-semibold">
               Forgot password
