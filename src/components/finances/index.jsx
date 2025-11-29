@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { AlertCircle, ChevronDown, MoreVertical, ArrowUpRight, ArrowDownRight, Settings, Plus } from 'lucide-react';
 import PayoutTable from './PayoutTable';
 import PayoutMethodContainer from './PaymentMethodContainer';
 import PaymentSettings from './PaymentSettings';
 
-function ManagePayouts() {
+function ManageFinances() {
   const [activeTab, setActiveTab] = useState("payoutHistory")
 
   const tabs = [
@@ -44,4 +43,4 @@ function ManagePayouts() {
   );
 }
 
-export default ManagePayouts;
+export default ManageFinances;

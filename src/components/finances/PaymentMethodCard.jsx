@@ -1,5 +1,5 @@
 import { CheckCircle } from "lucide-react";
-import { CreditCardIcon, PlusIcon } from "../../globals/Icons";
+import { CreditCardIcon } from "../globals/Icons";
 
 
 const PaymentMethodCard = ({ method }) => {

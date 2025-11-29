@@ -1,9 +1,8 @@
 import { useState } from "react";
-// import AddPaymentDetails from "../../components/finances/add-payment-details";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
-import ManagePayouts from "../../components/finances/manage-payouts";
 import { PlusIcon } from "../../components/globals/Icons";
-import FinanceStatCardContainer from "../../components/finances/manage-payouts/FinanceStatCardContainer";
+import FinanceStatCardContainer from "../../components/finances/FinanceStatCardContainer";
+import ManageFinances from "../../components/finances";
 
 
 const DashboardFinancesPage = () => {
@@ -25,24 +24,12 @@ const DashboardFinancesPage = () => {
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 py-8">
           <FinanceStatCardContainer />
-          <ManagePayouts />
+          <ManageFinances />
         </div>
       </div>
     </div>
   )
 }
-
-const renderActivePage = (activeTab) => {
-  switch (activeTab) {
-    case "paymentDetails":
-      return <AddPaymentDetails />;
-    case "managePayouts":
-      return <ManagePayouts />;
-    default:
-      return null;
-  }
-};
-
 
 export default DashboardFinancesPage;
 

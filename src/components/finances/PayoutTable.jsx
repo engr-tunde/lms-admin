@@ -1,10 +1,10 @@
-import { ChevronDownIcon, DownloadIcon } from "../../globals/Icons";
-import TableSearch from "../../globals/TableSearch";
-import { payoutsColumnHeader, payoutsData } from "../../../data/payoutsData";
+import { ChevronDownIcon, DownloadIcon } from "../globals/Icons";
+import TableSearch from "../globals/TableSearch";
+import { payoutsColumnHeader, payoutsData } from "../../data/payoutsData";
 import PayoutRowTemplate from "./PayoutRowTemplate";
-import Table from "../../globals/Table";
+import Table from "../globals/Table";
 import { useState } from "react";
-import StatusFilter from "../../globals/StatusFilter";
+import StatusFilter from "../globals/StatusFilter";
 
 const PayoutTable = () => {
   const [filterPeriod, setFilterPeriod] = useState('all');

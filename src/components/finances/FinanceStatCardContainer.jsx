@@ -1,4 +1,4 @@
-import { DollarIcon, ClockIcon, CheckIcon, TrendingUpIcon } from "../../globals/Icons";
+import { DollarIcon, ClockIcon, CheckIcon, TrendingUpIcon } from "../globals/Icons";
 import FinanceStatCard from "./FinanceStatCard";
 
 const FinanceStatCardContainer = () => {

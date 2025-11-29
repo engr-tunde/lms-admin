@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { PlusIcon } from "../../globals/Icons";
+import { PlusIcon } from "../globals/Icons";
 
 
 import PaymentMethodCard from "./PaymentMethodCard";
-import AddPaymentModal from "../add-payment-modal";
+import AddPaymentModal from "./add-payment-modal";
 
 const PayoutMethodContainer = () => {
   const [openPaymentModal, setopenPaymentModal] = useState(false);

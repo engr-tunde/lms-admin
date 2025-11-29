@@ -1,5 +1,5 @@
 import { CheckCircle, MoreVertical, XCircle } from "lucide-react";
-import { AlertCircleIcon, CalendarIcon, ClockIcon, CreditCardIcon } from "../../globals/Icons";
+import { AlertCircleIcon, CalendarIcon, ClockIcon, CreditCardIcon } from "../globals/Icons";
 
 const PayoutRowTemplate = ({ payout }) => {
 

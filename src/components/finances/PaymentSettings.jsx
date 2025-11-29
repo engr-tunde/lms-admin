@@ -1,5 +1,5 @@
 import { Settings } from "lucide-react";
-import { AlertCircleIcon, ChevronDownIcon } from "../../globals/Icons";
+import { AlertCircleIcon, ChevronDownIcon } from "../globals/Icons";
 
 const PaymentSettings = () => {
   return (
