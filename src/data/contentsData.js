@@ -82,13 +82,17 @@ export const coursesColumnHeader = [
     {
         header: "Progress", 
         className: ""
-    }, 
-    {
-        header: "Actions", 
-        className: ""
-    }, 
+    },  
     {
         header: "Details", 
         className: ""
     }, 
+    {
+        header: "Status", 
+        className: ""
+    },
+    {
+        header: "Actions", 
+        className: ""
+    },
 ]

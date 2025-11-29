@@ -7,7 +7,6 @@ import { useState } from "react";
 import StatusFilter from "../globals/StatusFilter";
 
 const PayoutTable = () => {
-  const [filterPeriod, setFilterPeriod] = useState('all');
   const [filterStatus, setFilterStatus] = useState('all');
 
 
@@ -21,17 +20,6 @@ const PayoutTable = () => {
 
   const filteredPayouts = payoutsData.filter(payout => {
     if (filterStatus !== 'all' && payout.status !== filterStatus) return false;
-    if (filterPeriod === 'month') {
-      const payoutDate = new Date(payout.date);
-      const now = new Date();
-      return payoutDate.getMonth() === now.getMonth();
-    }
-    if (filterPeriod === 'quarter') {
-      const payoutDate = new Date(payout.date);
-      const now = new Date();
-      const monthDiff = now.getMonth() - payoutDate.getMonth();
-      return monthDiff >= 0 && monthDiff < 3;
-    }
     return true;
   });
   

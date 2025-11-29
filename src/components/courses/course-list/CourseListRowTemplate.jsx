@@ -8,19 +8,12 @@ function CourseListRowTemplate({ item }) {
   return (
     <tr className="border-1 border-t border-merseBorder">
       <td className="py-6 px-6">
-        <div className="flex flex-col gap-3">
           <button 
             onClick={() => onNavigate(`/courses/${item?.id}`)}
-            className="font-semibold text-gray-900 hover:text-blue-700 transition-colors text-left"
+            className="font-semibold text-gray-900 hover:text-purple-700 transition-colors text-left"
           >
             {item?.courseTitle}
           </button>
-          <div>
-            <StatusCheck 
-              value={capitalize(item?.status)}
-            />
-          </div>
-        </div>
       </td>
       <td className="py-6 px-6">
         <Link
@@ -30,17 +23,8 @@ function CourseListRowTemplate({ item }) {
           <ProgressBar
             label="Course completion"
             value={item?.progress || 45}
-            fillColor="blue"
+            fillColor="#B613F7"
           />
-        </Link>
-      </td>
-      <td className="py-6 px-6 text-center">
-        <Link 
-          to={`/courses/assessment/${item?.id}`}
-          className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-        >
-          Add Assessment
-          <ChevronRight className="w-4 h-4" />
         </Link>
       </td>
       <td className="py-6 px-6">
@@ -51,6 +35,20 @@ function CourseListRowTemplate({ item }) {
             <span>{item?.lastUpdated}</span>
           </div>
         </div>
+      </td>
+      <td className="py-6 px-6">
+        <StatusCheck 
+          value={capitalize(item?.status)}
+        />
+      </td>
+      <td className="py-6 px-6 text-center">
+        <Link 
+          to={`/courses/assessment/${item?.id}`}
+          className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+        >
+          Add Assessment
+          <ChevronRight className="w-4 h-4" />
+        </Link>
       </td>
     </tr>
   );
