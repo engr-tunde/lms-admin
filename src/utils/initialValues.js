@@ -177,3 +177,13 @@ export const coursePublishValues = () => {
   };
   return initialValues;
 }
+
+export const assessmentConfigurationValues = () => {
+  const initialValues = {
+    title: "", 
+    duration: "",
+    passingScore: "",
+    attempts: "1",
+  }
+  return initialValues;
+}

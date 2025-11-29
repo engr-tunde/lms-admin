@@ -3,7 +3,7 @@ import BankTransferCard from './BankTransferCard';
 import PaymentOptions from './PaymentOptions';
 import { useState } from 'react';
 
-function ReceivePaymentPage() {
+function AddPaymentModal({show, onClose }) {
   const [paymentMethod, setPaymentMethod] = useState('bank');
   const [bankAccounts, setBankAccounts] = useState([
     { id: 1, accountName: '', accountNumber: '', bankName: '', swiftCode: '', isPrimary: true }
@@ -35,28 +35,33 @@ function ReceivePaymentPage() {
     })));
   };
 
+  if (!show) return null;
+
   return (
-    <div className="space-y-6">
-      <PaymentOptions 
-        paymentMethod={paymentMethod} 
-        setPaymentMethod={setPaymentMethod}
-      />
-      {paymentMethod === 'bank' && 
-        <BankTransferCard 
-          bankAccounts={bankAccounts}
-          addBankAccount={addBankAccount}
-          removeBankAccount={removeBankAccount}
-          updateBankAccount={updateBankAccount}
-          setPrimaryAccount={setPrimaryAccount}
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+      <div className="bg-white rounded-xl shadow-xl w-full max-w-4xl p-6 overflow-y-auto max-h-[90vh] space-y-6">
+        <PaymentOptions 
+          paymentMethod={paymentMethod} 
+          setPaymentMethod={setPaymentMethod}
+          onClose={onClose}
         />
-      }
-      {paymentMethod === 'card' && 
-        <PaymentGatewayCard 
-          
-        />
-      }
+        {paymentMethod === 'bank' && 
+          <BankTransferCard 
+            bankAccounts={bankAccounts}
+            addBankAccount={addBankAccount}
+            removeBankAccount={removeBankAccount}
+            updateBankAccount={updateBankAccount}
+            setPrimaryAccount={setPrimaryAccount}
+          />
+        }
+        {paymentMethod === 'card' && 
+          <PaymentGatewayCard 
+     
+          />
+        }
+      </div>  
     </div>
   )
 }
 
-export default ReceivePaymentPage;
+export default AddPaymentModal;

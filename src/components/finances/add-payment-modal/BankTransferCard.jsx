@@ -1,15 +1,11 @@
-import { Building2, Plus, Trash2 } from "lucide-react";
+import { BuildingIcon, TrashIcon, PlusIcon } from "../../globals/Icons"
 
 const BankTransferCard = ({ bankAccounts, addBankAccount, removeBankAccount, updateBankAccount }) => {
   
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+    <>
       <div className="flex items-start gap-3 mb-6">
-        <Building2 className="w-6 h-6 text-purple-600 mt-1" />
-        <div>
-          <h2 className="text-xl font-semibold text-gray-900">Bank Account Details</h2>
-          <p className="text-gray-500 text-sm mt-1">Add your bank account information for direct deposits</p>
-        </div>
+        <div className="text-gray-500 text-sm mt-1">Add your bank account information for direct deposits</div>
       </div>
 
       <div className="space-y-6">
@@ -28,7 +24,7 @@ const BankTransferCard = ({ bankAccounts, addBankAccount, removeBankAccount, upd
                     onClick={() => removeBankAccount(account.id)}
                     className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <TrashIcon className="w-4 h-4" />
                   </button>
                 )}
               </div>
@@ -105,11 +101,11 @@ const BankTransferCard = ({ bankAccounts, addBankAccount, removeBankAccount, upd
           onClick={addBankAccount}
           className="px-4 py-2 text-purple-600 hover:text-purple-700 font-medium flex items-center gap-2"
         >
-          <Plus className="w-4 h-4" />
+          <PlusIcon className="w-4 h-4" />
           Add Another Bank Account
         </button>
       </div>
-    </div>
+    </>
   )
 }
 

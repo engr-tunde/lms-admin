@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { SearchIcon } from "./Icons";
 
 const TableSearch = ({ originalArr, filteredData, setfilteredData, searchable }) => {
   const [searchQuery, setsearchQuery] = useState("");
@@ -52,8 +53,8 @@ const TableSearch = ({ originalArr, filteredData, setfilteredData, searchable })
   };
 
   return (
-    <div className="h-max w-full md:w-auto flex items-center gap-2 text-xs ring-[1.5px] ring-gray-300 px-2">
-      <FaSearch className="" />
+    <div className="h-max w-full md:w-auto flex items-center gap-2 text-xs ring-[1.5px] ring-gray-300 px-2 rounded-lg focus-within:ring-purple-500 focus-within:ring-2 transition-all">
+      <SearchIcon className="w-4 h-4 text-merseBorder" />
       <input
         value={searchQuery}
         type="text"

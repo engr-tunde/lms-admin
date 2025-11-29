@@ -1,45 +1,4 @@
-// export const orderDisputeTableColumn = [
-//     {
-//         header: "", 
-//         className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
-//     }, 
-//     {
-//         header: "Dispute ID", 
-//         className: "text-sm font-medium text-merseLightText"
-//     }, 
-//     {
-//         header: "Order ID", 
-//         className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
-//     }, 
-//     // {
-//     //     header: "Customer", 
-//     //     className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
-//     // }, 
-//     {
-//         header: "Brand", 
-//         className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
-//     }, 
-//     {
-//         header: "Issue type", 
-//         className: "text-sm font-medium text-merseLightText"
-//     }, 
-//     {
-//         header: "Status", 
-//         className: "text-sm font-medium text-merseLightText"
-//     }, 
-//     {
-//         header: "Disputed on", 
-//         className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
-//     },
-//     {
-//         header: "Last updated", 
-//         className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
-//     }, 
-//     {
-//         header: "Urgency level", 
-//         className: "text-sm font-medium text-merseLightText hidden lg:table-cell"
-//     }, 
-// ]
+
 
 
 export const coursesData = [

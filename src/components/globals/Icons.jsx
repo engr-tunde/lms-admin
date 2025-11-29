@@ -14,7 +14,6 @@ import {
   Download,
   User,
   Users,
-  Book,
   FolderOpen,
 
   DollarSign,
@@ -24,17 +23,21 @@ import {
   AlertCircle,
   List,
   PlaySquare,
-  BookOpen
+  BookOpen,
+  Building2,
+  CreditCard,
+  Mail, 
+  MapPin, 
+  Phone,
+  TrendingUp,
+  Calendar
 
 } from "lucide-react";
-export const CheckIcon = (props) => <CheckCircle {...props} />;
+
 export const CloseIcon = (props) => <XCircle {...props} />;
 export const MenuIcon = (props) => <Menu {...props} />;
 export const SearchIcon = (props) => <Search {...props} />;
 export const UploadIcon = (props) => <Upload {...props} />;
-export const DownloadIcon = (props) => <Download {...props} />;
-export const UserIcon = (props) => <User {...props} />;
-export const UsersIcon = (props) => <Users {...props} />;
 export const BookIcon = (props) => <BookOpen {...props} />;
 export const FolderIcon = (props) => <FolderOpen {...props} />;
 
@@ -54,6 +57,18 @@ export const AwardIcon = (props) => <Award {...props} />;
 export const AlertCircleIcon = (props) => <AlertCircle {...props} />;
 export const PlayButtonIcon = (props) => <PlaySquare {...props} />;
 export const ListColumnsIcon = (props) => <List {...props} />;
+export const BuildingIcon = (props) => <Building2 {...props} />;
+export const CreditCardIcon = (props) => <CreditCard {...props} />;
+export const UserIcon = (props) => <User {...props} />;
+export const UsersIcon = (props) => <Users {...props} />;
+export const MailIcon = (props) => <Mail {...props} />;
+export const MapIcon = (props) => <MapPin {...props} />;
+export const PhoneIcon = (props) => <Phone {...props} />;
+export const CheckIcon = (props) => <CheckCircle {...props} />;
+export const TrendingUpIcon = (props) => <TrendingUp {...props} />;
+export const CalendarIcon = (props) => <Calendar {...props} />;
+export const DownloadIcon = (props) => <Download {...props} />;
+
 
 
 

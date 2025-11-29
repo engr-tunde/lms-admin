@@ -5,6 +5,11 @@ import CourseListTable from "../../components/courses/course-list/index.jsx";
 
 function DashboardCoursesPage() {
   const [activeTab, setActiveTab] = useState("courses")
+
+  const tabs = [
+    { id: "courses", label: "Courses" },
+    { id: "courseBundles", label: "Course Bundles" },
+  ];
   
   return (
     <div className="flex flex-col gap-6">
@@ -12,22 +17,16 @@ function DashboardCoursesPage() {
         title="Courses List"
       />
       <div className="flex gap-3">
-        <button 
-          onClick={() => setActiveTab("courses")}
-          className={`pr-3 py-1 rounded ${
-              activeTab === "courses" ? "text-black" : "text-merseBorder"
-          }`}
-          >
-            Courses
-        </button>
-        <button 
-          onClick={() => setActiveTab("courseBundles")}
-          className={`pr-3 py-1 rounded ${
-              activeTab === "courseBundles" ? "text-black" : "text-merseBorder"
-          }`}
-          >
-            Course Bundles
-        </button>
+        {tabs.map(tab => (
+          <button 
+            onClick={() => setActiveTab(tab.id)}
+            className={`pr-3 py-1 rounded ${
+                activeTab === tab.id ? "text-black" : "text-merseBorder"
+            }`}
+            >
+              {tab.label}
+          </button>
+        ))}
       </div>
       <div className="w-full flex flex-col gap-8">
         {renderActivePage(activeTab)}

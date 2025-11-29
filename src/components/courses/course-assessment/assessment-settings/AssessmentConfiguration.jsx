@@ -1,6 +1,6 @@
-import { Input } from "postcss"
-import { ChevronDownIcon, ClockIcon } from "../../../globals/Icons"
+import { ClockIcon } from "../../../globals/Icons"
 import InputField from "../../../forms/InputField"
+import SelectField from "../../../forms/SelectField"
 
 const AssessmentConfiguration = ({ assessmentData, setAssessmentData }) => {
   return (
@@ -9,13 +9,10 @@ const AssessmentConfiguration = ({ assessmentData, setAssessmentData }) => {
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Test Title
         </label>
-        <input
-          type="text"
-          value={assessmentData.title}
-          onChange={(e) => setAssessmentData({...assessmentData, title: e.target.value})}
+        <InputField
+          name="title" 
           placeholder="Enter test title"
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
-        />
+        />  
       </div>
 
       <div className="grid grid-cols-2 gap-6">
@@ -24,33 +21,19 @@ const AssessmentConfiguration = ({ assessmentData, setAssessmentData }) => {
             <ClockIcon className="w-4 h-4 inline mr-2" />
             Time Limit (minutes)
           </label>
-          {/* <InputField
+          <InputField
             name="duration" 
             placeholder="e.g., 60"
-          />   */}
-          <input
-            type="number"
-            value={assessmentData.duration}
-            onChange={(e) => setAssessmentData({...assessmentData, duration: e.target.value})}
-            placeholder="e.g., 60"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
-          />
+          />  
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Passing Score (%)
           </label>
-          <input
-            type="number"
-            value={assessmentData.passingScore}
-            onChange={(e) => setAssessmentData({...assessmentData, passingScore: e.target.value})}
-            placeholder="e.g., 70"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
-          />
-          {/* <InputField
+          <InputField
             name="passingScore" 
             placeholder="e.g., 70"
-          /> */}
+          />
         </div>
       </div>
 
@@ -59,17 +42,10 @@ const AssessmentConfiguration = ({ assessmentData, setAssessmentData }) => {
           Number of Attempts Allowed
         </label>
         <div className="relative">
-          <select 
-            value={assessmentData.attempts}
-            onChange={(e) => setAssessmentData({...assessmentData, attempts: e.target.value})}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none appearance-none bg-white"
-          >
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>Unlimited</option>
-          </select>
-          <ChevronDownIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+          <SelectField
+            name="attempts"
+            array={attemptsAllowed}
+          />
         </div>
       </div>
 
@@ -105,3 +81,12 @@ const AssessmentConfiguration = ({ assessmentData, setAssessmentData }) => {
 }
 
 export default AssessmentConfiguration
+
+
+
+const attemptsAllowed = [
+  { value: "1", title: "1" },
+  { value: "2", title: "2" },
+  { value: "3", title: "3" },
+  { value: "unlimited", title: "Unlimited" },
+]

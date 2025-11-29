@@ -1,17 +1,12 @@
-import { AlertCircle, CreditCard, Mail, MapPin, Phone, User } from "lucide-react";
+import { AlertCircleIcon, MailIcon, MapIcon, PhoneIcon, UserIcon } from "../../globals/Icons";
 
 const PaymentGatewayCard = ({ }) => {
   return (
     <>
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+      <div>
         <div className="flex items-start gap-3 mb-6">
-          <CreditCard className="w-6 h-6 text-purple-600 mt-1" />
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900">Payment Gateway Details</h2>
-            <p className="text-gray-500 text-sm mt-1">Connect your PayPal or Stripe account</p>
-          </div>
+          <div className="text-gray-500 text-sm mt-1">Connect your PayPal or Stripe account</div>
         </div>
-
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -35,7 +30,7 @@ const PaymentGatewayCard = ({ }) => {
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
         <div className="flex items-start gap-3 mb-6">
-          <User className="w-6 h-6 text-purple-600 mt-1" />
+          <UserIcon className="w-6 h-6 text-purple-600 mt-1" />
           <div>
             <h2 className="text-xl font-semibold text-gray-900">Contact Information</h2>
             <p className="text-gray-500 text-sm mt-1">We'll use this to contact you about payments</p>
@@ -46,7 +41,7 @@ const PaymentGatewayCard = ({ }) => {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                <Mail className="w-4 h-4 inline mr-2" />
+                <MailIcon className="w-4 h-4 inline mr-2" />
                 Email Address
               </label>
               <input
@@ -58,7 +53,7 @@ const PaymentGatewayCard = ({ }) => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                <Phone className="w-4 h-4 inline mr-2" />
+                <PhoneIcon className="w-4 h-4 inline mr-2" />
                 Phone Number
               </label>
               <input
@@ -71,7 +66,7 @@ const PaymentGatewayCard = ({ }) => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              <MapPin className="w-4 h-4 inline mr-2" />
+              <MapIcon className="w-4 h-4 inline mr-2" />
               Billing Address
             </label>
             <textarea
@@ -84,7 +79,7 @@ const PaymentGatewayCard = ({ }) => {
       </div>
 
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex gap-3">
-        <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+        <AlertCircleIcon className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
         <div>
           <p className="text-sm text-gray-900 font-medium">Payment Processing Information</p>
           <p className="text-sm text-gray-600 mt-1">

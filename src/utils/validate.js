@@ -230,3 +230,13 @@ export const validateCoursePublishValues = () => {
   });
   return validationSchema;
 }
+
+export const validateAssessmentConfigurationValues = () => {
+  const validationSchema = yup.object({
+    title: yup.string().required("Please, provide test title"),
+    duration: yup.number().required("Please, provide time limit"),
+    passingScore: yup.number().required("Please, provide passing score"),
+    attempts: yup.string().required("Please, select number of attempts allowed"),
+  });
+  return validationSchema;
+}

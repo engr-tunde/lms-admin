@@ -8,7 +8,7 @@ import AuthLayout from "./layouts/AuthLayout.jsx";
 
 import DashboardCoursesPage from "./pages/courses/index.jsx";
 import DashboardCourseCreatePage from "./pages/courses/CourseCreatePage.jsx"
-import DashboardPaymentsPage from "./pages/payments/index.jsx";
+import DashboardFinancesPage from "./pages/finances/index.jsx";
 import DashboardOverviewPage from "./pages/overview/index.jsx";
 import DashboardCourseAssessmentPage from "./pages/courses/CourseAssessmentPage.jsx";
 
@@ -40,7 +40,7 @@ function App() {
                 <Route path="assessment/:id" element={<DashboardCourseAssessmentPage />} />
               </Route>
 
-              <Route path="finances" element={<DashboardPaymentsPage />} />
+              <Route path="finances" element={<DashboardFinancesPage />} />
             </Route>
 
             <Route element={<AuthLayout />}>
