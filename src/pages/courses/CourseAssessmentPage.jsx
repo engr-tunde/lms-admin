@@ -51,7 +51,7 @@ const DashboardCourseAssessmentPage = () => {
                   {tab.label}
                 </span>
                 {activeTab === tab.id && (
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-black" />
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-purple-600" />
                 )}
               </div>
           </button>

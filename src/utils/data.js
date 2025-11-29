@@ -12,8 +12,8 @@ export const dashboardSidebarMenu = [
     url: "/finances",
   },
   {
-    title: "Certificates",
-    url: "/certificates",
+    title: "Certification",
+    url: "/certification",
   },
   {
     title: "Admins",

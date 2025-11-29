@@ -11,6 +11,7 @@ import DashboardCourseCreatePage from "./pages/courses/CourseCreatePage.jsx"
 import DashboardFinancesPage from "./pages/finances/index.jsx";
 import DashboardOverviewPage from "./pages/overview/index.jsx";
 import DashboardCourseAssessmentPage from "./pages/courses/CourseAssessmentPage.jsx";
+import DashboardCertificationPage from "./pages/certification/index.jsx";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
               </Route>
 
               <Route path="finances" element={<DashboardFinancesPage />} />
+              <Route path="certification" element={<DashboardCertificationPage />} />
             </Route>
 
             <Route element={<AuthLayout />}>
