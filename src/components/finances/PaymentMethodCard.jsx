@@ -46,10 +46,10 @@ const PaymentMethodCard = ({ method }) => {
               Set as Default
             </button>
           )}
-          <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+          <button className="edit-button">
             Edit
           </button>
-          <button className="px-4 py-2 border border-red-300 text-red-600 rounded-lg text-sm font-medium hover:bg-red-50 transition-colors">
+          <button className="delete-button">
             Remove
           </button>
         </div>

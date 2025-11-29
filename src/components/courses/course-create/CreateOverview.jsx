@@ -26,14 +26,9 @@ const CreateCourseOverview = ({ categories, stepCompleted, setStepCompleted, set
     }
   }
 
-  const submitAndContinue = (values) => {
-    handleSubmit(values);
-    setActiveTab("materials");
-  }
-  
   return (
       <CustomModal
-        title="Add Course Details"
+        title=""
         onSubmit={handleSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -42,6 +37,7 @@ const CreateCourseOverview = ({ categories, stepCompleted, setStepCompleted, set
         <div 
           className="grid grid-cols-1 lg:grid-cols-2 gap-4 bg-white w-full px-6 py-10 shadow-sm rounded-lg border border-gray-200"
         >
+          <div className="font-semibold mb-4">Add Course Overview</div>
           <div className="col-span-2">
             <InputField
               name="title"

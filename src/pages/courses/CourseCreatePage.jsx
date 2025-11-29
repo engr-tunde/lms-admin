@@ -2,8 +2,8 @@ import ProgressBar from "../../components/globals/ProgressBar";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { useState } from "react";
 import { fetchCategories } from "../../api"
-import { FaCheck } from "react-icons/fa";
 import CourseCreate from "../../components/courses/course-create";
+import { Check } from "lucide-react";
 
 
 const DashboardCourseCreatePage = () => {
@@ -41,30 +41,30 @@ const DashboardCourseCreatePage = () => {
             className={`relative pb-4 pt-6 ${
                 activeTab === tab.id ? "text-black" : "text-merseBorder disabled:opacity-50 disabled:cursor-not-allowed"
             }`}
-            >
-              <div className="flex items-center gap-3">
-                <div 
-                  className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors
-                    ${tab.completed ? "bg-green-600 text-white" : 
-                      activeTab === tab.id ? 
-                      "bg-black text-white" : "bg-merseBorder text-gray-600"}
-                    `}
-                >
-                  {tab.completed ? <FaCheck className="w-3 h-3" /> : tab.step}
-                </div>
-                <span className={`font-semibold transition-colors ${
-                  activeTab === tab.id ? 'text-gray-900' : 'text-gray-500'
-                }`}>
-                  {tab.label}
-                </span>
-                {activeTab === tab.id && (
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-black" />
-                )}
+          >
+            <div className="flex items-center gap-3">
+              <div 
+                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors
+                  ${tab.completed ? "bg-green-600 text-white" : 
+                    activeTab === tab.id ? 
+                    "bg-black text-white" : "bg-merseBorder text-gray-600"}
+                  `}
+              >
+                {tab.completed ? <Check className="w-5 h-5" /> : tab.step}
               </div>
+              <span className={`font-semibold transition-colors ${
+                activeTab === tab.id ? 'text-gray-900' : 'text-gray-500'
+              }`}>
+                {tab.label}
+              </span>
+              {activeTab === tab.id && (
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-purple-600" />
+              )}
+            </div>
           </button>
         ))}
       </div>
-      <div className="relative w-full flex flex-col gap-8 bg-gray-50 mx-auto p-10">
+      <div className="relative w-full flex flex-col gap-8 bg-gray-50 mx-auto p-6">
         <ProgressBar 
           value={progressValue}
           rounded={0}

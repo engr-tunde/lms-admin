@@ -36,25 +36,21 @@ const ArticleEditorField = ({ name, label }) => {
   };
 
   return (
-    <div className="col-span-1 md:col-span-2">
+    <div className="col-span-1 md:col-span-2 space-y-2">
       {label && (
         <label className="text-[14px] font-medium capitalize">{label}</label>
       )}
 
-      <div
-        className={`border-2 bg-white transition-all border-merseBorder rounded-lg`}
-      >
-        <div className="w-full ql-container">
-          <ReactQuill
-            theme="snow"
-            value={value}
-            onChange={(val) => setFieldValue(name, val)}
-            onBlur={handleBlur}
-            modules={modules}
-            formats={formats}
-            className="min-h-[200px] max-h-[600px] overflow-y-scroll w-full rounded-lg ql-editor"
-          />
-        </div>
+      <div className="border border-gray-300 rounded-lg p-2 bg-white focus-within:ring-2 focus-within:ring-purple-500 focus-within:border-transparent">
+        <ReactQuill
+          theme="snow"
+          value={value}
+          onChange={(val) => setFieldValue(name, val)}
+          onBlur={handleBlur}
+          modules={modules}
+          formats={formats}
+          className="min-h-[300px] max-h-[600px] w-full overflow-y-auto"
+        />
       </div>
 
       {error && isTouched && (

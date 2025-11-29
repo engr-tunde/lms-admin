@@ -13,13 +13,13 @@ const CourseCreate = ({
   switch (activeTab) {
     case "overview":
       return (
-      <CreateOverview 
-        categories={categories} 
-        stepCompleted={stepCompleted} 
-        setStepCompleted={setStepCompleted} 
-        setActiveTab={setActiveTab}
-      />
-    );
+        <CreateOverview 
+          categories={categories} 
+          stepCompleted={stepCompleted} 
+          setStepCompleted={setStepCompleted} 
+          setActiveTab={setActiveTab}
+        />
+      );
     case "materials":
       return <CreateMaterials />;
     case "settings":

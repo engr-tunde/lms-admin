@@ -34,7 +34,7 @@ const CreateRequirements
       validationSchema={validationSchema}
       description={""}
     > 
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-6">
         <RequirementsCard courseData={courseData} setCourseData={setCourseData} />
         <TargetAudienceCard courseData={courseData} setCourseData={setCourseData} />
         <OtherDetailsCard courseData={courseData} setCourseData={setCourseData} />
