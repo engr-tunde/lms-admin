@@ -1,14 +1,32 @@
-import LMSAdminCertifications from "../../components/certification";
-
 import { PlusIcon } from "../../components/globals/Icons";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
+import ManageCertification from "../../components/certification";
+import DashboardStats from "../../components/globals/DashboardStats";
+import { Award, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import GenerateCertificateModal from "../../components/certification/GenerateCertificateModal";
 import { useState } from "react";
-import ManageUsers from "../../components/users";
-import AddUsersModal from "../../components/users/AddUsersModal";
-import { CheckCircle } from "lucide-react";
+import VerifyCertificateModal from "../../components/certification/VerifyCertificateModal";
+
 
 const DashboardCertificationsPage = () => {
-  const [showAddModal, setShowAddModal] = useState(false);
+  const [showGenerateModal, setShowGenerateModal] = useState(false);
+  const [showVerifyModal, setShowVerifyModal] = useState('');
+
+  const certificationStat = [
+    { label: 'Total Certificates', value: '5', icon: Award, color: 'purple' },
+    { label: 'Issued', value: '3', icon: CheckCircle, color: 'emerald' },
+    { label: 'Pending', value: '1', icon: AlertCircle, color: 'amber' },
+    { label: 'Revoked', value: '1', icon: XCircle, color: 'red' },
+  ];
+
+  const courses = [
+    'Introduction to AI',
+    'Advanced React Development',
+    'Digital Marketing Fundamentals',
+    'Data Science Bootcamp',
+    'Web Design Essentials'
+  ];
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex justify-between items-end">
@@ -33,14 +51,24 @@ const DashboardCertificationsPage = () => {
           </button>
         </div>
       </div>
-      <div className="bg-white rounded-lg shadow-sm ">
-        <LMSAdminCertifications />
-      </div>
-      {/* {showAddModal && (
-        <AddUsersModal
-          setShowAddModal={setShowAddModal}
+      <div className="min-h-screen bg-gray-50 p-6"> 
+        <DashboardStats 
+          stats={certificationStat} 
         />
-      )} */}
+        <ManageCertification />
+      </div>
+      {showGenerateModal && (
+        <GenerateCertificateModal 
+          setShowGenerateModal={setShowGenerateModal}
+          courses={courses}
+        />
+      )}
+      {showVerifyModal && (
+        <VerifyCertificateModal 
+          setShowVerifyModal={setShowVerifyModal}
+          courses={courses}
+        />
+      )}
     </div>
   );
 }

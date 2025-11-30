@@ -4,84 +4,41 @@ import { coursesColumnHeader, coursesData } from "../../../data/contentsData";
 import CourseListRowTemplate from "./CourseListRowTemplate";
 import StatusFilter from "../../globals/StatusFilter";
 import { useState } from "react";
+import Pagination from "../../globals/Pagination";
+import CourseListTable from "./CourseListTable"
 
-const CourseListTable = () => {
-  const [filterStatus, setFilterStatus] = useState('all');
+const ManageCourses = () => {
+  const [activeTab, setActiveTab ] = useState("courses")
 
-  const filteredCourses = coursesData.filter(course => {
-    if (filterStatus !== 'all' && course.status !== filterStatus) return false;
-    return true;
-  });
-
-  const courseStatus = [
-    { title: "All", value: "all" },
-    { title: "Draft", value: "draft" },
-    { title: "Published", value: "published" },
-    { title: "Archived", value: "archived" },
-  ];
+  const tabs = [
+      { id: 'courses', label: 'Courses'},
+      { id: 'courseBundles', label: 'Course Bundles'},
+    ];
 
   return (
-    <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
-         <div className="flex items-center gap-3">
-           <TableSearch />
-         </div>
-
-         <div className="flex items-center gap-3">
-           <StatusFilter
-             filter={filterStatus} 
-             setFilter={setFilterStatus} 
-             filterArr={courseStatus} 
-           />
-         </div>
-       </div>
-      <Table
-        renderRow={(item) => (
-          <CourseListRowTemplate
-            key={item?.id}
-            item={item}
-          />
-        )}
-        columns={coursesColumnHeader}
-        data={filteredCourses}
-      />
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+      <div className="border-b border-gray-200">
+        <div className="flex gap-8 px-6">
+          {tabs.map((tab) => (
+            <button
+              onClick={() => setActiveTab(tab.id)}
+              className={`py-4 border-b-2 font-medium transition-colors ${
+                activeTab === tab.id
+                  ? 'border-purple-600 text-purple-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="bg-white rounded-b-lg shadow-sm overflow-hidden">
+        <CourseListTable/>
+        <Pagination />
+      </div>
     </div>
   )
 }
 
-export default CourseListTable;
-
-
-
-// <div className="p-6">
-//       <div className="flex items-center justify-between mb-6">
-//         <div className="flex items-center gap-3">
-//           <TableSearch />
-//         </div>
-
-//         <div className="flex items-center gap-3">
-//           <StatusFilter
-//             filter={filterStatus} 
-//             setFilter={setFilterStatus} 
-//             filterArr={payoutStatus} 
-//           />
-//           <button className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
-//             <DownloadIcon className="w-4 h-4" />
-//             Export
-//           </button>
-//         </div>
-//       </div>
-//       <Table
-//         renderRow={(item) => (
-//           <PayoutRowTemplate
-//             key={item?.id}
-//             payout={item}
-//           />
-//         )}
-//         columns={payoutsColumnHeader}
-//         data={filteredPayouts}
-//       />
-//     </div>
-
-
-
+export default ManageCourses;

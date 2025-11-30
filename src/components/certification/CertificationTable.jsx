@@ -22,7 +22,6 @@ const CertificationTable = ({ certificationData, certificationColumnHeader }) =>
         columns={certificationColumnHeader}
         data={certificationData}
       />
-      <Pagination/>
     </div>
   );
 }

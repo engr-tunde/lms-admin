@@ -6,17 +6,9 @@ import AdminsTable from "./AdminsTable"
 
 function ManageAdmins() {
 
-  const adminStats = [
-    { label: 'Total Admins', value: '4', icon: Shield, color: 'purple' },
-    { label: 'Active Today', value: '3', icon: UserCheck, color: 'emerald' },
-    { label: 'Super Admins', value: '1', icon: Shield, color: 'blue' },
-    { label: 'Moderators', value: '1', icon: User, color: 'gray' },
-  ]
-
   return (
-    <div className="min-h-screen bg-gray-50 w-full mx-auto p-6">
-      <DashboardStats stats={adminStats} />
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+    <div className="mx-auto">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         <AdminsTable />
         <Pagination
         />

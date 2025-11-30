@@ -1,9 +1,9 @@
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
-import CourseListTable from "../../components/courses/course-list/index.jsx";
 import { Archive, File, PlusIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import DashboardStats from "../../components/globals/DashboardStats.jsx";
 import { BookIcon, CheckIcon } from "../../components/globals/Icons.jsx";
+import ManageCourses from "../../components/courses/course-list/index.jsx";
 
 function DashboardCoursesPage() {
 
@@ -36,9 +36,7 @@ function DashboardCoursesPage() {
         <DashboardStats 
           stats={courseStats} 
         />
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
-          <CourseListTable />
-        </div>
+        <ManageCourses />
       </div>
     </div>
   );
