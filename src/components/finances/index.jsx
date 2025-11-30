@@ -2,15 +2,25 @@ import { useState } from 'react';
 import PayoutTable from './PayoutTable';
 import PayoutMethodContainer from './PaymentMethodContainer';
 import PaymentSettings from './PaymentSettings';
+import { payoutsColumnHeader, payoutsData } from "../../data/payoutsData";
+import { NoPayoutMade } from "../globals/NoValuesPage"
+
 
 function ManageFinances() {
   const [activeTab, setActiveTab] = useState("payoutHistory")
+  const [filterStatus, setFilterStatus] = useState('all');
+  
 
   const tabs = [
     { id: "payoutHistory", label: "Payout History" },
     { id: "payoutMethod", label: "Payout Method" },
     { id: "payoutSettings", label: "Payout Settings" },
   ];
+
+  const filteredPayouts = payoutsData.filter(payout => {
+    if (filterStatus !== 'all' && payout.status !== filterStatus) return false;
+    return true;
+  });
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">
@@ -31,7 +41,16 @@ function ManageFinances() {
         </div>
       </div>
       {activeTab === 'payoutHistory' && (
-        <PayoutTable />
+        filteredPayouts.length ? (
+          <PayoutTable 
+            filteredPayouts={filteredPayouts}
+            payoutsColumnHeader={payoutsColumnHeader}
+            filterStatus={filterStatus}
+            setFilterStatus={setFilterStatus}
+          />
+        ) : (
+          <NoPayoutMade />
+        )
       )}
       {activeTab === 'payoutMethod' && (
         <PayoutMethodContainer />

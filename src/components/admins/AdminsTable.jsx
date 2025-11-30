@@ -1,34 +1,30 @@
 import { ChevronDownIcon, DownloadIcon } from "../globals/Icons";
 import TableSearch from "../globals/TableSearch";
 import Table from "../globals/Table";
-import { useState } from "react";
 import StatusFilter from "../globals/StatusFilter";
 import AdminsRowTemplate from "./AdminsRowTemplate";
-import { adminsColumnHeader, adminsData } from "../../data/adminsData";
 
-const AdminsTable = () => {
-  const [filterStatus, setFilterStatus] = useState('all');
-  const [filterRole, setFilterRole] = useState('all');
-
+const AdminsTable = ({ 
+    filteredAdmins, 
+    adminsColumnHeader, 
+    filterStatus, 
+    setFilterStatus, 
+    filterRole, 
+    setFilterRole 
+  }) => {
 
   const adminStatus = [
     { title: "All Status", value: "all" },
-    { title: "Active", value: "active" },
-    { title: "Inactive", value: "inactive" },
-    { title: "Suspended", value: "suspended" },
+    { title: "Active", value: "Active" },
+    { title: "Inactive", value: "Inactive" },
+    { title: "Suspended", value: "Suspended" },
   ];
   const adminRole = [
     { title: "All Roles", value: "all" },
-    { title: "superAdmin", value: "Super Admin" },
-    { title: "Admin", value: "admin" },
-    { title: "Moderator", value: "moderator" },
+    { title: "Super Admin", value: "Super Admin" },
+    { title: "Admin", value: "Admin" },
+    { title: "Moderator", value: "Moderator" },
   ];
-
-  const filteredAdmins = adminsData.filter(admin => {
-    if (filterStatus !== 'all' && admin.status !== filterStatus) return false;
-    if (filterRole !== 'all' && admin.role !== filterRole) return false;
-    return true;
-  });
   
   return (
     <div className="p-6">

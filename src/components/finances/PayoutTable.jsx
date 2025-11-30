@@ -1,13 +1,10 @@
-import { ChevronDownIcon, DownloadIcon } from "../globals/Icons";
+import { DownloadIcon } from "../globals/Icons";
 import TableSearch from "../globals/TableSearch";
-import { payoutsColumnHeader, payoutsData } from "../../data/payoutsData";
 import PayoutRowTemplate from "./PayoutRowTemplate";
 import Table from "../globals/Table";
-import { useState } from "react";
 import StatusFilter from "../globals/StatusFilter";
 
-const PayoutTable = () => {
-  const [filterStatus, setFilterStatus] = useState('all');
+const PayoutTable = ({ filteredPayouts, payoutsColumnHeader, filterStatus, setFilterStatus }) => {
 
   const payoutStatus = [
     { title: "All", value: "all" },
@@ -16,11 +13,6 @@ const PayoutTable = () => {
     { title: "Processing", value: "processing" },
     { title: "Failed", value: "failed" },
   ];
-
-  const filteredPayouts = payoutsData.filter(payout => {
-    if (filterStatus !== 'all' && payout.status !== filterStatus) return false;
-    return true;
-  });
   
   return (
     <div className="p-6">

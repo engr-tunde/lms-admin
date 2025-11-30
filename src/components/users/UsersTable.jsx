@@ -1,24 +1,22 @@
 import { DownloadIcon } from "../globals/Icons";
 import TableSearch from "../globals/TableSearch";
 import Table from "../globals/Table";
-import { useState } from "react";
 import StatusFilter from "../globals/StatusFilter";
-import { usersColumnHeader, usersData } from "../../data/userData";
 import UsersRowTemplate from "./UsersRowTemplate"
 
-const UsersTable = () => {
-  const [filterStatus, setFilterStatus] = useState('all');
+const UsersTable = ({
+    filteredUsers, 
+    usersColumnHeader, 
+    filterStatus, 
+    setFilterStatus
+  }) => {
+
 
   const userStatus = [
     { title: "All Status", value: "all" },
-    { title: "Active", value: "active" },
-    { title: "Suspended", value: "suspended" },
+    { title: "Active", value: "Active" },
+    { title: "Suspended", value: "Suspended" },
   ];
-
-  const filteredUsers = usersData.filter(user => {
-    if (filterStatus !== 'all' && user.status !== filterStatus) return false;
-    return true;
-  });
   
   return (
     <div className="p-6">

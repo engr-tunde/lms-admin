@@ -1,17 +1,38 @@
-import React, { useState } from 'react';
-import { Search, Filter, MoreVertical, Plus, Edit2, Trash2, Shield, User, Users, Mail, Calendar, ChevronDown, Check, X, Eye, Ban, UserCheck, Download, Upload } from 'lucide-react';
-import DashboardStats from '../globals/DashboardStats';
+import { useState } from 'react';
 import Pagination from '../globals/Pagination';
 import AdminsTable from "./AdminsTable"
+import { adminsColumnHeader, adminsData } from "../../data/adminsData";
+import { NoAdminsAvailable } from '../globals/NoValuesPage';
+
 
 function ManageAdmins() {
+  const [filterStatus, setFilterStatus] = useState('all');
+  const [filterRole, setFilterRole] = useState('all');
+
+  const filteredAdmins = adminsData.filter(admin => {
+    if (filterStatus !== 'all' && admin.status !== filterStatus) return false;
+    if (filterRole !== 'all' && admin.role !== filterRole) return false;
+    return true;
+  });
 
   return (
     <div className="mx-auto">
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        <AdminsTable />
-        <Pagination
-        />
+        {filteredAdmins.length ? (
+          <>
+            <AdminsTable 
+              filteredAdmins={filteredAdmins}
+              adminsColumnHeader={adminsColumnHeader}
+              filterStatus={filterStatus}
+              setFilterStatus={setFilterStatus}
+              filterRole={filterRole}
+              setFilterRole={setFilterRole}
+            />
+            <Pagination />
+          </>
+        ) : (
+          <NoAdminsAvailable />
+        )}
       </div>
     </div>
   );

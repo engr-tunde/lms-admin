@@ -6,14 +6,21 @@ import StatusFilter from "../../globals/StatusFilter";
 import { useState } from "react";
 import Pagination from "../../globals/Pagination";
 import CourseListTable from "./CourseListTable"
+import { NoCourseCreated } from "../../globals/NoValuesPage"
 
 const ManageCourses = () => {
   const [activeTab, setActiveTab ] = useState("courses")
+  const [filterStatus, setFilterStatus] = useState('all');
 
   const tabs = [
-      { id: 'courses', label: 'Courses'},
-      { id: 'courseBundles', label: 'Course Bundles'},
-    ];
+    { id: 'courses', label: 'Courses'},
+    { id: 'courseBundles', label: 'Course Bundles'},
+  ];
+
+  const filteredCourses = coursesData.filter(course => {
+    if (filterStatus !== 'all' && course.status !== filterStatus) return false;
+    return true;
+  });
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
@@ -34,8 +41,18 @@ const ManageCourses = () => {
         </div>
       </div>
       <div className="bg-white rounded-b-lg shadow-sm overflow-hidden">
-        <CourseListTable/>
-        <Pagination />
+        {filteredCourses.length ?(
+          <>
+            <CourseListTable
+              filteredCourses={filteredCourses}
+              coursesColumnHeader={coursesColumnHeader}
+              filterStatus={filterStatus}
+              setFilterStatus={setFilterStatus}
+            />
+            <Pagination />
+          </>
+          ) : <NoCourseCreated />
+          }
       </div>
     </div>
   )

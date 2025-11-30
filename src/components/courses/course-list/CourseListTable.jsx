@@ -1,17 +1,10 @@
 import TableSearch from "../../globals/TableSearch";
 import Table from "../../globals/Table";
-import { coursesColumnHeader, coursesData } from "../../../data/contentsData";
 import CourseListRowTemplate from "./CourseListRowTemplate";
 import StatusFilter from "../../globals/StatusFilter";
 import { useState } from "react";
 
-const CourseListTable = () => {
-  const [filterStatus, setFilterStatus] = useState('all');
-
-  const filteredCourses = coursesData.filter(course => {
-    if (filterStatus !== 'all' && course.status !== filterStatus) return false;
-    return true;
-  });
+const CourseListTable = ({ filteredCourses, coursesColumnHeader, filterStatus, setFilterStatus }) => {
 
   const courseStatus = [
     { title: "All", value: "all" },
