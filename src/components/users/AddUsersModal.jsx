@@ -32,23 +32,6 @@ const AddUsersModal = ({ setShowAddModal }) => {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
             />
           </div>
-
-          {activeTab === 'admins' && (
-               <div>
-                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                   Role
-                 </label>
-                 <div className="relative">
-                   <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none appearance-none bg-white">
-                     <option>Select Role</option>
-                     <option>Admin</option>
-                     <option>Moderator</option>
-                   </select>
-                   <ChevronDownIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
-                 </div>
-               </div>
-             )}
-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Password
@@ -60,7 +43,6 @@ const AddUsersModal = ({ setShowAddModal }) => {
               />
             </div>
           </div>
-
           <div className="p-6 border-t border-gray-200 flex justify-end gap-3">
             <button 
               onClick={() => setShowAddModal(false)}
