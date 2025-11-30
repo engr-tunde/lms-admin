@@ -1,11 +1,18 @@
-import { useState } from "react";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
-import { PlusIcon } from "../../components/globals/Icons";
-import FinanceStatCardContainer from "../../components/finances/FinanceStatCardContainer";
+import { CheckIcon, ClockIcon, DollarIcon, PlusIcon, TrendingUpIcon } from "../../components/globals/Icons";
 import ManageFinances from "../../components/finances";
+import DashboardStats from "../../components/globals/DashboardStats";
 
 
 const DashboardFinancesPage = () => {
+
+  const financeStats = [
+    { label: "Total Earnings", value: "$12450", icon: DollarIcon, color: "emerald" },
+    { label: "Pending Payouts", value: "$3200", icon: ClockIcon, color: "amber" },
+    { label: "This Month", value: "$4500", icon: TrendingUpIcon, color: "blue" },
+    { label: "Last Payout", value: "$2800", icon: CheckIcon, color: "purple" },
+  ];
+
 
   return (
     <div className="flex flex-col gap-6 w-full h-full">
@@ -21,9 +28,11 @@ const DashboardFinancesPage = () => {
           </button>
         </div>
       </div>
-      <div className="min-h-screen bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <FinanceStatCardContainer />
+      <div className="bg-gray-50">
+        <div className="mx-auto p-6">
+          <DashboardStats 
+            stats={financeStats}
+          />
           <ManageFinances />
         </div>
       </div>

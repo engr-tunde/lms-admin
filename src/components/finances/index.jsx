@@ -13,7 +13,7 @@ function ManageFinances() {
   ];
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       <div className="border-b border-gray-200">
         <div className="flex gap-8 px-6">
           {tabs.map((tab) => (

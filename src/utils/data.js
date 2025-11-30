@@ -20,7 +20,7 @@ export const dashboardSidebarMenu = [
     url: "/admins",
   },
   {
-    title: "Students",
-    url: "/students",
+    title: "Users",
+    url: "/users",
   },
 ];

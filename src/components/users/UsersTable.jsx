@@ -1,24 +1,22 @@
-import { ChevronDownIcon, DownloadIcon } from "../globals/Icons";
+import { DownloadIcon } from "../globals/Icons";
 import TableSearch from "../globals/TableSearch";
-import { payoutsColumnHeader, payoutsData } from "../../data/payoutsData";
-import PayoutRowTemplate from "./PayoutRowTemplate";
 import Table from "../globals/Table";
 import { useState } from "react";
 import StatusFilter from "../globals/StatusFilter";
+import { usersColumnHeader, usersData } from "../../data/userData";
+import UsersRowTemplate from "./UsersRowTemplate"
 
-const PayoutTable = () => {
+const UsersTable = () => {
   const [filterStatus, setFilterStatus] = useState('all');
 
-  const payoutStatus = [
-    { title: "All", value: "all" },
-    { title: "Completed", value: "completed" },
-    { title: "Pending", value: "pending" },
-    { title: "Processing", value: "processing" },
-    { title: "Failed", value: "failed" },
+  const userStatus = [
+    { title: "All Status", value: "all" },
+    { title: "Active", value: "active" },
+    { title: "Suspended", value: "suspended" },
   ];
 
-  const filteredPayouts = payoutsData.filter(payout => {
-    if (filterStatus !== 'all' && payout.status !== filterStatus) return false;
+  const filteredUsers = usersData.filter(user => {
+    if (filterStatus !== 'all' && user.status !== filterStatus) return false;
     return true;
   });
   
@@ -33,7 +31,7 @@ const PayoutTable = () => {
           <StatusFilter
             filter={filterStatus} 
             setFilter={setFilterStatus} 
-            filterArr={payoutStatus} 
+            filterArr={userStatus} 
           />
           <button className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
             <DownloadIcon className="w-4 h-4" />
@@ -43,16 +41,16 @@ const PayoutTable = () => {
       </div>
       <Table
         renderRow={(item) => (
-          <PayoutRowTemplate
+          <UsersRowTemplate
             key={item?.id}
-            payout={item}
+            item={item}
           />
         )}
-        columns={payoutsColumnHeader}
-        data={filteredPayouts}
+        columns={usersColumnHeader}
+        data={filteredUsers}
       />
     </div>
   );
 }
 
-export default PayoutTable;
+export default UsersTable;

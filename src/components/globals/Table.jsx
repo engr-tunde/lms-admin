@@ -1,7 +1,7 @@
 
 const Table = ({ columns = [], renderRow, data = [] }) => {
   return (
-    <div className="overflow-hidden border border-gray-200 rounded-lg">
+    <div className="overflow-x-scroll border border-gray-200 rounded-lg">
       <table className="w-full">
         <thead className="bg-gray-50 border-b border-gray-200">
           <tr className="">
