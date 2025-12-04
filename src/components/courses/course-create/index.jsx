@@ -8,16 +8,30 @@ const CourseCreate = ({
   categories, 
   setActiveTab, 
   stepCompleted, 
-  setStepCompleted 
+  setStepCompleted, 
+  courseId,
+  setCourseId,
+  course
 }) => {
+
+  const handleStepComplete = (stepId) => {
+    setStepCompleted((prev) => {
+      const updated = { ...prev, [stepId]: true };
+      const nextStep = Object.keys(updated).find((k) => !updated[k]);
+      if (nextStep) setActiveTab(nextStep);
+      return updated;
+    });
+  };
+
+
   switch (activeTab) {
     case "overview":
       return (
         <CreateOverview 
           categories={categories} 
-          stepCompleted={stepCompleted} 
-          setStepCompleted={setStepCompleted} 
-          setActiveTab={setActiveTab}
+          setCourseId={setCourseId}
+          onStepComplete={() => handleStepComplete("overview")}
+          course={course}
         />
       );
     case "materials":

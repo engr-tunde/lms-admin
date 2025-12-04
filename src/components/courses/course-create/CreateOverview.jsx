@@ -7,20 +7,25 @@ import TextAreaField from "../../forms/TextAreaField"
 import { addOverview } from "../../../api"
 import { errorNotification, successNotification } from "../../../utils/helpers";
 import SubmitButton from "../../forms/SubmitButton"
+import { useNavigate } from "react-router-dom";
+import { boolean } from "zod/v4";
 
 
-const CreateCourseOverview = ({ categories, stepCompleted, setStepCompleted, setActiveTab }) => {
+const CreateCourseOverview = ({ categories, onStepComplete, setCourseId, course }) => {
   const initialValues = basicCourseDetailValues()
   const validationSchema = validateBasicCourseDetails()
+  const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
     const response = await addOverview(values);
     if (response.status.toString().includes("20")) {
-      successNotification(response.data?.message);
-      setStepCompleted(prev => ({
-        ...prev,
-        overview: true
-      }))
+      const newCourseId = response.data?.data?.course_id;
+      if (!newCourseId) return errorNotification("Course creation failed");
+
+      successNotification(`Course overview created successfully with ID: ${newCourseId}`);
+      setCourseId(newCourseId);
+      onStepComplete();
+      navigate(`/courses/create/${newCourseId}`);
     } else {
       errorNotification(response?.data?.message);
     }
@@ -48,10 +53,7 @@ const CreateCourseOverview = ({ categories, stepCompleted, setStepCompleted, set
             <SelectField
               name="category"
               title="Pick category from the options below"
-              array={(categories || [])?.map((c) => ({
-                value: c?.category, 
-                title: c?.category,   
-              }))}
+              array={(categories || [])?.map((c) => ({ value: c?.category, title: c?.category }))}
             />
           </div>
           <div className="col-span-1">

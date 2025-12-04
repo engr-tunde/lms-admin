@@ -1,10 +1,10 @@
 import TableSearch from "../../globals/TableSearch";
 import Table from "../../globals/Table";
 import CourseListRowTemplate from "./CourseListRowTemplate";
-import StatusFilter from "../../globals/StatusFilter";
-import { useState } from "react";
+import { coursesColumnHeader } from "../../../data/contentsData";
 
-const CourseListTable = ({ filteredCourses, coursesColumnHeader, filterStatus, setFilterStatus }) => {
+
+const CourseListTable = ({ filteredData, setFilteredData, originalArr, setOriginalArr, }) => {
 
   const courseStatus = [
     { title: "All", value: "all" },
@@ -17,16 +17,20 @@ const CourseListTable = ({ filteredCourses, coursesColumnHeader, filterStatus, s
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <TableSearch />
+          <TableSearch 
+            originalArr={originalArr}
+            setFilteredData={setFilteredData}
+            searchable={["title"]}
+          />
         </div>
         
-        <div className="flex items-center gap-3">
+        {/* <div className="flex items-center gap-3">
           <StatusFilter
             filter={filterStatus} 
             setFilter={setFilterStatus} 
             filterArr={courseStatus} 
           />
-        </div>
+        </div> */}
       </div>
       <Table
         renderRow={(item) => (
@@ -36,7 +40,7 @@ const CourseListTable = ({ filteredCourses, coursesColumnHeader, filterStatus, s
           />
         )}
         columns={coursesColumnHeader}
-        data={filteredCourses}
+        data={filteredData}
       />
     </div>
   )

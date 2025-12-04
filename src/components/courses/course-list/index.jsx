@@ -1,26 +1,33 @@
-import TableSearch from "../../globals/TableSearch";
-import Table from "../../globals/Table";
-import { coursesColumnHeader, coursesData } from "../../../data/contentsData";
-import CourseListRowTemplate from "./CourseListRowTemplate";
-import StatusFilter from "../../globals/StatusFilter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Pagination from "../../globals/Pagination";
 import CourseListTable from "./CourseListTable"
 import { NoCourseCreated } from "../../globals/NoValuesPage"
+import Loader from "../../globals/Loader";
+import ErrorWidget from "../../globals/ErrorWidget";  
 
-const ManageCourses = () => {
+const ManageCourses = ({ courses, coursesLoading, coursesError }) => {
   const [activeTab, setActiveTab ] = useState("courses")
-  const [filterStatus, setFilterStatus] = useState('all');
+  const [filteredData, setFilteredData] = useState();
+  const [originalArr, setOriginalArr] = useState();
+
+  console.log("Courses Data:", courses);
 
   const tabs = [
     { id: 'courses', label: 'Courses'},
     { id: 'courseBundles', label: 'Course Bundles'},
   ];
 
-  const filteredCourses = coursesData.filter(course => {
-    if (filterStatus !== 'all' && course.status !== filterStatus) return false;
-    return true;
-  });
+  useEffect(() => {
+    if (courses?.data?.courses?.length) {
+      setOriginalArr(courses?.data?.courses);
+      setFilteredData(courses?.data?.courses);
+    }
+  }, [courses?.data?.courses]);
+  
+  console.log("Filtered Data:", filteredData);
+
+  if (coursesLoading) return <Loader />
+  if (coursesError) return <ErrorWidget />
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
@@ -41,13 +48,13 @@ const ManageCourses = () => {
         </div>
       </div>
       <div className="bg-white rounded-b-lg shadow-sm overflow-hidden">
-        {filteredCourses.length ?(
+        {filteredData ?(
           <>
             <CourseListTable
-              filteredCourses={filteredCourses}
-              coursesColumnHeader={coursesColumnHeader}
-              filterStatus={filterStatus}
-              setFilterStatus={setFilterStatus}
+              filteredData={filteredData}
+              setFilteredData={setFilteredData}
+              originalArr={originalArr}
+              setOriginalArr={setOriginalArr}
             />
             <Pagination />
           </>

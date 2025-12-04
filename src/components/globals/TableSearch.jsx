@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { SearchIcon } from "./Icons";
 
-const TableSearch = ({ originalArr, filteredData, setfilteredData, searchable }) => {
+const TableSearch = ({ originalArr, filteredData, setFilteredData, searchable }) => {
   const [searchQuery, setsearchQuery] = useState("");
 
   const handleFilter = (e) => {

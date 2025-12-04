@@ -84,7 +84,7 @@ export const coursesColumnHeader = [
         className: ""
     },  
     {
-        header: "Details", 
+        header: "Orders", 
         className: ""
     }, 
     {

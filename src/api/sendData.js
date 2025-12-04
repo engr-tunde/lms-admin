@@ -7,10 +7,12 @@ const postData = async (url, data, withCredentials) => {
       withCredentials,
     })
     .then((res) => {
+      // console.log("res status", res.status);
       if (res.status == 401) {
         Cookies.remove("user-token-key");
         window.location.href = "/login";
       }
+      // console.log("res", res);
       return res;
     })
 

@@ -1,22 +1,49 @@
 import ProgressBar from "../../components/globals/ProgressBar";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
-import { useState } from "react";
-import { fetchCategories } from "../../api"
+import { useEffect, useState } from "react";
+import { fetchCategories, fetchAllCourses } from "../../api"
 import CourseCreate from "../../components/courses/course-create";
 import { Check } from "lucide-react";
+import { useParams } from "react-router-dom";
 
 
 const DashboardCourseCreatePage = () => {
+  const { id } = useParams();
+  const [courseId, setCourseId] = useState(id || null);
+  const [course, setCourse] = useState();
+  const [category, setCategory] = useState();
   const [activeTab, setActiveTab] = useState("overview")
   const [stepCompleted, setStepCompleted] = useState({
-    overview: true,
-    materials: true,
-    settings: true,
-    price: true,
-    publish: true
+    overview: false,
+    materials: false,
+    settings: false,
+    publish: false
   })
-
+  const { courses } = fetchAllCourses();
   const { categories } = fetchCategories();
+
+  useEffect(() => {
+    if (!courseId) return;
+    setCourse(courses?.data?.courses?.find((c) => c._id === courseId));
+  }, [courseId, courses]);
+
+  useEffect(() => {
+      setCategory(categories?.data);
+  }, [categories]);
+
+  useEffect(() => {
+    const completed = {
+      overview: Boolean(courseId),                       
+      materials: Boolean(course?.materials?.length),
+      settings: Boolean(course?.requirements?.length),
+      publish: course?.status === "published",
+    };
+    setStepCompleted(completed);
+
+    const nextStep = Object.keys(completed).find((k) => !completed[k]) || "publish";
+    setActiveTab(nextStep);
+  }, [course, courseId]);
+
 
   const tabs = [
     { id: 'overview', label: 'Course Overview', step: 1, completed: stepCompleted.overview },
@@ -72,10 +99,13 @@ const DashboardCourseCreatePage = () => {
         />
         <CourseCreate 
           activeTab={activeTab} 
-          categories={categories?.data} 
+          categories={category} 
           setActiveTab={setActiveTab}
           stepCompleted={stepCompleted}
           setStepCompleted={setStepCompleted}
+          courseId={courseId}
+          setCourseId={setCourseId}
+          course={course}
         />
       </div>
     </div>

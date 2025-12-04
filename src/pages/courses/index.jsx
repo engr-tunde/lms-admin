@@ -4,16 +4,23 @@ import { Link } from "react-router-dom";
 import DashboardStats from "../../components/globals/DashboardStats.jsx";
 import { BookIcon, CheckIcon } from "../../components/globals/Icons.jsx";
 import ManageCourses from "../../components/courses/course-list/index.jsx";
+import { fetchAllCourses } from "../../api/index.js";
+import { useEffect, useState } from "react";
 
 function DashboardCoursesPage() {
+  const { courses, coursesLoading, coursesError } = fetchAllCourses();
+  const [stats, setStats] = useState();
+
+  useEffect(() => {
+    setStats(courses?.data?.summary);
+  }, [courses]);
 
   const courseStats = [
-    { label: "Total Courses", value: "48", icon: BookIcon, color: "blue" },
-    { label: "Published", value: "32", icon: CheckIcon, color: "emerald" },
-    { label: "Drafts", value: "10", icon: File, color: "gray" },
-    { label: "Archived", value: "6", icon: Archive, color: "amber" },
+    { label: "Total Courses", value: stats?.totalCoursesCount, icon: BookIcon, color: "blue" },
+    { label: "Published", value: stats?.publishedCoursesCount, icon: CheckIcon, color: "emerald" },
+    { label: "Drafts", value: stats?.draftCoursesCount, icon: File, color: "gray" },
+    { label: "Archived", value: stats?.archivedCoursesCount, icon: Archive, color: "amber" },
   ];
-
   
   return (
     <div className="flex flex-col gap-6">
@@ -33,10 +40,16 @@ function DashboardCoursesPage() {
         </Link>
       </div>
       <div className="min-h-screen bg-gray-50 p-6"> 
-        <DashboardStats 
-          stats={courseStats} 
+        {(stats && 
+          <DashboardStats 
+            stats={courseStats} 
+          />
+        )}
+        <ManageCourses
+          courses={courses} 
+          coursesLoading={coursesLoading} 
+          coursesError={coursesError}
         />
-        <ManageCourses />
       </div>
     </div>
   );
