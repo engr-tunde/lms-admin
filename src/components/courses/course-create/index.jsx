@@ -3,42 +3,39 @@ import CreatePublish from "./create-publish";
 import CreateRequirements from "./create-requirements";
 import CreateOverview from "./CreateOverview";
 
+const STEP_ORDER = ["overview", "materials", "settings", "publish"];
+
+
 const CourseCreate = ({ 
   activeTab, 
-  categories, 
   setActiveTab, 
-  stepCompleted, 
-  setStepCompleted, 
+  categories,
   courseId,
   setCourseId,
   course
 }) => {
 
-  const handleStepComplete = (stepId) => {
-    setStepCompleted((prev) => {
-      const updated = { ...prev, [stepId]: true };
-      const nextStep = Object.keys(updated).find((k) => !updated[k]);
-      if (nextStep) setActiveTab(nextStep);
-      return updated;
-    });
+  const goToNextStep = (current) => {
+    const currentIndex = STEP_ORDER.indexOf(current);
+    const next = STEP_ORDER[currentIndex + 1];
+    if (next) setActiveTab(next);
   };
-
-
+  
   switch (activeTab) {
     case "overview":
       return (
         <CreateOverview 
           categories={categories} 
           setCourseId={setCourseId}
-          onStepComplete={() => handleStepComplete("overview")}
+          onStepComplete={() => goToNextStep("overview")}
           course={course}
         />
       );
     case "materials":
       return <CreateMaterials />;
-    case "settings":
+    case "requirements":
       return <CreateRequirements />;
-    case "publish":
+    case "pricing":
       return <CreatePublish />;
     default:
       return null;

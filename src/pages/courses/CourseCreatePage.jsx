@@ -10,47 +10,70 @@ import { useParams } from "react-router-dom";
 const DashboardCourseCreatePage = () => {
   const { id } = useParams();
   const [courseId, setCourseId] = useState(id || null);
-  const [course, setCourse] = useState();
-  const [category, setCategory] = useState();
-  const [activeTab, setActiveTab] = useState("overview")
-  const [stepCompleted, setStepCompleted] = useState({
-    overview: false,
-    materials: false,
-    settings: false,
-    publish: false
-  })
+  const [course, setCourse] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [activeTab, setActiveTab] = useState("overview");
   const { courses } = fetchAllCourses();
-  const { categories } = fetchCategories();
+  const { categories: fetchedCategories } = fetchCategories();
+
+  const STEP_ORDER = ["overview", "materials", "requirements", "pricing", "publish"];
 
   useEffect(() => {
     if (!courseId) return;
-    setCourse(courses?.data?.courses?.find((c) => c._id === courseId));
+    const found = courses?.data?.courses?.find((c) => c._id === courseId);
+    if (found) setCourse(found);
   }, [courseId, courses]);
 
   useEffect(() => {
-      setCategory(categories?.data);
-  }, [categories]);
+    if (fetchedCategories?.data) {
+      setCategories(fetchedCategories.data);
+    }
+  }, [fetchedCategories]);
 
   useEffect(() => {
-    const completed = {
-      overview: Boolean(courseId),                       
-      materials: Boolean(course?.materials?.length),
-      settings: Boolean(course?.requirements?.length),
-      publish: course?.status === "published",
-    };
-    setStepCompleted(completed);
-
-    const nextStep = Object.keys(completed).find((k) => !completed[k]) || "publish";
+    if (!course) {
+      setActiveTab("overview");
+      return;
+    }
+  
+    const completed = course.progress_status || "overview";
+    const completedIndex = STEP_ORDER.indexOf(completed);
+  
+    const nextIndex = completedIndex + 1;
+  
+    const nextStep =
+      nextIndex < STEP_ORDER.length ? STEP_ORDER[nextIndex] : completed;
+  
     setActiveTab(nextStep);
-  }, [course, courseId]);
+  }, [course]);
+
+
+
+  const stepCompleted = STEP_ORDER.reduce((acc, step) => {
+    acc[step] =
+      STEP_ORDER.indexOf(step) <= STEP_ORDER.indexOf(course?.progress_status);
+    return acc;
+  }, {});
 
 
   const tabs = [
-    { id: 'overview', label: 'Course Overview', step: 1, completed: stepCompleted.overview },
-    { id: 'materials', label: 'Course Materials', step: 2, completed: stepCompleted.materials },
-    { id: 'settings', label: 'Requirements & Audience', step: 3, completed: stepCompleted.settings },
-    { id: 'publish', label: 'Publish', step: 5, completed: stepCompleted.publish }
-  ];
+    { id: 'overview', label: 'Course Overview', step: 1},
+    { id: 'materials', label: 'Course Materials', step: 2},
+    { id: 'requirements', label: 'Requirements & Audience', step: 3},
+    { id: 'pricing', label: 'Pricing', step: 4},
+    { id: 'publish', label: 'Publish', step: 5}
+  ].map((t) => ({
+    ...t,
+    completed: stepCompleted[t.id],
+  }));;
+
+  const canClick = (tabId) => {
+    const completedIndex = STEP_ORDER.indexOf(course?.progress_status);
+    const tabIndex = STEP_ORDER.indexOf(tabId);
+  
+    return tabIndex <= completedIndex + 1;
+  };
+  
 
   const progressValue = (tabs.findIndex(tab => tab.id === activeTab) / (tabs.length - 1)) * 100;
 
@@ -64,7 +87,7 @@ const DashboardCourseCreatePage = () => {
         {tabs.map((tab) => (
           <button 
             onClick={() => setActiveTab(tab.id)}
-            disabled={tab.id !== activeTab && !stepCompleted[tab.id]}
+            disabled={!canClick(tab.id)}
             className={`relative pb-4 pt-6 ${
                 activeTab === tab.id ? "text-black" : "text-merseBorder disabled:opacity-50 disabled:cursor-not-allowed"
             }`}
@@ -99,10 +122,8 @@ const DashboardCourseCreatePage = () => {
         />
         <CourseCreate 
           activeTab={activeTab} 
-          categories={category} 
           setActiveTab={setActiveTab}
-          stepCompleted={stepCompleted}
-          setStepCompleted={setStepCompleted}
+          categories={categories} 
           courseId={courseId}
           setCourseId={setCourseId}
           course={course}

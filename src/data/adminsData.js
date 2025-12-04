@@ -14,10 +14,10 @@ export const adminsColumnHeader = [
         header: "Email", 
         className: ""
     },  
-    {
-        header: "Role", 
-        className: ""
-    }, 
+    // {
+    //     header: "Role", 
+    //     className: ""
+    // }, 
     {
         header: "Status", 
         className: ""
@@ -27,11 +27,7 @@ export const adminsColumnHeader = [
         className: ""
     },
     {
-        header: "Last Active", 
-        className: ""
-    },
-    {
         header: "Actions", 
-        className: ""
+        className: "text-right"
     },
 ]

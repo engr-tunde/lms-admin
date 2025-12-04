@@ -5,8 +5,12 @@ import UsersTable from './UsersTable'
 import { useState } from 'react';
 import { usersData, usersColumnHeader } from "../../data/userData"
 import { NoUserAvailable } from "../globals/NoValuesPage"
+import { fetchAllUsers } from "../../api/index"
 
 function ManageUsers() {
+
+  const { users } = fetchAllUsers()
+  console.log("Users", users)
   const [filterStatus, setFilterStatus] = useState('all');
 
   const filteredUsers = usersData.filter(user => {

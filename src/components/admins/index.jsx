@@ -1,32 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Pagination from '../globals/Pagination';
 import AdminsTable from "./AdminsTable"
-import { adminsColumnHeader, adminsData } from "../../data/adminsData";
 import { NoAdminsAvailable } from '../globals/NoValuesPage';
+import { fetchAllAdmins } from "../../api/index"
+import Loader from "../globals/Loader"
+import ErrorWidget from "../globals/ErrorWidget"
+
 
 
 function ManageAdmins() {
-  const [filterStatus, setFilterStatus] = useState('all');
-  const [filterRole, setFilterRole] = useState('all');
+  const [filteredData, setFilteredData] = useState()
+  const [originalArr, setOriginalArr] = useState();
 
-  const filteredAdmins = adminsData.filter(admin => {
-    if (filterStatus !== 'all' && admin.status !== filterStatus) return false;
-    if (filterRole !== 'all' && admin.role !== filterRole) return false;
-    return true;
-  });
+  const { admins, adminsLoading, adminsError } = fetchAllAdmins();
+  console.log("Admins:", admins);
+
+
+  useEffect(() => {
+    if (admins?.data?.length) {
+      setOriginalArr(admins?.data)
+      setFilteredData(admins?.data)
+    }
+  }, [admins?.data])
+
+  if (adminsLoading) return <Loader/>
+  if (adminsError) return <ErrorWidget error={admins?.message}/>
 
   return (
     <div className="mx-auto">
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        {filteredAdmins.length ? (
+        {filteredData ? (
           <>
             <AdminsTable 
-              filteredAdmins={filteredAdmins}
-              adminsColumnHeader={adminsColumnHeader}
-              filterStatus={filterStatus}
-              setFilterStatus={setFilterStatus}
-              filterRole={filterRole}
-              setFilterRole={setFilterRole}
+              filteredData={filteredData}
             />
             <Pagination />
           </>
