@@ -8,24 +8,47 @@ import { addOverview } from "../../../api"
 import { errorNotification, successNotification } from "../../../utils/helpers";
 import SubmitButton from "../../forms/SubmitButton"
 import { useNavigate } from "react-router-dom";
-import { boolean } from "zod/v4";
+import { fetchCategories } from "../../../api/index";
 
+const CreateCourseOverview = ({ onStepComplete, course }) => {
+  
+  
+  const initialValues = course?._id
+    ? {
+        ...basicCourseDetailValues(),
+        title: course.title || "",
+        category: course.category || "",
+        language: course.language || "",
+        level: course.level || "",
+        what_to_taught: course.what_to_taught || "",
+        description: course.description || "",
+      }
+    : basicCourseDetailValues();
 
-const CreateCourseOverview = ({ categories, onStepComplete, setCourseId, course }) => {
-  const initialValues = basicCourseDetailValues()
+  
   const validationSchema = validateBasicCourseDetails()
   const navigate = useNavigate();
+  const { categories } = fetchCategories();
 
   const handleSubmit = async (values) => {
     const response = await addOverview(values);
     if (response.status.toString().includes("20")) {
       const newCourseId = response.data?.data?.course_id;
       if (!newCourseId) return errorNotification("Course creation failed");
-
       successNotification(`Course overview created successfully with ID: ${newCourseId}`);
-      setCourseId(newCourseId);
       onStepComplete();
-      navigate(`/courses/create/${newCourseId}`);
+      navigate(`/courses/create/${newCourseId}`, {
+        state: {
+          course: {
+            _id: newCourseId,
+            title: values.title,
+            progress_status: "overview",
+          },
+          nextLabel: "materials",
+          progress_status: "overview",
+          value: 20
+        }
+      });
     } else {
       errorNotification(response?.data?.message);
     }
@@ -53,7 +76,7 @@ const CreateCourseOverview = ({ categories, onStepComplete, setCourseId, course 
             <SelectField
               name="category"
               title="Pick category from the options below"
-              array={(categories || [])?.map((c) => ({ value: c?.category, title: c?.category }))}
+              array={(categories?.data || [])?.map((c) => ({ value: c?.category, title: c?.category }))}
             />
           </div>
           <div className="col-span-1">

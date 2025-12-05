@@ -9,9 +9,6 @@ const STEP_ORDER = ["overview", "materials", "settings", "publish"];
 const CourseCreate = ({ 
   activeTab, 
   setActiveTab, 
-  categories,
-  courseId,
-  setCourseId,
   course
 }) => {
 
@@ -25,8 +22,6 @@ const CourseCreate = ({
     case "overview":
       return (
         <CreateOverview 
-          categories={categories} 
-          setCourseId={setCourseId}
           onStepComplete={() => goToNextStep("overview")}
           course={course}
         />
