@@ -1,10 +1,13 @@
 import { DollarIcon } from "../../../globals/Icons";
 import InputField from "../../../forms/InputField";
 import SelectField from "../../../forms/SelectField";
+import { useState } from "react";
 
 
 
-const PriceCard = ({ courseData, setCourseData }) => {
+const PriceCard = () => {
+  const [ isFree, setIsFree] = useState(false)
+  const [hasDiscount, setHasDiscount] = useState(false)
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
       <div className="flex items-start gap-3 mb-6">
@@ -19,8 +22,8 @@ const PriceCard = ({ courseData, setCourseData }) => {
         <label className="flex items-center gap-3 cursor-pointer">
           <input
             type="checkbox"
-            checked={courseData.isFree}
-            onChange={(e) => setCourseData({...courseData, isFree: e.target.checked})}
+            checked={isFree}
+            onChange={(e) => setIsFree(e.target.checked)}
             className="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500"
           />
           <div>
@@ -30,7 +33,7 @@ const PriceCard = ({ courseData, setCourseData }) => {
         </label>
       </div>
 
-      {!courseData.isFree && (
+      {!isFree && (
         <>
           <div className="grid grid-cols-3 gap-6 mb-6">
             <div className="col-span-2">
@@ -61,8 +64,8 @@ const PriceCard = ({ courseData, setCourseData }) => {
             <label className="flex items-start gap-3 cursor-pointer mb-3">
               <input
                 type="checkbox"
-                checked={courseData.hasDiscount}
-                onChange={(e) => setCourseData({...courseData, hasDiscount: e.target.checked})}
+                checked={hasDiscount}
+                onChange={(e) => setHasDiscount(e.target.checked)}
                 className="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500 mt-0.5"
               />
               <div>
@@ -71,14 +74,14 @@ const PriceCard = ({ courseData, setCourseData }) => {
               </div>
             </label>
 
-            {courseData.hasDiscount && (
+            {hasDiscount && (
               <div className="mt-3">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Discounted Price
+                  Discount Percent
                 </label>
                 <InputField
-                  name="discountPrice"
-                  placeholder="0.00"
+                  name="discount_percent"
+                  placeholder="0%"
                   className="w-full"
                 />
               </div>

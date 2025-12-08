@@ -4,15 +4,24 @@ import CustomModal from "../../globals/Modals";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import TextAreaField from "../../forms/TextAreaField"
-import { addOverview } from "../../../api"
+import { addOverview, updateOverview } from "../../../api"
 import { errorNotification, successNotification } from "../../../utils/helpers";
 import SubmitButton from "../../forms/SubmitButton"
 import { useNavigate } from "react-router-dom";
 import { fetchCategories } from "../../../api/index";
+import { useEffect, useState } from "react";
 
 const CreateCourseOverview = ({ onStepComplete, course }) => {
-  
-  
+  const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
+  const { categories } = fetchCategories();
+
+  useEffect(() => {
+    if (course?._id) {
+      setIsEditing(true);
+    }
+  }, [course]);
+
   const initialValues = course?._id
     ? {
         ...basicCourseDetailValues(),
@@ -24,40 +33,59 @@ const CreateCourseOverview = ({ onStepComplete, course }) => {
         description: course.description || "",
       }
     : basicCourseDetailValues();
-
-  
+    
   const validationSchema = validateBasicCourseDetails()
-  const navigate = useNavigate();
-  const { categories } = fetchCategories();
 
   const handleSubmit = async (values) => {
-    const response = await addOverview(values);
-    if (response.status.toString().includes("20")) {
-      const newCourseId = response.data?.data?.course_id;
-      if (!newCourseId) return errorNotification("Course creation failed");
-      successNotification(`Course overview created successfully with ID: ${newCourseId}`);
-      onStepComplete();
-      navigate(`/courses/create/${newCourseId}`, {
-        state: {
-          course: {
-            _id: newCourseId,
-            title: values.title,
-            progress_status: "overview",
-          },
-          nextLabel: "materials",
-          progress_status: "overview",
-          value: 20
-        }
-      });
-    } else {
+    const response = await addOverview(values)
+
+    if (!response.status.toString().includes("20")) {
       errorNotification(response?.data?.message);
-    }
+    };
+    const newCourseId = response.data?.data?.course_id;
+    const courseData = response.data?.data?.courseData;
+    if (!newCourseId) return errorNotification("Course creation failed");
+    successNotification(`Course overview created successfully with ID: ${newCourseId}`);
+    navigate(`/courses/create/${newCourseId}`, {
+      state: {
+        course: courseData,
+        nextLabel: "materials",
+      }
+    });
   }
+  const handleUpdate = async (values, id) => {
+    const response = await updateOverview(values, id);
+    if (!response.status.toString().includes("20")) {
+      return errorNotification(response?.data?.message);
+    }
+    
+    const updatedCourse = response.data?.data?.courseData;
+    if (!updatedCourse) return;
+    successNotification("Course overview updated successfully");
+    navigate("", {
+      state: {
+        course: updatedCourse,
+        nextLabel: "materials", 
+      },
+    });
+  }
+
+  const handleSubmitOrUpdate = async (values, continueNext = true) => {
+    if (isEditing) {
+      await handleUpdate(values, course._id);
+    } else {
+      await handleSubmit(values);
+    }
+
+    if (continueNext) {
+      onStepComplete();         
+    }
+  };
 
   return (
       <CustomModal
         title=""
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmitOrUpdate}
         initialValues={initialValues}
         validationSchema={validationSchema}
         description={""}
@@ -65,7 +93,9 @@ const CreateCourseOverview = ({ onStepComplete, course }) => {
         <div 
           className="grid grid-cols-1 lg:grid-cols-2 gap-4 bg-white w-full px-6 py-10 shadow-sm rounded-lg border border-gray-200"
         >
-          <div className="font-semibold mb-4">Add Course Overview</div>
+          <div className="font-semibold mb-4">
+            {isEditing ? "Edit Course Overview" : "Add Course Overview"}
+          </div>
           <div className="col-span-2">
             <InputField
               name="title"
@@ -110,27 +140,15 @@ const CreateCourseOverview = ({ onStepComplete, course }) => {
           </div>
         </div>
 
-        <div className="flex justify-end gap-4 mt-6">
-          <button type="submit" className="draft-button">
-            Save Draft
-          </button>
-      
+        <div className="flex justify-end gap-4 mt-6">      
           <SubmitButton
-            title="Continue to Materials"
+            title={isEditing ? "Update and Continue" : "Add and Continue"}
             className="continue-button"
           />
         </div>
       </CustomModal>
   )
 }
-
-const categoryOptions = [
-  { value: "programming", title: "Programming" },
-  { value: "design", title: "Design" },
-  { value: "marketing", title: "Marketing" },
-  { value: "business", title: "Business" },
-  { value: "photography", title: "Photography" },
-]
 
 const languageOptions = [
   { value: "en", title: "English" },

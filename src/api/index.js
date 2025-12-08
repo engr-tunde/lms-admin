@@ -13,8 +13,8 @@ import {
   ADD_COURSE_MATERIAL, 
   ADD_COURSE_REQUIREMENTS, 
   ADD_COURSE_PRICING, 
-  EDIT_COURSE_PRICING, 
   FETCH_COURSES, 
+  FETCH_COURSE,
   FETCH_COURSE_MATERIAL, 
   DELETE_COURSE_MATERIAL, 
   DELETE_COURSE, 
@@ -31,7 +31,10 @@ import {
   UPDATE_ADMIN, 
   FETCH_ADMINS, 
   FETCH_SINGLE_ADMIN, 
-  DELETE_ADMIN, 
+  DELETE_ADMIN,
+  UPDATE_COURSE_OVERVIEW,
+  UPDATE_COURSE_REQUIREMENTS,
+  PUBLISH_COURSE, 
 
 } from "../constants/routes";
 
@@ -61,12 +64,12 @@ export const logout = async () => {
 // ADMIN 
 
 export const addAdmin = async (values) => {
-  const result = await mutationRequest(ADD_ADMIN, "post", values, true)
+  const result = await mutationRequest(ADD_ADMIN, "post", values, false)
   return result;
 }
 
 export const updateAdmin = async (values, id) => {
-  const result = await mutationRequest(`${UPDATE_ADMIN}/${id}`, "put", values, true)
+  const result = await mutationRequest(`${UPDATE_ADMIN}/${id}`, "put", values, false)
   return result;
 }
 export const fetchAllAdmins = () => {
@@ -89,7 +92,7 @@ export const fetchAdmin = () => {
 }
 
 export const deleteAdmin = async (id) => {
-  const result = await mutationRequest(`${DELETE_ADMIN}/${id}`, "delete", true)
+  const result = await mutationRequest(`${DELETE_ADMIN}/${id}`, "delete", false)
   return result;
 }
 
@@ -109,16 +112,16 @@ export const fetchCategories = () => {
 }
 
 export const addCategory = async (values) => {
-  const result = await mutationRequest(ADD_COURSE_CATEGORY, "post", values, true)
+  const result = await mutationRequest(ADD_COURSE_CATEGORY, "post", values, false)
   return result;
 }
 
 export const updateCategory = async (values, id) => {
-  const result = await mutationRequest(`${UPDATE_COURSE_CATEGORY}/${id}`, "put", values, true)
+  const result = await mutationRequest(`${UPDATE_COURSE_CATEGORY}/${id}`, "put", values, false)
   return result;
 }
 export const deleteCategory = async (id) => {
-  const result = await mutationRequest(`${DELETE_COURSE_CATEGORY}/${id}`, "delete", true)
+  const result = await mutationRequest(`${DELETE_COURSE_CATEGORY}/${id}`, "delete", false)
   return result;
 }
 
@@ -128,25 +131,33 @@ export const deleteCategory = async (id) => {
 
 
 export const addOverview = async (values) => {
-  const result = await mutationRequest(ADD_COURSE_OVERVIEW, "post", values, true)
+  const result = await mutationRequest(ADD_COURSE_OVERVIEW, "post", values, false)
+  return result;
+}
+export const updateOverview = async (values, id) => {
+  const result = await mutationRequest(`${UPDATE_COURSE_OVERVIEW}/${id}`, "put", values, false)
   return result;
 }
 export const addMaterial = async (values, id) => {
-  const result = await mutationRequest(`${ADD_COURSE_MATERIAL}/${id}`, "post", values, true)
+  const result = await mutationRequest(`${ADD_COURSE_MATERIAL}/${id}`, "post", values, false)
   return result;
 }
 export const addRequirements = async (values, id) => {
-  const result = await mutationRequest(`${ADD_COURSE_REQUIREMENTS}/${id}`, "post", values, true)
+  const result = await mutationRequest(`${ADD_COURSE_REQUIREMENTS}/${id}`, "post", values, false)
   return result;
 }
 
-export const addPricingAndPublish = async (values, id) => {
-  const result = await mutationRequest(`${ADD_COURSE_PRICING}/${id}`, "post", values, true)
+export const updateRequirements = async (values, id) => {
+  const result = await mutationRequest(`${UPDATE_COURSE_REQUIREMENTS}/${id}`, "put", values, false)
   return result;
 }
 
-export const updatePricing = async (values, id) => {
-  const result = await mutationRequest(`${EDIT_COURSE_PRICING}/${id}`, "put", values, true)
+export const addPricing = async (values, id) => {
+  const result = await mutationRequest(`${ADD_COURSE_PRICING}/${id}`, "post", values, false)
+  return result;
+}
+export const publishCourse = async (values, id) => {
+  const result = await mutationRequest(`${PUBLISH_COURSE}/${id}`, "post", values, false)
   return result;
 }
 
@@ -156,6 +167,15 @@ export const fetchAllCourses = () => {
     courses: data,
     coursesLoading: !error && !data,
     coursesError: error,
+    mutate,
+  }
+}
+export const fetchCourse = (id) => {
+  const { data, error, mutate } = useSWR(`${FETCH_COURSE}/${id}`, fetcher);
+  return {  
+    course: data,
+    courseLoading: !error && !data,
+    courseError: error,
     mutate,
   }
 }
@@ -170,13 +190,13 @@ export const fetchCourseMaterial = (id) => {
 }
 
 export const deleteMaterial = async (id) => {
-  const result = await mutationRequest(`${DELETE_COURSE_MATERIAL}/${id}`, "delete", true)
+  const result = await mutationRequest(`${DELETE_COURSE_MATERIAL}/${id}`, "delete", false)
   return result;
 }
 
 
 export const deleteCourse = async (id) => {
-  const result = await mutationRequest(`${DELETE_COURSE}/${id}`, "delete", true)
+  const result = await mutationRequest(`${DELETE_COURSE}/${id}`, "delete", false)
   return result;
 }
 
@@ -249,16 +269,16 @@ export const fetchUser = (id) => {
 }
 
 export const deleteUser = async (id) => {
-  const result = await mutationRequest(`${DELETE_USER}/${id}`, "delete", true)
+  const result = await mutationRequest(`${DELETE_USER}/${id}`, "delete", false)
   return result;
 }
 
 export const blockUser = async (values, id) => {
-  const result = await mutationRequest(`${BLOCK_USER}/${id}`, "put", values, true)
+  const result = await mutationRequest(`${BLOCK_USER}/${id}`, "put", values, false)
   return result;
 }
 export const unblockUser = async (values, id) => {
-  const result = await mutationRequest(`${UNBLOCK_USER}/${id}`, "put", values, true)
+  const result = await mutationRequest(`${UNBLOCK_USER}/${id}`, "put", values, false)
   return result;
 }
 

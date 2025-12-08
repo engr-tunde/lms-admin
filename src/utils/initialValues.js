@@ -81,7 +81,7 @@ export const courseCurriculumValues = () => {
   return initialValues;
 };
 
-export const videoMaterialValues = () => {
+export const materialValues = () => {
   const initialValues = {
     video: "",
     article: ""
@@ -93,17 +93,18 @@ export const videoMaterialValues = () => {
 export const courseRequirementsValues = () => {
   const initialValues = {
     requirements: [""],
+    audience: [""], 
+    duration: "",
+    certificate: false,
   };
   return initialValues;
 }; 
 
-export const coursePublishValues = () => {
+export const coursePriceValues = () => {
   const initialValues = {
     currency: "USD",
     price: "",
-    hasDiscount: false,
-    isFree: false,
-    discountPrice: "",
+    discount_percent: "",
   };
   return initialValues;
 }

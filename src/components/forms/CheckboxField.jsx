@@ -1,41 +1,42 @@
-import { Field, useFormikContext } from "formik";
+import { useFormikContext } from "formik";
 
-const CheckboxField = ({ name, array, title, className = "", ...rest }) => {
-  const { errors, values, touched } = useFormikContext();
+const CheckboxField = ({
+  name,
+  label,
+  disabled = false,
+  className = "",
+  ...rest
+}) => {
+  const { values, errors, touched, handleChange, handleBlur } =
+    useFormikContext();
 
-  const selectedValues = values[name] || [];
+  const checked = values[name];
   const error = errors[name];
   const isTouched = touched[name];
 
   return (
-    <div className={`space-y-2 ${className}`}>
-      {title && <div className="text-sm font-medium text-gray-700">{title}</div>}
+    <div className={`flex flex-col ${className}`}>
+      <label className="flex items-center gap-2 cursor-pointer">
+        <input
+          type="checkbox"
+          name={name}
+          checked={checked}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          disabled={disabled}
+          className="
+            w-5 h-5 text-purple-600 rounded 
+            focus:ring-2 focus:ring-purple-500 
+            border-gray-300
+          "
+          {...rest}
+        />
+        <span className="text-gray-700">{label}</span>
+      </label>
 
-      <div className="space-y-2">
-        {array.map((item, i) => {
-          const value =
-            typeof array[0] === "object" ? item?.value : item;
-          const label =
-            typeof array[0] === "object" ? item?.title : item;
-
-          return (
-            <label key={i} className="flex items-center gap-2 cursor-pointer">
-              <Field
-                type="checkbox"
-                name={name}
-                value={value}
-                className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
-                {...rest}
-              />
-              <span className="text-sm text-gray-700">{label}</span>
-            </label>
-          );
-        })}
-      </div>
-
-      {error && isTouched ? (
-        <div className="text-red-500 text-[12px] lowercase">{error}</div>
-      ) : null}
+      {isTouched && error && (
+        <p className="text-red-500 text-xs mt-1">{error}</p>
+      )}
     </div>
   );
 };

@@ -7,17 +7,16 @@ const postData = async (url, data, withCredentials) => {
       withCredentials,
     })
     .then((res) => {
-      // console.log("res status", res.status);
+      console.log("res status", res.status);
       if (res.status == 401) {
         Cookies.remove("user-token-key");
         window.location.href = "/login";
       }
-      // console.log("res", res);
+      console.log("res", res);
       return res;
     })
 
     .catch((err) => {
-      // console.log(err.response.data);
       return err.response;
     });
 
@@ -28,11 +27,12 @@ const putData = async (url, data, withCredentials) => {
   const result = await axiosInstance()
     .put(url, data, { withCredentials })
     .then((res) => {
-      // console.log("res status", res.status);
+      console.log("res status", res.status);
       if (res.status == 401) {
         Cookies.remove("user-token-key");
         window.location.href = "/login";
       }
+      console.log("res", res);
       return res;
     })
     .catch((err) => err.response);

@@ -11,13 +11,15 @@ export const DELETE_COURSE_CATEGORY = "/admin/course/delete-category"
 export const FETCH_COURSE_CATEGORIES = "/admin/course/fetch-all-categories"
 
 export const ADD_COURSE_OVERVIEW = "/admin/course/add-course-overview"
+export const UPDATE_COURSE_OVERVIEW = "/admin/course/update-course-overview"
 export const ADD_COURSE_MATERIAL = "/admin/course/add-course-material"
 export const ADD_COURSE_REQUIREMENTS = "/admin/course/add-course-requirements"
+export const UPDATE_COURSE_REQUIREMENTS = "/admin/course/update-course-requirements"
 export const ADD_COURSE_PRICING = "/admin/course/add-course-pricing"
-export const EDIT_COURSE_PRICING = "/admin/course/edit-course-pricing"
-
+export const PUBLISH_COURSE = "/admin/course/publish-course"
 
 export const FETCH_COURSES = "/admin/course/fetch-all-courses"
+export const FETCH_COURSE = "/admin/course/course-details"
 export const FETCH_COURSE_MATERIAL = "/admin/course/fetch-course-materials"
 export const DELETE_COURSE_MATERIAL = "/admin/course/delete-course-material"
 export const DELETE_COURSE = "/admin/course/delete-course"

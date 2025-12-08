@@ -124,7 +124,7 @@ export const validateCourseCurriculum = () => {
   return validateSchema;
 }
 
-export const validateVideoMaterialValues = () => {
+export const validateMaterialValues = () => {
   const validationSchema = yup.object({
     video: yup.string().required("Please, upload a video file"),
     article: yup.string().required("Please, provide article content"),
@@ -134,24 +134,23 @@ export const validateVideoMaterialValues = () => {
 
 export const validateCourseRequirementValues = () => {
   const validationSchema = yup.object({
-    requirements: yup.array().of(
-      yup.string().required("Please, provide a requirement")
-    )
+    requirements: yup.array().of(yup.string().trim()),
+    audience: yup.array().of(yup.string().trim()),   
+    duration: yup.string().trim(),                   
+    certificate: yup.boolean().default(false),      
   });
   return validationSchema;
 }
 
-export const validateCoursePublishValues = () => {
+export const validateCoursePriceValues = () => {
   const validationSchema = yup.object({
     currency: yup.string().required("Please, select currency"),
-    price: yup.number().required("Please, provide course price"),
-    discountPrice: yup.number().when('hasDiscount', {
-      is: true,
-      then: yup.number().required("Please, provide discount price")
-    })
+    price: yup.number().typeError("Price must be a number").required("Please, provide course price"),
+    discount_percent: yup.number().typeError("Discount price must be a number").notRequired(), // optional, no dependency
   });
+
   return validationSchema;
-}
+};
 
 export const validateAssessmentConfigurationValues = () => {
   const validationSchema = yup.object({

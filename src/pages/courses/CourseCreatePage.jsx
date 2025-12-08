@@ -1,7 +1,6 @@
 import ProgressBar from "../../components/globals/ProgressBar";
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { useEffect, useState } from "react";
-import { fetchAllCourses } from "../../api"
 import CourseCreate from "../../components/courses/course-create";
 import { Check } from "lucide-react";
 import { useLocation } from "react-router-dom";

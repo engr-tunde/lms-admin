@@ -22,6 +22,7 @@ function CourseListRowTemplate({ item }) {
     if (progress_status === "materials") return "requirements";
     if (progress_status === "requirements") return "pricing";
     if (progress_status === "pricing") return "publish";
+    if (progress_status === "completed") return "publish";
     return "";
   }
 
@@ -32,7 +33,7 @@ function CourseListRowTemplate({ item }) {
     if (progress_status === "materials") return 40;
     if (progress_status === "requirements") return 60;
     if (progress_status === "pricing") return 80;
-    if (progress_status === "publish") return 100;
+    if (progress_status === "completed") return 100;
     return 0;
   }
 
