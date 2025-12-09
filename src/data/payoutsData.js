@@ -61,11 +61,11 @@ export const payoutsData = [
 
 export const payoutsColumnHeader = [
     {
-        header: "Transaction", 
+        header: "Payment Reference", 
         className: ""
     }, 
     {
-        header: "Date", 
+        header: "Course Title", 
         className: ""
     }, 
     {
@@ -73,7 +73,7 @@ export const payoutsColumnHeader = [
         className: ""
     }, 
     {
-        header: "Method", 
+        header: "Date", 
         className: ""
     }, 
     {

@@ -1,5 +1,8 @@
 import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+
 
 export const successNotification = (message) => toast.success(message);
 export const errorNotification = (message) => toast.error(message);
@@ -159,3 +162,29 @@ export function generateRandomString(length) {
   }
   return result;
 }
+
+
+export const handleExportPDF = ({ pdfTitle, data, columns }) => {
+  if (!data?.length) return;
+
+  const doc = new jsPDF();
+
+  // Column headers
+  const tableColumn = columns.map(col => col.header);
+
+  // Table rows
+  const tableRows = data.map(item => 
+    columns.map(col => item[col.key] ?? '')
+  );
+
+  autoTable(doc, {
+    head: [tableColumn],
+    body: tableRows,
+    margin: { top: 20 },
+    styles: { fontSize: 8 },
+    headStyles: { fillColor: [230, 230, 230] },
+  });
+
+  doc.save(`${pdfTitle}_export_${new Date().toISOString().slice(0,10)}.pdf`);
+};
+

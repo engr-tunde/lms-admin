@@ -2,13 +2,29 @@ import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { CheckIcon, ClockIcon, DollarIcon, PlusIcon, TrendingUpIcon } from "../../components/globals/Icons";
 import ManageFinances from "../../components/finances";
 import DashboardStats from "../../components/globals/DashboardStats";
+import { fetchAllOrders, fetchAllPayments } from "../../api";
+import { useEffect, useState } from "react";
 
 
 const DashboardFinancesPage = () => {
+  const [totalOrders, setTotalOrders] = useState();
+  const [totalEarnings, setTotalEarnings] = useState();
+  const { orders } = fetchAllOrders()
+  const { payments } = fetchAllPayments()
+
+  console.log("payments", payments);
+
+  useEffect(() => {
+    if (orders?.data?.orders) {
+      setTotalOrders(orders.data.orders.count.length);
+      setTotalEarnings(orders.data.orders.total);
+    }
+  })
+
 
   const financeStats = [
-    { label: "Total Earnings", value: "$12450", icon: DollarIcon, color: "emerald" },
-    { label: "Pending Payouts", value: "$3200", icon: ClockIcon, color: "amber" },
+    { label: "Total Orders", value: totalOrders && totalOrders, icon: ClockIcon, color: "emerald" },
+    { label: "Total Earnings", value: totalEarnings && `$${totalEarnings}`, icon: DollarIcon, color: "amber" },
     { label: "This Month", value: "$4500", icon: TrendingUpIcon, color: "blue" },
     { label: "Last Payout", value: "$2800", icon: CheckIcon, color: "purple" },
   ];

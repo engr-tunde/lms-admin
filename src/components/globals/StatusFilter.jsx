@@ -1,9 +1,29 @@
-function StatusFilter({ filter, setFilter, filterArr = [] }) {
+import { useState } from "react";
+
+function StatusFilter({ originalArr, filteredData, setFilteredData, filterArr = [] }) {
+  const [filterValue, setFilterValue] = useState("all");
+
+  const handleFilter = (e) => {
+    const value = e.target.value;
+    setFilterValue(value);
+
+    if (value === "all") {
+      setFilteredData(originalArr);
+      return;
+    }
+
+    const filteredList = originalArr.filter(
+      (item) => item.payment_status === value
+    );
+
+    setFilteredData(filteredList);
+  };
+
   return (
     <div className="w-full max-w-xs">
       <select
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
+        value={filterValue}
+        onChange={handleFilter}
         className="w-full h-full text-sm border border-merseBorder focus:outline-purple-600 p-3 rounded-lg bg-transparent"
       >
         {filterArr.map((item, i) => (

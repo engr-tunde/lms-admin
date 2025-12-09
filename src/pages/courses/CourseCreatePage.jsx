@@ -12,7 +12,7 @@ const DashboardCourseCreatePage = () => {
   const courseFromLocation = location.state?.course || null;
   const [activeTab, setActiveTab] = useState(location.state?.nextLabel || "overview");
   
-  const STEP_ORDER = ["overview", "materials", "requirements", "pricing", "publish"];
+  const STEP_ORDER = ["overview", "materials", "requirements", "pricing", "completed"];
 
   useEffect(() => {
     if (courseFromLocation) {
@@ -20,29 +20,40 @@ const DashboardCourseCreatePage = () => {
     }
   }, [courseFromLocation]);
 
-  const stepCompleted = STEP_ORDER.reduce((acc, step) => {
-    acc[step] =
-      STEP_ORDER.indexOf(step) <= STEP_ORDER.indexOf(course?.progress_status);
-    return acc;
-  }, {});
+  const getStepCompleted = (progress_status) => {
+    if (!progress_status) return {};
+  
+    const maxIndex = STEP_ORDER.indexOf(progress_status);
+  
+    return STEP_ORDER.reduce((acc, step, index) => {
+      acc[step] = index <= maxIndex;
+      return acc;
+    }, {});
+  };
+  
+  const stepCompleted = getStepCompleted(course?.progress_status);
 
   const tabs = [
-    { id: 'overview', label: 'Course Overview', step: 1},
-    { id: 'materials', label: 'Course Materials', step: 2},
-    { id: 'requirements', label: 'Requirements & Audience', step: 3},
-    { id: 'pricing', label: 'Pricing', step: 4},
-    { id: 'publish', label: 'Publish', step: 5}
-  ].map((t) => ({
-    ...t,
-    completed: stepCompleted[t.id],
-  }));;
-
-  const canClick = (tabId) => {
-    const completedIndex = STEP_ORDER.indexOf(course?.progress_status);
-    const tabIndex = STEP_ORDER.indexOf(tabId);
+    { id: 'overview', label: 'Course Overview', step: 1,},
+    { id: 'materials', label: 'Course Materials', step: 2,},
+    { id: 'requirements', label: 'Requirements & Audience', step: 3,},
+    { id: 'pricing', label: 'Pricing', step: 4,},
+    { id: 'completed', label: 'Publish', step: 5,}
+  ].map((tab) => ({
+    ...tab,
+    completed: stepCompleted[tab.id],
+  }));
   
-    return tabIndex <= completedIndex + 1;
+  const canClick = (tabId) => {
+    if (!course?.progress_status) {
+      return tabId === "overview";
+    }
+  
+    const progressIndex = STEP_ORDER.indexOf(course.progress_status);
+    const tabIndex = STEP_ORDER.indexOf(tabId);
+    return tabIndex <= progressIndex + 1;
   };
+
   
 
   const progressValue = (tabs.findIndex(tab => tab.id === activeTab) / (tabs.length - 1)) * 100;

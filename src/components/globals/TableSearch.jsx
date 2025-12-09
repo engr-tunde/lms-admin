@@ -10,7 +10,7 @@ const TableSearch = ({ originalArr, filteredData, setFilteredData, searchable })
     setsearchQuery(query);
 
     if (!query.trim()) {
-      setfilteredData(originalArr);
+      setFilteredData(originalArr);
       return;
     }
 
@@ -49,7 +49,7 @@ const TableSearch = ({ originalArr, filteredData, setFilteredData, searchable })
       return searchableText.includes(query);
     });
 
-    setfilteredData(searchList);
+    setFilteredData(searchList);
   };
 
   return (

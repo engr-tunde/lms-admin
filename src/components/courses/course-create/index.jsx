@@ -4,10 +4,8 @@ import CreatePrice from "./create-price";
 import CreateRequirements from "./create-requirements";
 import CreateOverview from "./CreateOverview";
 import CoursePublish from "./course-publish";
-import { useEffect, useState } from "react";
-import { fetchCourse } from "../../../api";
 
-const STEP_ORDER = ["overview", "materials", "requirements", "pricing", "publish"];
+const STEP_ORDER = ["overview", "materials", "requirements", "pricing", "completed"];
 
 const CourseCreate = ({ 
   activeTab, 
@@ -55,7 +53,7 @@ const CourseCreate = ({
           course={course}
         />
       );
-    case "publish":
+    case "completed":
       return (
         <CoursePublish 
           course={course} 

@@ -21,8 +21,8 @@ function CourseListRowTemplate({ item }) {
     if (progress_status === "overview") return "materials";
     if (progress_status === "materials") return "requirements";
     if (progress_status === "requirements") return "pricing";
-    if (progress_status === "pricing") return "publish";
-    if (progress_status === "completed") return "publish";
+    if (progress_status === "pricing") return "completed";
+    if (progress_status === "completed") return "completed";
     return "";
   }
 

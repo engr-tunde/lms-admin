@@ -1,7 +1,9 @@
 import { CheckCircle, MoreVertical, XCircle } from "lucide-react";
 import { AlertCircleIcon, CalendarIcon, ClockIcon, CreditCardIcon } from "../globals/Icons";
+import { capitalize, compactDateFormatter } from "../../utils/helpers";
 
-const PayoutRowTemplate = ({ payout }) => {
+const PayoutRowTemplate = ({ item }) => {
+  console.log("Payout Row Item:", item);
 
   const getStatusBadge = (status) => {
     const styles = {
@@ -13,7 +15,7 @@ const PayoutRowTemplate = ({ payout }) => {
   
     return (
       <span className={`px-3 py-1 rounded-full text-xs font-medium border ${styles[status]}`}>
-        {status.charAt(0).toUpperCase() + status.slice(1)}
+        {capitalize(status)}
       </span>
     );
   };
@@ -34,41 +36,31 @@ const PayoutRowTemplate = ({ payout }) => {
   };
   
   return (
-    <tr key={payout.id} className="hover:bg-gray-50 transition-colors">
+    <tr key={item?._id} className="hover:bg-gray-50 transition-colors">
       <td className="px-6 py-4">
         <div className="flex items-center gap-3">
-          {getStatusIcon(payout.status)}
-          <div>
-            <p className="font-medium text-gray-900">{payout.id}</p>
-            <p className="text-sm text-gray-500">{payout.description}</p>
-          </div>
+          {getStatusIcon(item?.payment_status)}
+            <span className="text-sm text-gray-600">{item?.payment_reference?.slice(0, 7)}</span>
         </div>
       </td>
       <td className="px-6 py-4">
         <div className="flex items-center gap-2">
-          <CalendarIcon className="w-4 h-4 text-gray-400" />
-          <span className="text-sm text-gray-900">
-            {new Date(payout.date).toLocaleDateString('en-US', { 
-              month: 'short', 
-              day: 'numeric', 
-              year: 'numeric' 
-            })}
-          </span>
+          <span className="text-sm text-gray-600">{item?.course_title}</span>
         </div>
       </td>
       <td className="px-6 py-4">
         <span className="font-semibold text-gray-900">
-          ${payout.amount.toLocaleString()}
+          ${item?.total_paid?.toLocaleString()}
         </span>
       </td>
       <td className="px-6 py-4">
         <div className="flex items-center gap-2">
-          <CreditCardIcon className="w-4 h-4 text-gray-400" />
-          <span className="text-sm text-gray-600">{payout.method}</span>
+          <CalendarIcon className="w-4 h-4 text-gray-400" />
+          {compactDateFormatter(item?.created_at)}
         </div>
       </td>
       <td className="px-6 py-4">
-        {getStatusBadge(payout.status)}
+        {getStatusBadge(item?.payment_status)}
       </td>
       <td className="px-6 py-4">
         <button className="text-gray-400 hover:text-gray-600">
