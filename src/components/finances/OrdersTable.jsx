@@ -1,15 +1,18 @@
 import { DownloadIcon } from "../globals/Icons";
 import TableSearch from "../globals/TableSearch";
-import PayoutRowTemplate from "./PayoutRowTemplate";
+import PayoutRowTemplate from "./OrdersRowTemplate";
 import Table from "../globals/Table";
 import StatusFilter from "../globals/StatusFilter";
-import { payoutsColumnHeader } from "../../data/payoutsData";
+import { ordersColumnHeader } from "../../data/financesData";
 import { handleExportPDF } from "../../utils/helpers";
-import { fetchAllOrders } from "../../api";
+import { fetchAllOrders, fetchAllPayments } from "../../api";
 import { NoPayoutMade } from "../globals/NoValuesPage";
 import { useEffect, useState } from "react";
+import Loader from "../globals/Loader";
+import ErrorWidget from "../globals/ErrorWidget";
+import OrdersRowTemplate from "./OrdersRowTemplate";
 
-const PayoutTable = () => {
+const OrdersTable = () => {
   const { orders, ordersLoading, ordersError } = fetchAllOrders()
   const [filteredData, setFilteredData] = useState();
   const [originalArr, setOriginalArr] = useState();
@@ -20,6 +23,8 @@ const PayoutTable = () => {
       setOriginalArr(orders.data.orders?.count);
     }
   }, [orders]);
+  const { payments } = fetchAllPayments()
+  console.log("Payments:", payments);
 
   if (ordersLoading) return <Loader />;
   if (ordersError) return <ErrorWidget error={response?.data?.message} />;
@@ -49,13 +54,13 @@ const PayoutTable = () => {
         <div className="flex items-center gap-3">
           <StatusFilter
             originalArr={originalArr}
-            filteredData={filteredData}
             setFilteredData={setFilteredData}
             filterArr={ordersStatus}
+            filterKey = "payment_status"
           />
           <button 
             className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors flex items-center gap-2"
-            onClick={() => handleExportPDF({ data: filteredData, columns: payoutsColumnHeader, pdfTitle: 'orders' })}
+            onClick={() => handleExportPDF({ data: filteredData, columns: ordersColumnHeader, pdfTitle: 'orders' })}
           >
             <DownloadIcon className="w-4 h-4" />
             Export
@@ -64,16 +69,16 @@ const PayoutTable = () => {
       </div>
       <Table
         renderRow={(item) => (
-          <PayoutRowTemplate
+          <OrdersRowTemplate
             key={item?.id}
             item={item}
           />
         )}
-        columns={payoutsColumnHeader}
+        columns={ordersColumnHeader}
         data={filteredData}
       />
     </div>
   );
 }
 
-export default PayoutTable;
+export default OrdersTable;

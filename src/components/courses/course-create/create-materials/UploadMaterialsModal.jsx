@@ -7,15 +7,27 @@ import CustomModal from "../../../globals/Modals";
 import { VideoCamIcon, DocumentTextIcon, UploadIcon } from "../../../globals/Icons";
 import SubmitButton from "../../../forms/SubmitButton";
 import { X } from "lucide-react";
+import { addMaterialFile } from "../../../../api";
+import { errorNotification, successNotification } from "../../../../utils/helpers";
 
 
-const MaterialUploadModal = ({ show, onClose, handleSubmit }) => {
-  const [activeItem, setActiveItem] = useState("video");
-    
-  
-    const initialValues = materialValues();
-    const validationSchema = validateMaterialValues();
+const MaterialUploadModal = ({ show, onClose, sectionId, mutate }) => {
+  const [activeItem, setActiveItem] = useState("video"); 
+  const initialValues = materialValues();
+  const validationSchema = validateMaterialValues();
+
   if (!show) return null;
+
+  const handleMaterialSubmit = async (values) => {
+    const response = await addMaterialFile(values, sectionId); 
+    if (response.status.toString().startsWith("20")) {
+      successNotification(response.data?.message);
+      console.log("response", response.data)
+      mutate();
+    } else {
+      errorNotification(response?.data?.message || "Failed to add material");
+    }
+  };
 
   return ( 
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -32,7 +44,7 @@ const MaterialUploadModal = ({ show, onClose, handleSubmit }) => {
         <CustomModal
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}
+          onSubmit={handleMaterialSubmit}
           title=""
           className="flex flex-col gap-3"
         >

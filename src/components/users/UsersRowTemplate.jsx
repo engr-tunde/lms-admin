@@ -1,66 +1,96 @@
-import { Eye } from "lucide-react";
-import { EditIcon, MailIcon, TrashIcon } from "../globals/Icons";
+import { MailIcon, TrashIcon } from "../globals/Icons";
+import StatusCheck from "../globals/StatusCheck";
+import { capitalize, compactDateFormatter, errorNotification, successNotification } from "../../utils/helpers";
+import DeleteUsersModal from "./DeleteUsersModal";
+import { unblockUser } from "../../api";
+import { useState } from "react";
+import { UserX, UserPlus } from "lucide-react";
+import BlockUserModal from "./BlockUserModal";
 
-const UsersRowTemplate = ({ item }) => {
+
+const UsersRowTemplate = ({ item, mutate }) => {
+  const [showBlockModal, setShowBlockModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleUnblock = async () => {
+    const payload = {
+      name: item?.name, 
+      email:item?.email, 
+      username: item?.username, 
+      password: item?.password,
+    }
+    const response = await unblockUser({ payload }, item?._id);
+    
+    if (response.status.toString().includes("20")) {
+      successNotification(response.data?.message);
+      mutate();
+    } else {
+      errorNotification(response?.data?.message);
+    }
+  };
+
   return (
-    <tr key={item.id} className="hover:bg-gray-50 transition-colors">
+    <>
+    <tr key={item?._id} className="hover:bg-gray-50 transition-colors">
       <td className="px-6 py-4 whitespace-nowrap">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-semibold">
-            {item.avatar}
-          </div>
-          <div>
-            <div className="font-medium text-gray-900">{item.name}</div>
-          </div>
+        <div className="font-medium text-gray-900">
+          {capitalize(item?.name)}
         </div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center gap-2 text-gray-500">
           <MailIcon className="w-4 h-4" />
-          <span className="text-sm">{item.email}</span>
+          <span className="text-sm">{item?.email}</span>
         </div>
       </td>
-      <td className="px-6 py-4 whitespace-nowrap">  
-        <span className="text-sm font-medium text-gray-900">{item.enrolledCourses} courses</span>
-      </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${
-          item.status === 'Active' 
-            ? 'bg-emerald-100 text-emerald-700' 
-            : item.status === 'Suspended'
-              ? 'bg-red-100 text-red-700'
-              : 'bg-gray-100 text-gray-700'
-        }`}>
-          <span className={`w-1.5 h-1.5 rounded-full ${
-            item.status === 'Active' 
-              ? 'bg-emerald-500' 
-              : item.status === 'Suspended'
-                ? 'bg-red-500'
-                : 'bg-gray-500'
-          }`} />
-          {item.status}
-        </span>
+        <StatusCheck 
+          value={capitalize(item?.status)} 
+          ticker={true} 
+        />
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        {item.joinedDate}
-      </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        {item.lastActive}
+        {compactDateFormatter(item?.createdAt)}
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-right">
         <div className="flex items-center justify-end gap-2">
-          <button className="p-2 text-gray-400 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors">
-            <Eye className="w-4 h-4" />
+          <button 
+            title={`${item?.status === "active" ? "Block User" : item?.status === "blocked" ? "Activate User" : null}`}
+            className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+            onClick={item?.status === "active" ? 
+              () => setShowBlockModal(true) : 
+              item?.status === "blocked" ? 
+              () => handleUnblock() : null
+            }
+          >
+            {item?.status === "active" && <UserX className="w-4 h-4" />}
+            {item?.status === "blocked" && <UserPlus className="w-4 h-4" />}
           </button>
-          <button className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-            <EditIcon className="w-4 h-4" />
-          </button>
-          <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+          <button 
+            title="Delete User"
+            className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            onClick={() => setShowDeleteModal(true)}
+          >
             <TrashIcon className="w-4 h-4" />
           </button>
         </div>
       </td>
     </tr>
+    {showBlockModal &&
+      <BlockUserModal
+        setShowBlockModal={setShowBlockModal}
+        userData={item}
+        mutate={mutate}
+      />
+    }
+    {showDeleteModal &&
+      <DeleteUsersModal
+        setShowDeleteModal={setShowDeleteModal}
+        userData={item}
+        mutate={mutate}
+      />
+    }
+    </>
   )
 }
 

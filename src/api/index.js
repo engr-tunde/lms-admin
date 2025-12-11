@@ -10,7 +10,7 @@ import {
   DELETE_COURSE_CATEGORY, 
   FETCH_COURSE_CATEGORIES, 
   ADD_COURSE_OVERVIEW, 
-  ADD_COURSE_MATERIAL, 
+  ADD_COURSE_MATERIAL_TITLE, 
   ADD_COURSE_REQUIREMENTS, 
   ADD_COURSE_PRICING, 
   FETCH_COURSES, 
@@ -34,7 +34,8 @@ import {
   DELETE_ADMIN,
   UPDATE_COURSE_OVERVIEW,
   UPDATE_COURSE_REQUIREMENTS,
-  PUBLISH_COURSE, 
+  PUBLISH_COURSE,
+  ADD_COURSE_MATERIAL_FILES, 
 
 } from "../constants/routes";
 
@@ -81,7 +82,7 @@ export const fetchAllAdmins = () => {
     mutate,
   }
 }
-export const fetchAdmin = () => {
+export const fetchAdmin = (id) => {
   const { data, error, mutate } = useSWR(`${FETCH_SINGLE_ADMIN}/${id}`, fetcher);
   return {  
     admin: data,
@@ -138,8 +139,12 @@ export const updateOverview = async (values, id) => {
   const result = await mutationRequest(`${UPDATE_COURSE_OVERVIEW}/${id}`, "put", values, false)
   return result;
 }
-export const addMaterial = async (values, id) => {
-  const result = await mutationRequest(`${ADD_COURSE_MATERIAL}/${id}`, "post", values, false)
+export const addMaterialTitle = async (values, id) => {
+  const result = await mutationRequest(`${ADD_COURSE_MATERIAL_TITLE}/${id}`, "post", values, false)
+  return result;
+}
+export const addMaterialFile = async (values, sectionId) => {
+  const result = await mutationRequest(`${ADD_COURSE_MATERIAL_FILES}/${sectionId}`, "post", values, false)
   return result;
 }
 export const addRequirements = async (values, id) => {
@@ -261,9 +266,9 @@ export const fetchAllUsers = () => {
 export const fetchUser = (id) => {
   const { data, error, mutate } = useSWR(`${FETCH_SINGLE_USER}/${id}`, fetcher);
   return {  
-    users: data,
-    usersLoading: !error && !data,
-    usersError: error,
+    user: data,
+    userLoading: !error && !data,
+    userError: error,
     mutate,
   }
 }

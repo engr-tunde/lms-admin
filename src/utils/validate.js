@@ -84,12 +84,22 @@ export const validateOtp = () => {
 
 export const validateAddAdmin = () => {
   const validationSchema = yup.object().shape({
-    fullName: yup.string().trim().required("Full Name is required"),
+    name: yup.string().trim().required("Full Name is required"),
     email: yup
       .string()
       .email("Invalid email")
       .required("Account email is missing"),
-    role: yup.string().trim().required("Admin role is required"),
+    username: yup.string().trim().required("Admin username is required"),
+  });
+  return validationSchema;
+};
+export const validateAddUser = () => {
+  const validationSchema = yup.object().shape({
+    name: yup.string().trim().required("Full Name is required"),
+    email: yup
+      .string()
+      .email("Invalid email")
+      .required("Account email is missing"),
   });
   return validationSchema;
 };
@@ -126,8 +136,8 @@ export const validateCourseCurriculum = () => {
 
 export const validateMaterialValues = () => {
   const validationSchema = yup.object({
-    video: yup.string().required("Please, upload a video file"),
-    article: yup.string().required("Please, provide article content"),
+    video: yup.array().of(yup.string().required("Video is required")).min(1, "Please, upload at least one video"),
+    article: yup.array().of(yup.string().required("Article content is required")).min(1, "Please, provide at least one article"),
   });
   return validationSchema;
 }

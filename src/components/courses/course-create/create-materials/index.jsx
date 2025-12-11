@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { PlusIcon } from "../../../globals/Icons";
 import NewSectionCard from "./NewSectionCard"
 import SectionListItem from "./SectionListItem";
-import { fetchCourseMaterial } from "../../../../api"
+import { deleteMaterial, fetchCourseMaterial } from "../../../../api"
 import { useParams } from "react-router-dom";
+import { errorNotification, successNotification } from "../../../../utils/helpers";
+import { courseCurriculumValues } from "../../../../utils/initialValues";
+import { validateCourseCurriculum } from "../../../../utils/validate";
 
 
 const CourseMaterials = ({ onStepComplete, setActiveTab, course }) => {
@@ -12,16 +15,36 @@ const CourseMaterials = ({ onStepComplete, setActiveTab, course }) => {
 
   const [sections, setSections] = useState();
   const [showNewSection, setShowNewSection] = useState(false);
+  const { id: courseId } = useParams();
+  let initialValues = courseCurriculumValues();
+  const validationSchema = validateCourseCurriculum();
 
   useEffect(() => {
     if (courseMaterial?.data?.length) {
       setSections(courseMaterial.data);
     }
   }, [courseMaterial]);
+  const handleCreateSection = async (values) => {
+    const response = await addMaterialTitle(values, courseId)
+    if (response.status.toString().includes("20")) {
+    successNotification(response.data?.message);
+    console.log("response", response.data)
+    mutate();
+    } else {
+      errorNotification(response?.data?.message);
+    }
+  }
 
-  const deleteSection = (id) => {
-    setSections(sections.filter((s) => s.id !== id));
-  };
+  const handleDeleteSection = async (id) => {
+    const response = await deleteMaterial(id)
+    if (response.status.toString().includes("20")) {
+    successNotification(response.data?.message);
+    console.log("response", response.data)
+    mutate();
+    } else {
+      errorNotification(response?.data?.message);
+    }
+  }
 
   const editSection = (id) => {
     console.log("Edit section:", id);
@@ -46,8 +69,9 @@ const CourseMaterials = ({ onStepComplete, setActiveTab, course }) => {
               key={section?._id}
               section={section}
               index={index}
-              onDelete={deleteSection}
+              onDelete={() => handleDeleteSection(section?._id)}
               onEdit={editSection}
+              mutate={mutate}
             />
           ))
         )}
@@ -55,6 +79,9 @@ const CourseMaterials = ({ onStepComplete, setActiveTab, course }) => {
           <NewSectionCard
             onCancel={() => setShowNewSection(false)}
             mutate={mutate}
+            handleSubmit={handleCreateSection}
+            initialValues={initialValues}
+            validationSchema={validationSchema}
           />
         ) : (
           sections?.length > 0 && (

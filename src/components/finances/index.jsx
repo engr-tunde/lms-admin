@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import PayoutTable from './PayoutTable';
-import PayoutMethodContainer from './PaymentMethodContainer';
+import { useState } from 'react';
+import OrdersTable from './OrdersTable';
+import PaymentsTable from './PaymentsTable';
 
 
 function ManageFinances() {
@@ -30,11 +30,14 @@ function ManageFinances() {
         </div>
       </div>
       {activeTab === 'orders' && (
-          <PayoutTable />
+          <OrdersTable />
       )}
       {activeTab === 'payments' && (
-        <PayoutMethodContainer />
+        <PaymentsTable />
       )}
+      {/* {activeTab === 'payments' && (
+        <PayoutMethodContainer />
+      )} */}
       {/* {activeTab === 'payoutSettings' && (
         <PaymentSettings  />
       )} */}

@@ -1,33 +1,38 @@
-import { Ban, UserCheck, UserIcon } from 'lucide-react';
-import DashboardStats from '../globals/DashboardStats';
 import Pagination from '../globals/Pagination';
 import UsersTable from './UsersTable'
-import { useState } from 'react';
-import { usersData, usersColumnHeader } from "../../data/userData"
 import { NoUserAvailable } from "../globals/NoValuesPage"
 import { fetchAllUsers } from "../../api/index"
+import Loader from '../globals/Loader';
+import ErrorWidget from '../globals/ErrorWidget';
+import { useEffect, useState } from 'react';
 
 function ManageUsers() {
+  const [filteredData, setFilteredData] = useState();
+  const [originalArr, setOriginalArr] = useState();
 
-  const { users } = fetchAllUsers()
+  const { users, usersLoading, usersError, mutate } = fetchAllUsers()
   console.log("Users", users)
-  const [filterStatus, setFilterStatus] = useState('all');
 
-  const filteredUsers = usersData.filter(user => {
-    if (filterStatus !== 'all' && user.status !== filterStatus) return false;
-    return true;
-  });
+  useEffect(() => {
+    if (users?.data?.length) {
+      setFilteredData(users?.data);
+      setOriginalArr(users?.data);
+    }
+  }, [users]);
 
+  if (usersLoading) return <Loader/>
+  if (usersError) return <ErrorWidget/>
   return (
     <div className="mx-auto">
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        {filteredUsers.length ? (
+        {filteredData ? (
           <>
             <UsersTable 
-              filteredUsers={filteredUsers}
-              usersColumnHeader={usersColumnHeader}
-              filterStatus={filterStatus}
-              setFilterStatus={setFilterStatus}
+              filteredData={filteredData}
+              setFilteredData={setFilteredData}
+              originalArr={originalArr}
+              setOriginalArr={setOriginalArr}
+              mutate={mutate}
             />
             <Pagination/>
           </>

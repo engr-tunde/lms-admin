@@ -9,26 +9,30 @@ import { useEffect, useState } from "react";
 const DashboardFinancesPage = () => {
   const [totalOrders, setTotalOrders] = useState();
   const [totalEarnings, setTotalEarnings] = useState();
+  const [totalPayments, setTotalPayments] = useState();
   const { orders } = fetchAllOrders()
   const { payments } = fetchAllPayments()
 
-  console.log("payments", payments);
-
   useEffect(() => {
     if (orders?.data?.orders) {
-      setTotalOrders(orders.data.orders.count.length);
-      setTotalEarnings(orders.data.orders.total);
+      setTotalOrders(orders?.data?.orders?.count.length);
+      setTotalEarnings(orders?.data?.orders?.total);
     }
-  })
+  }, [orders]);
 
+
+  useEffect(() => {
+    if (payments?.data) {
+      setTotalPayments(payments?.data?.length);
+    }
+  }, [payments]);
 
   const financeStats = [
     { label: "Total Orders", value: totalOrders && totalOrders, icon: ClockIcon, color: "emerald" },
     { label: "Total Earnings", value: totalEarnings && `$${totalEarnings}`, icon: DollarIcon, color: "amber" },
     { label: "This Month", value: "$4500", icon: TrendingUpIcon, color: "blue" },
-    { label: "Last Payout", value: "$2800", icon: CheckIcon, color: "purple" },
+    { label: "Total Payments", value: totalPayments && totalPayments, icon: CheckIcon, color: "purple" },
   ];
-
 
   return (
     <div className="flex flex-col gap-6 w-full h-full">
@@ -37,12 +41,12 @@ const DashboardFinancesPage = () => {
           title="Manage Payment"
           subtitle="Manage your payment details to receive course earnings"
         />
-        <div>
+        {/* <div>
           <button className="px-6 py-2.5 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center gap-2">
             <PlusIcon className="w-4 h-4" />
             Request Payout
           </button>
-        </div>
+        </div> */}
       </div>
       <div className="bg-gray-50">
         <div className="mx-auto p-6">

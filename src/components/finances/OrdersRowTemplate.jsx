@@ -1,9 +1,13 @@
-import { CheckCircle, MoreVertical, XCircle } from "lucide-react";
+import { CheckCircle, Eye, MoreVertical, X, XCircle } from "lucide-react";
 import { AlertCircleIcon, CalendarIcon, ClockIcon, CreditCardIcon } from "../globals/Icons";
 import { capitalize, compactDateFormatter } from "../../utils/helpers";
+import { fetchOrder } from "../../api";
+import OrderDetailModal from "./OrderDetailModal";
+import { useState } from "react";
 
-const PayoutRowTemplate = ({ item }) => {
+const OrdersRowTemplate = ({ item }) => {
   console.log("Payout Row Item:", item);
+  const [showDetailModal, setShowDetailModal] = useState(false);
 
   const getStatusBadge = (status) => {
     const styles = {
@@ -36,6 +40,7 @@ const PayoutRowTemplate = ({ item }) => {
   };
   
   return (
+    <>
     <tr key={item?._id} className="hover:bg-gray-50 transition-colors">
       <td className="px-6 py-4">
         <div className="flex items-center gap-3">
@@ -63,12 +68,26 @@ const PayoutRowTemplate = ({ item }) => {
         {getStatusBadge(item?.payment_status)}
       </td>
       <td className="px-6 py-4">
-        <button className="text-gray-400 hover:text-gray-600">
-          <MoreVertical className="w-5 h-5" />
-        </button>
+        <div className="flex items-center justify-end gap-2">
+          <button 
+            title="View Order"
+            className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+            onClick={() => setShowDetailModal(true)}
+          >
+            <Eye className="w-4 h-4" />
+          </button>
+        </div>
       </td>
     </tr>
+    {showDetailModal && (
+      <OrderDetailModal
+        isOpen={showDetailModal}
+        onClose={() => setShowDetailModal(false)}
+        order={item}
+      />
+    )}
+    </>
   )
 }
 
-export default PayoutRowTemplate;
+export default OrdersRowTemplate;

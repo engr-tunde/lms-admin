@@ -12,7 +12,7 @@ function ManageAdmins() {
   const [filteredData, setFilteredData] = useState()
   const [originalArr, setOriginalArr] = useState();
 
-  const { admins, adminsLoading, adminsError } = fetchAllAdmins();
+  const { admins, adminsLoading, adminsError, mutate } = fetchAllAdmins();
   console.log("Admins:", admins);
 
 
@@ -23,7 +23,7 @@ function ManageAdmins() {
     }
   }, [admins?.data])
 
-  if (adminsLoading) return <Loader/>
+  if (adminsLoading) return <Loader />
   if (adminsError) return <ErrorWidget error={admins?.message}/>
 
   return (
@@ -33,6 +33,10 @@ function ManageAdmins() {
           <>
             <AdminsTable 
               filteredData={filteredData}
+              setFilteredData={setFilteredData}
+              originalArr={originalArr}
+              setOriginalArr={setOriginalArr}
+              mutate={mutate}
             />
             <Pagination />
           </>

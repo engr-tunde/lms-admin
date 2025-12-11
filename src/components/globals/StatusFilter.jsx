@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function StatusFilter({ originalArr, filteredData, setFilteredData, filterArr = [] }) {
+function StatusFilter({ originalArr, setFilteredData, filterArr = [], filterKey = "status" }) {
   const [filterValue, setFilterValue] = useState("all");
 
   const handleFilter = (e) => {
@@ -13,7 +13,7 @@ function StatusFilter({ originalArr, filteredData, setFilteredData, filterArr = 
     }
 
     const filteredList = originalArr.filter(
-      (item) => item.payment_status === value
+      (item) => item[filterKey] === value
     );
 
     setFilteredData(filteredList);
@@ -35,5 +35,6 @@ function StatusFilter({ originalArr, filteredData, setFilteredData, filterArr = 
     </div>
   );
 }
+
 
 export default StatusFilter;

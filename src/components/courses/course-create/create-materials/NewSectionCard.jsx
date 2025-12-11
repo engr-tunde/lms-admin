@@ -1,32 +1,12 @@
-import { addMaterial } from "../../../../api";
+import { addMaterialTitle } from "../../../../api";
 import { courseCurriculumValues } from "../../../../utils/initialValues";
 import { validateCourseCurriculum } from "../../../../utils/validate";
 import InputField from "../../../forms/InputField";
 import SubmitButton from "../../../forms/SubmitButton";
 import TextAreaField from "../../../forms/TextAreaField";
 import CustomModal from "../../../globals/Modals";
-import { successNotification, errorNotification } from "../../../../utils/helpers";
-import { useParams } from "react-router-dom";
 
-const NewSectionCard = ({ onCancel, mutate }) => {
-
-  const { id: courseId } = useParams();
-
-  let initialValues = courseCurriculumValues();
-  const validationSchema = validateCourseCurriculum();
-
-  const handleSubmit = async (values) => {
-    const response = await addMaterial(values, courseId)
-    if (response.status.toString().includes("20")) {
-
-    successNotification(response.data?.message);
-    console.log("response", response.data)
-    mutate();
-    } else {
-      errorNotification(response?.data?.message);
-    }
-    
-  }
+const NewSectionCard = ({ onCancel, handleSubmit, initialValues, validationSchema }) => {
   
   return (
     <div className="bg-white px-6 py-8 rounded-lg border-2 border-purple-200">

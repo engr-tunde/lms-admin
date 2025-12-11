@@ -11,10 +11,10 @@ export const dashboardSidebarMenu = [
     title: "Finances",
     url: "/finances",
   },
-  {
-    title: "Certification",
-    url: "/certification",
-  },
+  // {
+  //   title: "Certification",
+  //   url: "/certification",
+  // },
   {
     title: "Admins",
     url: "/admins",

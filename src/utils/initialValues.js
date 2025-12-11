@@ -50,9 +50,17 @@ export const otpValues = () => {
 
 export const addAdminValues = () => {
   const initialValues = {
-    fullName: "",
+    name: "",
     email: "",
-    role: "",
+    username: "",
+    password: "",
+  };
+  return initialValues;
+};
+export const addUserValues = () => {
+  const initialValues = {
+    name: "",
+    email: "",
   };
   return initialValues;
 };
@@ -83,8 +91,8 @@ export const courseCurriculumValues = () => {
 
 export const materialValues = () => {
   const initialValues = {
-    video: "",
-    article: ""
+    video: [],
+    article: [],
   }; 
   return initialValues
 }

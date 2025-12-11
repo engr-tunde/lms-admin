@@ -2,35 +2,11 @@ import { useParams } from "react-router-dom";
 import { GripIcon, PlusIcon } from "../../../globals/Icons"
 import MaterialUploadModal from "./UploadMaterialsModal";
 import { useState } from "react";
-import { addMaterial } from "../../../../api";
-import { errorNotification, successNotification } from "../../../../utils/helpers";
 
-
-const SectionListItem = ({ section, index, onDelete, onEdit }) => {
+const SectionListItem = ({ section, index, onDelete, onEdit, mutate }) => {
   const [showMaterialModal, setShowMaterialModal] = useState(false);
 
   const { id } = useParams()
-
-  const handleMaterialSubmit = async (materialData) => {
-    
-    try {
-
-      const payload = {
-        video: materialData.video,
-        article: materialData.article
-      };
-      const response = await addMaterial(payload, id); 
-  
-      if (response.status.toString().startsWith("20")) {
-        successNotification(response.data?.message);
-      } else {
-        errorNotification(response?.data?.message || "Failed to add material");
-      }
-    } catch (err) {
-      console.error(err);
-      errorNotification("An error occurred while adding material");
-    }
-  };
 
   return (
     <>
@@ -87,7 +63,7 @@ const SectionListItem = ({ section, index, onDelete, onEdit }) => {
       show={showMaterialModal}
       onClose={() => setShowMaterialModal(false)}
       sectionId={section?._id}
-      handleSubmit={(values) => handleMaterialSubmit(values)}
+      mutate={mutate}
     />
     </>
   );

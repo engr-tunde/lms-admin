@@ -17,23 +17,15 @@ export const usersColumnHeader = [
         className: ""
     },  
     {
-        header: "Enrolled Courses", 
-        className: ""
-    }, 
-    {
         header: "Status", 
         className: ""
-    },
+    }, 
     {
         header: "Joined Date", 
         className: ""
     },
     {
-        header: "Last Active", 
-        className: ""
-    },
-    {
         header: "Actions", 
-        className: ""
+        className: "text-right"
     },
 ]

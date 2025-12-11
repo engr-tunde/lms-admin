@@ -2,7 +2,6 @@ import { CalendarIcon, PlusIcon, UserIcon } from "../../components/globals/Icons
 import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { useState } from "react";
 import ManageUsers from "../../components/users";
-import AddUsersModal from "../../components/users/AddUsersModal";
 import DashboardStats from "../../components/globals/DashboardStats";
 import { Ban, UserCheck } from "lucide-react";
 
@@ -24,7 +23,7 @@ const DashboardUsersPage = () => {
           title="Users"
           subtitle="Manage your students and other participators in your courses"
         />
-        <button 
+        {/* <button 
           onClick={() => setShowAddModal(true)}
           className="px-6 py-2.5 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center gap-2"
         >
@@ -32,7 +31,7 @@ const DashboardUsersPage = () => {
           <span>
             Add Students
           </span>
-        </button>
+        </button> */}
       </div>
       <div className="min-h-screen bg-gray-50 p-6"> 
         <DashboardStats 

@@ -6,6 +6,7 @@ function StatusCheck({ value, className, ticker = false }) {
     active: 'bg-emerald-100 text-emerald-700 border border-emerald-200',
     inactive: 'bg-red-100 text-red-700 border border-red-200',
     suspended: 'bg-red-100 text-red-700 border border-red-200',
+    blocked: 'bg-red-100 text-red-700 border border-red-200',
   };
   const tickerColors = {
     draft: 'bg-gray-500',
@@ -14,6 +15,7 @@ function StatusCheck({ value, className, ticker = false }) {
     active: 'bg-emerald-500',
     inactive: 'bg-red-500',
     suspended: 'bg-red-500',
+    blocked: 'bg-red-500',
   };
 
   return (

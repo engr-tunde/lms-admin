@@ -59,7 +59,7 @@ export const payoutsData = [
   ];
 
 
-export const payoutsColumnHeader = [
+export const ordersColumnHeader = [
     {
         header: "Payment Reference", 
         className: ""
@@ -84,4 +84,30 @@ export const payoutsColumnHeader = [
         header: "Action", 
         className: ""
     }, 
+]
+export const paymentsColumnHeader = [
+    {
+        header: "Amount", 
+        className: ""
+    }, 
+    {
+        header: "Payment Reference", 
+        className: ""
+    }, 
+    {
+        header: "Order Title", 
+        className: ""
+    }, 
+    {
+        header: "Date", 
+        className: ""
+    }, 
+    {
+        header: "Status", 
+        className: ""
+    }, 
+    // {
+    //     header: "Action", 
+    //     className: ""
+    // }, 
 ]
