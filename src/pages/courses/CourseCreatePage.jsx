@@ -3,7 +3,11 @@ import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { useEffect, useState } from "react";
 import CourseCreate from "../../components/courses/course-create";
 import { Check } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import DeleteCourseModal from "../../components/courses/course-list/DeleteCourseModal";
+import { fetchCourse } from "../../api";
+import { TrashIcon } from "../../components/globals/Icons";
+import { use } from "react";
 
 
 const DashboardCourseCreatePage = () => {
@@ -11,6 +15,7 @@ const DashboardCourseCreatePage = () => {
   const [course, setCourse] = useState(null);
   const courseFromLocation = location.state?.course || null;
   const [activeTab, setActiveTab] = useState(location.state?.nextLabel || "overview");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   
   const STEP_ORDER = ["overview", "materials", "requirements", "pricing", "completed"];
 
@@ -30,6 +35,8 @@ const DashboardCourseCreatePage = () => {
       return acc;
     }, {});
   };
+
+  const { mutate } = fetchCourse(course?._id);
   
   const stepCompleted = getStepCompleted(course?.progress_status);
 
@@ -59,11 +66,24 @@ const DashboardCourseCreatePage = () => {
   const progressValue = (tabs.findIndex(tab => tab.id === activeTab) / (tabs.length - 1)) * 100;
 
   return (
+    <>
     <div className="flex flex-col gap-6 w-full h-full">
-      <DashboardNavBar
-        title="Create Course"
-        subtitle="Choose the type of content you want to create"
-      />
+      <div className="flex justify-between items-end">
+        <DashboardNavBar
+          title={`${course?._id ? "Update Course" : "Create New Course"}`}
+          subtitle={`${course?.title ? `Editing: ${course.title}` : "Start by adding course details"}`}
+        />
+        { course?._id &&
+         <button 
+          className="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-medium bg-red-50 hover:bg-red-100 transition-colors flex items-center gap-2"
+          onClick={() => setShowDeleteModal(true)}
+        >
+          <TrashIcon className="w-4 h-4" />
+          Delete Course
+        </button> 
+        }
+      </div>
+      
       <div className="w-full border-t-[1px] border-merseBorder/50 flex flex-col gap-2">
         <div className="flex gap-10 items-center">
           {tabs.map((tab) => (
@@ -112,6 +132,14 @@ const DashboardCourseCreatePage = () => {
         />
       </div>
     </div>
+    {showDeleteModal && (
+      <DeleteCourseModal
+        setShowDeleteModal={setShowDeleteModal}
+        courseData={course}
+        mutate={mutate}
+      />
+    )}
+    </>
   )
 }
 

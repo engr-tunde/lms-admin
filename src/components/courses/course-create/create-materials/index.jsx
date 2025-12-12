@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { PlusIcon } from "../../../globals/Icons";
 import NewSectionCard from "./NewSectionCard"
 import SectionListItem from "./SectionListItem";
-import { deleteMaterial, fetchCourseMaterial } from "../../../../api"
+import { addMaterialTitle, deleteMaterial, fetchCourseMaterial } from "../../../../api"
 import { useParams } from "react-router-dom";
 import { errorNotification, successNotification } from "../../../../utils/helpers";
 import { courseCurriculumValues } from "../../../../utils/initialValues";
 import { validateCourseCurriculum } from "../../../../utils/validate";
+import { NoAdminsAvailable } from "../../../globals/NoValuesPage";
 
 
 const CourseMaterials = ({ onStepComplete, setActiveTab, course }) => {
@@ -20,10 +21,11 @@ const CourseMaterials = ({ onStepComplete, setActiveTab, course }) => {
   const validationSchema = validateCourseCurriculum();
 
   useEffect(() => {
-    if (courseMaterial?.data?.length) {
+    if (courseMaterial?.data) {
       setSections(courseMaterial.data);
     }
   }, [courseMaterial]);
+
   const handleCreateSection = async (values) => {
     const response = await addMaterialTitle(values, courseId)
     if (response.status.toString().includes("20")) {
@@ -46,23 +48,21 @@ const CourseMaterials = ({ onStepComplete, setActiveTab, course }) => {
     }
   }
 
-  const editSection = (id) => {
-    console.log("Edit section:", id);
-  };
-
   return (
     <div className="w-full mx-auto">
       <div className="space-y-6">
         {!sections ? (
-          <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
-            <p className="text-gray-500 mb-4">No sections added yet</p>
-            <button
-              onClick={() => setShowNewSection(true)}
-              className="px-6 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors"
-            >
-              Create First Section
-            </button>
-          </div>
+          <CreateSectionCard 
+            sectionOpen={() => setShowNewSection(true)} 
+            text="Add First Section"
+          />
+        ) : sections?.length === 0 ? (
+          <>
+            <CreateSectionCard 
+              sectionOpen={() => setShowNewSection(true)} 
+              text="No material found. Click to add section"
+            />
+          </>
         ) : (
           sections?.map((section, index) => (
             <SectionListItem
@@ -70,11 +70,11 @@ const CourseMaterials = ({ onStepComplete, setActiveTab, course }) => {
               section={section}
               index={index}
               onDelete={() => handleDeleteSection(section?._id)}
-              onEdit={editSection}
               mutate={mutate}
             />
           ))
         )}
+        
         {showNewSection ? (
           <NewSectionCard
             onCancel={() => setShowNewSection(false)}
@@ -115,3 +115,17 @@ const CourseMaterials = ({ onStepComplete, setActiveTab, course }) => {
 };
 
 export default CourseMaterials;
+
+const CreateSectionCard = ({ sectionOpen, text }) => {
+  return (
+    <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
+      <p className="text-gray-500 mb-4">{text}</p>
+      <button
+        onClick={sectionOpen}
+        className="px-6 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors"
+      >
+        Create Section
+      </button>
+    </div>
+  )
+}

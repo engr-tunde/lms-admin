@@ -1,3 +1,4 @@
+import { capitalize, compactDateFormatter } from "../utils/helpers";
 
 
 
@@ -58,52 +59,62 @@ export const payoutsData = [
     }
   ];
 
-
 export const ordersColumnHeader = [
-    {
-        header: "Payment Reference", 
-        className: ""
-    }, 
-    {
-        header: "Course Title", 
-        className: ""
-    }, 
-    {
-        header: "Amount", 
-        className: ""
-    }, 
-    {
-        header: "Date", 
-        className: ""
-    }, 
-    {
-        header: "Status", 
-        className: ""
-    }, 
-    {
-        header: "Action", 
-        className: ""
-    }, 
-]
+  {
+    header: "Reference",
+    value: (row) => row.payment_reference?.slice(0, 7),
+    className: ""
+  },
+  {
+    header: "Course Title",
+    key: "course_title"
+  },
+  {
+    header: "Amount",
+    value: (row) => `$${row.total_paid?.toLocaleString()}`,
+    className: ""
+  },
+  {
+    header: "Date",
+    value: (row) => compactDateFormatter(row.created_at),
+    className: ""
+  },
+  {
+    header: "Status",
+    value: (row) => capitalize(row.payment_status),
+    className: ""
+  },
+  {
+    header: "Actions",
+    value: "", 
+    className: ""
+  }
+];
+
 export const paymentsColumnHeader = [
     {
         header: "Amount", 
+        value: (row) => `$${row.amount_paid?.toLocaleString()}`,
         className: ""
-    }, 
+    },   
     {
         header: "Payment Reference", 
+        value: (row) => row.payment_reference?.slice(0, 7),
         className: ""
     }, 
     {
         header: "Order Title", 
+        value: (row) => row.order_title,
         className: ""
     }, 
     {
         header: "Date", 
+        value: (row) => compactDateFormatter(row.created_at), 
         className: ""
     }, 
     {
         header: "Status", 
+        value: (row) => capitalize(row.payment_status),
         className: ""
     }, 
     // {

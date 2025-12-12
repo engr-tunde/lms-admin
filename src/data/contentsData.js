@@ -92,6 +92,10 @@ export const coursesColumnHeader = [
         className: ""
     },
     {
+        header: "Asessment", 
+        className: ""
+    },
+    {
         header: "Actions", 
         className: ""
     },

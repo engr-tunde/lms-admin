@@ -10,11 +10,25 @@ import { useEffect, useState } from "react";
 import Loader from "../globals/Loader";
 import ErrorWidget from "../globals/ErrorWidget";
 import PaymentsRowTemplate from "./PaymentsRowTemplate";
+import Pagination from "../globals/Pagination";
 
 const PaymentsTable = () => {
   const { payments, paymentsLoading, paymentsError } = fetchAllPayments()
   const [filteredData, setFilteredData] = useState();
   const [originalArr, setOriginalArr] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredData]);
 
   useEffect(() => {
     if (payments?.data?.length) {
@@ -72,7 +86,12 @@ const PaymentsTable = () => {
           />
         )}
         columns={paymentsColumnHeader}
-        data={filteredData}
+        data={currentItems}
+      />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
       />
     </div>
   );

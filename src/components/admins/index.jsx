@@ -30,16 +30,13 @@ function ManageAdmins() {
     <div className="mx-auto">
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         {filteredData ? (
-          <>
-            <AdminsTable 
-              filteredData={filteredData}
-              setFilteredData={setFilteredData}
-              originalArr={originalArr}
-              setOriginalArr={setOriginalArr}
-              mutate={mutate}
-            />
-            <Pagination />
-          </>
+          <AdminsTable 
+            filteredData={filteredData}
+            setFilteredData={setFilteredData}
+            originalArr={originalArr}
+            setOriginalArr={setOriginalArr}
+            mutate={mutate}
+          />
         ) : (
           <NoAdminsAvailable />
         )}

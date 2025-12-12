@@ -1,7 +1,7 @@
 import { Edit2 } from "lucide-react"
 import { DollarIcon } from "../../../globals/Icons"
 
-const PricePreview = ( { course }) => {
+const PricePreview = ( { course, setActiveTab }) => {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
       <div className="flex items-start justify-between mb-4">
@@ -28,7 +28,10 @@ const PricePreview = ( { course }) => {
             </div>  
           )}
         </div>
-        <button className="p-2 text-purple-600 hover:text-purple-700">
+        <button 
+          className="p-2 text-purple-600 hover:text-purple-700"
+          onClick={() => setActiveTab("pricing")}
+        >
           <Edit2 className="w-4 h-4" />
         </button>
       </div>

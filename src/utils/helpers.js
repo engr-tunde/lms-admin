@@ -164,27 +164,37 @@ export function generateRandomString(length) {
 }
 
 
-export const handleExportPDF = ({ pdfTitle, data, columns }) => {
-  if (!data?.length) return;
+export const handleExportPDF = ({ pdfTitle, data = [], columns = [] }) => {
+  if (!data?.length || !columns?.length) return;
 
   const doc = new jsPDF();
 
-  // Column headers
-  const tableColumn = columns.map(col => col.header);
+  // HEADERS
+  const tableHeader = columns.map(col => col.header);
 
-  // Table rows
-  const tableRows = data.map(item => 
-    columns.map(col => item[col.key] ?? '')
+  // ROWS
+  const tableRows = data.map(row =>
+    columns.map(col => {
+      // 1. Formatter takes priority
+      if (typeof col.value === "function") {
+        return col.value(row) ?? "";
+      }
+
+      // 2. Fallback to simple row key
+      return row[col.key] ?? "";
+    })
   );
 
   autoTable(doc, {
-    head: [tableColumn],
+    head: [tableHeader],
     body: tableRows,
     margin: { top: 20 },
     styles: { fontSize: 8 },
-    headStyles: { fillColor: [230, 230, 230] },
+    headStyles: {
+      fillColor: [230, 230, 230],
+      textColor: 20
+    },
   });
 
-  doc.save(`${pdfTitle}_export_${new Date().toISOString().slice(0,10)}.pdf`);
+  doc.save(`${pdfTitle}_export_${new Date().toISOString().slice(0, 10)}.pdf`);
 };
-

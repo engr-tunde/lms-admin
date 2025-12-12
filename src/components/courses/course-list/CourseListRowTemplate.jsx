@@ -2,11 +2,15 @@ import StatusCheck from "../../globals/StatusCheck"
 import { capitalize } from "../../../utils/helpers"
 import ProgressBar from "../../globals/ProgressBar";
 import { Link } from "react-router-dom"
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Edit2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { EditIcon, TrashIcon } from "../../globals/Icons";
+import { useState } from "react";
+import DeleteCourseModal from "./DeleteCourseModal";
 
 
-function CourseListRowTemplate({ item }) {
+function CourseListRowTemplate({ item, mutate }) {
+  const [showDeleteModal, setShowDeleteModal] = useState();
 
   const navigate = useNavigate();
 
@@ -48,6 +52,7 @@ function CourseListRowTemplate({ item }) {
   };
 
   return (
+    <>
     <tr className="border-1 border-t border-merseBorder">
       <td className="py-6 px-6">
           <button 
@@ -70,7 +75,6 @@ function CourseListRowTemplate({ item }) {
             showValue
           />
         </button>
-
       </td>
       <td className="py-6 px-6">
         <span className="text-sm font-medium text-gray-900">{item?.purchased_by?.length}</span>
@@ -78,16 +82,39 @@ function CourseListRowTemplate({ item }) {
       <td className="py-6 px-6">
         {item?.status ? (<StatusCheck value={capitalize(item?.status)}/>): null}
       </td>
-      <td className="py-6 px-6 text-center">
+      <td className="text-center">
         <Link 
           to={`/courses/assessment/${item?._id}`}
-          className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          className="inline-flex items-center gap-2 px-2 py-1 border border-gray-300 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors"
         >
           Add Assessment
-          <ChevronRight className="w-4 h-4" />
         </Link>
       </td>
+      <td className="py-6 px-6">
+        <div className="flex items-center justify-end gap-2">
+          <button 
+            className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+            onClick={handleNavigate}
+          >
+            <EditIcon className="w-4 h-4" />
+          </button>
+          <button 
+            className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            onClick={() => setShowDeleteModal(true)}
+          >
+            <TrashIcon className="w-4 h-4" />
+          </button>
+        </div>
+      </td>
     </tr>
+    {showDeleteModal && (
+      <DeleteCourseModal
+        setShowDeleteModal={setShowDeleteModal}
+        courseData={item}
+        mutate={mutate}
+      />
+    )}
+    </>
   );
 }
 

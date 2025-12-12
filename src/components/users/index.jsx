@@ -26,16 +26,13 @@ function ManageUsers() {
     <div className="mx-auto">
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         {filteredData ? (
-          <>
-            <UsersTable 
-              filteredData={filteredData}
-              setFilteredData={setFilteredData}
-              originalArr={originalArr}
-              setOriginalArr={setOriginalArr}
-              mutate={mutate}
-            />
-            <Pagination/>
-          </>
+          <UsersTable 
+            filteredData={filteredData}
+            setFilteredData={setFilteredData}
+            originalArr={originalArr}
+            setOriginalArr={setOriginalArr}
+            mutate={mutate}
+          />
         ) : (
           <NoUserAvailable />
         )}

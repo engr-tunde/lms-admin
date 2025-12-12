@@ -8,12 +8,12 @@ import { Ban, UserCheck } from "lucide-react";
 const DashboardUsersPage = () => {
   const [showAddModal, setShowAddModal] = useState(false);
 
-  const userStats = [
-    { label: 'Total Students', value: '1,248', icon: UserIcon, color: 'purple' },
-    { label: 'Active Students', value: '892', icon: UserCheck, color: 'emerald' },
-    { label: 'New This Month', value: '124', icon: CalendarIcon, color: 'blue' },
-    { label: 'Suspended', value: '8', icon: Ban, color: 'red' },
-  ];
+  // const userStats = [
+  //   { label: 'Total Students', value: '1,248', icon: UserIcon, color: 'purple' },
+  //   { label: 'Active Students', value: '892', icon: UserCheck, color: 'emerald' },
+  //   { label: 'New This Month', value: '124', icon: CalendarIcon, color: 'blue' },
+  //   { label: 'Suspended', value: '8', icon: Ban, color: 'red' },
+  // ];
 
   
   return (
@@ -34,9 +34,9 @@ const DashboardUsersPage = () => {
         </button> */}
       </div>
       <div className="min-h-screen bg-gray-50 p-6"> 
-        <DashboardStats 
+        {/* <DashboardStats 
           stats={userStats} 
-        />
+        /> */}
         <ManageUsers />
       </div>
       {showAddModal && (

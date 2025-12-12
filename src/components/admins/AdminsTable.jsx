@@ -4,19 +4,29 @@ import Table from "../globals/Table";
 import StatusFilter from "../globals/StatusFilter";
 import { adminsColumnHeader } from "../../data/adminsData";
 import AdminsRowTemplate from "./AdminsRowTemplate";
+import Pagination from "../globals/Pagination";
+import { useEffect, useState } from "react";
+import { handleExportPDF } from "../../utils/helpers";
 
-const AdminsTable = ({ 
-    filteredData, 
-    setFilteredData, 
-    originalArr, 
-    mutate
-  }) => {
+const AdminsTable = ({ filteredData, setFilteredData, originalArr, mutate }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
-    const adminStatus = [
-      { title: "All Status", value: "all" },
-      { title: "Active", value: "active" },
-      { title: "Suspended", value: "suspended" },
-    ];
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredData]);
+
+  const adminStatus = [
+    { title: "All Status", value: "all" },
+    { title: "Active", value: "active" },
+    { title: "Suspended", value: "suspended" },
+  ];
   
   return (
     <div className="p-6">
@@ -37,7 +47,10 @@ const AdminsTable = ({
             filterArr={adminStatus}
             filterKey = "status"
           />
-          <button className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
+          <button 
+            className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors flex items-center gap-2"
+            onClick={() => handleExportPDF({ data: filteredData, columns: adminsColumnHeader, pdfTitle: 'admins' })}
+          >
             <DownloadIcon className="w-4 h-4" />
             Export
           </button>
@@ -52,7 +65,12 @@ const AdminsTable = ({
           />
         )}
         columns={adminsColumnHeader}
-        data={filteredData}
+        data={currentItems}
+      />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
       />
     </div>
   );

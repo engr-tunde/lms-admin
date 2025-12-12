@@ -144,7 +144,7 @@ export const addMaterialTitle = async (values, id) => {
   return result;
 }
 export const addMaterialFile = async (values, sectionId) => {
-  const result = await mutationRequest(`${ADD_COURSE_MATERIAL_FILES}/${sectionId}`, "post", values, false)
+  const result = await mutationRequest(`${ADD_COURSE_MATERIAL_FILES}/${sectionId}`, "data", values, false)
   return result;
 }
 export const addRequirements = async (values, id) => {

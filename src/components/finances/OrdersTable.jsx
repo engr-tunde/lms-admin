@@ -11,11 +11,25 @@ import { useEffect, useState } from "react";
 import Loader from "../globals/Loader";
 import ErrorWidget from "../globals/ErrorWidget";
 import OrdersRowTemplate from "./OrdersRowTemplate";
+import Pagination from "../globals/Pagination";
 
 const OrdersTable = () => {
   const { orders, ordersLoading, ordersError } = fetchAllOrders()
   const [filteredData, setFilteredData] = useState();
   const [originalArr, setOriginalArr] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredData]);
 
   useEffect(() => {
     if (orders?.data?.orders?.count?.length) {
@@ -27,7 +41,7 @@ const OrdersTable = () => {
   console.log("Payments:", payments);
 
   if (ordersLoading) return <Loader />;
-  if (ordersError) return <ErrorWidget error={response?.data?.message} />;
+  if (ordersError) return <ErrorWidget error={"Error"} />;
   if (originalArr?.length === 0) return <NoPayoutMade />;
 
   const ordersStatus = [
@@ -70,12 +84,17 @@ const OrdersTable = () => {
       <Table
         renderRow={(item) => (
           <OrdersRowTemplate
-            key={item?.id}
+            key={item?._id}
             item={item}
           />
         )}
         columns={ordersColumnHeader}
-        data={filteredData}
+        data={currentItems}
+      />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
       />
     </div>
   );

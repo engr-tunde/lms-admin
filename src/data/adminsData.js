@@ -1,3 +1,5 @@
+import { compactDateFormatter, capitalize } from "../utils/helpers";
+
 export const adminsData = [
     { id: 1, name: 'John Smith', email: 'john.smith@lms.com', role: 'Super Admin', status: 'Active', joinedDate: '2024-01-15', lastActive: '2 hours ago', avatar: 'JS' },
     { id: 2, name: 'Sarah Johnson', email: 'sarah.j@lms.com', role: 'Admin', status: 'Active', joinedDate: '2024-02-20', lastActive: '1 day ago', avatar: 'SJ' },
@@ -7,11 +9,13 @@ export const adminsData = [
 
 export const adminsColumnHeader = [
     {
-        header: "Admin", 
+        header: "Admin",
+        value: (row) => row.name, 
         className: ""
     }, 
     {
         header: "Email", 
+        value: (row) => row.email,
         className: ""
     },  
     // {
@@ -20,14 +24,17 @@ export const adminsColumnHeader = [
     // }, 
     {
         header: "Status", 
+        value: (row) => capitalize(row.status),
         className: ""
     },
     {
         header: "Joined Date", 
+        value: (row) => compactDateFormatter(row.createdAt),
         className: ""
     },
     {
-        header: "Actions", 
+        header: "Actions",
+        value: "", 
         className: "text-right"
     },
 ]

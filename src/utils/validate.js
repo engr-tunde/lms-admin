@@ -136,7 +136,7 @@ export const validateCourseCurriculum = () => {
 
 export const validateMaterialValues = () => {
   const validationSchema = yup.object({
-    video: yup.array().of(yup.string().required("Video is required")).min(1, "Please, upload at least one video"),
+    // video: yup.array().of(yup.string().required("Video is required")).min(1, "Please, upload at least one video"),
     article: yup.array().of(yup.string().required("Article content is required")).min(1, "Please, provide at least one article"),
   });
   return validationSchema;

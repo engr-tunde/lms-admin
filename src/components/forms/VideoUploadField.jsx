@@ -113,7 +113,7 @@ const VideoUploadField = ({ name, label }) => {
 
           <button
             type="button"
-            onClick={() => arrayHelpers.push(null)} // Use null instead of ""
+            onClick={() => arrayHelpers.push("")} // Use undefined instead of ""
             className="flex items-center gap-2 text-purple-600 font-medium text-sm"
           >
             <PlusIcon className="w-3 h-3" />

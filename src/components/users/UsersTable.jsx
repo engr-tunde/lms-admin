@@ -4,8 +4,24 @@ import Table from "../globals/Table";
 import StatusFilter from "../globals/StatusFilter";
 import UsersRowTemplate from "./UsersRowTemplate"
 import { usersColumnHeader } from "../../data/userData"
+import Pagination from "../globals/Pagination";
+import { useEffect, useState } from "react";
+import { handleExportPDF } from "../../utils/helpers";
 
 const UsersTable = ({ filteredData, setFilteredData, originalArr, setOriginalArr, mutate }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  
+    const itemsPerPage = 10;
+    const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const currentItems = filteredData?.slice(
+      startIndex,
+      startIndex + itemsPerPage
+    );
+  
+    useEffect(() => {
+      setCurrentPage(1);
+    }, [filteredData]);
   
   const userStatus = [
     { title: "All Status", value: "all" },
@@ -32,7 +48,10 @@ const UsersTable = ({ filteredData, setFilteredData, originalArr, setOriginalArr
             filterArr={userStatus}
             filterKey = "status"
           />
-          <button className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
+          <button 
+            className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors flex items-center gap-2"
+            onClick={() => handleExportPDF({ data: filteredData, columns: usersColumnHeader, pdfTitle: 'users' })}
+          >
             <DownloadIcon className="w-4 h-4" />
             Export
           </button>
@@ -47,7 +66,12 @@ const UsersTable = ({ filteredData, setFilteredData, originalArr, setOriginalArr
           />
         )}
         columns={usersColumnHeader}
-        data={filteredData}
+        data={currentItems}
+      />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
       />
     </div>
   );

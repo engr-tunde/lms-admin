@@ -14,7 +14,7 @@ const NewSectionCard = ({ onCancel, handleSubmit, initialValues, validationSchem
         title="New Section"
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={handleSubmit}
+        onSubmit={(values) => handleSubmit(values)}
       >
         <div className="flex flex-col gap-4">
           <InputField 

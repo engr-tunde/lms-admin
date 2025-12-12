@@ -5,7 +5,7 @@ import { NoCourseCreated } from "../../globals/NoValuesPage"
 import Loader from "../../globals/Loader";
 import ErrorWidget from "../../globals/ErrorWidget";  
 
-const ManageCourses = ({ courses, coursesLoading, coursesError }) => {
+const ManageCourses = ({ courses, coursesLoading, coursesError, mutate }) => {
   const [activeTab, setActiveTab ] = useState("courses")
   const [filteredData, setFilteredData] = useState();
   const [originalArr, setOriginalArr] = useState();
@@ -14,7 +14,7 @@ const ManageCourses = ({ courses, coursesLoading, coursesError }) => {
 
   const tabs = [
     { id: 'courses', label: 'Courses'},
-    { id: 'courseBundles', label: 'Course Bundles'},
+    // { id: 'courseBundles', label: 'Course Bundles'},
   ];
 
   useEffect(() => {
@@ -49,15 +49,13 @@ const ManageCourses = ({ courses, coursesLoading, coursesError }) => {
       </div>
       <div className="bg-white rounded-b-lg shadow-sm overflow-hidden">
         {filteredData ?(
-          <>
-            <CourseListTable
-              filteredData={filteredData}
-              setFilteredData={setFilteredData}
-              originalArr={originalArr}
-              setOriginalArr={setOriginalArr}
-            />
-            <Pagination />
-          </>
+          <CourseListTable
+            filteredData={filteredData}
+            setFilteredData={setFilteredData}
+            originalArr={originalArr}
+            setOriginalArr={setOriginalArr}
+            mutate={mutate}
+          />
           ) : <NoCourseCreated />
           }
       </div>

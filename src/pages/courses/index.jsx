@@ -8,7 +8,7 @@ import { fetchAllCourses } from "../../api/index.js";
 import { useEffect, useState } from "react";
 
 function DashboardCoursesPage() {
-  const { courses, coursesLoading, coursesError } = fetchAllCourses();
+  const { courses, coursesLoading, coursesError, mutate } = fetchAllCourses();
   const [stats, setStats] = useState();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function DashboardCoursesPage() {
     <div className="flex flex-col gap-6">
       <div className="flex justify-between items-end">
         <DashboardNavBar
-          title="Courses"
+          title={"Courses"}
           subtitle="Manage your courses and content here"
         />
         <Link 
@@ -49,6 +49,7 @@ function DashboardCoursesPage() {
           courses={courses} 
           coursesLoading={coursesLoading} 
           coursesError={coursesError}
+          mutate={mutate}
         />
       </div>
     </div>

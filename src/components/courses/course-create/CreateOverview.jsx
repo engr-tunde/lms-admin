@@ -151,11 +151,10 @@ const CreateCourseOverview = ({ onStepComplete, course }) => {
 }
 
 const languageOptions = [
-  { value: "en", title: "English" },
-  { value: "es", title: "Spanish" },
-  { value: "fr", title: "French" },
-  { value: "de", title: "German" },
-  { value: "zh", title: "Chinese" },
+  { value: "English", title: "English" },
+  { value: "Spanish", title: "Spanish" },
+  { value: "French", title: "French" },
+  { value: "German", title: "German" },
 ]
 
 const levelOptions = [

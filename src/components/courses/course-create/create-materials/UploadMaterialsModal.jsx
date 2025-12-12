@@ -9,6 +9,7 @@ import SubmitButton from "../../../forms/SubmitButton";
 import { X } from "lucide-react";
 import { addMaterialFile } from "../../../../api";
 import { errorNotification, successNotification } from "../../../../utils/helpers";
+import FieldArrayInput from "../../../forms/FieldArrayInput";
 
 
 const MaterialUploadModal = ({ show, onClose, sectionId, mutate }) => {
@@ -19,6 +20,23 @@ const MaterialUploadModal = ({ show, onClose, sectionId, mutate }) => {
   if (!show) return null;
 
   const handleMaterialSubmit = async (values) => {
+
+    // const formData = new FormData();
+
+    // if (values.video && values.video.length > 0) {
+    //   values.video.forEach((file) => {
+    //     if (file instanceof File) {
+    //       formData.append("video", file);
+    //     }
+    //   });
+    // }
+
+    // if (values.article && values.article.length > 0) {
+    //   values.article.forEach((a) => {
+    //     formData.append("article", a);
+    //   });
+    // }
+
     const response = await addMaterialFile(values, sectionId); 
     if (response.status.toString().startsWith("20")) {
       successNotification(response.data?.message);
@@ -77,8 +95,13 @@ const MaterialUploadModal = ({ show, onClose, sectionId, mutate }) => {
               />
             }
             {activeItem === "article" &&
-              <ArticleEditorField 
-                name="article" 
+              // <ArticleEditorField 
+              //   name="article" 
+              // />
+              <FieldArrayInput
+                name="article"
+                placeholder="Enter an article"
+                addButtonTitle="Add Article"
               />
             }
           </div>

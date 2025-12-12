@@ -2,7 +2,7 @@ import { Edit2 } from "lucide-react";
 import { fetchCourseMaterial } from "../../../../api";
 import { useEffect, useState } from "react";
 
-const MaterialPreview = ({ course }) => {
+const MaterialPreview = ({ course, setActiveTab }) => {
   const [material, setMaterial] = useState()
   const { courseMaterial, mutate } = fetchCourseMaterial(course?._id);
   console.log("courseMaterial in MaterialPreview", courseMaterial);
@@ -20,7 +20,10 @@ const MaterialPreview = ({ course }) => {
           <h2 className="text-xl font-semibold text-gray-900">Course Materials</h2>
           <p className="text-gray-500 text-sm mt-1">{material?.length} sections</p>
         </div>
-        <button className="px-4 py-2 text-purple-600 hover:text-purple-700 font-medium flex items-center gap-2">
+        <button 
+          className="px-4 py-2 text-purple-600 hover:text-purple-700 font-medium flex items-center gap-2"
+          onClick={() => setActiveTab("materials")}
+        >
           <Edit2 className="w-4 h-4" />
           Edit
         </button>

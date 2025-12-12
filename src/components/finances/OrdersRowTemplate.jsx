@@ -41,7 +41,7 @@ const OrdersRowTemplate = ({ item }) => {
   
   return (
     <>
-    <tr key={item?._id} className="hover:bg-gray-50 transition-colors">
+    <tr className="hover:bg-gray-50 transition-colors">
       <td className="px-6 py-4">
         <div className="flex items-center gap-3">
           {getStatusIcon(item?.payment_status)}

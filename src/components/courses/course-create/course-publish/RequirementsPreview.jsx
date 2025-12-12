@@ -1,11 +1,14 @@
 import { BookOpen, Edit2, Users } from "lucide-react"
 
-const RequirementsPreview = ({ course }) => {
+const RequirementsPreview = ({ course, setActiveTab }) => {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
       <div className="flex items-start justify-between mb-6">
         <h2 className="text-xl font-semibold text-gray-900">Requirements & Audience</h2>
-        <button className="px-4 py-2 text-purple-600 hover:text-purple-700 font-medium flex items-center gap-2">
+        <button 
+          className="px-4 py-2 text-purple-600 hover:text-purple-700 font-medium flex items-center gap-2"
+          onClick={() => setActiveTab("requirements")}
+        >
           <Edit2 className="w-4 h-4" />
           Edit
         </button>

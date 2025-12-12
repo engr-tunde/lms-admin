@@ -4,14 +4,13 @@ const ProgressBar = ({
   height = "8px",
   bgColor = "#E5E7EB", // tailwind gray-200
   fillColor = "#9333EA", // purple
-  rounded = "100px",  // fully rounded
   className = "",
   showValue = false
 }) => {
   return (
     <div className={`w-full h-auto ${className} flex flex-col gap-3`}>
       <div className="flex justify-between items-center">
-        <span className="mb-1 text-xs text-gray-800">{label}</span>  
+        {/* <span className="mb-1 text-xs text-gray-800">{label}</span>   */}
         {showValue && 
           <span className="text-xs">{value}%</span>
         }
@@ -21,7 +20,6 @@ const ProgressBar = ({
         style={{
           height,
           backgroundColor: bgColor,
-          borderRadius: rounded,
           overflow: "hidden",
         }}
       >

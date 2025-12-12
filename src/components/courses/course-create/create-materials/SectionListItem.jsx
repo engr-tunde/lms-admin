@@ -3,7 +3,7 @@ import { GripIcon, PlusIcon } from "../../../globals/Icons"
 import MaterialUploadModal from "./UploadMaterialsModal";
 import { useState } from "react";
 
-const SectionListItem = ({ section, index, onDelete, onEdit, mutate }) => {
+const SectionListItem = ({ section, index, onDelete, mutate }) => {
   const [showMaterialModal, setShowMaterialModal] = useState(false);
 
   const { id } = useParams()
@@ -27,12 +27,12 @@ const SectionListItem = ({ section, index, onDelete, onEdit, mutate }) => {
                 </p>
               </div>
               <div className="flex gap-2 shrink-0">
-                <button
+                {/* <button
                   onClick={() => onEdit(section?._id)}
                   className="edit-button"
                 >
                   Edit
-                </button>
+                </button> */}
                 <button
                   onClick={() => onDelete(section?._id)}
                   className="delete-button"
