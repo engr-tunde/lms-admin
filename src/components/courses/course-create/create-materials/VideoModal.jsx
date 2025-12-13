@@ -16,30 +16,23 @@ const VideoModal = ({ show, onClose, sectionId, mutate }) => {
   if (!show) return null;
 
   const handleMaterialSubmit = async (values) => {
+    const formData = new FormData();
+  
+    formData.append("type", "video");
+    formData.append("material", values.material);
 
-    // const formData = new FormData();
-
-    // if (values.video && values.video.length > 0) {
-    //   values.video.forEach((file) => {
-    //     if (file instanceof File) {
-    //       formData.append("video", file);
-    //     }
-    //   });
-    // }
-
-    // if (values.article && values.article.length > 0) {
-    //   values.article.forEach((a) => {
-    //     formData.append("article", a);
-    //   });
-    // }
-
-    const response = await addMaterialFile(values, sectionId); 
+    console.log("material value:", values.material);
+    console.log("is File:", values.material instanceof File);
+  
+    const response = await addMaterialFile(formData, sectionId);
+  
     if (response.status.toString().startsWith("20")) {
       successNotification(response.data?.message);
-      console.log("response", response.data)
       mutate();
     } else {
-      errorNotification(response?.data?.message || "Failed to add material");
+      errorNotification(
+        response?.data?.message || "Failed to add material"
+      );
     }
   };
 
@@ -72,7 +65,7 @@ const VideoModal = ({ show, onClose, sectionId, mutate }) => {
                 Video
               </button>
             </div>
-            <VideoUploadField name="video" />
+            <VideoUploadField name="material" />
           </div>
           <div className="mt-6 flex justify-end gap-3">
             <button

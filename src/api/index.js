@@ -35,7 +35,8 @@ import {
   UPDATE_COURSE_OVERVIEW,
   UPDATE_COURSE_REQUIREMENTS,
   PUBLISH_COURSE,
-  ADD_COURSE_MATERIAL_FILES, 
+  ADD_COURSE_MATERIAL_FILES,
+  DELETE_COURSE_MATERIAL_FILE, 
 
 } from "../constants/routes";
 
@@ -144,7 +145,7 @@ export const addMaterialTitle = async (values, id) => {
   return result;
 }
 export const addMaterialFile = async (values, sectionId) => {
-  const result = await mutationRequest(`${ADD_COURSE_MATERIAL_FILES}/${sectionId}`, "data", values, false)
+  const result = await mutationRequest(`${ADD_COURSE_MATERIAL_FILES}/${sectionId}`, "post", values, false)
   return result;
 }
 export const addRequirements = async (values, id) => {
@@ -199,6 +200,13 @@ export const deleteMaterial = async (id) => {
   return result;
 }
 
+export const deleteMaterialFile = async ({ materialId, fileId }) => {
+  return await mutationRequest(
+    `${DELETE_COURSE_MATERIAL_FILE}?material_id=${materialId}&file_id=${fileId}`,
+    "delete",
+    false
+  );
+};
 
 export const deleteCourse = async (id) => {
   const result = await mutationRequest(`${DELETE_COURSE}/${id}`, "delete", false)

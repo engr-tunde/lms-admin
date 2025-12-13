@@ -23,6 +23,7 @@ export const FETCH_COURSES = "/admin/course/fetch-all-courses"
 export const FETCH_COURSE = "/admin/course/course-details"
 export const FETCH_COURSE_MATERIAL = "/admin/course/fetch-course-materials"
 export const DELETE_COURSE_MATERIAL = "/admin/course/delete-course-material"
+export const DELETE_COURSE_MATERIAL_FILE = "/admin/course/delete-material-file"
 export const DELETE_COURSE = "/admin/course/delete-course"
 
 

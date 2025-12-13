@@ -15,7 +15,6 @@ const postData = async (url, data, withCredentials) => {
       console.log("res", res);
       return res;
     })
-
     .catch((err) => {
       return err.response;
     });

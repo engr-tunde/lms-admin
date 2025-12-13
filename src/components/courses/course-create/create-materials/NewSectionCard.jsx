@@ -1,6 +1,3 @@
-import { addMaterialTitle } from "../../../../api";
-import { courseCurriculumValues } from "../../../../utils/initialValues";
-import { validateCourseCurriculum } from "../../../../utils/validate";
 import InputField from "../../../forms/InputField";
 import SubmitButton from "../../../forms/SubmitButton";
 import TextAreaField from "../../../forms/TextAreaField";

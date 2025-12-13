@@ -66,6 +66,11 @@ export const MapIcon = (props) => <MapPin {...props} />;
 export const PhoneIcon = (props) => <Phone {...props} />;
 export const CheckIcon = (props) => <CheckCircle {...props} />;
 export const TrendingUpIcon = (props) => <TrendingUp {...props} />;
+export const PlayIcon = ({ className }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M8 5v14l11-7z" />
+  </svg>
+);
 export const CalendarIcon = (props) => <Calendar {...props} />;
 export const DownloadIcon = (props) => <Download {...props} />;
 

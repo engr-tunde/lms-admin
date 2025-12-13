@@ -1,17 +1,17 @@
-import { useParams } from "react-router-dom";
 import { DocumentTextIcon, GripIcon, PlusIcon, VideoCamIcon } from "../../../globals/Icons"
-import MaterialUploadModal from "./UploadMaterialsModal";
 import { useState } from "react";
 import DeleteMaterialModal from "./DeleteMaterialModal";
 import { errorNotification } from "../../../../utils/helpers";
 import VideoModal from "./VideoModal";
 import ArticleModal from "./ArticleModal";
+import MaterialFileCard from "./MaterialFileCard";
+import { X } from "lucide-react";
 
 const SectionListItem = ({ section, index, mutate, disableRemoval }) => {
-  const [showMaterialModal, setShowMaterialModal] = useState(false);
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [showArticleModal, setShowArticleModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showMaterials, setShowMaterials] = useState(false);
 
   const handleDeleteClick = () => {
     if (disableRemoval()) {
@@ -52,9 +52,19 @@ const SectionListItem = ({ section, index, mutate, disableRemoval }) => {
             </div>
             <div className="mt-4 pt-4 border-t border-gray-100">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-500">
-                  {section.materials?.length || 0} materials
-                </span>
+                <div className="flex gap-2">
+                  <span className="text-sm text-gray-500">
+                    {section.materials?.length || 0} Materials
+                  </span>
+                  {section.materials?.length > 0 && (
+                    <button
+                      onClick={() => setShowMaterials(!showMaterials)}
+                      className="text-purple-600 text-xs hover:text-purple-800 transition-colors flex items-center gap-2"
+                    >
+                      {showMaterials ? "Hide Files" : "Show Files"}
+                    </button>
+                  )}
+                </div>
                 <div className="flex gap-2">
                   <button
                     onClick={() => setShowArticleModal(true)}
@@ -73,6 +83,20 @@ const SectionListItem = ({ section, index, mutate, disableRemoval }) => {
                 </div>
               </div>
             </div>
+            {section.materials?.length > 0 && showMaterials && (
+            <div className="mt-4 space-y-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {section.materials?.map((material, index) => (
+                  <MaterialFileCard
+                    key={material.file_id || index}
+                    material={material}
+                    sectionId={section?._id}
+                    mutate={mutate}
+                  />
+                ))}
+              </div>
+            </div>
+            )}
           </div>
         </div>
       </div>

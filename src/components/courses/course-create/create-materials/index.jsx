@@ -10,7 +10,6 @@ import { validateCourseCurriculum } from "../../../../utils/validate";
 import Loader from "../../../globals/Loader";
 import ErrorWidget from "../../../globals/ErrorWidget";
 
-
 const CourseMaterials = ({ onStepComplete, setActiveTab }) => {
   const { id: courseId } = useParams();
   const [sections, setSections] = useState();

@@ -8,7 +8,6 @@ import SubmitButton from "../../../forms/SubmitButton";
 import { X } from "lucide-react";
 import { addMaterialFile } from "../../../../api";
 import { errorNotification, successNotification } from "../../../../utils/helpers";
-import FieldArrayInput from "../../../forms/FieldArrayInput";
 
 
 const ArticleModal = ({ show, onClose, sectionId, mutate }) => {
@@ -18,32 +17,23 @@ const ArticleModal = ({ show, onClose, sectionId, mutate }) => {
   if (!show) return null;
 
   const handleMaterialSubmit = async (values) => {
-
-    // const formData = new FormData();
-
-    // if (values.video && values.video.length > 0) {
-    //   values.video.forEach((file) => {
-    //     if (file instanceof File) {
-    //       formData.append("video", file);
-    //     }
-    //   });
-    // }
-
-    // if (values.article && values.article.length > 0) {
-    //   values.article.forEach((a) => {
-    //     formData.append("article", a);
-    //   });
-    // }
-
-    const response = await addMaterialFile(values, sectionId); 
+    const formData = new FormData();
+  
+    formData.append("type", "article");
+    formData.append("material", values.material);
+  
+    const response = await addMaterialFile(formData, sectionId);
+  
     if (response.status.toString().startsWith("20")) {
       successNotification(response.data?.message);
-      console.log("response", response.data)
       mutate();
     } else {
-      errorNotification(response?.data?.message || "Failed to add material");
+      errorNotification(
+        response?.data?.message || "Failed to add material"
+      );
     }
   };
+
 
   return ( 
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -74,7 +64,7 @@ const ArticleModal = ({ show, onClose, sectionId, mutate }) => {
                 Article
               </button>
             </div>
-            <ArticleEditorField name="article" />
+            <ArticleEditorField name="material" />
           </div>
           <div className="mt-6 flex justify-end gap-3">
             <button
