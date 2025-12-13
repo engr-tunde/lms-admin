@@ -49,10 +49,6 @@ const CourseListTable = ({ filteredData, setFilteredData, originalArr, setOrigin
             filterArr={courseStatus}
             filterKey = "status"
           />
-          {/* <button className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
-            <DownloadIcon className="w-4 h-4" />
-            Export
-          </button> */}
         </div>
       </div>
       <Table

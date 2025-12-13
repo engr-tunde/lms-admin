@@ -33,6 +33,8 @@ const CreateCourseOverview = ({ onStepComplete, course }) => {
         description: course.description || "",
       }
     : basicCourseDetailValues();
+
+    console.log("categories", categories);
     
   const validationSchema = validateBasicCourseDetails()
 

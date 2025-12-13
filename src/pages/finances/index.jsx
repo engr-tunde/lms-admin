@@ -36,18 +36,10 @@ const DashboardFinancesPage = () => {
 
   return (
     <div className="flex flex-col gap-6 w-full h-full">
-      <div className="flex justify-between items-end">
-        <DashboardNavBar
-          title="Manage Payment"
-          subtitle="Manage your payment details to receive course earnings"
-        />
-        {/* <div>
-          <button className="px-6 py-2.5 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center gap-2">
-            <PlusIcon className="w-4 h-4" />
-            Request Payout
-          </button>
-        </div> */}
-      </div>
+      <DashboardNavBar
+        title="Manage Payment"
+        subtitle="Manage your payment details to receive course earnings"
+      />
       <div className="bg-gray-50">
         <div className="mx-auto p-6">
           <DashboardStats 
