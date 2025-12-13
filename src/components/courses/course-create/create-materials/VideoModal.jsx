@@ -1,21 +1,17 @@
 import VideoUploadField from "../../../forms/VideoUploadField";
-import { materialValues } from "../../../../utils/initialValues";
-import { validateMaterialValues } from "../../../../utils/validate";
-import { useState } from "react";
-import ArticleEditorField from "../../../forms/ArticleEditorField"
+import { videoValues } from "../../../../utils/initialValues";
+import { validateVideoValues } from "../../../../utils/validate";
 import CustomModal from "../../../globals/Modals";
-import { VideoCamIcon, DocumentTextIcon, UploadIcon } from "../../../globals/Icons";
+import { VideoCamIcon } from "../../../globals/Icons";
 import SubmitButton from "../../../forms/SubmitButton";
 import { X } from "lucide-react";
 import { addMaterialFile } from "../../../../api";
 import { errorNotification, successNotification } from "../../../../utils/helpers";
-import FieldArrayInput from "../../../forms/FieldArrayInput";
 
 
-const MaterialUploadModal = ({ show, onClose, sectionId, mutate }) => {
-  const [activeItem, setActiveItem] = useState("video"); 
-  const initialValues = materialValues();
-  const validationSchema = validateMaterialValues();
+const VideoModal = ({ show, onClose, sectionId, mutate }) => {
+  const initialValues = videoValues();
+  const validationSchema = validateVideoValues();
 
   if (!show) return null;
 
@@ -70,35 +66,13 @@ const MaterialUploadModal = ({ show, onClose, sectionId, mutate }) => {
             <div className="flex gap-2 mb-4 border-b border-gray-200">
               <button 
                 type="button"
-                className={`px-4 py-2 text-sm font-medium flex items-center gap-2 
-                  ${activeItem === "video" ? 
-                    "text-purple-600 border-b-2 border-purple-600" : "text-gray-500 hover:text-gray-700"}`}
-                onClick={() => setActiveItem("video")}
+                className={`px-4 py-2 text-sm font-medium flex items-center gap-2 text-purple-600 border-b-2 border-purple-600`}
               >
                 <VideoCamIcon className="w-4 h-4" />
                 Video
               </button>
-              <button 
-                type="button"
-                className={`px-4 py-2 text-sm font-medium flex items-center gap-2 
-                  ${activeItem === "article" ? 
-                    "text-purple-600 border-b-2 border-purple-600" : "text-gray-500 hover:text-gray-700"}`}
-                onClick={() => setActiveItem("article")}
-              >
-                <DocumentTextIcon className="w-4 h-4" />
-                Article
-              </button>
             </div>
-            {activeItem === "video" &&
-              <VideoUploadField 
-                name="video" 
-              />
-            }
-            {activeItem === "article" &&
-              <ArticleEditorField 
-                name="article" 
-              />
-            }
+            <VideoUploadField name="video" />
           </div>
           <div className="mt-6 flex justify-end gap-3">
             <button
@@ -108,7 +82,7 @@ const MaterialUploadModal = ({ show, onClose, sectionId, mutate }) => {
               Cancel
             </button>
             <SubmitButton
-              title="Upload Material"
+              title="Upload Video"
               className={`px-6 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors`}
             />
           </div>
@@ -118,4 +92,4 @@ const MaterialUploadModal = ({ show, onClose, sectionId, mutate }) => {
   )
 }
 
-export default MaterialUploadModal
+export default VideoModal

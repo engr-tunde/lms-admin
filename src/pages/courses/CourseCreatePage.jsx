@@ -3,28 +3,51 @@ import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { useEffect, useState } from "react";
 import CourseCreate from "../../components/courses/course-create";
 import { Check } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DeleteCourseModal from "../../components/courses/course-list/DeleteCourseModal";
 import { fetchCourse } from "../../api";
 import { TrashIcon } from "../../components/globals/Icons";
-import { use } from "react";
+import Loader from "../../components/globals/Loader";
 
 
 const DashboardCourseCreatePage = () => {
-  const location = useLocation();
   const [course, setCourse] = useState(null);
-  const courseFromLocation = location.state?.course || null;
-  const [activeTab, setActiveTab] = useState(location.state?.nextLabel || "overview");
+  const [courseMaterial, setCourseMaterial] = useState(null);
+  const [activeTab, setActiveTab] = useState("overview");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  
+
+  const { id } = useParams();
   const STEP_ORDER = ["overview", "materials", "requirements", "pricing", "completed"];
+  
+  const { course: courseData, courseLoading, courseError, mutate } = fetchCourse(id);
+
+  const NextStep = (progress_status) => {
+    if (progress_status === "overview") return "materials";
+    if (progress_status === "materials") return "requirements";
+    if (progress_status === "requirements") return "pricing";
+    if (progress_status === "pricing") return "completed";
+    if (progress_status === "completed") return "completed";
+    return "";
+  }
 
   useEffect(() => {
-    if (courseFromLocation) {
-      setCourse(courseFromLocation);
+    if (courseData?.data?.courseData) {
+      setCourse(courseData?.data?.courseData);
     }
-  }, [courseFromLocation]);
+  }, [courseData]);
 
+  useEffect(() => {
+    if (course?._id) {
+      setActiveTab(NextStep(course?.progress_status));
+    }
+  }, [course]);
+
+  useEffect(() => {
+    if (courseData?.data?.courseMaterials) {
+      setCourseMaterial(courseData?.data?.courseMaterials);
+    }
+  }, [courseData]);
+  
   const getStepCompleted = (progress_status) => {
     if (!progress_status) return {};
   
@@ -36,7 +59,6 @@ const DashboardCourseCreatePage = () => {
     }, {});
   };
 
-  const { mutate } = fetchCourse(course?._id);
   
   const stepCompleted = getStepCompleted(course?.progress_status);
 
@@ -61,9 +83,11 @@ const DashboardCourseCreatePage = () => {
     return tabIndex <= progressIndex + 1;
   };
 
-  
-
   const progressValue = (tabs.findIndex(tab => tab.id === activeTab) / (tabs.length - 1)) * 100;
+
+  if (id && courseLoading) return <Loader />;
+  if (id && courseError) return <Error error="Error when accessing course." />;
+
 
   return (
     <>
@@ -129,6 +153,8 @@ const DashboardCourseCreatePage = () => {
           activeTab={activeTab} 
           setActiveTab={setActiveTab}
           course={course}
+          courseMaterial={courseMaterial}
+          mutate={mutate}
         />
       </div>
     </div>

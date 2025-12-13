@@ -1,31 +1,54 @@
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, XCircle } from "lucide-react";
 
-const PublishStatusCheck = ({ course }) => {
+const PublishStatusCheck = ({ course, sections }) => {
 
-  if ( course?.progress_status !== "pricing") return null;
+  const hasCourseRequirements =
+     course?.audience?.length > 0 && course?.requirements?.length > 0;
+
+  const hasMaterials = sections?.length > 0;
+
+  const hasPricing = true;
+
+  const StatusItem = ({ checked, label }) => (
+    <div className="flex items-center gap-2 text-sm text-gray-700">
+      {checked ? (
+        <CheckCircle className="w-4 h-4 text-green-600" />
+      ) : (
+        <XCircle className="w-4 h-4 text-red-400" />
+      )}
+      <span className={checked ? "text-gray-700" : "text-gray-400"}>
+        {label}
+      </span>
+    </div>
+  );
 
   return (
     <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg border border-purple-200 p-6">
-      <h3 className="font-semibold text-gray-900 mb-3">Ready to Publish?</h3>
+      <h3 className="font-semibold text-gray-900 mb-3">
+        Ready to Publish?
+      </h3>
+
       <p className="text-sm text-gray-600 mb-4">
-        Once published, your course will be visible to students. You can still edit it after publishing.
+        Once published, your course will be visible to students. You can still
+        edit it after publishing.
       </p>
+
       <div className="space-y-2 mb-4">
-        <div className="flex items-center gap-2 text-sm text-gray-700">
-          <CheckCircle className="w-4 h-4 text-green-600" />
-          <span>Course details complete</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm text-gray-700">
-          <CheckCircle className="w-4 h-4 text-green-600" />
-          <span>Materials added</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm text-gray-700">
-          <CheckCircle className="w-4 h-4 text-green-600" />
-          <span>Pricing configured</span>
-        </div>
+        <StatusItem
+          checked={hasCourseRequirements}
+          label="Course requirements complete"
+        />
+        <StatusItem
+          checked={hasMaterials}
+          label="Materials added"
+        />
+        <StatusItem
+          checked={hasPricing}
+          label="Pricing configured"
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default PublishStatusCheck;

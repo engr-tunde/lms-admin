@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchCategories } from "../../../api/index";
 import { useEffect, useState } from "react";
 
-const CreateCourseOverview = ({ onStepComplete, course }) => {
+const CreateCourseOverview = ({ onStepComplete, course, mutate }) => {
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
   const { categories } = fetchCategories();
@@ -48,13 +48,10 @@ const CreateCourseOverview = ({ onStepComplete, course }) => {
     const courseData = response.data?.data?.courseData;
     if (!newCourseId) return errorNotification("Course creation failed");
     successNotification(`Course overview created successfully with ID: ${newCourseId}`);
-    navigate(`/courses/create/${newCourseId}`, {
-      state: {
-        course: courseData,
-        nextLabel: "materials",
-      }
-    });
+    navigate(`/courses/create/${newCourseId}`);
+    mutate()
   }
+  
   const handleUpdate = async (values, id) => {
     const response = await updateOverview(values, id);
     if (!response.status.toString().includes("20")) {
@@ -64,12 +61,7 @@ const CreateCourseOverview = ({ onStepComplete, course }) => {
     const updatedCourse = response.data?.data?.courseData;
     if (!updatedCourse) return;
     successNotification("Course overview updated successfully");
-    navigate("", {
-      state: {
-        course: updatedCourse,
-        nextLabel: "materials", 
-      },
-    });
+    mutate()
   }
 
   const handleSubmitOrUpdate = async (values, continueNext = true) => {

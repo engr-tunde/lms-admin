@@ -74,8 +74,8 @@ const DashboardOverviewPage = () => {
   return (
     <div className="flex flex-col gap-6 w-full h-full">
       <DashboardNavBar
-        title="Create"
-        subtitle="Choose the type of content you want to create"
+        title="Build Your Course"
+        subtitle="Start creating lessons, assessments, and materials"
       />
       <div className="bg-gray-50">
         <div className="mx-auto p-6">

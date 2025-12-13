@@ -13,6 +13,7 @@ function CourseListRowTemplate({ item, mutate }) {
   const [showDeleteModal, setShowDeleteModal] = useState();
 
   const navigate = useNavigate();
+  const handleNavigate = () => navigate(`/courses/create/${item._id}`);
 
   const ProceedTo = (progress_status) => {
     if (progress_status === "overview") return "Add Materials";
@@ -21,16 +22,6 @@ function CourseListRowTemplate({ item, mutate }) {
     if (progress_status === "pricing") return "Publish Course";
     return "";
   }
-  const NextStep = (progress_status) => {
-    if (progress_status === "overview") return "materials";
-    if (progress_status === "materials") return "requirements";
-    if (progress_status === "requirements") return "pricing";
-    if (progress_status === "pricing") return "completed";
-    if (progress_status === "completed") return "completed";
-    return "";
-  }
-
-
 
   const Value = (progress_status) => {
     if (progress_status === "overview") return 20;
@@ -40,16 +31,6 @@ function CourseListRowTemplate({ item, mutate }) {
     if (progress_status === "completed") return 100;
     return 0;
   }
-
-  const handleNavigate = () => {
-    const state = {
-      course: item,
-      nextLabel: NextStep(item.progress_status),
-      progress_status: item.progress_status,
-      value: Value(item.progress_status)
-    };  
-    navigate(`/courses/create/${item._id}`, { state });
-  };
 
   return (
     <>

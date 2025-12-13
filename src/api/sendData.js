@@ -71,20 +71,10 @@ const deleteData = async (url, withCredentials) => {
   return result;
 };
 
-const patchMultipartData = async (url, data, withCredentials) => {
+const postMultipartData = async (url, data, withCredentials) => {
   const result = await axiosInstance()
     .patch(url, data, { withCredentials })
     .then((res) => res.data)
-    .catch((err) => err.response);
-  return result;
-};
-const postMultipartData = async (url, data, withCredentials) => {
-  const result = await axiosInstance()
-    .post(url, data, {
-      withCredentials,
-      headers: { "Content-Type": "multipart/form-data" }
-    })
-    .then((res) => res)
     .catch((err) => err.response);
   return result;
 };
@@ -112,9 +102,6 @@ export const mutationRequest = (
 
     case "data":
       return postMultipartData(url, data, withCredentials);
-
-    case "patchdata":
-      return patchMultipartData(url, data, withCredentials);
 
     default:
       return postData(url, data, withCredentials);

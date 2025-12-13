@@ -37,8 +37,8 @@ const DashboardFinancesPage = () => {
   return (
     <div className="flex flex-col gap-6 w-full h-full">
       <DashboardNavBar
-        title="Manage Payment"
-        subtitle="Manage your payment details to receive course earnings"
+        title="Manage Finances"
+        subtitle="Manage your orders, payments and earnings"
       />
       <div className="bg-gray-50">
         <div className="mx-auto p-6">

@@ -7,31 +7,32 @@ import { useParams } from "react-router-dom";
 import { errorNotification, successNotification } from "../../../../utils/helpers";
 import { courseCurriculumValues } from "../../../../utils/initialValues";
 import { validateCourseCurriculum } from "../../../../utils/validate";
-import { NoAdminsAvailable } from "../../../globals/NoValuesPage";
+import Loader from "../../../globals/Loader";
+import ErrorWidget from "../../../globals/ErrorWidget";
 
 
-const CourseMaterials = ({ onStepComplete, setActiveTab, course }) => {
-  const { courseMaterial, mutate } = fetchCourseMaterial(course?._id);
-  console.log("courseMaterial", courseMaterial);
-
-  const [sections, setSections] = useState();
-  const [showNewSection, setShowNewSection] = useState(false);
+const CourseMaterials = ({ onStepComplete, setActiveTab }) => {
   const { id: courseId } = useParams();
+  const [sections, setSections] = useState();
+  const { courseMaterial, courseMaterialLoading, courseMaterialError, mutate } = fetchCourseMaterial(courseId);
+
+  const [showNewSection, setShowNewSection] = useState(false);
   let initialValues = courseCurriculumValues();
   const validationSchema = validateCourseCurriculum();
-
   useEffect(() => {
     if (courseMaterial?.data) {
-      setSections(courseMaterial.data);
+      setSections(courseMaterial?.data);
     }
-  }, [courseMaterial]);
+  })
+
+  console.log("sections in CourseMaterials", sections)
 
   const handleCreateSection = async (values) => {
     const response = await addMaterialTitle(values, courseId)
     if (response.status.toString().includes("20")) {
-    successNotification(response.data?.message);
-    console.log("response", response.data)
-    mutate();
+      successNotification(response.data?.message);
+      mutate();
+      setActiveTab("materials");
     } else {
       errorNotification(response?.data?.message);
     }
@@ -40,13 +41,19 @@ const CourseMaterials = ({ onStepComplete, setActiveTab, course }) => {
   const handleDeleteSection = async (id) => {
     const response = await deleteMaterial(id)
     if (response.status.toString().includes("20")) {
-    successNotification(response.data?.message);
-    console.log("response", response.data)
-    mutate();
+      successNotification(response.data?.message);
+      mutate();
     } else {
       errorNotification(response?.data?.message);
     }
   }
+
+  const disableRemoval = () => {
+    return sections?.length === 1;
+  };
+
+  if (courseMaterialLoading) return <Loader />;
+  if (courseMaterialError) return <ErrorWidget error="Error when accessing course materials." />;
 
   return (
     <div className="w-full mx-auto">
@@ -71,6 +78,7 @@ const CourseMaterials = ({ onStepComplete, setActiveTab, course }) => {
               index={index}
               onDelete={() => handleDeleteSection(section?._id)}
               mutate={mutate}
+              disableRemoval={disableRemoval}
             />
           ))
         )}
@@ -105,7 +113,7 @@ const CourseMaterials = ({ onStepComplete, setActiveTab, course }) => {
         {sections?.length > 0 && (
           <button 
             className="px-6 py-2.5 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors"
-            onClick={onStepComplete}
+            onClick={() => {onStepComplete(); mutate();}}
           >
             Continue to Requirements →
           </button>)}

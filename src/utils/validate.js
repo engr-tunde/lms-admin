@@ -134,10 +134,17 @@ export const validateCourseCurriculum = () => {
   return validateSchema;
 }
 
-export const validateMaterialValues = () => {
+export const validateArticleValues = () => {
   const validationSchema = yup.object({
-    // video: yup.array().of(yup.string().required("Video is required")).min(1, "Please, upload at least one video"),
-    article: yup.array().of(yup.string().required("Article content is required")).min(1, "Please, provide at least one article"),
+    type: yup.string().required("Please, provide material type"),
+    material: yup.string().required("Please, provide material values"),
+  });
+  return validationSchema;
+}
+export const validateVideoValues = () => {
+  const validationSchema = yup.object({
+    type: yup.string().required("Please, provide material type"),
+    material: yup.string().required("Please, provide material values"),
   });
   return validationSchema;
 }

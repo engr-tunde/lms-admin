@@ -11,7 +11,7 @@ import { errorNotification, successNotification } from "../../../../utils/helper
 
 
 
-const CreateRequirements = ({ setActiveTab, onStepComplete, course }) => {
+const CreateRequirements = ({ setActiveTab, onStepComplete, course, mutate }) => {
 
   console.log("course", course)
   const initialValues = course 
@@ -32,6 +32,7 @@ const CreateRequirements = ({ setActiveTab, onStepComplete, course }) => {
     if (response.status.toString().includes("20")) {
       successNotification(response?.data?.message);
       onStepComplete();
+      mutate();
     } else {
       errorNotification(response?.data?.message);
     }
@@ -40,7 +41,8 @@ const CreateRequirements = ({ setActiveTab, onStepComplete, course }) => {
   //   const response = await updateRequirements(values, course?._id)
   //   if (response.status.toString().includes("20")) {
   //     successNotification(response?.data?.message);
-  //     onStepComplete();
+  //     onStepComplete();\
+  //     mutate();
   //   } else {
   //     errorNotification(response?.data?.message);
   //   }

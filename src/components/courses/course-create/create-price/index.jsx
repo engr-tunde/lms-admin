@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 
 
 
-const CreatePrice = ({ course, onStepComplete, setActiveTab }) => {
+const CreatePrice = ({ course, onStepComplete, setActiveTab, mutate }) => {
   const { id } = useParams()
 
   console.log("course in CreatePrice", course)
@@ -30,6 +30,7 @@ const CreatePrice = ({ course, onStepComplete, setActiveTab }) => {
     if (response.status.toString().includes("20")) {
       successNotification(response?.data?.message);
       onStepComplete();
+      mutate();
     } else {
       errorNotification(response?.data?.message);
     }
@@ -44,7 +45,7 @@ const CreatePrice = ({ course, onStepComplete, setActiveTab }) => {
         validationSchema={validationSchema}
         description={""}
       >
-        <PriceCard />
+        <PriceCard course={course} />
         <div className="flex justify-between mt-6">
           <button 
             onClick={() => setActiveTab('requirements')}

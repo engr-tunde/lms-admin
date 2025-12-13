@@ -16,9 +16,11 @@ const PricePreview = ( { course, setActiveTab }) => {
               <p className="text-sm text-gray-500 mt-1">Open to all students</p>
             </div>
           ) : (
-            <div>
-              <p className="text-3xl font-bold text-gray-900">${course?.price}</p>
-              <p className="text-sm text-gray-500 mt-1">{course?.currency}</p>
+            <div >
+              <div className="text-3xl font-bold text-gray-900 flex gap-1 items-baseline">
+                <span className="text-base text-gray-500 mt-1 font-semibold">{course?.currency}</span>
+                {course?.price}
+              </div>
               {course?.discount_percent !== 0 && (
                 <div className="mt-2">
                   <span className="text-sm text-gray-500 line-through">${course?.discount_percent}%</span>

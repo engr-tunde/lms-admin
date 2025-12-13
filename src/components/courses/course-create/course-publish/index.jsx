@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CheckCircle, Eye } from 'lucide-react';
 import PostPublish from './PostPublish';
 import CoursePreview from './CoursePreview';
@@ -7,16 +7,32 @@ import RequirementsPreview from './RequirementsPreview';
 import SettingsPreview from './SettingsPreview';
 import PublishStatusCheck from './PublishStatusCheck';
 import PricePreview from './PricePreview';
-import { publishCourse } from '../../../../api';
+import { fetchCourseMaterial, publishCourse } from '../../../../api';
 import { errorNotification, successNotification } from '../../../../utils/helpers';
+import { useParams } from 'react-router-dom';
 
-function CoursePublish({ course, onStepComplete, setActiveTab }) {
+function CoursePublish({ course, onStepComplete, setActiveTab, mutate }) {
   const [isPublishing, setIsPublishing] = useState(false);
   const [showPostPublish, setShowPostPublish] = useState(false);
 
-  console.log('Course Data:', course);
+//------ FETCH COURSE MATERIALS FOR VALIDATION IN PUBLISH STATUS CHECK ----//
+  const { id: courseId } = useParams();
+  const [sections, setSections] = useState();
+  const { courseMaterial, mutate: mutateMaterial } = fetchCourseMaterial(courseId);
+  useEffect(() => {
+    if (courseMaterial?.data) {
+      setSections(courseMaterial?.data);
+    }
+  }, [courseMaterial]);
+//--------------------------------------////
+
 
   const handlePublish = async () => {
+    if (sections?.length === 0) {
+      errorNotification("Please add at least one material or section to your course before publishing.");
+      return;
+    }
+
     try {
       setIsPublishing(true);
       const response = await publishCourse({ status: true }, course?._id);
@@ -25,6 +41,7 @@ function CoursePublish({ course, onStepComplete, setActiveTab }) {
         successNotification(response?.data?.message);
         onStepComplete()
         setShowPostPublish(true);
+        mutate();
       } else {
         errorNotification(response?.data?.message);
       }
@@ -43,7 +60,7 @@ function CoursePublish({ course, onStepComplete, setActiveTab }) {
     { id: 'publish', label: 'Publish', step: 5, completed: false }
   ];
 
-  if (showPostPublish) return <PostPublish setShowPostPublish={setShowPostPublish} />;
+  if (showPostPublish) return <PostPublish setShowPostPublish={setShowPostPublish} mutate={mutate} />;
 
   return (
     <>
@@ -65,7 +82,13 @@ function CoursePublish({ course, onStepComplete, setActiveTab }) {
         <div className="sticky top-8 space-y-6">
           <PricePreview course={course} setActiveTab={setActiveTab} />
           <SettingsPreview course={course} />
-          <PublishStatusCheck course={course} setActiveTab={setActiveTab} />
+          <PublishStatusCheck 
+            course={course} 
+            setActiveTab={setActiveTab} 
+            sections={sections}
+            mutateMaterial={mutateMaterial}
+            mutate={mutate}
+          />
           <div className="space-y-3">
             <button 
               onClick={handlePublish}
@@ -96,6 +119,12 @@ function CoursePublish({ course, onStepComplete, setActiveTab }) {
               onClick={() => {setActiveTab("pricing")}}
             >
               ← Back to Pricing
+            </button>
+            <button 
+              className="w-full px-6 py-2.5 text-gray-600 hover:text-gray-700 font-medium transition-colors"
+              onClick={() => {setActiveTab("materials")}}
+            >
+              ← Back to Materials
             </button>
           </div>
         </div>

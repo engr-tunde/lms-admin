@@ -1,13 +1,13 @@
 import { DollarIcon } from "../../../globals/Icons";
 import InputField from "../../../forms/InputField";
 import SelectField from "../../../forms/SelectField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 
-const PriceCard = () => {
+const PriceCard = ({ course }) => {
   const [ isFree, setIsFree] = useState(false)
-  const [hasDiscount, setHasDiscount] = useState(false)
+  const [hasDiscount, setHasDiscount] = useState(Boolean(course?.discount_percent > 0));
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
       <div className="flex items-start gap-3 mb-6">
@@ -86,6 +86,12 @@ const PriceCard = () => {
                 />
               </div>
             )}
+          </div>
+          <div className="mt-2 flex flex-col gap-1">
+            <span className="text-sm text-gray-500">* You can always change the pricing later.</span>
+          </div>
+          <div className="mt-6">
+            <div className="h-0.5 bg-gray-200 rounded-full"/>
           </div>
         </>
       )}

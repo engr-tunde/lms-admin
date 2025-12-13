@@ -17,7 +17,7 @@ const RecentOrdersCard = ({ recentOrders = [] }) => {
         </h2>
         <button
           className="text-purple-600 hover:text-purple-700 text-sm font-medium"
-          onClick={() => navigate("/finances")}
+          onClick={() => navigate("/finances?tab=orders")}
         >
           View all
         </button>

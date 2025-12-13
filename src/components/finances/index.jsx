@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import OrdersTable from './OrdersTable';
 import PaymentsTable from './PaymentsTable';
 import { useSearchParams } from 'react-router-dom';
@@ -14,8 +14,10 @@ function ManageFinances() {
   
   const [searchParams] = useSearchParams();
 
-  const tab = searchParams.get("tab");
-  if (tab) setActiveTab(tab);
+  useEffect(() => {
+    const tab = searchParams.get("tab");
+    if (tab) setActiveTab(tab);
+  })
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">

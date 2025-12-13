@@ -10,7 +10,9 @@ const STEP_ORDER = ["overview", "materials", "requirements", "pricing", "complet
 const CourseCreate = ({ 
   activeTab, 
   setActiveTab, 
-  course
+  course, 
+  courseMaterial, 
+  mutate
 }) => {
 
   console.log("course in CourseCreate", course)
@@ -27,6 +29,7 @@ const CourseCreate = ({
         <CreateOverview 
           onStepComplete={() => goToNextStep(activeTab)}
           course={course}
+          mutate={mutate}
         />
       );
     case "materials":
@@ -34,7 +37,7 @@ const CourseCreate = ({
         <CreateMaterials 
           onStepComplete={() => goToNextStep(activeTab)}
           setActiveTab={setActiveTab}
-          course={course}
+          mutate={mutate}
         />
       );
     case "requirements":
@@ -43,6 +46,7 @@ const CourseCreate = ({
           onStepComplete={() => goToNextStep(activeTab)}
           setActiveTab={setActiveTab}
           course={course}
+          mutate={mutate}
         />
       );
     case "pricing":
@@ -51,6 +55,7 @@ const CourseCreate = ({
           onStepComplete={() => goToNextStep(activeTab)}
           setActiveTab={setActiveTab}
           course={course}
+          mutate={mutate}
         />
       );
     case "completed":
@@ -59,6 +64,7 @@ const CourseCreate = ({
           course={course} 
           onStepComplete={() => goToNextStep(activeTab)}
           setActiveTab={setActiveTab}
+          mutate={mutate}
         />
     );
     default:

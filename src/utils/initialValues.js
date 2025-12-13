@@ -89,10 +89,17 @@ export const courseCurriculumValues = () => {
   return initialValues;
 };
 
-export const materialValues = () => {
+export const articleValues = () => {
   const initialValues = {
-    video: [],
-    article: [],
+    type: "article",
+    material: "",
+  }; 
+  return initialValues
+}
+export const videoValues = () => {
+  const initialValues = {
+    type: "video",
+    material: "",
   }; 
   return initialValues
 }

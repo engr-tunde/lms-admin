@@ -11,7 +11,7 @@ const DashboardAdminsPage = () => {
     <div className="flex flex-col gap-6">
       <div className="flex justify-between items-end">
         <DashboardNavBar
-          title="Administration"
+          title="Admin"
           subtitle="Manage your administrators and collaborators here"
         />
         <button 

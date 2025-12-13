@@ -2,8 +2,7 @@ import { nav } from "framer-motion/client";
 import { CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const PostPublish = ({ setShowPostPublish }) => {
-  const navigate = useNavigate()
+const PostPublish = ({ setShowPostPublish, mutate }) => {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="max-w-md w-full bg-white rounded-lg shadow-lg border border-gray-200 p-8 text-center">
@@ -18,12 +17,6 @@ const PostPublish = ({ setShowPostPublish }) => {
             onClick={() => setShowPostPublish(false)}
           >
             View Course
-          </button>
-          <button 
-            onClick={() => navigate("/courses/create")}
-            className="flex-1 px-6 py-2.5 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors"
-          >
-            Create Another
           </button>
         </div>
       </div>
