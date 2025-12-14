@@ -28,6 +28,7 @@ const AddAdminModal = ({ setShowAddModal, adminData, mutate }) => {
     if (response.status.toString().includes("20")) {
       successNotification(response?.data?.message);
       mutate();
+      setShowAddModal(false);
     } else {
       errorNotification(response?.data?.message);
     }
@@ -47,7 +48,10 @@ const AddAdminModal = ({ setShowAddModal, adminData, mutate }) => {
           description=""
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit = {handleSubmit}
+          onSubmit = {(values, resetForm) => { 
+            handleSubmit(values); 
+            resetForm(); 
+          }}
           className="p-6"
         >
           <div className="flex flex-col">
@@ -98,7 +102,7 @@ const AddAdminModal = ({ setShowAddModal, adminData, mutate }) => {
               </button>
               <SubmitButton 
                 title={adminData ? "Update Admin" : "Add Admin"}
-                className="px-6 py-2.5 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors"
+                className="px-6 py-2.5 bg-purple-600 text-white rounded-lg font-medium transition-colors"
               />
             </div>
           </div>

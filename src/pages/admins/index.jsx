@@ -3,9 +3,11 @@ import DashboardNavBar from "../../components/globals/DashboardNavBar";
 import { useState } from "react";
 import ManageAdmins from "../../components/admins";
 import AddAdminModal from "../../components/admins/AddAdminModal";
+import { fetchAllAdmins } from "../../api";
 
 const DashboardAdminsPage = () => {
   const [showAddModal, setShowAddModal] = useState(false);
+  const { mutate } = fetchAllAdmins();
 
   return (
     <div className="flex flex-col gap-6">
@@ -31,6 +33,7 @@ const DashboardAdminsPage = () => {
       {showAddModal && (
         <AddAdminModal
           setShowAddModal={setShowAddModal}
+          mutate={mutate}
         />
       )}
     </div>
