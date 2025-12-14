@@ -36,7 +36,7 @@ const PaymentsRowTemplate = ({ item }) => {
   };
   
   return (
-    <tr key={item?._id} className="hover:bg-gray-50 transition-colors">
+    <tr className="hover:bg-gray-50 transition-colors">
         <td className="px-6 py-4">
           <span className="font-semibold text-gray-900">
             ${item?.amount_paid?.toLocaleString()}

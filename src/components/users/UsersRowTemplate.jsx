@@ -31,7 +31,7 @@ const UsersRowTemplate = ({ item, mutate }) => {
 
   return (
     <>
-    <tr key={item?._id} className="hover:bg-gray-50 transition-colors">
+    <tr className="hover:bg-gray-50 transition-colors">
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="font-medium text-gray-900">
           {capitalize(item?.name)}
@@ -54,18 +54,20 @@ const UsersRowTemplate = ({ item, mutate }) => {
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-right">
         <div className="flex items-center justify-end gap-2">
-          <button 
-            title={`${item?.status === "active" ? "Block User" : item?.status === "blocked" ? "Activate User" : null}`}
-            className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-            onClick={item?.status === "active" ? 
-              () => setShowBlockModal(true) : 
-              item?.status === "blocked" ? 
-              () => handleUnblock() : null
-            }
-          >
-            {item?.status === "active" && <UserX className="w-4 h-4" />}
-            {item?.status === "blocked" && <UserPlus className="w-4 h-4" />}
-          </button>
+          {item?.email_verified &&(
+            <button 
+              title={`${item?.status === "active" ? "Block User" : item?.status === "blocked" ? "Activate User" : null}`}
+              className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+              onClick={item?.status === "active" ? 
+                () => setShowBlockModal(true) : 
+                item?.status === "blocked" ? 
+                () => handleUnblock() : null
+              }
+            >
+              {item?.status === "active" && <UserX className="w-4 h-4" />}
+              {item?.status === "blocked" && <UserPlus className="w-4 h-4" />}
+            </button>
+          )}
           <button 
             title="Delete User"
             className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"

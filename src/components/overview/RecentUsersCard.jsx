@@ -26,16 +26,14 @@ const RecentUsersCard = ({ recentUsers = [] }) => {
             key={user._id}
             className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow p-5 flex flex-col justify-between"
           >
-            {/* Header */}
             <div className="flex items-start justify-between mb-3">
               <StatusCheck value={capitalize(user.status)} />
               <MoreVertical className="w-5 h-5 text-gray-400" />
             </div>
 
-            {/* Body */}
             <div className="my-4">
               <div className="font-semibold text-gray-900 text-lg mb-1">
-                {user.name}
+                {capitalize(user.name)}
               </div>
 
               <div className="text-sm text-gray-600 mb-3">

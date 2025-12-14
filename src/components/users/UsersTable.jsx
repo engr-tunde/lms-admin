@@ -26,7 +26,8 @@ const UsersTable = ({ filteredData, setFilteredData, originalArr, setOriginalArr
   const userStatus = [
     { title: "All Status", value: "all" },
     { title: "Active", value: "active" },
-    { title: "Suspended", value: "suspended" },
+    { title: "Blocked", value: "blocked" },
+    { title: "Pending", value: "pending" },
   ];
   
   return (

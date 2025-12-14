@@ -81,7 +81,7 @@ const PaymentsTable = () => {
       <Table
         renderRow={(item) => (
           <PaymentsRowTemplate
-            key={item?.id}
+            key={item?._id}
             item={item}
           />
         )}

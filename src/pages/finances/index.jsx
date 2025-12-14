@@ -30,7 +30,7 @@ const DashboardFinancesPage = () => {
   const financeStats = [
     { label: "Total Orders", value: totalOrders && totalOrders, icon: ClockIcon, color: "emerald" },
     { label: "Total Earnings", value: totalEarnings && `$${totalEarnings}`, icon: DollarIcon, color: "amber" },
-    { label: "This Month", value: "$4500", icon: TrendingUpIcon, color: "blue" },
+    // { label: "This Month", value: "$4500", icon: TrendingUpIcon, color: "blue" },
     { label: "Total Payments", value: totalPayments && totalPayments, icon: CheckIcon, color: "purple" },
   ];
 

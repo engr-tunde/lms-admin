@@ -78,6 +78,7 @@ const CourseMaterials = ({ onStepComplete, setActiveTab }) => {
               onDelete={() => handleDeleteSection(section?._id)}
               mutate={mutate}
               disableRemoval={disableRemoval}
+              setActiveTab={setActiveTab}
             />
           ))
         )}

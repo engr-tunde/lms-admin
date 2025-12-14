@@ -52,9 +52,9 @@ const CourseListTable = ({ filteredData, setFilteredData, originalArr, setOrigin
         </div>
       </div>
       <Table
-        renderRow={(item) => (
+        renderRow={(item, i) => (
           <CourseListRowTemplate
-            key={item?.id}
+            key={item?._id}
             item={item}
             mutate={mutate}
           />

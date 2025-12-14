@@ -63,14 +63,22 @@ function CourseListRowTemplate({ item, mutate }) {
       <td className="py-6 px-6">
         {item?.status ? (<StatusCheck value={capitalize(item?.status)}/>): null}
       </td>
-      <td className="text-center">
+      <td className="py-6 px-6">
+        {item?.total_price && (
+          <span className="flex items-baseline gap-0.5">
+            <span className="font-semibold text-lg">{item.total_price}</span>
+            <span className=" text-xs">{item.currency}</span>
+          </span>
+        )}
+      </td>
+      {/* <td className="text-center">
         <Link 
           to={`/courses/assessment/${item?._id}`}
           className="inline-flex items-center gap-2 px-2 py-1 border border-gray-300 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors"
         >
           Add Assessment
         </Link>
-      </td>
+      </td> */}
       <td className="py-6 px-6">
         <div className="flex items-center justify-end gap-2">
           <button 

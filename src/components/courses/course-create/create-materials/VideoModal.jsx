@@ -51,9 +51,12 @@ const VideoModal = ({ show, onClose, sectionId, mutate }) => {
         <CustomModal
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={handleMaterialSubmit}
           title=""
           className="flex flex-col gap-3"
+          onSubmit={async (values, { resetForm }) => {
+            await handleMaterialSubmit(values); 
+            resetForm();               
+          }}
         >
           <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
             <div className="flex gap-2 mb-4 border-b border-gray-200">
@@ -76,7 +79,7 @@ const VideoModal = ({ show, onClose, sectionId, mutate }) => {
             </button>
             <SubmitButton
               title="Upload Video"
-              className={`px-6 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors`}
+              className={`px-6 py-2 bg-purple-600 text-white rounded-lg font-medium transition-colors`}
             />
           </div>
         </CustomModal>

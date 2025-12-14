@@ -23,20 +23,8 @@ const DashboardUsersPage = () => {
           title="Users"
           subtitle="Manage your students and other participators in your courses"
         />
-        {/* <button 
-          onClick={() => setShowAddModal(true)}
-          className="px-6 py-2.5 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center gap-2"
-        >
-          <PlusIcon className="w-4 h-4 text-white" />
-          <span>
-            Add Students
-          </span>
-        </button> */}
       </div>
       <div className="min-h-screen bg-gray-50 p-6"> 
-        {/* <DashboardStats 
-          stats={userStats} 
-        /> */}
         <ManageUsers />
       </div>
       {showAddModal && (

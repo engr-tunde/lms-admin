@@ -33,8 +33,9 @@ const ManageCourses = ({ courses, coursesLoading, coursesError, mutate }) => {
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
       <div className="border-b border-gray-200">
         <div className="flex gap-8 px-6">
-          {tabs.map((tab) => (
+          {tabs.map((tab, i) => (
             <button
+              key={i}
               onClick={() => setActiveTab(tab.id)}
               className={`py-4 border-b-2 font-medium transition-colors ${
                 activeTab === tab.id
