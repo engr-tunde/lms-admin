@@ -1,4 +1,5 @@
 import { Clock, Edit2, Globe } from "lucide-react";
+import { capitalize } from "../../../../utils/helpers";
 
 const CoursePreview = ({ course, setActiveTab }) => {
   return (
@@ -8,10 +9,10 @@ const CoursePreview = ({ course, setActiveTab }) => {
           <h2 className="text-2xl font-semibold text-gray-900 mb-2">{course?.title}</h2>
           <div className="flex flex-wrap gap-2 mb-4">
             <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
-              {course?.category}
+              {capitalize(course?.category)}
             </span>
             <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
-              {course?.level}
+              {capitalize(course?.level)}
             </span>
           </div>
         </div>

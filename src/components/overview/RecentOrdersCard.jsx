@@ -17,7 +17,7 @@ const RecentOrdersCard = ({ recentOrders = [] }) => {
         </h2>
         <button
           className="text-purple-600 hover:text-purple-700 text-sm font-medium"
-          onClick={() => navigate("/finances?tab=orders")}
+          onClick={() => navigate("/finances", { state: { tab: "orders" } })}
         >
           View all
         </button>
@@ -30,13 +30,11 @@ const RecentOrdersCard = ({ recentOrders = [] }) => {
             key={order._id}
             className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow p-5 flex flex-col justify-between"
           >
-            {/* Header */}
             <div className="flex items-start justify-between mb-3">
               <StatusCheck value={capitalize(order.payment_status)} />
               <MoreVertical className="w-5 h-5 text-gray-400" />
             </div>
 
-            {/* Body */}
             <div className="my-4">
               <div className="font-semibold text-gray-900 text-lg mb-3">
                 {order.course_title}

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const MaterialPreview = ({ course, setActiveTab }) => {
   const [material, setMaterial] = useState()
-  const { courseMaterial, mutate } = fetchCourseMaterial(course?._id);
+  const { courseMaterial } = fetchCourseMaterial(course?._id);
   console.log("courseMaterial in MaterialPreview", courseMaterial);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const MaterialPreview = ({ course, setActiveTab }) => {
               {i + 1}. {m?.title}
             </h3>
             <p className="text-gray-600 text-sm mb-2">{m?.objective}</p>
-            <p className="text-xs text-gray-500">3 materials added</p>
+            <p className="text-xs text-gray-500">{m?.materials?.length} materials added</p>
           </div>
         ))}
       </div>

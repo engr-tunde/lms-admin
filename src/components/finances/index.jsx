@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import OrdersTable from './OrdersTable';
 import PaymentsTable from './PaymentsTable';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 
 function ManageFinances() {
@@ -12,12 +12,13 @@ function ManageFinances() {
     { id: "payments", label: "Payments" },
   ];
   
-  const [searchParams] = useSearchParams();
+  const location = useLocation();
 
   useEffect(() => {
-    const tab = searchParams.get("tab");
-    if (tab) setActiveTab(tab);
-  })
+    if (location.state?.tab) {
+      setActiveTab(location.state.tab);
+    }
+  }, [location.state]);
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">

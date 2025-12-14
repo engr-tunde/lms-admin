@@ -14,7 +14,7 @@ const RecentPaymentsCard = ({ recentPayments = [] }) => {
         </h2>
         <button
           className="text-purple-600 hover:text-purple-700 text-sm font-medium"
-          onClick={() => navigate("/finances?tab=payments")}
+          onClick={() => navigate("/finances", { state: { tab: "payments" } })}
         >
           View all
         </button>
